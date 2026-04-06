@@ -1,0 +1,120 @@
+{
+  "title": "Day 13: Documentation and Specs",
+  "description": "Polyglot Mastery — Week 2: Software Development Communication",
+  "versions": [
+    {
+      "language": "en",
+      "voice_name": "en-US-JennyNeural",
+      "speed": 0.9,
+      "sentences": [
+        {
+          "text": "I am writing the documentation for the new API endpoints today.",
+          "translation": "Tôi đang viết tài liệu cho các điểm cuối (endpoints) API mới vào hôm nay.",
+          "notes": "Present continuous: subject + am/is/are + verb-ing"
+        },
+        {
+          "text": "It is important to describe the request body and the expected response clearly.",
+          "translation": "Việc mô tả nội dung yêu cầu (request body) và phản hồi mong đợi một cách rõ ràng là rất quan trọng.",
+          "notes": "Present continuous: subject + am/is/are + verb-ing"
+        },
+        {
+          "text": "I will also include some examples to help other developers integrate faster.",
+          "translation": "Tôi cũng sẽ bao gồm vài ví dụ để giúp các lập trình viên khác tích hợp nhanh hơn."
+        },
+        {
+          "text": "If the documentation is accurate, we will receive fewer support tickets.",
+          "translation": "Nếu tài liệu chính xác, chúng ta sẽ nhận được ít vé hỗ trợ (support tickets) hơn.",
+          "notes": "Conditional: 'If + present simple, … will/can…'"
+        },
+        {
+          "text": "Good technical writing is just as important as writing good code.",
+          "translation": "Kỹ năng viết tài liệu kỹ thuật cũng quan trọng giống như việc viết mã tốt vậy.",
+          "notes": "Present continuous: subject + am/is/are + verb-ing"
+        }
+      ]
+    },
+    {
+      "language": "de",
+      "voice_name": "de-DE-KatjaNeural",
+      "speed": 0.85,
+      "sentences": [
+        {
+          "text": "Ich schreibe heute die Dokumentation für die API.",
+          "translation": "Tôi đang viết tài liệu cho các điểm cuối (endpoints) API mới vào hôm nay.",
+          "notes": "Present tense: regular verbs → ich + stem + -e"
+        },
+        {
+          "text": "Ich beschreibe alle Daten und Antworten sehr klar.",
+          "translation": "Việc mô tả nội dung yêu cầu (request body) và phản hồi mong đợi một cách rõ ràng là rất quan trọng."
+        },
+        {
+          "text": "Ich gebe auch Beispiele für andere Entwickler.",
+          "translation": "Tôi cũng sẽ bao gồm vài ví dụ để giúp các lập trình viên khác tích hợp nhanh hơn."
+        },
+        {
+          "text": "Wenn die Dokumentation gut ist, haben wir weniger Fragen.",
+          "translation": "Nếu tài liệu chính xác, chúng ta sẽ nhận được ít vé hỗ trợ (support tickets) hơn.",
+          "notes": "Subordinate clause: 'wenn' sends verb to the end"
+        },
+        {
+          "text": "Gute Texte sind so wichtig wie guter Code.",
+          "translation": "Kỹ năng viết tài liệu kỹ thuật cũng quan trọng giống như việc viết mã tốt vậy."
+        }
+      ]
+    },
+    {
+      "language": "ja",
+      "voice_name": "ja-JP-NanamiNeural",
+      "speed": 0.8,
+      "sentences": [
+        {
+          "text": "今日は、新しいAPIのドキュメントを書いています。",
+          "translation": "Tôi đang viết tài liệu cho các điểm cuối (endpoints) API mới vào hôm nay.",
+          "notes": "〜ています: ongoing state or habitual action"
+        },
+        {
+          "text": "リクエストの内容（ないよう）とレスポンスを、わかりやすく書くことが大切です。",
+          "translation": "Việc mô tả nội dung yêu cầu (request body) và phản hồi mong đợi một cách rõ ràng là rất quan trọng.",
+          "notes": "Furigana reading shown in （）for N4 kanji"
+        },
+        {
+          "text": "他の開発者が使いやすいように、例（れい）も入れます。",
+          "translation": "Tôi cũng sẽ bao gồm vài ví dụ để giúp các lập trình viên khác tích hợp nhanh hơn.",
+          "notes": "〜ように: purpose/manner 'so that / in a way that'"
+        },
+        {
+          "text": "ドキュメントが正確（せいかく）なら、質問（しつもん）が少なくなります。",
+          "translation": "Nếu tài liệu chính xác, chúng ta sẽ nhận được ít vé hỗ trợ (support tickets) hơn.",
+          "notes": "Conditional form: たら (if/when completed), ば (hypothetical)"
+        },
+        {
+          "text": "いいドキュメントを書くことは、いいコードを書くのと同じくらい大切です。",
+          "translation": "Kỹ năng viết tài liệu kỹ thuật cũng quan trọng giống như việc viết mã tốt vậy.",
+          "notes": "Review verb form / politeness level (ます/です)"
+        }
+      ]
+    },
+    {
+      "language": "vi",
+      "voice_name": "vi-VN-HoaiMyNeural",
+      "speed": 1,
+      "sentences": [
+        {
+          "text": "Tôi đang viết tài liệu cho các điểm cuối (endpoints) API mới vào hôm nay."
+        },
+        {
+          "text": "Việc mô tả nội dung yêu cầu (request body) và phản hồi mong đợi một cách rõ ràng là rất quan trọng."
+        },
+        {
+          "text": "Tôi cũng sẽ bao gồm vài ví dụ để giúp các lập trình viên khác tích hợp nhanh hơn."
+        },
+        {
+          "text": "Nếu tài liệu chính xác, chúng ta sẽ nhận được ít vé hỗ trợ (support tickets) hơn."
+        },
+        {
+          "text": "Kỹ năng viết tài liệu kỹ thuật cũng quan trọng giống như việc viết mã tốt vậy."
+        }
+      ]
+    }
+  ]
+}

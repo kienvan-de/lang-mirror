@@ -1,0 +1,117 @@
+{
+  "title": "Day 07: Language Learning Journey",
+  "description": "Polyglot Mastery — Week 1: Daily Life & Habits",
+  "versions": [
+    {
+      "language": "en",
+      "voice_name": "en-US-JennyNeural",
+      "speed": 0.9,
+      "sentences": [
+        {
+          "text": "Learning three languages at once is a difficult but rewarding challenge.",
+          "translation": "Học ba ngôn ngữ cùng lúc là một thử thách khó khăn nhưng xứng đáng.",
+          "notes": "Present continuous: subject + am/is/are + verb-ing"
+        },
+        {
+          "text": "I try to practice every day, even if it is only for a short time.",
+          "translation": "Tôi cố gắng luyện tập mỗi ngày, ngay cả khi chỉ trong một thời gian ngắn.",
+          "notes": "Conditional: 'If + present simple, … will/can…'"
+        },
+        {
+          "text": "Comparing the grammar of different languages helps me understand them better.",
+          "translation": "Việc so sánh ngữ pháp của các ngôn ngữ khác nhau giúp tôi hiểu chúng rõ hơn."
+        },
+        {
+          "text": "Sometimes I feel confused, but I don't want to give up my goal.",
+          "translation": "Đôi khi tôi cảm thấy bối rối, nhưng tôi không muốn từ bỏ mục tiêu của mình."
+        },
+        {
+          "text": "With enough patience, I believe I can become a true polyglot.",
+          "translation": "Với sự kiên trì, tôi tin mình có thể trở thành một người đa ngôn ngữ thực thụ."
+        }
+      ]
+    },
+    {
+      "language": "de",
+      "voice_name": "de-DE-KatjaNeural",
+      "speed": 0.85,
+      "sentences": [
+        {
+          "text": "Ich lerne drei Sprachen gleichzeitig, das ist schwer aber interessant.",
+          "translation": "Học ba ngôn ngữ cùng lúc là một thử thách khó khăn nhưng xứng đáng.",
+          "notes": "Present tense: regular verbs → ich + stem + -e"
+        },
+        {
+          "text": "Ich übe jeden Tag ein bisschen Deutsch, Englisch und Japanisch.",
+          "translation": "Tôi cố gắng luyện tập mỗi ngày, ngay cả khi chỉ trong một thời gian ngắn."
+        },
+        {
+          "text": "Ich vergleiche die Grammatik und lerne viele neue Wörter.",
+          "translation": "Việc so sánh ngữ pháp của các ngôn ngữ khác nhau giúp tôi hiểu chúng rõ hơn."
+        },
+        {
+          "text": "Manchmal ist es kompliziert, aber ich mache weiter.",
+          "translation": "Đôi khi tôi cảm thấy bối rối, nhưng tôi không muốn từ bỏ mục tiêu của mình."
+        },
+        {
+          "text": "Mein Ziel ist es, viele Sprachen zu sprechen.",
+          "translation": "Với sự kiên trì, tôi tin mình có thể trở thành một người đa ngôn ngữ thực thụ."
+        }
+      ]
+    },
+    {
+      "language": "ja",
+      "voice_name": "ja-JP-NanamiNeural",
+      "speed": 0.8,
+      "sentences": [
+        {
+          "text": "三つの言葉を同時に勉強するのは大変（たいへん）ですが、楽しいです。",
+          "translation": "Học ba ngôn ngữ cùng lúc là một thử thách khó khăn nhưng xứng đáng.",
+          "notes": "Furigana reading shown in （）for N4 kanji"
+        },
+        {
+          "text": "毎日、短い時間でも練習（れんしゅう）するようにしています。",
+          "translation": "Tôi cố gắng luyện tập mỗi ngày, ngay cả khi chỉ trong một thời gian ngắn.",
+          "notes": "〜ように: purpose/manner 'so that / in a way that'"
+        },
+        {
+          "text": "文法（ぶんぽう）を比べる（くらべる）と、もっとよくわかります。",
+          "translation": "Việc so sánh ngữ pháp của các ngôn ngữ khác nhau giúp tôi hiểu chúng rõ hơn.",
+          "notes": "Furigana reading shown in （）for N4 kanji"
+        },
+        {
+          "text": "時々わからなくなりますが、あきらめたくないです。",
+          "translation": "Đôi khi tôi cảm thấy bối rối, nhưng tôi không muốn từ bỏ mục tiêu của mình.",
+          "notes": "Review verb form / politeness level (ます/です)"
+        },
+        {
+          "text": "頑張れば、きっと上手に話せるようになると思います。",
+          "translation": "Với sự kiên trì, tôi tin mình có thể trở thành một người đa ngôn ngữ thực thụ.",
+          "notes": "〜ように: purpose/manner 'so that / in a way that'"
+        }
+      ]
+    },
+    {
+      "language": "vi",
+      "voice_name": "vi-VN-HoaiMyNeural",
+      "speed": 1,
+      "sentences": [
+        {
+          "text": "Học ba ngôn ngữ cùng lúc là một thử thách khó khăn nhưng xứng đáng."
+        },
+        {
+          "text": "Tôi cố gắng luyện tập mỗi ngày, ngay cả khi chỉ trong một thời gian ngắn."
+        },
+        {
+          "text": "Việc so sánh ngữ pháp của các ngôn ngữ khác nhau giúp tôi hiểu chúng rõ hơn."
+        },
+        {
+          "text": "Đôi khi tôi cảm thấy bối rối, nhưng tôi không muốn từ bỏ mục tiêu của mình."
+        },
+        {
+          "text": "Với sự kiên trì, tôi tin mình có thể trở thành một người đa ngôn ngữ thực thụ."
+        }
+      ]
+    }
+  ]
+}

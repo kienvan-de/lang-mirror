@@ -1,0 +1,120 @@
+{
+  "title": "Day 12: Refactoring Legacy Code",
+  "description": "Polyglot Mastery — Week 2: Software Development Communication",
+  "versions": [
+    {
+      "language": "en",
+      "voice_name": "en-US-JennyNeural",
+      "speed": 0.9,
+      "sentences": [
+        {
+          "text": "This part of the code is very old and difficult to maintain.",
+          "translation": "Phần mã này rất cũ và khó bảo trì.",
+          "notes": "Present continuous: subject + am/is/are + verb-ing"
+        },
+        {
+          "text": "I am going to refactor these functions to make them more efficient.",
+          "translation": "Tôi sẽ tái cấu trúc (refactor) các hàm này để chúng trở nên hiệu quả hơn.",
+          "notes": "Present continuous: subject + am/is/are + verb-ing"
+        },
+        {
+          "text": "First, I will write unit tests to ensure that the logic remains the same.",
+          "translation": "Đầu tiên, tôi sẽ viết các bài kiểm tra đơn vị (unit tests) để đảm bảo logic vẫn giữ nguyên."
+        },
+        {
+          "text": "By cleaning up the technical debt, we can implement new features faster.",
+          "translation": "Bằng cách dọn dẹp nợ kỹ thuật, chúng ta có thể triển khai các tính năng mới nhanh hơn.",
+          "notes": "Gerund phrase: 'By + verb-ing' expresses means/method"
+        },
+        {
+          "text": "Refactoring takes time, but it is necessary for long-term stability.",
+          "translation": "Tái cấu trúc tốn thời gian, nhưng nó cần thiết cho sự ổn định lâu dài.",
+          "notes": "Present continuous: subject + am/is/are + verb-ing"
+        }
+      ]
+    },
+    {
+      "language": "de",
+      "voice_name": "de-DE-KatjaNeural",
+      "speed": 0.85,
+      "sentences": [
+        {
+          "text": "Dieser Code ist sehr alt und nicht gut.",
+          "translation": "Phần mã này rất cũ và khó bảo trì.",
+          "notes": "Negation: 'nicht' (verb/adj) vs 'kein' (noun)"
+        },
+        {
+          "text": "Ich mache den Code jetzt besser und schneller.",
+          "translation": "Tôi sẽ tái cấu trúc (refactor) các hàm này để chúng trở nên hiệu quả hơn."
+        },
+        {
+          "text": "Zuerst schreibe ich Tests, dann bleibt die Logik gleich.",
+          "translation": "Đầu tiên, tôi sẽ viết các bài kiểm tra đơn vị (unit tests) để đảm bảo logic vẫn giữ nguyên.",
+          "notes": "Word order: 'dann' (then) causes verb-second position"
+        },
+        {
+          "text": "Sauberer Code hilft uns, neue Funktionen zu bauen.",
+          "translation": "Bằng cách dọn dẹp nợ kỹ thuật, chúng ta có thể triển khai các tính năng mới nhanh hơn."
+        },
+        {
+          "text": "Das dauert lange, aber das System wird stabiler.",
+          "translation": "Tái cấu trúc tốn thời gian, nhưng nó cần thiết cho sự ổn định lâu dài."
+        }
+      ]
+    },
+    {
+      "language": "ja",
+      "voice_name": "ja-JP-NanamiNeural",
+      "speed": 0.8,
+      "sentences": [
+        {
+          "text": "このコードはとても古くて、メンテナンスが大変（たいへん）です。",
+          "translation": "Phần mã này rất cũ và khó bảo trì.",
+          "notes": "Furigana reading shown in （）for N4 kanji"
+        },
+        {
+          "text": "もっと効率（こうりつ）を良くするために、リファクタリングをします。",
+          "translation": "Tôi sẽ tái cấu trúc (refactor) các hàm này để chúng trở nên hiệu quả hơn.",
+          "notes": "〜ために: purpose 'in order to / for the sake of'"
+        },
+        {
+          "text": "まず、動きが変わらないように、テストコードを書きます。",
+          "translation": "Đầu tiên, tôi sẽ viết các bài kiểm tra đơn vị (unit tests) để đảm bảo logic vẫn giữ nguyên.",
+          "notes": "〜ように: purpose/manner 'so that / in a way that'"
+        },
+        {
+          "text": "コードをきれいにすれば、新しい機能を早く作ることができます。",
+          "translation": "Bằng cách dọn dẹp nợ kỹ thuật, chúng ta có thể triển khai các tính năng mới nhanh hơn.",
+          "notes": "Conditional form: たら (if/when completed), ば (hypothetical)"
+        },
+        {
+          "text": "時間がかかりますが、将来（しょうらい）のために必要（ひつよう）なことです。",
+          "translation": "Tái cấu trúc tốn thời gian, nhưng nó cần thiết cho sự ổn định lâu dài.",
+          "notes": "〜ために: purpose 'in order to / for the sake of'"
+        }
+      ]
+    },
+    {
+      "language": "vi",
+      "voice_name": "vi-VN-HoaiMyNeural",
+      "speed": 1,
+      "sentences": [
+        {
+          "text": "Phần mã này rất cũ và khó bảo trì."
+        },
+        {
+          "text": "Tôi sẽ tái cấu trúc (refactor) các hàm này để chúng trở nên hiệu quả hơn."
+        },
+        {
+          "text": "Đầu tiên, tôi sẽ viết các bài kiểm tra đơn vị (unit tests) để đảm bảo logic vẫn giữ nguyên."
+        },
+        {
+          "text": "Bằng cách dọn dẹp nợ kỹ thuật, chúng ta có thể triển khai các tính năng mới nhanh hơn."
+        },
+        {
+          "text": "Tái cấu trúc tốn thời gian, nhưng nó cần thiết cho sự ổn định lâu dài."
+        }
+      ]
+    }
+  ]
+}

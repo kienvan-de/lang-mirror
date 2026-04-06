@@ -1,0 +1,121 @@
+{
+  "title": "Day 10: Troubleshooting an API",
+  "description": "Polyglot Mastery — Week 2: Software Development Communication",
+  "versions": [
+    {
+      "language": "en",
+      "voice_name": "en-US-JennyNeural",
+      "speed": 0.9,
+      "sentences": [
+        {
+          "text": "We are currently investigating why the API is returning a 500 error code.",
+          "translation": "Chúng tôi hiện đang điều tra lý do tại sao API lại trả về mã lỗi",
+          "notes": "Present continuous: subject + am/is/are + verb-ing"
+        },
+        {
+          "text": "It seems that the server is not receiving the correct parameters from the client.",
+          "translation": "Có vẻ như máy chủ không nhận được các tham số chính xác từ phía khách hàng.",
+          "notes": "Present continuous: subject + am/is/are + verb-ing"
+        },
+        {
+          "text": "I will check the logs to see exactly where the connection fails.",
+          "translation": "Tôi sẽ kiểm tra nhật ký (logs) để xem chính xác kết nối bị lỗi ở đâu."
+        },
+        {
+          "text": "If the configuration is wrong, we need to update the environment variables.",
+          "translation": "Nếu cấu hình sai, chúng ta cần cập nhật các biến môi trường.",
+          "notes": "Conditional: 'If + present simple, … will/can…'"
+        },
+        {
+          "text": "We hope to fix this issue before the users notice any downtime.",
+          "translation": "Chúng tôi hy vọng sẽ khắc phục vấn đề này trước khi người dùng nhận thấy bất kỳ thời gian chết (downtime) nào."
+        }
+      ]
+    },
+    {
+      "language": "de",
+      "voice_name": "de-DE-KatjaNeural",
+      "speed": 0.85,
+      "sentences": [
+        {
+          "text": "Die API funktioniert nicht, wir suchen jetzt den Fehler.",
+          "translation": "Chúng tôi hiện đang điều tra lý do tại sao API lại trả về mã lỗi",
+          "notes": "Negation: 'nicht' (verb/adj) vs 'kein' (noun)"
+        },
+        {
+          "text": "Der Server bekommt keine Informationen vom Client.",
+          "translation": "Có vẻ như máy chủ không nhận được các tham số chính xác từ phía khách hàng.",
+          "notes": "Negation: 'nicht' (verb/adj) vs 'kein' (noun)"
+        },
+        {
+          "text": "Ich lese die Logs und suche die falsche Verbindung.",
+          "translation": "Tôi sẽ kiểm tra nhật ký (logs) để xem chính xác kết nối bị lỗi ở đâu."
+        },
+        {
+          "text": "Vielleicht ist die Konfiguration falsch, dann ändern wir sie.",
+          "translation": "Nếu cấu hình sai, chúng ta cần cập nhật các biến môi trường.",
+          "notes": "Word order: 'dann' (then) causes verb-second position"
+        },
+        {
+          "text": "Wir reparieren das schnell, dann läuft das System wieder.",
+          "translation": "Chúng tôi hy vọng sẽ khắc phục vấn đề này trước khi người dùng nhận thấy bất kỳ thời gian chết (downtime) nào.",
+          "notes": "Word order: 'dann' (then) causes verb-second position"
+        }
+      ]
+    },
+    {
+      "language": "ja",
+      "voice_name": "ja-JP-NanamiNeural",
+      "speed": 0.8,
+      "sentences": [
+        {
+          "text": "今、どうしてAPIがエラーを返しているか調べています。",
+          "translation": "Chúng tôi hiện đang điều tra lý do tại sao API lại trả về mã lỗi",
+          "notes": "〜ています: ongoing state or habitual action"
+        },
+        {
+          "text": "サーバーがクライアントから正しいデータを受け取っていないようです。",
+          "translation": "Có vẻ như máy chủ không nhận được các tham số chính xác từ phía khách hàng.",
+          "notes": "〜ています: ongoing state or habitual action"
+        },
+        {
+          "text": "ログを確認して、どこでエラーが起きているか探します。",
+          "translation": "Tôi sẽ kiểm tra nhật ký (logs) để xem chính xác kết nối bị lỗi ở đâu.",
+          "notes": "〜ています: ongoing state or habitual action"
+        },
+        {
+          "text": "設定（せってい）が間違っていたら、環境変数（かんきょうへんすう）を更新します。",
+          "translation": "Nếu cấu hình sai, chúng ta cần cập nhật các biến môi trường.",
+          "notes": "Conditional form: たら (if/when completed), ば (hypothetical)"
+        },
+        {
+          "text": "ユーザーが困る前に、この問題を解決したいです。",
+          "translation": "Chúng tôi hy vọng sẽ khắc phục vấn đề này trước khi người dùng nhận thấy bất kỳ thời gian chết (downtime) nào.",
+          "notes": "Review verb form / politeness level (ます/です)"
+        }
+      ]
+    },
+    {
+      "language": "vi",
+      "voice_name": "vi-VN-HoaiMyNeural",
+      "speed": 1,
+      "sentences": [
+        {
+          "text": "Chúng tôi hiện đang điều tra lý do tại sao API lại trả về mã lỗi"
+        },
+        {
+          "text": "Có vẻ như máy chủ không nhận được các tham số chính xác từ phía khách hàng."
+        },
+        {
+          "text": "Tôi sẽ kiểm tra nhật ký (logs) để xem chính xác kết nối bị lỗi ở đâu."
+        },
+        {
+          "text": "Nếu cấu hình sai, chúng ta cần cập nhật các biến môi trường."
+        },
+        {
+          "text": "Chúng tôi hy vọng sẽ khắc phục vấn đề này trước khi người dùng nhận thấy bất kỳ thời gian chết (downtime) nào."
+        }
+      ]
+    }
+  ]
+}

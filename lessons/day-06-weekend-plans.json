@@ -1,0 +1,121 @@
+{
+  "title": "Day 06: Weekend Plans",
+  "description": "Polyglot Mastery — Week 1: Daily Life & Habits",
+  "versions": [
+    {
+      "language": "en",
+      "voice_name": "en-US-JennyNeural",
+      "speed": 0.9,
+      "sentences": [
+        {
+          "text": "I am looking forward to the weekend because I need some rest.",
+          "translation": "Tôi đang rất mong chờ đến cuối tuần vì tôi cần nghỉ ngơi.",
+          "notes": "Present continuous: subject + am/is/are + verb-ing"
+        },
+        {
+          "text": "On Saturday, I plan to visit a park and enjoy the fresh air.",
+          "translation": "Vào thứ Bảy, tôi dự định đi công viên và tận hưởng không khí trong lành."
+        },
+        {
+          "text": "I might also meet some friends for dinner if they are available.",
+          "translation": "Tôi cũng có thể gặp vài người bạn đi ăn tối nếu họ rảnh.",
+          "notes": "Modal verb expressing possibility or politeness"
+        },
+        {
+          "text": "On Sunday, I prefer staying at home to clean and organize my room.",
+          "translation": "Vào Chủ nhật, tôi thích ở nhà để dọn dẹp và sắp xếp lại phòng mình."
+        },
+        {
+          "text": "Balancing work and leisure helps me feel refreshed for the new week.",
+          "translation": "Cân bằng giữa công việc và giải trí giúp tôi cảm thấy tươi mới cho tuần tiếp theo."
+        }
+      ]
+    },
+    {
+      "language": "de",
+      "voice_name": "de-DE-KatjaNeural",
+      "speed": 0.85,
+      "sentences": [
+        {
+          "text": "Ich freue mich auf das Wochenende, denn ich bin müde.",
+          "translation": "Tôi đang rất mong chờ đến cuối tuần vì tôi cần nghỉ ngơi.",
+          "notes": "Connective: 'deshalb/denn' (therefore/because) — note word order"
+        },
+        {
+          "text": "Am Samstag gehe ich im Park spazieren.",
+          "translation": "Vào thứ Bảy, tôi dự định đi công viên và tận hưởng không khí trong lành.",
+          "notes": "Regular verb conjugation (1st person singular)"
+        },
+        {
+          "text": "Vielleicht treffe ich am Abend auch meine Freunde.",
+          "translation": "Tôi cũng có thể gặp vài người bạn đi ăn tối nếu họ rảnh.",
+          "notes": "Contracted preposition: im=in dem, am=an dem, zum=zu dem"
+        },
+        {
+          "text": "Am Sonntag bleibe ich zu Hause und räume meine Wohnung auf.",
+          "translation": "Vào Chủ nhật, tôi thích ở nhà để dọn dẹp và sắp xếp lại phòng mình.",
+          "notes": "Regular verb conjugation (1st person singular)"
+        },
+        {
+          "text": "Dann habe ich wieder Energie für die neue Woche.",
+          "translation": "Cân bằng giữa công việc và giải trí giúp tôi cảm thấy tươi mới cho tuần tiếp theo.",
+          "notes": "Word order: 'dann' (then) causes verb-second position"
+        }
+      ]
+    },
+    {
+      "language": "ja",
+      "voice_name": "ja-JP-NanamiNeural",
+      "speed": 0.8,
+      "sentences": [
+        {
+          "text": "休みが必要（ひつよう）なので、週末（しゅうまつ）を楽しみにしています。",
+          "translation": "Tôi đang rất mong chờ đến cuối tuần vì tôi cần nghỉ ngơi.",
+          "notes": "〜ています: ongoing state or habitual action"
+        },
+        {
+          "text": "土曜日は、公園に行って散歩（さんぽ）するつもりです。",
+          "translation": "Vào thứ Bảy, tôi dự định đi công viên và tận hưởng không khí trong lành.",
+          "notes": "〜つもりです: intention 'I plan to / I intend to'"
+        },
+        {
+          "text": "友達の都合（つごう）がよければ、夜に会うかもしれません。",
+          "translation": "Tôi cũng có thể gặp vài người bạn đi ăn tối nếu họ rảnh.",
+          "notes": "〜かもしれません: possibility 'might / may'"
+        },
+        {
+          "text": "日曜日は、家でゆっくりして掃除（そうじ）をします。",
+          "translation": "Vào Chủ nhật, tôi thích ở nhà để dọn dẹp và sắp xếp lại phòng mình.",
+          "notes": "Furigana reading shown in （）for N4 kanji"
+        },
+        {
+          "text": "よく休むと、月曜日からまた頑張る（がんばる）ことができます。",
+          "translation": "Cân bằng giữa công việc và giải trí giúp tôi cảm thấy tươi mới cho tuần tiếp theo.",
+          "notes": "Conditional form: たら (if/when completed), ば (hypothetical)"
+        }
+      ]
+    },
+    {
+      "language": "vi",
+      "voice_name": "vi-VN-HoaiMyNeural",
+      "speed": 1,
+      "sentences": [
+        {
+          "text": "Tôi đang rất mong chờ đến cuối tuần vì tôi cần nghỉ ngơi."
+        },
+        {
+          "text": "Vào thứ Bảy, tôi dự định đi công viên và tận hưởng không khí trong lành."
+        },
+        {
+          "text": "Tôi cũng có thể gặp vài người bạn đi ăn tối nếu họ rảnh."
+        },
+        {
+          "text": "Vào Chủ nhật, tôi thích ở nhà để dọn dẹp và sắp xếp lại phòng mình."
+        },
+        {
+          "text": "Cân bằng giữa công việc và giải trí giúp tôi cảm thấy tươi mới cho tuần tiếp theo."
+        }
+      ]
+    }
+  ]
+}

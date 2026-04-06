@@ -1,0 +1,119 @@
+{
+  "title": "Day 08: The Daily Stand-up",
+  "description": "Polyglot Mastery — Week 2: Software Development Communication",
+  "versions": [
+    {
+      "language": "en",
+      "voice_name": "en-US-JennyNeural",
+      "speed": 0.9,
+      "sentences": [
+        {
+          "text": "Today, I am going to update the team on my progress with the authentication module.",
+          "translation": "Hôm nay, tôi sẽ cập nhật cho nhóm về tiến độ của mình với mô-đun xác thực.",
+          "notes": "Present continuous: subject + am/is/are + verb-ing"
+        },
+        {
+          "text": "I have finished the basic login logic, but I am still working on the password reset feature.",
+          "translation": "Tôi đã hoàn thành logic đăng nhập cơ bản, nhưng vẫn đang làm tính năng đặt lại mật khẩu.",
+          "notes": "Present continuous: subject + am/is/are + verb-ing"
+        },
+        {
+          "text": "I encountered a small issue with the database connection yesterday afternoon.",
+          "translation": "Tôi đã gặp một vấn đề nhỏ với kết nối cơ sở dữ liệu vào chiều hôm qua."
+        },
+        {
+          "text": "I plan to resolve this bug today so that I can start testing tomorrow morning.",
+          "translation": "Tôi dự định giải quyết lỗi này trong hôm nay để có thể bắt đầu kiểm thử vào sáng mai.",
+          "notes": "Purpose clause: 'so that + subject + can/will…'"
+        },
+        {
+          "text": "Overall, the project is moving forward and I don't have any major blockers.",
+          "translation": "Nhìn chung, dự án đang tiến triển và tôi không có vướng mắc lớn nào.",
+          "notes": "Present continuous: subject + am/is/are + verb-ing"
+        }
+      ]
+    },
+    {
+      "language": "de",
+      "voice_name": "de-DE-KatjaNeural",
+      "speed": 0.85,
+      "sentences": [
+        {
+          "text": "Heute sage ich dem Team: Mein Projekt läuft gut.",
+          "translation": "Hôm nay, tôi sẽ cập nhật cho nhóm về tiến độ của mình với mô-đun xác thực."
+        },
+        {
+          "text": "Ich schreibe den Code für das Login, aber das Passwort-System fehlt noch.",
+          "translation": "Tôi đã hoàn thành logic đăng nhập cơ bản, nhưng vẫn đang làm tính năng đặt lại mật khẩu."
+        },
+        {
+          "text": "Gestern hatte ich ein Problem mit der Datenbank.",
+          "translation": "Tôi đã gặp một vấn đề nhỏ với kết nối cơ sở dữ liệu vào chiều hôm qua."
+        },
+        {
+          "text": "Ich repariere den Fehler heute und teste alles morgen.",
+          "translation": "Tôi dự định giải quyết lỗi này trong hôm nay để có thể bắt đầu kiểm thử vào sáng mai."
+        },
+        {
+          "text": "Alles ist okay und ich habe keine großen Probleme.",
+          "translation": "Nhìn chung, dự án đang tiến triển và tôi không có vướng mắc lớn nào.",
+          "notes": "Regular verb conjugation (1st person singular)"
+        }
+      ]
+    },
+    {
+      "language": "ja",
+      "voice_name": "ja-JP-NanamiNeural",
+      "speed": 0.8,
+      "sentences": [
+        {
+          "text": "今日は、チームに進捗（しんちょく）を報告（ほうこく）します。",
+          "translation": "Hôm nay, tôi sẽ cập nhật cho nhóm về tiến độ của mình với mô-đun xác thực.",
+          "notes": "Furigana reading shown in （）for N4 kanji"
+        },
+        {
+          "text": "ログインの機能（きのう）はできましたが、パスワードの変更はまだ作っています。",
+          "translation": "Tôi đã hoàn thành logic đăng nhập cơ bản, nhưng vẫn đang làm tính năng đặt lại mật khẩu.",
+          "notes": "〜ています: ongoing state or habitual action"
+        },
+        {
+          "text": "昨日の午後、データベースの接続（せつぞく）に問題がありました。",
+          "translation": "Tôi đã gặp một vấn đề nhỏ với kết nối cơ sở dữ liệu vào chiều hôm qua.",
+          "notes": "Furigana reading shown in （）for N4 kanji"
+        },
+        {
+          "text": "今日中にバグを直して、明日の朝からテストをするつもりです。",
+          "translation": "Tôi dự định giải quyết lỗi này trong hôm nay để có thể bắt đầu kiểm thử vào sáng mai.",
+          "notes": "〜つもりです: intention 'I plan to / I intend to'"
+        },
+        {
+          "text": "今のところ、仕事は順調（じゅんちょう）で、困っていることはありません。",
+          "translation": "Nhìn chung, dự án đang tiến triển và tôi không có vướng mắc lớn nào.",
+          "notes": "〜ています: ongoing state or habitual action"
+        }
+      ]
+    },
+    {
+      "language": "vi",
+      "voice_name": "vi-VN-HoaiMyNeural",
+      "speed": 1,
+      "sentences": [
+        {
+          "text": "Hôm nay, tôi sẽ cập nhật cho nhóm về tiến độ của mình với mô-đun xác thực."
+        },
+        {
+          "text": "Tôi đã hoàn thành logic đăng nhập cơ bản, nhưng vẫn đang làm tính năng đặt lại mật khẩu."
+        },
+        {
+          "text": "Tôi đã gặp một vấn đề nhỏ với kết nối cơ sở dữ liệu vào chiều hôm qua."
+        },
+        {
+          "text": "Tôi dự định giải quyết lỗi này trong hôm nay để có thể bắt đầu kiểm thử vào sáng mai."
+        },
+        {
+          "text": "Nhìn chung, dự án đang tiến triển và tôi không có vướng mắc lớn nào."
+        }
+      ]
+    }
+  ]
+}

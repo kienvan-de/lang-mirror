@@ -1,0 +1,119 @@
+{
+  "title": "Day 01: The Workspace",
+  "description": "Polyglot Mastery — Week 1: Daily Life & Habits",
+  "versions": [
+    {
+      "language": "en",
+      "voice_name": "en-US-JennyNeural",
+      "speed": 0.9,
+      "sentences": [
+        {
+          "text": "I spend most of my day working at my desk in front of the computer.",
+          "translation": "Tôi dành phần lớn thời gian trong ngày làm việc tại bàn trước máy tính."
+        },
+        {
+          "text": "I usually keep my workspace organized so that I can find my tools easily.",
+          "translation": "Tôi thường giữ không gian làm việc ngăn nắp để có thể tìm dụng cụ dễ dàng.",
+          "notes": "Purpose clause: 'so that + subject + can/will…'"
+        },
+        {
+          "text": "My setup includes a high-resolution monitor and a mechanical keyboard for comfort.",
+          "translation": "Góc làm việc của tôi có một màn hình độ phân giải cao và bàn phím cơ để thoải mái hơn."
+        },
+        {
+          "text": "If the room is too noisy, I wear noise-canceling headphones to stay focused.",
+          "translation": "Nếu phòng quá ồn, tôi sẽ đeo tai nghe chống ồn để tập trung.",
+          "notes": "Conditional: 'If + present simple, … will/can…'"
+        },
+        {
+          "text": "Having a comfortable environment makes a big difference in my productivity.",
+          "translation": "Có một môi trường thoải mái tạo ra sự khác biệt lớn cho năng suất của tôi."
+        }
+      ]
+    },
+    {
+      "language": "de",
+      "voice_name": "de-DE-KatjaNeural",
+      "speed": 0.85,
+      "sentences": [
+        {
+          "text": "Ich arbeite den ganzen Tag an meinem Schreibtisch am Computer.",
+          "translation": "Tôi dành phần lớn thời gian trong ngày làm việc tại bàn trước máy tính.",
+          "notes": "Present tense: regular verbs → ich + stem + -e"
+        },
+        {
+          "text": "Mein Schreibtisch ist immer ordentlich und sauber.",
+          "translation": "Tôi thường giữ không gian làm việc ngăn nắp để có thể tìm dụng cụ dễ dàng."
+        },
+        {
+          "text": "Ich habe einen großen Monitor und eine gute Tastatur.",
+          "translation": "Góc làm việc của tôi có một màn hình độ phân giải cao và bàn phím cơ để thoải mái hơn.",
+          "notes": "Regular verb conjugation (1st person singular)"
+        },
+        {
+          "text": "Wenn es laut ist, trage ich meine Kopfhörer.",
+          "translation": "Nếu phòng quá ồn, tôi sẽ đeo tai nghe chống ồn để tập trung.",
+          "notes": "Subordinate clause: 'wenn' sends verb to the end"
+        },
+        {
+          "text": "Ein guter Arbeitsplatz ist sehr wichtig für mich.",
+          "translation": "Có một môi trường thoải mái tạo ra sự khác biệt lớn cho năng suất của tôi."
+        }
+      ]
+    },
+    {
+      "language": "ja",
+      "voice_name": "ja-JP-NanamiNeural",
+      "speed": 0.8,
+      "sentences": [
+        {
+          "text": "私は一日中、机の前で仕事をしています。",
+          "translation": "Tôi dành phần lớn thời gian trong ngày làm việc tại bàn trước máy tính.",
+          "notes": "〜ています: ongoing state or habitual action"
+        },
+        {
+          "text": "道具がすぐに見つかるように、いつも机を片付けています。",
+          "translation": "Tôi thường giữ không gian làm việc ngăn nắp để có thể tìm dụng cụ dễ dàng.",
+          "notes": "〜ように: purpose/manner 'so that / in a way that'"
+        },
+        {
+          "text": "モニターは大きくて、キーボードは使いやすいです。",
+          "translation": "Góc làm việc của tôi có một màn hình độ phân giải cao và bàn phím cơ để thoải mái hơn.",
+          "notes": "Review verb form / politeness level (ます/です)"
+        },
+        {
+          "text": "うるさい時は、集中するためにヘッドホンを使います。",
+          "translation": "Nếu phòng quá ồn, tôi sẽ đeo tai nghe chống ồn để tập trung.",
+          "notes": "〜ために: purpose 'in order to / for the sake of'"
+        },
+        {
+          "text": "快適な環境（かんきょう）のおかげで、仕事がはかどります。",
+          "translation": "Có một môi trường thoải mái tạo ra sự khác biệt lớn cho năng suất của tôi.",
+          "notes": "Furigana reading shown in （）for N4 kanji"
+        }
+      ]
+    },
+    {
+      "language": "vi",
+      "voice_name": "vi-VN-HoaiMyNeural",
+      "speed": 1,
+      "sentences": [
+        {
+          "text": "Tôi dành phần lớn thời gian trong ngày làm việc tại bàn trước máy tính."
+        },
+        {
+          "text": "Tôi thường giữ không gian làm việc ngăn nắp để có thể tìm dụng cụ dễ dàng."
+        },
+        {
+          "text": "Góc làm việc của tôi có một màn hình độ phân giải cao và bàn phím cơ để thoải mái hơn."
+        },
+        {
+          "text": "Nếu phòng quá ồn, tôi sẽ đeo tai nghe chống ồn để tập trung."
+        },
+        {
+          "text": "Có một môi trường thoải mái tạo ra sự khác biệt lớn cho năng suất của tôi."
+        }
+      ]
+    }
+  ]
+}

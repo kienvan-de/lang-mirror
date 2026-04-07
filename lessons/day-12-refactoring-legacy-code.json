@@ -12,35 +12,28 @@
         {
           "text": "This part of the code is very old and difficult to maintain.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing",
-            "vi": "## Ngữ pháp\nCấu trúc **[danh từ] + rất + [tính từ] và [tính từ]** nối hai đặc điểm mô tả bằng liên từ \"và\". Tính từ **khó** ở đây đứng trước động từ nguyên thể \"bảo trì\" mà không cần thêm từ nối, khác với tiếng Anh (\"difficult to maintain\").\n\n## Từ vựng\n- **phần**: một bộ phận, đoạn, hay khu vực trong tổng thể; part, section\n- **mã**: các lệnh lập trình; code\n- **cũ**: tồn tại từ lâu, không còn mới; old, outdated\n- **khó**: đòi hỏi nhiều công sức; difficult, hard\n- **bảo trì**: duy trì và sửa chữa để hệ thống hoạt động tốt; to maintain"
+            "en": "Present continuous: subject + am/is/are + verb-ing"
           }
         },
         {
           "text": "I am going to refactor these functions to make them more efficient.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing",
-            "vi": "## Ngữ pháp\nCụm **trở nên + [tính từ] hơn** diễn đạt sự thay đổi sang trạng thái tốt hơn, tương đương \"become more + adjective\". Đây là mẫu câu hữu ích để diễn đạt cải tiến: \"trở nên nhanh hơn\", \"trở nên rõ ràng hơn\".\n\n## Từ vựng\n- **tái cấu trúc**: tổ chức lại mã nguồn mà không thay đổi chức năng; to refactor\n- **hàm**: đơn vị code thực hiện một nhiệm vụ cụ thể; function\n- **trở nên**: biến đổi sang trạng thái mới; to become\n- **hiệu quả**: đạt được kết quả tốt với ít nguồn lực; efficient, effective\n- **hơn**: mức độ cao hơn trong so sánh; more (comparative)"
+            "en": "Present continuous: subject + am/is/are + verb-ing"
           }
         },
         {
-          "text": "First, I will write unit tests to ensure that the logic remains the same.",
-          "notes": {
-            "vi": "## Ngữ pháp\nCụm **vẫn + [động từ]** nhấn mạnh sự tiếp tục không thay đổi, tương đương \"still\" hoặc \"remain\". Cụm **giữ nguyên** (giữ = keep; nguyên = original/intact) chỉ trạng thái không bị thay đổi sau khi tác động.\n\n## Từ vựng\n- **bài kiểm tra đơn vị**: bài test kiểm tra từng phần nhỏ của code; unit test\n- **đảm bảo**: làm chắc chắn điều gì đó xảy ra đúng như dự kiến; to ensure\n- **logic**: quy trình xử lý và tính toán của chương trình; logic\n- **vẫn**: tiếp tục không thay đổi; still, remain\n- **giữ nguyên**: không thay đổi, giữ như cũ; to remain the same, unchanged"
-          }
+          "text": "First, I will write unit tests to ensure that the logic remains the same."
         },
         {
           "text": "By cleaning up the technical debt, we can implement new features faster.",
           "notes": {
-            "en": "Gerund phrase: 'By + verb-ing' expresses means/method",
-            "vi": "## Ngữ pháp\nCụm **Bằng cách + [động từ]** đứng đầu câu làm trạng ngữ chỉ phương pháp, tương đương \"By + V-ing\". Chủ ngữ **chúng ta** (we, inclusive — bao gồm cả người nghe) khác với **chúng tôi** (we, exclusive — không bao gồm người nghe).\n\n## Từ vựng\n- **bằng cách**: thông qua phương pháp hay hành động cụ thể; by (doing)\n- **dọn dẹp**: loại bỏ những thứ không cần thiết, làm gọn gàng; to clean up\n- **nợ kỹ thuật**: phần code tạm thời, kém chất lượng cần sửa sau; technical debt\n- **tính năng**: chức năng hoặc khả năng mới của phần mềm; feature\n- **nhanh hơn**: với tốc độ cao hơn; faster"
+            "en": "Gerund phrase: 'By + verb-ing' expresses means/method"
           }
         },
         {
           "text": "Refactoring takes time, but it is necessary for long-term stability.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing",
-            "vi": "## Ngữ pháp\nDanh từ hóa **Tái cấu trúc** làm chủ ngữ câu mà không cần thêm \"việc\". Cụm **cần thiết cho + [danh từ]** = \"necessary for\". Tính từ phức **lâu dài** (lâu = long; dài = extended) chỉ tính chất kéo dài trong thời gian.\n\n## Từ vựng\n- **tốn**: mất, đòi hỏi (thời gian, tiền bạc, công sức); to cost, to take up\n- **cần thiết**: không thể thiếu, bắt buộc phải có; necessary, essential\n- **sự ổn định**: trạng thái vận hành đều đặn, không bị gián đoạn; stability\n- **lâu dài**: kéo dài trong thời gian dài, bền vững; long-term\n- **nhưng**: liên từ nối hai ý tương phản; but, however"
+            "en": "Present continuous: subject + am/is/are + verb-ing"
           }
         }
       ]
@@ -55,34 +48,23 @@
         {
           "text": "Dieser Code ist sehr alt und nicht gut.",
           "notes": {
-            "de": "Negation: 'nicht' (verb/adj) vs 'kein' (noun)",
-            "vi": "## Ngữ pháp\nCấu trúc **[danh từ] + rất + [tính từ] và [tính từ]** nối hai đặc điểm mô tả bằng liên từ \"và\". Tính từ **khó** ở đây đứng trước động từ nguyên thể \"bảo trì\" mà không cần thêm từ nối, khác với tiếng Anh (\"difficult to maintain\").\n\n## Từ vựng\n- **phần**: một bộ phận, đoạn, hay khu vực trong tổng thể; part, section\n- **mã**: các lệnh lập trình; code\n- **cũ**: tồn tại từ lâu, không còn mới; old, outdated\n- **khó**: đòi hỏi nhiều công sức; difficult, hard\n- **bảo trì**: duy trì và sửa chữa để hệ thống hoạt động tốt; to maintain"
+            "de": "Negation: 'nicht' (verb/adj) vs 'kein' (noun)"
           }
         },
         {
-          "text": "Ich mache den Code jetzt besser und schneller.",
-          "notes": {
-            "vi": "## Ngữ pháp\nCụm **trở nên + [tính từ] hơn** diễn đạt sự thay đổi sang trạng thái tốt hơn, tương đương \"become more + adjective\". Đây là mẫu câu hữu ích để diễn đạt cải tiến: \"trở nên nhanh hơn\", \"trở nên rõ ràng hơn\".\n\n## Từ vựng\n- **tái cấu trúc**: tổ chức lại mã nguồn mà không thay đổi chức năng; to refactor\n- **hàm**: đơn vị code thực hiện một nhiệm vụ cụ thể; function\n- **trở nên**: biến đổi sang trạng thái mới; to become\n- **hiệu quả**: đạt được kết quả tốt với ít nguồn lực; efficient, effective\n- **hơn**: mức độ cao hơn trong so sánh; more (comparative)"
-          }
+          "text": "Ich mache den Code jetzt besser und schneller."
         },
         {
           "text": "Zuerst schreibe ich Tests, dann bleibt die Logik gleich.",
           "notes": {
-            "de": "Word order: 'dann' (then) causes verb-second position",
-            "vi": "## Ngữ pháp\nCụm **vẫn + [động từ]** nhấn mạnh sự tiếp tục không thay đổi, tương đương \"still\" hoặc \"remain\". Cụm **giữ nguyên** (giữ = keep; nguyên = original/intact) chỉ trạng thái không bị thay đổi sau khi tác động.\n\n## Từ vựng\n- **bài kiểm tra đơn vị**: bài test kiểm tra từng phần nhỏ của code; unit test\n- **đảm bảo**: làm chắc chắn điều gì đó xảy ra đúng như dự kiến; to ensure\n- **logic**: quy trình xử lý và tính toán của chương trình; logic\n- **vẫn**: tiếp tục không thay đổi; still, remain\n- **giữ nguyên**: không thay đổi, giữ như cũ; to remain the same, unchanged"
+            "de": "Word order: 'dann' (then) causes verb-second position"
           }
         },
         {
-          "text": "Sauberer Code hilft uns, neue Funktionen zu bauen.",
-          "notes": {
-            "vi": "## Ngữ pháp\nCụm **Bằng cách + [động từ]** đứng đầu câu làm trạng ngữ chỉ phương pháp, tương đương \"By + V-ing\". Chủ ngữ **chúng ta** (we, inclusive — bao gồm cả người nghe) khác với **chúng tôi** (we, exclusive — không bao gồm người nghe).\n\n## Từ vựng\n- **bằng cách**: thông qua phương pháp hay hành động cụ thể; by (doing)\n- **dọn dẹp**: loại bỏ những thứ không cần thiết, làm gọn gàng; to clean up\n- **nợ kỹ thuật**: phần code tạm thời, kém chất lượng cần sửa sau; technical debt\n- **tính năng**: chức năng hoặc khả năng mới của phần mềm; feature\n- **nhanh hơn**: với tốc độ cao hơn; faster"
-          }
+          "text": "Sauberer Code hilft uns, neue Funktionen zu bauen."
         },
         {
-          "text": "Das dauert lange, aber das System wird stabiler.",
-          "notes": {
-            "vi": "## Ngữ pháp\nDanh từ hóa **Tái cấu trúc** làm chủ ngữ câu mà không cần thêm \"việc\". Cụm **cần thiết cho + [danh từ]** = \"necessary for\". Tính từ phức **lâu dài** (lâu = long; dài = extended) chỉ tính chất kéo dài trong thời gian.\n\n## Từ vựng\n- **tốn**: mất, đòi hỏi (thời gian, tiền bạc, công sức); to cost, to take up\n- **cần thiết**: không thể thiếu, bắt buộc phải có; necessary, essential\n- **sự ổn định**: trạng thái vận hành đều đặn, không bị gián đoạn; stability\n- **lâu dài**: kéo dài trong thời gian dài, bền vững; long-term\n- **nhưng**: liên từ nối hai ý tương phản; but, however"
-          }
+          "text": "Das dauert lange, aber das System wird stabiler."
         }
       ]
     },
@@ -96,36 +78,31 @@
         {
           "text": "このコードはとても古くて、メンテナンスが大変（たいへん）です。",
           "notes": {
-            "ja": "Furigana reading shown in （）for N4 kanji",
-            "vi": "## Ngữ pháp\nCấu trúc **[danh từ] + rất + [tính từ] và [tính từ]** nối hai đặc điểm mô tả bằng liên từ \"và\". Tính từ **khó** ở đây đứng trước động từ nguyên thể \"bảo trì\" mà không cần thêm từ nối, khác với tiếng Anh (\"difficult to maintain\").\n\n## Từ vựng\n- **phần**: một bộ phận, đoạn, hay khu vực trong tổng thể; part, section\n- **mã**: các lệnh lập trình; code\n- **cũ**: tồn tại từ lâu, không còn mới; old, outdated\n- **khó**: đòi hỏi nhiều công sức; difficult, hard\n- **bảo trì**: duy trì và sửa chữa để hệ thống hoạt động tốt; to maintain"
+            "ja": "Furigana reading shown in （）for N4 kanji"
           }
         },
         {
           "text": "もっと効率（こうりつ）を良くするために、リファクタリングをします。",
           "notes": {
-            "ja": "〜ために: purpose 'in order to / for the sake of'",
-            "vi": "## Ngữ pháp\nCụm **trở nên + [tính từ] hơn** diễn đạt sự thay đổi sang trạng thái tốt hơn, tương đương \"become more + adjective\". Đây là mẫu câu hữu ích để diễn đạt cải tiến: \"trở nên nhanh hơn\", \"trở nên rõ ràng hơn\".\n\n## Từ vựng\n- **tái cấu trúc**: tổ chức lại mã nguồn mà không thay đổi chức năng; to refactor\n- **hàm**: đơn vị code thực hiện một nhiệm vụ cụ thể; function\n- **trở nên**: biến đổi sang trạng thái mới; to become\n- **hiệu quả**: đạt được kết quả tốt với ít nguồn lực; efficient, effective\n- **hơn**: mức độ cao hơn trong so sánh; more (comparative)"
+            "ja": "〜ために: purpose 'in order to / for the sake of'"
           }
         },
         {
           "text": "まず、動きが変わらないように、テストコードを書きます。",
           "notes": {
-            "ja": "〜ように: purpose/manner 'so that / in a way that'",
-            "vi": "## Ngữ pháp\nCụm **vẫn + [động từ]** nhấn mạnh sự tiếp tục không thay đổi, tương đương \"still\" hoặc \"remain\". Cụm **giữ nguyên** (giữ = keep; nguyên = original/intact) chỉ trạng thái không bị thay đổi sau khi tác động.\n\n## Từ vựng\n- **bài kiểm tra đơn vị**: bài test kiểm tra từng phần nhỏ của code; unit test\n- **đảm bảo**: làm chắc chắn điều gì đó xảy ra đúng như dự kiến; to ensure\n- **logic**: quy trình xử lý và tính toán của chương trình; logic\n- **vẫn**: tiếp tục không thay đổi; still, remain\n- **giữ nguyên**: không thay đổi, giữ như cũ; to remain the same, unchanged"
+            "ja": "〜ように: purpose/manner 'so that / in a way that'"
           }
         },
         {
           "text": "コードをきれいにすれば、新しい機能を早く作ることができます。",
           "notes": {
-            "ja": "Conditional form: たら (if/when completed), ば (hypothetical)",
-            "vi": "## Ngữ pháp\nCụm **Bằng cách + [động từ]** đứng đầu câu làm trạng ngữ chỉ phương pháp, tương đương \"By + V-ing\". Chủ ngữ **chúng ta** (we, inclusive — bao gồm cả người nghe) khác với **chúng tôi** (we, exclusive — không bao gồm người nghe).\n\n## Từ vựng\n- **bằng cách**: thông qua phương pháp hay hành động cụ thể; by (doing)\n- **dọn dẹp**: loại bỏ những thứ không cần thiết, làm gọn gàng; to clean up\n- **nợ kỹ thuật**: phần code tạm thời, kém chất lượng cần sửa sau; technical debt\n- **tính năng**: chức năng hoặc khả năng mới của phần mềm; feature\n- **nhanh hơn**: với tốc độ cao hơn; faster"
+            "ja": "Conditional form: たら (if/when completed), ば (hypothetical)"
           }
         },
         {
           "text": "時間がかかりますが、将来（しょうらい）のために必要（ひつよう）なことです。",
           "notes": {
-            "ja": "〜ために: purpose 'in order to / for the sake of'",
-            "vi": "## Ngữ pháp\nDanh từ hóa **Tái cấu trúc** làm chủ ngữ câu mà không cần thêm \"việc\". Cụm **cần thiết cho + [danh từ]** = \"necessary for\". Tính từ phức **lâu dài** (lâu = long; dài = extended) chỉ tính chất kéo dài trong thời gian.\n\n## Từ vựng\n- **tốn**: mất, đòi hỏi (thời gian, tiền bạc, công sức); to cost, to take up\n- **cần thiết**: không thể thiếu, bắt buộc phải có; necessary, essential\n- **sự ổn định**: trạng thái vận hành đều đặn, không bị gián đoạn; stability\n- **lâu dài**: kéo dài trong thời gian dài, bền vững; long-term\n- **nhưng**: liên từ nối hai ý tương phản; but, however"
+            "ja": "〜ために: purpose 'in order to / for the sake of'"
           }
         }
       ]

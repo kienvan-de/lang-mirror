@@ -104,7 +104,9 @@
     "noLanguages": "まだ言語がありません",
     "moreLanguages": "+{{count}}件",
     "languageCount": "{{count}}言語",
-    "languageCount_other": "{{count}}言語"
+    "languageCount_other": "{{count}}言語",
+    "deleteTopic": "トピックを削除",
+    "deleteConfirm": "削除しますか？"
   },
   "createTopic": {
     "title": "新規トピック",

@@ -104,7 +104,9 @@
     "noLanguages": "Noch keine Sprachen",
     "moreLanguages": "+{{count}} weitere",
     "languageCount": "{{count}} Sprache",
-    "languageCount_other": "{{count}} Sprachen"
+    "languageCount_other": "{{count}} Sprachen",
+    "deleteTopic": "Thema löschen",
+    "deleteConfirm": "Löschen?"
   },
   "createTopic": {
     "title": "Neues Thema",

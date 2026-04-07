@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import { ArrowRightIcon, TrashIcon } from "@heroicons/react/24/outline";
 import type { Topic } from "../../lib/api";
+import { api } from "../../lib/api";
 import { langFlag, langLabel } from "../../lib/lang";
 
 interface Props {
@@ -10,6 +13,14 @@ interface Props {
 
 export function TopicCard({ topic }: Props) {
   const { t } = useTranslation();
+  const qc = useQueryClient();
+  const [confirmDelete, setConfirmDelete] = useState(false);
+
+  const deleteMutation = useMutation({
+    mutationFn: () => api.deleteTopic(topic.id),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["topics"] }),
+  });
+
   const versions = topic.versions ?? [];
 
   const bestProgress = versions.reduce((best, v) => Math.max(best, v.progressToday ?? 0), 0);
@@ -77,13 +88,42 @@ export function TopicCard({ topic }: Props) {
         <span className="text-xs text-gray-400 dark:text-gray-500">
           {t("topicCard.languageCount", { count: topic.version_count ?? versions.length })}
         </span>
-        <Link
-          to="/topics/$topicId"
-          params={{ topicId: topic.id }}
-          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-xs font-semibold text-white transition-colors"
-        >
-          {t("topicCard.open")} <ArrowRightIcon className="w-3.5 h-3.5" />
-        </Link>
+        <div className="flex items-center gap-1.5">
+          {/* Delete button / confirm */}
+          {confirmDelete ? (
+            <span className="flex items-center gap-1">
+              <span className="text-xs text-red-500 dark:text-red-400">{t("topicCard.deleteConfirm")}</span>
+              <button
+                onClick={() => deleteMutation.mutate()}
+                disabled={deleteMutation.isPending}
+                className="text-xs px-2 py-1 rounded bg-red-500 hover:bg-red-600 text-white font-medium transition-colors disabled:opacity-60"
+              >
+                {t("common.yes")}
+              </button>
+              <button
+                onClick={() => setConfirmDelete(false)}
+                className="text-xs px-2 py-1 rounded border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              >
+                {t("common.no")}
+              </button>
+            </span>
+          ) : (
+            <button
+              onClick={() => setConfirmDelete(true)}
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-xs font-medium text-gray-400 dark:text-gray-500 hover:border-red-300 dark:hover:border-red-700 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+              title={t("topicCard.deleteTopic")}
+            >
+              <TrashIcon className="w-3.5 h-3.5" />
+            </button>
+          )}
+          <Link
+            to="/topics/$topicId"
+            params={{ topicId: topic.id }}
+            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-xs font-semibold text-white transition-colors"
+          >
+            {t("topicCard.open")} <ArrowRightIcon className="w-3.5 h-3.5" />
+          </Link>
+        </div>
       </div>
     </div>
   );

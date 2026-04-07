@@ -104,7 +104,9 @@
     "noLanguages": "Chưa có ngôn ngữ",
     "moreLanguages": "+{{count}} nữa",
     "languageCount": "{{count}} ngôn ngữ",
-    "languageCount_other": "{{count}} ngôn ngữ"
+    "languageCount_other": "{{count}} ngôn ngữ",
+    "deleteTopic": "Xóa chủ đề",
+    "deleteConfirm": "Xóa?"
   },
   "createTopic": {
     "title": "Chủ đề mới",

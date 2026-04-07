@@ -17,7 +17,9 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
   const qc = useQueryClient();
   const [editing, setEditing] = useState(false);
   const [showTranslation, setShowTranslation] = useState(false);
+  const [showNotes, setShowNotes] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+
 
   const [editText, setEditText] = useState(sentence.text);
   const [editTranslation, setEditTranslation] = useState(sentence.translation ?? "");
@@ -117,8 +119,9 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
         {sentence.translation && (
           <div>
             <button
-              onClick={() => setShowTranslation((v) => !v)}
-              className="text-xs text-gray-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 transition-colors mt-0.5"
+              type="button"
+              onClick={(e) => { e.stopPropagation(); setShowTranslation((v) => !v); }}
+              className="cursor-pointer text-xs text-gray-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 transition-colors mt-0.5"
             >
               {showTranslation ? "▲ hide" : "▼ translation"}
             </button>
@@ -128,11 +131,20 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
           </div>
         )}
 
-        {/* Notes badge */}
+        {/* Notes toggle */}
         {sentence.notes && (
-          <span title={sentence.notes} className="inline-block mt-1 px-1.5 py-0.5 text-xs rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 cursor-help">
-            📝 note
-          </span>
+          <div>
+            <button
+              type="button"
+              onClick={(e) => { e.stopPropagation(); setShowNotes((v) => !v); }}
+              className="cursor-pointer text-xs text-amber-500 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 transition-colors mt-0.5"
+            >
+              {showNotes ? "▲ hide note" : "📝 note"}
+            </button>
+            {showNotes && (
+              <p className="text-xs text-amber-700 dark:text-amber-400 mt-1 bg-amber-50 dark:bg-amber-900/20 rounded-lg px-2 py-1.5 leading-relaxed">{sentence.notes}</p>
+            )}
+          </div>
         )}
       </div>
 

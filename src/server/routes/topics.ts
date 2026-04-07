@@ -59,13 +59,33 @@ export async function handle(req: Request, url: URL): Promise<Response> {
 // ── GET /api/topics ──────────────────────────────────────────────────────────
 
 function listTopics(): Response {
-  const rows = db.prepare(`
+  const topicRows = db.prepare(`
     SELECT t.*, COUNT(v.id) as version_count
     FROM topics t
     LEFT JOIN topic_language_versions v ON v.topic_id = t.id
     GROUP BY t.id
     ORDER BY t.updated_at DESC
   `).all() as Array<TopicRow & { version_count: number }>;
+
+  // For each topic, attach lightweight version metadata (language_code, title, description)
+  // so the client can resolve the UI-language display title without a separate request.
+  const versionMeta = db.prepare(`
+    SELECT id, topic_id, language_code, title, description, position
+    FROM topic_language_versions
+    ORDER BY topic_id, position ASC
+  `).all() as Array<{ id: string; topic_id: string; language_code: string; title: string | null; description: string | null; position: number }>;
+
+  const versionsByTopic = new Map<string, typeof versionMeta>();
+  for (const v of versionMeta) {
+    if (!versionsByTopic.has(v.topic_id)) versionsByTopic.set(v.topic_id, []);
+    versionsByTopic.get(v.topic_id)!.push(v);
+  }
+
+  const rows = topicRows.map((t) => ({
+    ...t,
+    versions: versionsByTopic.get(t.id) ?? [],
+  }));
+
   return json(rows);
 }
 

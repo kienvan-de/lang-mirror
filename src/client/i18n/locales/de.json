@@ -133,7 +133,6 @@
     "empty": "Noch keine Sätze — füge unten den ersten hinzu.",
     "addHeading": "Satz hinzufügen",
     "textPlaceholder": "Satztext *",
-    "translationPlaceholder": "Übersetzung (optional)",
     "notesPlaceholder": "Notizen (optional)",
     "textRequired": "Satztext ist erforderlich",
     "adding": "Wird hinzugefügt…",
@@ -147,7 +146,6 @@
     "notesDialogLabel": "Notizen",
     "deleteConfirm": "Löschen?",
     "textPlaceholder": "Satztext",
-    "translationPlaceholder": "Übersetzung (optional)",
     "notesPlaceholder": "Notizen (optional)",
     "new": "Neu",
     "practicedCount": "{{count}}×"

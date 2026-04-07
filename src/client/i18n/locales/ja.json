@@ -133,7 +133,6 @@
     "empty": "まだ文がありません — 下に最初の文を追加してください。",
     "addHeading": "文を追加",
     "textPlaceholder": "文のテキスト *",
-    "translationPlaceholder": "翻訳（任意）",
     "notesPlaceholder": "メモ（任意）",
     "textRequired": "文のテキストは必須です",
     "adding": "追加中…",
@@ -147,7 +146,6 @@
     "notesDialogLabel": "メモ",
     "deleteConfirm": "削除しますか？",
     "textPlaceholder": "文のテキスト",
-    "translationPlaceholder": "翻訳（任意）",
     "notesPlaceholder": "メモ（任意）",
     "new": "新規",
     "practicedCount": "{{count}}回"

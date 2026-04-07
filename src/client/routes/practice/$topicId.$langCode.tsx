@@ -18,6 +18,7 @@ import { MicPermissionBanner } from "../../components/practice/MicPermissionBann
 import { ShortcutHelpOverlay } from "../../components/practice/ShortcutHelpOverlay";
 import { langFlag, langLabel, langName } from "../../lib/lang";
 import { api, type Version } from "../../lib/api";
+import ReactMarkdown from "react-markdown";
 
 // ── Font size mapping ──────────────────────────────────────────────────────────
 const FONT_SIZES = {
@@ -615,18 +616,33 @@ export function PracticePage() {
               </div>
             )}
 
-            {/* Translation */}
-            {showTranslation && sentence.translation && (
-              <p className="text-sm text-gray-500 dark:text-gray-400 italic border-t border-gray-100 dark:border-gray-800 pt-3 mt-3">
-                {sentence.translation}
-              </p>
-            )}
+            {/* Sibling sentences (other-language versions at same position) */}
+            {showTranslation && (() => {
+              const siblingVersions = allVersions.filter((v) => v.language_code !== langCode);
+              const siblings = siblingVersions
+                .map((v) => ({
+                  langCode: v.language_code,
+                  text: v.sentences?.find((s) => s.position === sentence.position)?.text ?? null,
+                }))
+                .filter((s) => s.text !== null) as { langCode: string; text: string }[];
+              return siblings.length > 0 ? (
+                <div className="border-t border-gray-100 dark:border-gray-800 pt-3 mt-3 space-y-1">
+                  {siblings.map(({ langCode: lc, text }) => (
+                    <p key={lc} className="text-sm text-gray-500 dark:text-gray-400 italic flex items-center gap-1.5">
+                      <span className="not-italic">{langFlag(lc)}</span>
+                      <span className="text-xs font-semibold text-gray-400 dark:text-gray-500 not-italic uppercase">{langLabel(lc)}</span>
+                      {text}
+                    </p>
+                  ))}
+                </div>
+              ) : null;
+            })()}
 
-            {/* Notes */}
+            {/* Notes — markdown rendered */}
             {showNotes && sentence.notes && (
-              <p className="text-xs text-amber-700 dark:text-amber-400 mt-2 bg-amber-50 dark:bg-amber-900/20 rounded-lg px-3 py-2 leading-relaxed border-t border-gray-100 dark:border-gray-800">
-                📝 {sentence.notes}
-              </p>
+              <div className="text-xs text-amber-700 dark:text-amber-400 mt-2 bg-amber-50 dark:bg-amber-900/20 rounded-lg px-3 py-2 border-t border-gray-100 dark:border-gray-800 prose prose-xs prose-amber dark:prose-invert max-w-none [&_h2]:text-xs [&_h2]:font-semibold [&_h2]:mb-1 [&_p]:my-0.5 [&_ul]:my-0.5 [&_li]:my-0">
+                📝 <ReactMarkdown>{sentence.notes}</ReactMarkdown>
+              </div>
             )}
           </div>
         )}

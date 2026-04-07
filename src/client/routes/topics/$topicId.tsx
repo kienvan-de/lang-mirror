@@ -331,6 +331,8 @@ export function TopicDetailPage() {
               sentences={activeVersion.sentences ?? []}
               versionId={activeVersion.id}
               topicId={topicId}
+              allVersions={versions}
+              activeLangCode={activeVersion.language_code}
             />
           </>
         ) : null}

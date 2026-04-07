@@ -133,7 +133,6 @@
     "empty": "No sentences yet — add the first one below.",
     "addHeading": "Add sentence",
     "textPlaceholder": "Sentence text *",
-    "translationPlaceholder": "Translation (optional)",
     "notesPlaceholder": "Notes (optional)",
     "textRequired": "Sentence text is required",
     "adding": "Adding…",
@@ -147,7 +146,6 @@
     "notesDialogLabel": "Notes",
     "deleteConfirm": "Delete?",
     "textPlaceholder": "Sentence text",
-    "translationPlaceholder": "Translation (optional)",
     "notesPlaceholder": "Notes (optional)",
     "new": "New",
     "practicedCount": "{{count}}×"

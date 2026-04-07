@@ -6,30 +6,32 @@ import {
   PencilIcon, TrashIcon,
   ChevronDoubleUpIcon, ChevronDoubleDownIcon,
 } from "@heroicons/react/24/outline";
-import type { Sentence } from "../../lib/api";
+import type { Sentence, Version } from "../../lib/api";
 import { api } from "../../lib/api";
 import { NotesDialog } from "./NotesDialog";
+import { langFlag, langLabel } from "../../lib/lang";
 
 interface Props {
   sentence: Sentence;
   topicId: string;
   versionId: string;
+  /** Versions of this topic other than the active one — used for sibling sentence display */
+  siblingVersions: Version[];
   onReorderUp: () => void;
   onReorderDown: () => void;
   isFirst: boolean;
   isLast: boolean;
 }
 
-export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReorderDown, isFirst, isLast }: Props) {
+export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onReorderUp, onReorderDown, isFirst, isLast }: Props) {
   const { t } = useTranslation();
   const qc = useQueryClient();
   const [editing, setEditing] = useState(false);
-  const [showTranslation, setShowTranslation] = useState(false);
+  const [showSiblings, setShowSiblings] = useState(false);
   const [showNotesDialog, setShowNotesDialog] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const [editText, setEditText] = useState(sentence.text);
-  const [editTranslation, setEditTranslation] = useState(sentence.translation ?? "");
   const [editNotes, setEditNotes] = useState(sentence.notes ?? "");
   const editRef = useRef<HTMLInputElement>(null);
 
@@ -42,7 +44,6 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
   const updateMutation = useMutation({
     mutationFn: () => api.updateSentence(sentence.id, {
       text: editText.trim(),
-      translation: editTranslation.trim() || undefined,
       notes: editNotes.trim() || undefined,
     }),
     onSuccess: () => { setEditing(false); invalidate(); },
@@ -60,7 +61,6 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
 
   const cancelEdit = () => {
     setEditText(sentence.text);
-    setEditTranslation(sentence.translation ?? "");
     setEditNotes(sentence.notes ?? "");
     setEditing(false);
   };
@@ -80,13 +80,6 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
           onKeyDown={handleKeyDown}
           placeholder={t("sentenceRow.textPlaceholder")}
           className="w-full px-3 py-1.5 text-sm rounded-lg border border-blue-300 dark:border-blue-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <input
-          value={editTranslation}
-          onChange={(e) => setEditTranslation(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder={t("sentenceRow.translationPlaceholder")}
-          className="w-full px-3 py-1.5 text-sm rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <textarea
           value={editNotes}
@@ -111,6 +104,14 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
     );
   }
 
+  // Sibling sentences at the same position (one per other-language version)
+  const siblings = siblingVersions
+    .map((v) => ({
+      langCode: v.language_code,
+      text: v.sentences?.find((s) => s.position === sentence.position)?.text ?? null,
+    }))
+    .filter((s) => s.text !== null) as { langCode: string; text: string }[];
+
   return (
     <>
       <div className="group flex items-start gap-3 px-4 py-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
@@ -124,14 +125,14 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
           <p className="text-sm text-gray-900 dark:text-gray-100 leading-relaxed">{sentence.text}</p>
 
           <div className="flex items-center gap-3 mt-0.5 flex-wrap">
-            {/* Translation toggle */}
-            {sentence.translation && (
+            {/* Sibling languages toggle */}
+            {siblings.length > 0 && (
               <button
                 type="button"
-                onClick={(e) => { e.stopPropagation(); setShowTranslation((v) => !v); }}
+                onClick={(e) => { e.stopPropagation(); setShowSiblings((v) => !v); }}
                 className="cursor-pointer inline-flex items-center gap-0.5 text-xs text-gray-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
               >
-                {showTranslation
+                {showSiblings
                   ? <><ChevronUpIcon className="w-3 h-3" /> {t("sentenceRow.hideTranslation")}</>
                   : <><ChevronDownIcon className="w-3 h-3" /> {t("sentenceRow.showTranslation")}</>}
               </button>
@@ -149,9 +150,17 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
             )}
           </div>
 
-          {/* Translation (inline, collapsible) */}
-          {showTranslation && sentence.translation && (
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 italic">{sentence.translation}</p>
+          {/* Sibling sentences (inline, collapsible) */}
+          {showSiblings && siblings.length > 0 && (
+            <div className="mt-1.5 space-y-0.5">
+              {siblings.map(({ langCode, text }) => (
+                <p key={langCode} className="text-xs text-gray-500 dark:text-gray-400 italic flex items-center gap-1.5">
+                  <span className="not-italic">{langFlag(langCode)}</span>
+                  <span className="text-[10px] font-medium text-gray-400 dark:text-gray-500 not-italic uppercase">{langLabel(langCode)}</span>
+                  {text}
+                </p>
+              ))}
+            </div>
           )}
         </div>
 

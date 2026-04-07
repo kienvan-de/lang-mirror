@@ -133,7 +133,6 @@
     "empty": "Chưa có câu — thêm câu đầu tiên bên dưới.",
     "addHeading": "Thêm câu",
     "textPlaceholder": "Nội dung câu *",
-    "translationPlaceholder": "Dịch nghĩa (tùy chọn)",
     "notesPlaceholder": "Ghi chú (tùy chọn)",
     "textRequired": "Nội dung câu là bắt buộc",
     "adding": "Đang thêm…",
@@ -147,7 +146,6 @@
     "notesDialogLabel": "Ghi chú",
     "deleteConfirm": "Xóa?",
     "textPlaceholder": "Nội dung câu",
-    "translationPlaceholder": "Dịch nghĩa (tùy chọn)",
     "notesPlaceholder": "Ghi chú (tùy chọn)",
     "new": "Mới",
     "practicedCount": "{{count}}×"

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import type { Sentence } from "../../lib/api";
+import type { Sentence, Version } from "../../lib/api";
 import { api } from "../../lib/api";
 import { SentenceRow } from "./SentenceRow";
 
@@ -9,13 +9,16 @@ interface Props {
   sentences: Sentence[];
   versionId: string;
   topicId: string;
+  /** All versions of this topic (including the active one) — used for cross-language sibling display */
+  allVersions: Version[];
+  /** The language_code of the currently-active version */
+  activeLangCode: string;
 }
 
-export function SentenceList({ sentences, versionId, topicId }: Props) {
+export function SentenceList({ sentences, versionId, topicId, allVersions, activeLangCode }: Props) {
   const { t } = useTranslation();
   const qc = useQueryClient();
   const [newText, setNewText] = useState("");
-  const [newTranslation, setNewTranslation] = useState("");
   const [newNotes, setNewNotes] = useState("");
   const [addError, setAddError] = useState("");
 
@@ -25,12 +28,10 @@ export function SentenceList({ sentences, versionId, topicId }: Props) {
     mutationFn: () =>
       api.createSentence(versionId, {
         text: newText.trim(),
-        translation: newTranslation.trim() || undefined,
         notes: newNotes.trim() || undefined,
       }),
     onSuccess: () => {
       setNewText("");
-      setNewTranslation("");
       setNewNotes("");
       setAddError("");
       invalidate();
@@ -70,6 +71,9 @@ export function SentenceList({ sentences, versionId, topicId }: Props) {
     if (e.key === "Enter") { e.preventDefault(); handleAddSubmit(e as unknown as React.FormEvent); }
   };
 
+  // Build a map: langCode → sentences array (for sibling lookup by position)
+  const siblingVersions = allVersions.filter((v) => v.language_code !== activeLangCode);
+
   return (
     <div className="space-y-1">
       {/* Sentence rows */}
@@ -85,6 +89,7 @@ export function SentenceList({ sentences, versionId, topicId }: Props) {
               sentence={sentence}
               versionId={versionId}
               topicId={topicId}
+              siblingVersions={siblingVersions}
               onReorderUp={() => moveUp(index)}
               onReorderDown={() => moveDown(index)}
               isFirst={index === 0}
@@ -108,22 +113,13 @@ export function SentenceList({ sentences, versionId, topicId }: Props) {
           placeholder={t("sentenceList.textPlaceholder")}
           className="w-full px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
         />
-        <div className="flex gap-2">
-          <input
-            type="text"
-            value={newTranslation}
-            onChange={(e) => setNewTranslation(e.target.value)}
-            placeholder={t("sentenceList.translationPlaceholder")}
-            className="flex-1 px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
-          />
-          <input
-            type="text"
-            value={newNotes}
-            onChange={(e) => setNewNotes(e.target.value)}
-            placeholder={t("sentenceList.notesPlaceholder")}
-            className="flex-1 px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
-          />
-        </div>
+        <input
+          type="text"
+          value={newNotes}
+          onChange={(e) => setNewNotes(e.target.value)}
+          placeholder={t("sentenceList.notesPlaceholder")}
+          className="w-full px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+        />
         {addError && <p className="text-xs text-red-500">{addError}</p>}
         <div className="flex justify-end">
           <button

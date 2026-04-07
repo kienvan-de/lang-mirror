@@ -6,7 +6,6 @@ interface SentenceRow {
   id: string;
   version_id: string;
   text: string;
-  translation: string | null;
   notes: string | null;
   position: number;
   tts_cache_key: string | null;
@@ -41,7 +40,7 @@ async function handleUpdateSentence(req: Request, id: string): Promise<Response>
 
   if (!current) return error("Sentence not found", 404);
 
-  let body: { text?: string; translation?: string; notes?: string; position?: number };
+  let body: { text?: string; notes?: string; position?: number };
   try {
     body = await req.json() as typeof body;
   } catch {
@@ -62,12 +61,11 @@ async function handleUpdateSentence(req: Request, id: string): Promise<Response>
 
   db.prepare(`
     UPDATE sentences
-    SET text = ?, translation = ?, notes = ?, tts_cache_key = ?,
+    SET text = ?, notes = ?, tts_cache_key = ?,
         updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
     WHERE id = ?
   `).run(
     newText,
-    body.translation !== undefined ? body.translation : current.translation,
     body.notes !== undefined ? body.notes : current.notes,
     newCacheKey,
     id

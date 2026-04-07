@@ -4,7 +4,6 @@ import * as yaml from "js-yaml";
 
 export interface ImportSentence {
   text: string;
-  translation?: string;
   notes?: string;
 }
 
@@ -105,14 +104,11 @@ function validateSentences(
       continue;
     }
     const text = validateString(s["text"], `${field}[${i}].text`, { required: true, maxLen: 2000 }, errors);
-    const translation = s["translation"] !== undefined && s["translation"] !== null
-      ? validateString(s["translation"], `${field}[${i}].translation`, { maxLen: 500 }, errors)
-      : undefined;
     const notes = s["notes"] !== undefined && s["notes"] !== null
       ? validateString(s["notes"], `${field}[${i}].notes`, { maxLen: 500 }, errors)
       : undefined;
     if (text !== undefined) {
-      result.push({ text, translation, notes });
+      result.push({ text, notes });
     }
   }
   return result;

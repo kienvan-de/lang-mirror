@@ -31,7 +31,6 @@ export function runMigrations(): void {
       id            TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
       version_id    TEXT NOT NULL REFERENCES topic_language_versions(id) ON DELETE CASCADE,
       text          TEXT NOT NULL,
-      translation   TEXT,
       notes         TEXT,
       position      INTEGER NOT NULL DEFAULT 0,
       tts_cache_key TEXT,

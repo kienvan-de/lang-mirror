@@ -25,7 +25,6 @@ interface SentenceRow {
   id: string;
   version_id: string;
   text: string;
-  translation: string | null;
   notes: string | null;
   position: number;
   tts_cache_key: string | null;

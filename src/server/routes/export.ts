@@ -5,7 +5,7 @@ import { homedir } from "os";
 
 interface TopicRow { id: string; title: string; description: string | null; created_at: string; updated_at: string }
 interface VersionRow { id: string; topic_id: string; language_code: string; voice_name: string | null; speed: number | null; pitch: number | null; position: number; created_at: string; updated_at: string }
-interface SentenceRow { id: string; version_id: string; text: string; translation: string | null; notes: string | null; position: number; tts_cache_key: string | null; created_at: string; updated_at: string }
+interface SentenceRow { id: string; version_id: string; text: string; notes: string | null; position: number; tts_cache_key: string | null; created_at: string; updated_at: string }
 
 export async function handle(req: Request, url: URL): Promise<Response> {
   const path = url.pathname;
@@ -34,8 +34,8 @@ function buildTopicPayload(topic: TopicRow): object {
 
   const enrichedVersions = versions.map((v) => {
     const sentences = db.prepare(
-      "SELECT text, translation, notes FROM sentences WHERE version_id = ? ORDER BY position ASC"
-    ).all(v.id) as Array<Pick<SentenceRow, "text" | "translation" | "notes">>;
+      "SELECT text, notes FROM sentences WHERE version_id = ? ORDER BY position ASC"
+    ).all(v.id) as Array<Pick<SentenceRow, "text" | "notes">>;
 
     const versionObj: Record<string, unknown> = {
       language: v.language_code,
@@ -45,7 +45,6 @@ function buildTopicPayload(topic: TopicRow): object {
     if (v.pitch !== null) versionObj["pitch"] = v.pitch;
     versionObj["sentences"] = sentences.map((s) => {
       const obj: Record<string, unknown> = { text: s.text };
-      if (s.translation) obj["translation"] = s.translation;
       if (s.notes) obj["notes"] = s.notes;
       return obj;
     });

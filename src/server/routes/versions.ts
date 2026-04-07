@@ -21,7 +21,6 @@ interface SentenceRow {
   id: string;
   version_id: string;
   text: string;
-  translation: string | null;
   notes: string | null;
   position: number;
   tts_cache_key: string | null;
@@ -218,7 +217,7 @@ async function createSentence(req: Request, versionId: string): Promise<Response
   ).get(versionId);
   if (!version) return error("Version not found", 404);
 
-  let body: { text?: string; translation?: string; notes?: string; position?: number };
+  let body: { text?: string; notes?: string; position?: number };
   try {
     body = await req.json() as typeof body;
   } catch {
@@ -245,9 +244,9 @@ async function createSentence(req: Request, versionId: string): Promise<Response
   }
 
   db.prepare(`
-    INSERT INTO sentences (version_id, text, translation, notes, position)
-    VALUES (?, ?, ?, ?, ?)
-  `).run(versionId, text, body.translation?.trim() || null, body.notes?.trim() || null, position);
+    INSERT INTO sentences (version_id, text, notes, position)
+    VALUES (?, ?, ?, ?)
+  `).run(versionId, text, body.notes?.trim() || null, position);
 
   const created = db.prepare(
     "SELECT * FROM sentences WHERE version_id = ? ORDER BY created_at DESC LIMIT 1"

@@ -15,7 +15,7 @@ import { AddLanguageModal } from "../../components/topic/AddLanguageModal";
 import { VersionSettingsModal } from "../../components/topic/VersionSettingsModal";
 
 export function TopicDetailPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { topicId } = useParams({ strict: false }) as { topicId: string };
   const qc = useQueryClient();
 
@@ -76,7 +76,13 @@ export function TopicDetailPage() {
     );
   }
 
-  const versions: Version[] = topic.versions ?? [];
+  // Sort versions so the one matching the current UI language comes first (visual only).
+  const uiLang = i18n.language.split("-")[0]!.toLowerCase();
+  const versions: Version[] = [...(topic.versions ?? [])].sort((a, b) => {
+    const aMatch = a.language_code.split("-")[0]!.toLowerCase() === uiLang ? 0 : 1;
+    const bMatch = b.language_code.split("-")[0]!.toLowerCase() === uiLang ? 0 : 1;
+    return aMatch - bMatch;
+  });
   const activeVersion: Version | undefined =
     versions.find((v) => v.id === activeVersionId) ?? versions[0];
 

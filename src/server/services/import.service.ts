@@ -105,7 +105,7 @@ function validateSentences(
     }
     const text = validateString(s["text"], `${field}[${i}].text`, { required: true, maxLen: 2000 }, errors);
     const notes = s["notes"] !== undefined && s["notes"] !== null
-      ? validateString(s["notes"], `${field}[${i}].notes`, { maxLen: 500 }, errors)
+      ? validateString(s["notes"], `${field}[${i}].notes`, { maxLen: 2000 }, errors)
       : undefined;
     if (text !== undefined) {
       result.push({ text, notes });

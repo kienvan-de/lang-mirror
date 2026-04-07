@@ -13,6 +13,8 @@ interface VersionRow {
   id: string;
   topic_id: string;
   language_code: string;
+  title: string | null;
+  description: string | null;
   voice_name: string | null;
   speed: number | null;
   pitch: number | null;

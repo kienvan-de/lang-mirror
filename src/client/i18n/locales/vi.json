@@ -96,7 +96,11 @@
     "removeLanguageTitle": "Xóa ngôn ngữ này",
     "voiceSettingsTitle": "Cài đặt giọng cho phiên bản này",
     "moveLeft": "Di chuyển trái",
-    "moveRight": "Di chuyển phải"
+    "moveRight": "Di chuyển phải",
+    "versionTitlePlaceholder": "Tiêu đề bằng ngôn ngữ này…",
+    "versionDescPlaceholder": "Mô tả bằng ngôn ngữ này…",
+    "editVersionTitle": "Sửa tiêu đề/mô tả cho ngôn ngữ này",
+    "addVersionTitle": "Thêm tiêu đề/mô tả cho ngôn ngữ này"
   },
   "topicCard": {
     "open": "Mở",

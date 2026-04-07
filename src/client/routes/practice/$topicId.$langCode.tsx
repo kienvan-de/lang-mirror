@@ -146,6 +146,10 @@ export function PracticePage() {
   const version = topic?.versions?.find((v) => v.language_code === langCode);
   const allVersions: Version[] = topic?.versions ?? [];
 
+  // Derive uiLang-matched display title
+  const matchedVersion = allVersions.find((v) => v.language_code.split("-")[0] === uiLang);
+  const displayTitle = matchedVersion?.title ?? allVersions[0]?.title ?? topic?.title ?? "";
+
   const prevVersionIdRef = useRef<string | undefined>(undefined);
   useEffect(() => {
     if (!version || !topic) return;
@@ -420,7 +424,7 @@ export function PracticePage() {
       <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-4 py-3 flex items-center gap-3 flex-wrap shadow-sm">
         <Link to="/topics/$topicId" params={{ topicId }}
           className="text-sm text-gray-400 hover:text-blue-500 transition-colors flex items-center gap-1 shrink-0">
-          <ChevronLeftIcon className="w-4 h-4" /> {topic.title}
+          <ChevronLeftIcon className="w-4 h-4" /> {displayTitle}
         </Link>
 
         <div className="flex-1" />

@@ -96,7 +96,11 @@
     "removeLanguageTitle": "この言語を削除",
     "voiceSettingsTitle": "このバージョンの音声設定",
     "moveLeft": "左へ",
-    "moveRight": "右へ"
+    "moveRight": "右へ",
+    "versionTitlePlaceholder": "この言語でのタイトル…",
+    "versionDescPlaceholder": "この言語での説明…",
+    "editVersionTitle": "この言語のタイトル/説明を編集",
+    "addVersionTitle": "この言語のタイトル/説明を追加"
   },
   "topicCard": {
     "open": "開く",

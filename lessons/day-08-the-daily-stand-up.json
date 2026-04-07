@@ -4,6 +4,8 @@
   "versions": [
     {
       "language": "en",
+      "title": "The Daily Stand-up",
+      "description": "Week 2: Work & Tech",
       "voice_name": "en-US-JennyNeural",
       "speed": 0.9,
       "sentences": [
@@ -38,6 +40,8 @@
     },
     {
       "language": "de",
+      "title": "Das tägliche Stand-up",
+      "description": "Woche 2: Arbeit & Technik",
       "voice_name": "de-DE-KatjaNeural",
       "speed": 0.85,
       "sentences": [
@@ -63,6 +67,8 @@
     },
     {
       "language": "ja",
+      "title": "デイリースタンドアップ",
+      "description": "第2週：仕事とテクノロジー",
       "voice_name": "ja-JP-NanamiNeural",
       "speed": 0.8,
       "sentences": [
@@ -100,6 +106,8 @@
     },
     {
       "language": "vi",
+      "title": "Họp Đứng Hằng Ngày",
+      "description": "Tuần 2: Công Việc & Công Nghệ",
       "voice_name": "vi-VN-HoaiMyNeural",
       "speed": 1,
       "sentences": [

@@ -4,6 +4,8 @@
   "versions": [
     {
       "language": "en",
+      "title": "Grocery Shopping",
+      "description": "Week 1: Daily Life & Habits",
       "voice_name": "en-US-JennyNeural",
       "speed": 0.9,
       "sentences": [
@@ -32,6 +34,8 @@
     },
     {
       "language": "de",
+      "title": "Lebensmitteleinkauf",
+      "description": "Woche 1: Alltag & Gewohnheiten",
       "voice_name": "de-DE-KatjaNeural",
       "speed": 0.85,
       "sentences": [
@@ -63,6 +67,8 @@
     },
     {
       "language": "ja",
+      "title": "食料品の買い物",
+      "description": "第1週：日常生活と習慣",
       "voice_name": "ja-JP-NanamiNeural",
       "speed": 0.8,
       "sentences": [
@@ -100,6 +106,8 @@
     },
     {
       "language": "vi",
+      "title": "Mua Sắm Tạp Hóa",
+      "description": "Tuần 1: Đời Sống & Thói Quen Hằng Ngày",
       "voice_name": "vi-VN-HoaiMyNeural",
       "speed": 1,
       "sentences": [

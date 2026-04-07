@@ -96,7 +96,11 @@
     "removeLanguageTitle": "Remove this language",
     "voiceSettingsTitle": "Voice settings for this version",
     "moveLeft": "Move left",
-    "moveRight": "Move right"
+    "moveRight": "Move right",
+    "versionTitlePlaceholder": "Title in this language…",
+    "versionDescPlaceholder": "Description in this language…",
+    "editVersionTitle": "Edit title/description for this language",
+    "addVersionTitle": "Add title/description for this language"
   },
   "topicCard": {
     "open": "Open",

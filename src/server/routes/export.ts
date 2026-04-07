@@ -4,7 +4,7 @@ import { DATA_DIR } from "../lib/data-dir";
 import { homedir } from "os";
 
 interface TopicRow { id: string; title: string; description: string | null; created_at: string; updated_at: string }
-interface VersionRow { id: string; topic_id: string; language_code: string; voice_name: string | null; speed: number | null; pitch: number | null; position: number; created_at: string; updated_at: string }
+interface VersionRow { id: string; topic_id: string; language_code: string; title: string | null; description: string | null; voice_name: string | null; speed: number | null; pitch: number | null; position: number; created_at: string; updated_at: string }
 interface SentenceRow { id: string; version_id: string; text: string; notes: string | null; position: number; tts_cache_key: string | null; created_at: string; updated_at: string }
 
 export async function handle(req: Request, url: URL): Promise<Response> {
@@ -40,6 +40,8 @@ function buildTopicPayload(topic: TopicRow): object {
     const versionObj: Record<string, unknown> = {
       language: v.language_code,
     };
+    if (v.title) versionObj["title"] = v.title;
+    if (v.description) versionObj["description"] = v.description;
     if (v.voice_name) versionObj["voice_name"] = v.voice_name;
     if (v.speed !== null) versionObj["speed"] = v.speed;
     if (v.pitch !== null) versionObj["pitch"] = v.pitch;

@@ -16,6 +16,8 @@ export function runMigrations(): void {
       id            TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
       topic_id      TEXT NOT NULL REFERENCES topics(id) ON DELETE CASCADE,
       language_code TEXT NOT NULL,
+      title         TEXT,
+      description   TEXT,
       voice_name    TEXT,
       speed         REAL,
       pitch         REAL,

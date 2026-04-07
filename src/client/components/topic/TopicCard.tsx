@@ -12,7 +12,7 @@ interface Props {
 }
 
 export function TopicCard({ topic }: Props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const qc = useQueryClient();
   const [confirmDelete, setConfirmDelete] = useState(false);
 
@@ -21,7 +21,11 @@ export function TopicCard({ topic }: Props) {
     onSuccess: () => qc.invalidateQueries({ queryKey: ["topics"] }),
   });
 
+  const uiLang = i18n.language.split("-")[0]!;
   const versions = topic.versions ?? [];
+  const matchedVersion = versions.find((v) => v.language_code.split("-")[0] === uiLang);
+  const displayTitle = matchedVersion?.title ?? versions[0]?.title ?? topic.title;
+  const displayDescription = matchedVersion?.description ?? versions[0]?.description ?? topic.description;
 
   const bestProgress = versions.reduce((best, v) => Math.max(best, v.progressToday ?? 0), 0);
   const bestVersion = versions.find((v) => (v.progressToday ?? 0) === bestProgress && bestProgress > 0);
@@ -30,13 +34,13 @@ export function TopicCard({ topic }: Props) {
     <div className="group relative flex flex-col bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5 shadow-sm hover:shadow-md hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-200">
       {/* Title */}
       <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-1 leading-snug">
-        {topic.title}
+        {displayTitle}
       </h3>
 
       {/* Description */}
-      {topic.description && (
+      {displayDescription && (
         <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 mb-3">
-          {topic.description}
+          {displayDescription}
         </p>
       )}
 

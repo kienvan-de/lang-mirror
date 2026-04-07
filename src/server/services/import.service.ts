@@ -9,6 +9,8 @@ export interface ImportSentence {
 
 export interface ImportVersion {
   language: string;
+  title?: string;
+  description?: string;
   voice_name?: string;
   speed?: number;
   pitch?: number;
@@ -180,6 +182,12 @@ export function validateTopic(data: unknown): { result: LessonImportTopic | null
     if (lang && !/^[a-zA-Z]{2,8}(-[a-zA-Z0-9]{1,8})*$/.test(lang)) {
       errors.push({ field: `versions[${i}].language`, message: "Invalid language code format" });
     }
+    const versionTitle = v["title"] !== undefined
+      ? validateString(v["title"], `versions[${i}].title`, { maxLen: 200 }, errors)
+      : undefined;
+    const versionDescription = v["description"] !== undefined
+      ? validateString(v["description"], `versions[${i}].description`, { maxLen: 500 }, errors)
+      : undefined;
     const voice_name = v["voice_name"] !== undefined
       ? validateString(v["voice_name"], `versions[${i}].voice_name`, { maxLen: 100 }, errors)
       : undefined;
@@ -187,7 +195,7 @@ export function validateTopic(data: unknown): { result: LessonImportTopic | null
     const pitch = typeof v["pitch"] === "number" ? v["pitch"] : undefined;
     const sentences = validateSentences(v["sentences"], `versions[${i}].sentences`, errors);
     if (lang) {
-      versions.push({ language: lang, voice_name, speed, pitch, sentences });
+      versions.push({ language: lang, title: versionTitle, description: versionDescription, voice_name, speed, pitch, sentences });
     }
   }
 

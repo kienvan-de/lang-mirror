@@ -29,6 +29,11 @@ export function TopicDetailPage() {
   const [titleDraft, setTitleDraft] = useState("");
   const titleRef = useRef<HTMLInputElement>(null);
 
+  // Inline version title/description editing
+  const [editingVersionMeta, setEditingVersionMeta] = useState(false);
+  const [versionTitleDraft, setVersionTitleDraft] = useState("");
+  const [versionDescDraft, setVersionDescDraft] = useState("");
+
   const { data: topic, isLoading, isError } = useQuery({
     queryKey: ["topic", topicId],
     queryFn: () => api.getTopic(topicId),
@@ -37,6 +42,12 @@ export function TopicDetailPage() {
   const updateTitleMutation = useMutation({
     mutationFn: (title: string) => api.updateTopic(topicId, { title }),
     onSuccess: () => { setEditingTitle(false); qc.invalidateQueries({ queryKey: ["topic", topicId] }); },
+  });
+
+  const updateVersionMetaMutation = useMutation({
+    mutationFn: ({ id, title, description }: { id: string; title: string | null; description: string | null }) =>
+      api.updateVersion(id, { title, description }),
+    onSuccess: () => { setEditingVersionMeta(false); qc.invalidateQueries({ queryKey: ["topic", topicId] }); },
   });
 
   const deleteVersionMutation = useMutation({
@@ -85,6 +96,26 @@ export function TopicDetailPage() {
   });
   const activeVersion: Version | undefined =
     versions.find((v) => v.id === activeVersionId) ?? versions[0];
+
+  // Derive uiLang-matched display title/description
+  const matchedVersion = versions.find((v) => v.language_code.split("-")[0] === uiLang);
+  const displayTitle = matchedVersion?.title ?? versions[0]?.title ?? topic.title;
+  const displayDescription = matchedVersion?.description ?? versions[0]?.description ?? topic.description;
+
+  const startEditVersionMeta = () => {
+    setVersionTitleDraft(activeVersion?.title ?? "");
+    setVersionDescDraft(activeVersion?.description ?? "");
+    setEditingVersionMeta(true);
+  };
+
+  const saveVersionMeta = () => {
+    if (!activeVersion) return;
+    updateVersionMetaMutation.mutate({
+      id: activeVersion.id,
+      title: versionTitleDraft.trim() || null,
+      description: versionDescDraft.trim() || null,
+    });
+  };
 
   const startEditTitle = () => {
     setTitleDraft(topic.title);
@@ -140,12 +171,12 @@ export function TopicDetailPage() {
               onClick={startEditTitle}
               title={t("topics.clickToEdit")}
             >
-              {topic.title}
+              {displayTitle}
               <PencilIcon className="w-4 h-4 opacity-0 group-hover:opacity-40 transition-opacity" />
             </h1>
           )}
-          {topic.description && (
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{topic.description}</p>
+          {displayDescription && (
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{displayDescription}</p>
           )}
         </div>
 
@@ -307,6 +338,67 @@ export function TopicDetailPage() {
                 <PlayIcon className="w-3.5 h-3.5" /> {t("topics.practiceThis")}
               </Link>
             </div>
+
+            {/* Version title/description (localised) */}
+            {editingVersionMeta ? (
+              <div className="mb-3 space-y-1.5 p-3 rounded-xl border border-blue-300 dark:border-blue-700 bg-blue-50/50 dark:bg-blue-900/10">
+                <input
+                  autoFocus
+                  type="text"
+                  value={versionTitleDraft}
+                  onChange={(e) => setVersionTitleDraft(e.target.value)}
+                  placeholder={t("topics.versionTitlePlaceholder")}
+                  className="w-full px-2 py-1 text-sm font-semibold rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <input
+                  type="text"
+                  value={versionDescDraft}
+                  onChange={(e) => setVersionDescDraft(e.target.value)}
+                  placeholder={t("topics.versionDescPlaceholder")}
+                  className="w-full px-2 py-1 text-xs rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <div className="flex justify-end gap-2">
+                  <button
+                    onClick={() => setEditingVersionMeta(false)}
+                    className="text-xs px-3 py-1 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  >
+                    {t("common.cancel")}
+                  </button>
+                  <button
+                    onClick={saveVersionMeta}
+                    disabled={updateVersionMetaMutation.isPending}
+                    className="text-xs px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors disabled:opacity-60"
+                  >
+                    {t("common.save")}
+                  </button>
+                </div>
+              </div>
+            ) : (activeVersion.title || activeVersion.description) ? (
+              <div className="mb-3 group/vmeta flex items-start gap-2">
+                <div className="flex-1 min-w-0">
+                  {activeVersion.title && (
+                    <p className="text-sm font-semibold text-gray-700 dark:text-gray-200 leading-snug">{activeVersion.title}</p>
+                  )}
+                  {activeVersion.description && (
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{activeVersion.description}</p>
+                  )}
+                </div>
+                <button
+                  onClick={startEditVersionMeta}
+                  className="opacity-0 group-hover/vmeta:opacity-60 hover:!opacity-100 text-gray-400 hover:text-blue-500 transition-all flex-shrink-0 mt-0.5"
+                  title={t("topics.editVersionTitle")}
+                >
+                  <PencilIcon className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={startEditVersionMeta}
+                className="mb-3 text-xs text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 flex items-center gap-1 transition-colors"
+              >
+                <PencilIcon className="w-3 h-3" /> {t("topics.addVersionTitle")}
+              </button>
+            )}
             {/* Today's progress bar */}
             {(activeVersion.totalSentences ?? 0) > 0 && (
               <div className="mb-3 flex items-center gap-2">

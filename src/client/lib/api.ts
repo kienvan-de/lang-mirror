@@ -13,6 +13,8 @@ export interface Version {
   id: string;
   topic_id: string;
   language_code: string;
+  title: string | null;
+  description: string | null;
   voice_name: string | null;
   speed: number | null;
   pitch: number | null;
@@ -75,9 +77,9 @@ export const api = {
     apiFetch<{ deleted: boolean }>(`/topics/${id}`, { method: "DELETE" }),
 
   // Versions
-  createVersion: (topicId: string, body: { language_code: string; voice_name?: string; speed?: number; pitch?: number }) =>
+  createVersion: (topicId: string, body: { language_code: string; title?: string; description?: string; voice_name?: string; speed?: number; pitch?: number }) =>
     apiFetch<Version>(`/topics/${topicId}/versions`, { method: "POST", body: JSON.stringify(body) }),
-  updateVersion: (id: string, body: { voice_name?: string | null; speed?: number | null; pitch?: number | null }) =>
+  updateVersion: (id: string, body: { title?: string | null; description?: string | null; voice_name?: string | null; speed?: number | null; pitch?: number | null }) =>
     apiFetch<Version>(`/versions/${id}`, { method: "PUT", body: JSON.stringify(body) }),
   deleteVersion: (id: string) =>
     apiFetch<{ deleted: boolean }>(`/versions/${id}`, { method: "DELETE" }),

@@ -3,7 +3,7 @@ import { db } from "../db/client";
 import { parseAndValidate, type LessonImportSingle, type LessonImportTopic } from "../services/import.service";
 
 interface TopicRow { id: string; title: string; description: string | null; created_at: string; updated_at: string }
-interface VersionRow { id: string; topic_id: string; language_code: string; voice_name: string | null; speed: number | null; pitch: number | null; position: number; created_at: string; updated_at: string }
+interface VersionRow { id: string; topic_id: string; language_code: string; title: string | null; description: string | null; voice_name: string | null; speed: number | null; pitch: number | null; position: number; created_at: string; updated_at: string }
 
 export async function handle(req: Request, url: URL): Promise<Response> {
   const path = url.pathname;
@@ -167,9 +167,9 @@ function importSingle(
 
     // Create version
     db.prepare(`
-      INSERT INTO topic_language_versions (topic_id, language_code, voice_name, speed, pitch, position)
-      VALUES (?, ?, ?, ?, ?, ?)
-    `).run(topicId, data.language, data.voice_name ?? null, data.speed ?? null, data.pitch ?? null, maxPos + 1);
+      INSERT INTO topic_language_versions (topic_id, language_code, title, description, voice_name, speed, pitch, position)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `).run(topicId, data.language, null, null, data.voice_name ?? null, data.speed ?? null, data.pitch ?? null, maxPos + 1);
 
     const version = db.prepare(
       "SELECT * FROM topic_language_versions WHERE topic_id = ? AND language_code = ?"
@@ -257,9 +257,9 @@ function importTopic(
       }
 
       db.prepare(`
-        INSERT INTO topic_language_versions (topic_id, language_code, voice_name, speed, pitch, position)
-        VALUES (?, ?, ?, ?, ?, ?)
-      `).run(topicId, v.language, v.voice_name ?? null, v.speed ?? null, v.pitch ?? null, posOffset++);
+        INSERT INTO topic_language_versions (topic_id, language_code, title, description, voice_name, speed, pitch, position)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      `).run(topicId, v.language, v.title ?? null, v.description ?? null, v.voice_name ?? null, v.speed ?? null, v.pitch ?? null, posOffset++);
 
       const version = db.prepare(
         "SELECT * FROM topic_language_versions WHERE topic_id = ? AND language_code = ?"

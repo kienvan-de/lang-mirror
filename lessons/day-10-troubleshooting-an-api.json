@@ -4,6 +4,8 @@
   "versions": [
     {
       "language": "en",
+      "title": "Troubleshooting an API",
+      "description": "Week 3: Advanced Work Scenarios",
       "voice_name": "en-US-JennyNeural",
       "speed": 0.9,
       "sentences": [
@@ -35,6 +37,8 @@
     },
     {
       "language": "de",
+      "title": "API-Fehlersuche",
+      "description": "Woche 3: Fortgeschrittene Arbeitsszenarien",
       "voice_name": "de-DE-KatjaNeural",
       "speed": 0.85,
       "sentences": [
@@ -69,6 +73,8 @@
     },
     {
       "language": "ja",
+      "title": "APIのトラブルシューティング",
+      "description": "第3週：高度な業務シナリオ",
       "voice_name": "ja-JP-NanamiNeural",
       "speed": 0.8,
       "sentences": [
@@ -106,6 +112,8 @@
     },
     {
       "language": "vi",
+      "title": "Xử Lý Sự Cố API",
+      "description": "Tuần 3: Tình Huống Công Việc Nâng Cao",
       "voice_name": "vi-VN-HoaiMyNeural",
       "speed": 1,
       "sentences": [

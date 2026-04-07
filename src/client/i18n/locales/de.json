@@ -96,7 +96,11 @@
     "removeLanguageTitle": "Diese Sprache entfernen",
     "voiceSettingsTitle": "Spracheinstellungen für diese Version",
     "moveLeft": "Nach links",
-    "moveRight": "Nach rechts"
+    "moveRight": "Nach rechts",
+    "versionTitlePlaceholder": "Titel in dieser Sprache…",
+    "versionDescPlaceholder": "Beschreibung in dieser Sprache…",
+    "editVersionTitle": "Titel/Beschreibung für diese Sprache bearbeiten",
+    "addVersionTitle": "Titel/Beschreibung für diese Sprache hinzufügen"
   },
   "topicCard": {
     "open": "Öffnen",

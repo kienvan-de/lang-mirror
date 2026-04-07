@@ -9,6 +9,8 @@ interface VersionRow {
   id: string;
   topic_id: string;
   language_code: string;
+  title: string | null;
+  description: string | null;
   voice_name: string | null;
   speed: number | null;
   pitch: number | null;
@@ -83,7 +85,7 @@ async function createVersion(req: Request, topicId: string): Promise<Response> {
   const topic = db.prepare("SELECT id FROM topics WHERE id = ?").get(topicId);
   if (!topic) return error("Topic not found", 404);
 
-  let body: { language_code?: string; voice_name?: string; speed?: number; pitch?: number };
+  let body: { language_code?: string; voice_name?: string; speed?: number; pitch?: number; title?: string; description?: string };
   try {
     body = await req.json() as typeof body;
   } catch {
@@ -110,9 +112,9 @@ async function createVersion(req: Request, topicId: string): Promise<Response> {
   ).get(topicId) as { m: number | null }).m ?? -1;
 
   db.prepare(`
-    INSERT INTO topic_language_versions (topic_id, language_code, voice_name, speed, pitch, position)
-    VALUES (?, ?, ?, ?, ?, ?)
-  `).run(topicId, lang, body.voice_name ?? null, body.speed ?? null, body.pitch ?? null, maxPos + 1);
+    INSERT INTO topic_language_versions (topic_id, language_code, title, description, voice_name, speed, pitch, position)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+  `).run(topicId, lang, body.title?.trim() ?? null, body.description?.trim() ?? null, body.voice_name ?? null, body.speed ?? null, body.pitch ?? null, maxPos + 1);
 
   const created = db.prepare(
     "SELECT * FROM topic_language_versions WHERE topic_id = ? AND language_code = ?"
@@ -144,7 +146,7 @@ async function updateVersion(req: Request, id: string): Promise<Response> {
   ).get(id) as VersionRow | undefined;
   if (!version) return error("Version not found", 404);
 
-  let body: { voice_name?: string | null; speed?: number | null; pitch?: number | null };
+  let body: { voice_name?: string | null; speed?: number | null; pitch?: number | null; title?: string | null; description?: string | null };
   try {
     body = await req.json() as typeof body;
   } catch {
@@ -153,10 +155,12 @@ async function updateVersion(req: Request, id: string): Promise<Response> {
 
   db.prepare(`
     UPDATE topic_language_versions
-    SET voice_name = ?, speed = ?, pitch = ?,
+    SET title = ?, description = ?, voice_name = ?, speed = ?, pitch = ?,
         updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
     WHERE id = ?
   `).run(
+    body.title !== undefined ? (body.title?.trim() ?? null) : version.title,
+    body.description !== undefined ? (body.description?.trim() ?? null) : version.description,
     body.voice_name !== undefined ? body.voice_name : version.voice_name,
     body.speed !== undefined ? body.speed : version.speed,
     body.pitch !== undefined ? body.pitch : version.pitch,

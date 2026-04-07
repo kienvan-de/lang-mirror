@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { api, type Voice } from "../lib/api";
 import { langFlag, langName } from "../lib/lang";
 import { defaultVoiceForLang } from "../hooks/useTTS";
@@ -20,9 +21,10 @@ function useSaveFeedback() {
 }
 
 function SavedBadge({ show }: { show: boolean }) {
+  const { t } = useTranslation();
   return (
     <span className={`text-xs font-medium text-green-600 dark:text-green-400 transition-opacity duration-300 ${show ? "opacity-100" : "opacity-0"}`}>
-      Saved ✓
+      {t("settings.saved")}
     </span>
   );
 }
@@ -53,6 +55,7 @@ function Slider({
   onChange: (v: number) => void;
   onPreview?: () => void;
 }) {
+  const { t } = useTranslation();
   const pct = ((value - min) / (max - min)) * 100;
   return (
     <div className="space-y-2">
@@ -64,8 +67,8 @@ function Slider({
             <button
               onClick={onPreview}
               className="px-2.5 py-1 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-xs font-medium text-gray-600 dark:text-gray-400 transition-colors"
-              title="Preview"
-            >▶ Preview</button>
+              title={t("settings.preview")}
+            >▶ {t("settings.preview")}</button>
           )}
         </div>
       </div>
@@ -116,6 +119,7 @@ function playPreview(text: string, voice: string, speed: number, pitch: number) 
 // ── Main Settings Page ────────────────────────────────────────────────────────
 
 export function SettingsPage() {
+  const { t } = useTranslation();
   const qc = useQueryClient();
   const { savedKey, showSaved } = useSaveFeedback();
 
@@ -124,13 +128,11 @@ export function SettingsPage() {
     queryFn: api.getSettings,
   });
 
-  // Load all versions to know which languages are in use
   const { data: topics } = useQuery({
     queryKey: ["topics"],
     queryFn: api.getTopics,
   });
 
-  // Local state for sliders / inputs (optimistic, not yet saved)
   const [speed, setSpeed] = useState(1.0);
   const [pitch, setPitch] = useState(0);
   const [practiceMode, setPracticeMode] = useState<"auto" | "manual">("auto");
@@ -138,11 +140,8 @@ export function SettingsPage() {
   const [drillPause, setDrillPause] = useState(1);
   const [autoPlayback, setAutoPlayback] = useState(true);
   const [defaultFontSize, setDefaultFontSize] = useState<"xs" | "sm" | "md" | "lg" | "xl">("lg");
-
-  // Voice selections per language
   const [voiceMap, setVoiceMap] = useState<Record<string, string>>({});
 
-  // Sync local state when settings load
   useEffect(() => {
     if (!settings) return;
     setSpeed(parseFloat(settings["tts.global.speed"] ?? "1.0"));
@@ -164,43 +163,36 @@ export function SettingsPage() {
     showSaved(feedbackKey);
   }, [qc, showSaved]);
 
-  // Collect unique language codes in use
   const langCodesInUse = Array.from(new Set(
     (topics ?? []).flatMap((t) => (t.versions ?? []).map((v) => v.language_code.split("-")[0]!.toLowerCase()))
   )).sort();
 
-  // Cache stats
   const { data: cacheStats, refetch: refetchCache } = useQuery({
     queryKey: ["cache", "stats"],
     queryFn: () => api.getCacheStats(),
     staleTime: 10_000,
   });
 
-  // Clear TTS cache
   const clearCacheMutation = useMutation({
     mutationFn: api.clearTTSCache,
     onSuccess: () => { refetchCache(); showSaved("cache"); },
   });
 
-  // Clear all recordings
   const clearRecordingsMutation = useMutation({
     mutationFn: api.deleteAllRecordings,
     onSuccess: () => showSaved("recordings"),
   });
 
-  // Export
   const [exporting, setExporting] = useState(false);
-
-  // Copy data path
   const [copiedPath, setCopiedPath] = useState(false);
   const { data: dataPath } = useQuery({ queryKey: ["dataPath"], queryFn: api.getDataPath });
 
   const sections = [
-    { id: "playback", label: "Playback" },
-    { id: "voices", label: "Voices" },
-    { id: "practice", label: "Practice" },
-    { id: "display", label: "Display" },
-    { id: "data", label: "Data Management" },
+    { id: "playback", label: t("settings.sectionPlayback") },
+    { id: "voices", label: t("settings.sectionVoices") },
+    { id: "practice", label: t("settings.sectionPractice") },
+    { id: "display", label: t("settings.sectionDisplay") },
+    { id: "data", label: t("settings.sectionData") },
   ];
 
   if (isLoading) {
@@ -216,8 +208,8 @@ export function SettingsPage() {
   return (
     <div className="max-w-4xl mx-auto px-6 py-8">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Settings</h1>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">Configure voice, speed, practice mode, and data management.</p>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{t("settings.title")}</h1>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{t("settings.subtitle")}</p>
       </div>
 
       <div className="flex gap-8">
@@ -238,19 +230,17 @@ export function SettingsPage() {
         <div className="flex-1 space-y-6 min-w-0">
 
           {/* ── Playback ──────────────────────────────────────────────── */}
-          <Section id="playback" title="Playback">
+          <Section id="playback" title={t("settings.sectionPlayback")}>
             <div className="space-y-6">
-              {/* Speed */}
               <div className="space-y-3">
                 <Slider
-                  label="Global TTS Speed"
+                  label={t("settings.globalSpeed")}
                   value={speed}
                   min={0.5} max={2.0} step={0.05}
                   format={(v) => `${v.toFixed(2)}×`}
                   onChange={setSpeed}
                   onPreview={() => playPreview("Hello, this is a preview.", "en-US-JennyNeural", speed, pitch)}
                 />
-                {/* Speed presets */}
                 <div className="flex items-center gap-2 flex-wrap">
                   {[0.5, 0.75, 1.0, 1.25, 1.5, 2.0].map((s) => (
                     <button
@@ -266,17 +256,18 @@ export function SettingsPage() {
                 </div>
               </div>
 
-              {/* Pitch */}
               <Slider
-                label="Global TTS Pitch"
+                label={t("settings.globalPitch")}
                 value={pitch}
                 min={-10} max={10} step={1}
-                format={(v) => v === 0 ? "0 (default)" : `${v > 0 ? "+" : ""}${v} st`}
+                format={(v) => v === 0
+                  ? t("settings.pitchDefault", { value: 0 })
+                  : t("settings.pitchValue", { value: `${v > 0 ? "+" : ""}${v}` })}
                 onChange={(v) => setPitch(Math.round(v))}
               />
 
               <p className="text-xs text-amber-600 dark:text-amber-500 bg-amber-50 dark:bg-amber-900/20 px-3 py-2 rounded-lg">
-                ⚠️ Changing speed or pitch will not affect cached audio. Clear the TTS cache to regenerate.
+                ⚠️ {t("settings.cacheWarning")}
               </p>
 
               <div className="flex items-center gap-3 justify-end">
@@ -289,16 +280,16 @@ export function SettingsPage() {
                     showSaved("playback");
                   }}
                   className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-sm font-semibold text-white transition-colors"
-                >Save</button>
+                >{t("common.save")}</button>
               </div>
             </div>
           </Section>
 
           {/* ── Voices ────────────────────────────────────────────────── */}
-          <Section id="voices" title="Voices">
+          <Section id="voices" title={t("settings.sectionVoices")}>
             {langCodesInUse.length === 0 ? (
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                No languages in use yet. Add language versions to your topics first.
+                {t("settings.noVoicesYet")}
               </p>
             ) : (
               <div className="space-y-5">
@@ -321,18 +312,17 @@ export function SettingsPage() {
                       showSaved("voices");
                     }}
                     className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-sm font-semibold text-white transition-colors"
-                  >Save Voice Preferences</button>
+                  >{t("settings.saveVoices")}</button>
                 </div>
               </div>
             )}
           </Section>
 
           {/* ── Practice ──────────────────────────────────────────────── */}
-          <Section id="practice" title="Practice">
+          <Section id="practice" title={t("settings.sectionPractice")}>
             <div className="space-y-5">
-              {/* Practice mode */}
               <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-2">Default Practice Mode</label>
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-2">{t("settings.practiceMode")}</label>
                 <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-800 rounded-lg p-1 w-fit">
                   {(["auto", "manual"] as const).map((m) => (
                     <button
@@ -347,25 +337,23 @@ export function SettingsPage() {
                   ))}
                 </div>
                 <p className="text-xs text-gray-400 dark:text-gray-500 mt-1.5">
-                  Auto: records automatically after TTS. Manual: you control recording.
+                  {t("settings.practiceModeHint")}
                 </p>
               </div>
 
-              {/* Recording multiplier */}
               <Slider
-                label="Auto Recording Window"
+                label={t("settings.autoWindow")}
                 value={recordingMultiplier}
                 min={1.2} max={2.5} step={0.1}
                 format={(v) => `${v.toFixed(1)}× TTS duration`}
                 onChange={setRecordingMultiplier}
               />
               <p className="text-xs text-gray-400 dark:text-gray-500 -mt-2">
-                e.g., at 1.5×: a 3.2s TTS gives you 4.8s to record.
+                {t("settings.autoWindowHint")}
               </p>
 
-              {/* Drill pause */}
               <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-2">Drill Auto-advance Pause</label>
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-2">{t("settings.drillPause")}</label>
                 <div className="flex items-center gap-2 flex-wrap">
                   {[0.5, 1, 2, 3].map((p) => (
                     <button
@@ -381,11 +369,10 @@ export function SettingsPage() {
                 </div>
               </div>
 
-              {/* Auto-playback toggle */}
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Auto-playback recording</p>
-                  <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">Play back your recording automatically after capture (auto mode).</p>
+                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300">{t("settings.autoPlayback")}</p>
+                  <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">{t("settings.autoPlaybackHint")}</p>
                 </div>
                 <button
                   onClick={() => setAutoPlayback((v) => !v)}
@@ -409,16 +396,16 @@ export function SettingsPage() {
                     showSaved("practice");
                   }}
                   className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-sm font-semibold text-white transition-colors"
-                >Save</button>
+                >{t("common.save")}</button>
               </div>
             </div>
           </Section>
 
           {/* ── Display ───────────────────────────────────────────────── */}
-          <Section id="display" title="Display">
+          <Section id="display" title={t("settings.sectionDisplay")}>
             <div className="space-y-4">
               <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-2">Default Font Size (Practice View)</label>
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-2">{t("settings.fontSizeLabel")}</label>
                 <div className="flex items-center gap-2">
                   {(["xs", "sm", "md", "lg", "xl"] as const).map((size) => (
                     <button
@@ -435,7 +422,7 @@ export function SettingsPage() {
                 <p className={`mt-3 font-medium text-gray-900 dark:text-gray-100 ${{
                   xs: "text-base", sm: "text-lg", md: "text-xl", lg: "text-2xl", xl: "text-3xl"
                 }[defaultFontSize]}`}>
-                  Preview text
+                  {t("settings.fontPreview")}
                 </p>
               </div>
               <div className="flex items-center gap-3 justify-end pt-2 border-t border-gray-100 dark:border-gray-800">
@@ -443,22 +430,22 @@ export function SettingsPage() {
                 <button
                   onClick={() => saveSetting("display.fontSize", defaultFontSize, "display")}
                   className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-sm font-semibold text-white transition-colors"
-                >Save</button>
+                >{t("common.save")}</button>
               </div>
             </div>
           </Section>
 
           {/* ── Data Management ───────────────────────────────────────── */}
-          <Section id="data" title="Data Management">
+          <Section id="data" title={t("settings.sectionData")}>
             <div className="space-y-5">
               {/* Cache stats */}
               <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                 <div>
-                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300">TTS Audio Cache</p>
+                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300">{t("settings.cacheSizeLabel")}</p>
                   <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                     {cacheStats
-                      ? `${cacheStats.totalMB} MB · ${cacheStats.fileCount} file${cacheStats.fileCount !== 1 ? "s" : ""}`
-                      : "Loading…"}
+                      ? t("settings.cacheSize", { mb: cacheStats.totalMB, count: cacheStats.fileCount })
+                      : t("common.loading")}
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
@@ -472,7 +459,7 @@ export function SettingsPage() {
                     disabled={clearCacheMutation.isPending || (cacheStats?.fileCount ?? 0) === 0}
                     className="px-3 py-1.5 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 text-sm font-medium transition-colors disabled:opacity-40 border border-red-200 dark:border-red-800"
                   >
-                    {clearCacheMutation.isPending ? "Clearing…" : "Clear Cache"}
+                    {clearCacheMutation.isPending ? t("settings.clearingCache") : t("settings.clearCache")}
                   </button>
                 </div>
               </div>
@@ -480,36 +467,38 @@ export function SettingsPage() {
               {/* Clear recordings */}
               <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                 <div>
-                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Recorded Audio</p>
+                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300">{t("settings.recordingsLabel")}</p>
                   <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                    Your practice recordings stored locally.
+                    {t("settings.recordingsHint")}
                   </p>
                   {clearRecordingsMutation.isSuccess && clearRecordingsMutation.data && (
                     <p className="text-xs text-green-600 dark:text-green-400 mt-1">
-                      ✓ Deleted {clearRecordingsMutation.data.deletedFiles} file{clearRecordingsMutation.data.deletedFiles !== 1 ? "s" : ""},
-                      freed {(clearRecordingsMutation.data.bytesFreed / 1_048_576).toFixed(2)} MB
+                      {t("settings.deletedFiles", {
+                        count: clearRecordingsMutation.data.deletedFiles,
+                        mb: (clearRecordingsMutation.data.bytesFreed / 1_048_576).toFixed(2),
+                      })}
                     </p>
                   )}
                 </div>
                 <button
                   onClick={() => {
-                    if (confirm("Delete all your recorded audio? Practice attempt history is kept.")) {
+                    if (confirm(t("settings.clearRecordingsConfirm"))) {
                       clearRecordingsMutation.mutate();
                     }
                   }}
                   disabled={clearRecordingsMutation.isPending}
                   className="px-3 py-1.5 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 text-sm font-medium transition-colors disabled:opacity-40 border border-red-200 dark:border-red-800"
                 >
-                  {clearRecordingsMutation.isPending ? "Deleting…" : "Clear Recordings"}
+                  {clearRecordingsMutation.isPending ? t("settings.deletingRecordings") : t("settings.clearRecordings")}
                 </button>
               </div>
 
               {/* Export all data */}
               <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                 <div>
-                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Export All Topics</p>
+                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300">{t("settings.exportAll")}</p>
                   <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                    Downloads a ZIP containing one JSON file per topic.
+                    {t("settings.exportAllHint")}
                   </p>
                 </div>
                 <button
@@ -525,21 +514,21 @@ export function SettingsPage() {
                   {exporting ? (
                     <span className="flex items-center gap-1.5">
                       <span className="w-3.5 h-3.5 rounded-full border-2 border-blue-400/40 border-t-blue-500 animate-spin" />
-                      Exporting…
+                      {t("settings.exportingZip")}
                     </span>
-                  ) : "Export ZIP"}
+                  ) : t("settings.exportZip")}
                 </button>
               </div>
 
               {/* Data path */}
               <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                 <div>
-                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Data Location</p>
+                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300">{t("settings.dataLocation")}</p>
                   <p className="text-xs font-mono text-gray-500 dark:text-gray-400 mt-0.5 break-all">
-                    {dataPath?.path ?? "Loading…"}
+                    {dataPath?.path ?? t("common.loading")}
                   </p>
                   <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
-                    Paste in Terminal or Finder "Go to Folder" (⌘⇧G) to open.
+                    {t("settings.dataLocationHint")}
                   </p>
                 </div>
                 <button
@@ -553,7 +542,7 @@ export function SettingsPage() {
                   disabled={!dataPath}
                   className="flex-shrink-0 px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm font-medium transition-colors disabled:opacity-40 border border-gray-200 dark:border-gray-700 ml-4"
                 >
-                  {copiedPath ? "Copied ✓" : "Copy Path"}
+                  {copiedPath ? t("settings.copiedPath") : t("settings.copyPath")}
                 </button>
               </div>
             </div>
@@ -576,6 +565,7 @@ function VoicePicker({
   pitch: number;
   onSelect: (voice: string) => void;
 }) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
 
@@ -612,7 +602,7 @@ function VoicePicker({
             onClick={() => playPreview(sampleForLang(langCode), selectedVoice, speed, pitch)}
             className="px-2.5 py-1 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-xs font-medium text-gray-600 dark:text-gray-400 transition-colors"
             title={`Preview "${sampleForLang(langCode)}"`}
-          >▶ Preview</button>
+          >▶ {t("settings.preview")}</button>
           <button
             onClick={() => setOpen((v) => !v)}
             className="px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm text-gray-700 dark:text-gray-300 hover:border-blue-400 transition-colors flex items-center gap-2 min-w-[180px] justify-between"
@@ -629,7 +619,7 @@ function VoicePicker({
             <input
               autoFocus
               type="text"
-              placeholder="Search voices…"
+              placeholder={t("settings.searchVoices")}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-full px-3 py-1.5 text-sm rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -637,9 +627,9 @@ function VoicePicker({
           </div>
           <div className="max-h-48 overflow-y-auto">
             {isLoading ? (
-              <p className="p-4 text-sm text-gray-400 dark:text-gray-500 text-center">Loading voices…</p>
+              <p className="p-4 text-sm text-gray-400 dark:text-gray-500 text-center">{t("settings.loadingVoices")}</p>
             ) : filtered.length === 0 ? (
-              <p className="p-4 text-sm text-gray-400 dark:text-gray-500 text-center">No voices found</p>
+              <p className="p-4 text-sm text-gray-400 dark:text-gray-500 text-center">{t("settings.noVoicesFound")}</p>
             ) : (
               Object.entries(byGender).map(([gender, gVoices]) => (
                 <div key={gender}>

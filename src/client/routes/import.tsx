@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 import { api } from "../lib/api";
 import { langFlag, langLabel } from "../lib/lang";
 
@@ -22,10 +23,11 @@ type Target = "new" | "existing";
 // ── Step indicator ────────────────────────────────────────────────────────────
 
 function StepIndicator({ current }: { current: Step }) {
+  const { t } = useTranslation();
   const steps = [
-    { n: 1 as Step, label: "Upload File" },
-    { n: 2 as Step, label: "Choose Topic" },
-    { n: 3 as Step, label: "Confirm & Import" },
+    { n: 1 as Step, label: t("import.step1") },
+    { n: 2 as Step, label: t("import.step2") },
+    { n: 3 as Step, label: t("import.step3") },
   ];
   return (
     <div className="flex items-center gap-0 mb-8">
@@ -59,11 +61,14 @@ function StepIndicator({ current }: { current: Step }) {
 // ── Language badge ────────────────────────────────────────────────────────────
 
 function LangBadge({ language, sentenceCount }: { language: string; sentenceCount: number }) {
+  const { t } = useTranslation();
   return (
     <div className="flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-800 rounded-lg">
       <span className="text-base">{langFlag(language)}</span>
       <span className="text-sm font-semibold text-gray-800 dark:text-gray-200">{langLabel(language)}</span>
-      <span className="text-xs text-gray-500 dark:text-gray-400">{sentenceCount} sentence{sentenceCount !== 1 ? "s" : ""}</span>
+      <span className="text-xs text-gray-500 dark:text-gray-400">
+        {t("dashboard.sentences", { count: sentenceCount })}
+      </span>
     </div>
   );
 }
@@ -71,6 +76,7 @@ function LangBadge({ language, sentenceCount }: { language: string; sentenceCoun
 // ── Main Page ─────────────────────────────────────────────────────────────────
 
 export function ImportPage() {
+  const { t } = useTranslation();
   const qc = useQueryClient();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -101,14 +107,12 @@ export function ImportPage() {
     t.title.toLowerCase().includes(topicSearch.toLowerCase())
   );
 
-  // ── File handling ────────────────────────────────────────────────────────
-
   const processFile = useCallback(async (f: File) => {
     const ext = f.name.split(".").pop()?.toLowerCase() ?? "";
     if (!["json", "yaml", "yml"].includes(ext)) {
       setPreview({
         ok: false,
-        parseError: `Unsupported file type ".${ext}". Please upload a .json, .yaml, or .yml file.`,
+        parseError: t("import.unsupportedType", { ext }),
         errors: [],
         format: null,
         title: null,
@@ -124,7 +128,6 @@ export function ImportPage() {
       const result = await api.importPreview(f);
       setPreview(result);
       if (result.ok) {
-        // Auto-select "new" target if no topics exist
         if (!topics || topics.length === 0) setTarget("new");
         setStep(2);
       }
@@ -141,7 +144,7 @@ export function ImportPage() {
     } finally {
       setPreviewing(false);
     }
-  }, [topics]);
+  }, [topics, t]);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -167,8 +170,6 @@ export function ImportPage() {
     setImportError(null);
   };
 
-  // ── Import handler ───────────────────────────────────────────────────────
-
   const handleImport = async () => {
     if (!file) return;
     setImporting(true);
@@ -190,8 +191,6 @@ export function ImportPage() {
     }
   };
 
-  // ── Conflict check for step 2 ────────────────────────────────────────────
-
   const getConflicts = (): string[] => {
     if (target !== "existing" || !selectedTopicId || !preview?.versions) return [];
     const selected = topics?.find((t) => t.id === selectedTopicId);
@@ -206,14 +205,12 @@ export function ImportPage() {
 
   const conflicts = getConflicts();
 
-  // ── Render ───────────────────────────────────────────────────────────────
-
   return (
     <div className="max-w-2xl mx-auto px-6 py-8">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Import Lesson</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{t("import.title")}</h1>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
-          Import topic content from a JSON or YAML file.
+          {t("import.subtitle")}
         </p>
       </div>
 
@@ -222,7 +219,6 @@ export function ImportPage() {
       {/* ── Step 1: Upload ── */}
       {step === 1 && (
         <div className="space-y-5">
-          {/* Drop zone */}
           <div
             onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
             onDragLeave={() => setDragOver(false)}
@@ -237,17 +233,17 @@ export function ImportPage() {
             {previewing ? (
               <>
                 <span className="w-8 h-8 rounded-full border-2 border-blue-400/40 border-t-blue-500 animate-spin" />
-                <p className="text-sm text-gray-500 dark:text-gray-400">Parsing file…</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">{t("import.parsing")}</p>
               </>
             ) : (
               <>
                 <span className="text-4xl">📂</span>
                 <div className="text-center">
                   <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Drop a file here, or click to browse
+                    {t("import.dropZone")}
                   </p>
                   <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
-                    Supports .json, .yaml, .yml
+                    {t("import.dropZoneFormats")}
                   </p>
                 </div>
                 {file && !previewing && (
@@ -267,7 +263,6 @@ export function ImportPage() {
             />
           </div>
 
-          {/* Parse error or validation errors */}
           {preview && !preview.ok && (
             <div className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 p-4 space-y-2">
               {preview.parseError && (
@@ -281,18 +276,17 @@ export function ImportPage() {
                   {e.message}
                 </div>
               ))}
-              <p className="text-xs text-red-500 dark:text-red-500 mt-1">Fix the file and try again.</p>
+              <p className="text-xs text-red-500 dark:text-red-500 mt-1">{t("import.fixAndRetry")}</p>
             </div>
           )}
 
-          {/* Format guide */}
           <details className="group">
             <summary className="text-sm text-gray-500 dark:text-gray-400 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300 select-none">
-              ▸ Expected file formats
+              ▸ {t("import.formatGuide")}
             </summary>
             <div className="mt-3 space-y-4">
               <div>
-                <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Format A — Single language</p>
+                <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">{t("import.formatA")}</p>
                 <pre className="text-xs bg-gray-50 dark:bg-gray-800 rounded-lg p-3 overflow-x-auto text-gray-700 dark:text-gray-300">{`{
   "title": "Shopping in Tokyo",
   "language": "ja",
@@ -303,7 +297,7 @@ export function ImportPage() {
 }`}</pre>
               </div>
               <div>
-                <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Format B — Multi-language topic</p>
+                <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">{t("import.formatB")}</p>
                 <pre className="text-xs bg-gray-50 dark:bg-gray-800 rounded-lg p-3 overflow-x-auto text-gray-700 dark:text-gray-300">{`{
   "title": "Shopping",
   "versions": [
@@ -326,12 +320,13 @@ export function ImportPage() {
       {/* ── Step 2: Choose Target ── */}
       {step === 2 && preview && (
         <div className="space-y-5">
-          {/* Preview card */}
           <div className="rounded-xl border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/20 p-4">
             <div className="flex items-start justify-between gap-2 mb-3">
               <div>
                 <p className="text-xs font-semibold text-green-700 dark:text-green-400 uppercase tracking-wide mb-1">
-                  ✓ File parsed successfully · {preview.format === "single" ? "Single-language" : "Multi-language"} format
+                  {t("import.parsedSuccess", {
+                    format: preview.format === "single" ? "Single-language" : "Multi-language",
+                  })}
                 </p>
                 <p className="text-base font-bold text-gray-900 dark:text-gray-100">{preview.title}</p>
                 {preview.description && (
@@ -339,7 +334,7 @@ export function ImportPage() {
                 )}
               </div>
               <button onClick={reset} className="text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 flex-shrink-0">
-                ✕ Change
+                ✕ {t("common.change")}
               </button>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -349,9 +344,8 @@ export function ImportPage() {
             </div>
           </div>
 
-          {/* Target choice */}
           <div>
-            <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Where should this be imported?</p>
+            <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">{t("import.whereImport")}</p>
             <div className="space-y-2">
               <label className={`flex items-center gap-3 p-3 rounded-xl border-2 cursor-pointer transition-colors ${
                 target === "new"
@@ -367,9 +361,9 @@ export function ImportPage() {
                   className="accent-blue-600"
                 />
                 <div>
-                  <p className="text-sm font-medium text-gray-800 dark:text-gray-200">Create new topic</p>
+                  <p className="text-sm font-medium text-gray-800 dark:text-gray-200">{t("import.createNew")}</p>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
-                    Creates "{preview.title}" as a new topic
+                    {t("import.createNewHint", { title: preview.title ?? "" })}
                   </p>
                 </div>
               </label>
@@ -389,12 +383,12 @@ export function ImportPage() {
                     className="accent-blue-600 mt-0.5"
                   />
                   <div className="flex-1">
-                    <p className="text-sm font-medium text-gray-800 dark:text-gray-200">Add to existing topic</p>
+                    <p className="text-sm font-medium text-gray-800 dark:text-gray-200">{t("import.addToExisting")}</p>
                     {target === "existing" && (
                       <div className="mt-2">
                         <input
                           type="text"
-                          placeholder="Search topics…"
+                          placeholder={t("import.searchTopics")}
                           value={topicSearch}
                           onChange={(e) => setTopicSearch(e.target.value)}
                           className="w-full px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2"
@@ -420,7 +414,7 @@ export function ImportPage() {
                             </button>
                           ))}
                           {filteredTopics.length === 0 && (
-                            <p className="text-xs text-gray-400 dark:text-gray-600 px-2 py-2">No topics match</p>
+                            <p className="text-xs text-gray-400 dark:text-gray-600 px-2 py-2">{t("import.noTopicsMatch")}</p>
                           )}
                         </div>
                       </div>
@@ -431,24 +425,22 @@ export function ImportPage() {
             </div>
           </div>
 
-          {/* Conflict warning */}
           {conflicts.length > 0 && (
             <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 px-4 py-3">
               <p className="text-sm text-amber-700 dark:text-amber-400 font-medium">
-                ⚠️ Language conflict: {conflicts.map((c) => langLabel(c)).join(", ")} already exist{conflicts.length === 1 ? "s" : ""} in this topic
+                ⚠️ {t("import.conflictWarning", { langs: conflicts.map((c) => langLabel(c)).join(", ") })}
               </p>
               <p className="text-xs text-amber-600 dark:text-amber-500 mt-0.5">
-                Existing languages will be skipped; only new languages will be added.
+                {t("import.conflictHint")}
               </p>
             </div>
           )}
 
-          {/* Next button */}
           <div className="flex items-center justify-between pt-2">
             <button
               onClick={reset}
               className="text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
-            >← Back</button>
+            >← {t("common.back")}</button>
             <button
               onClick={() => setStep(3)}
               disabled={target === "existing" && !selectedTopicId}
@@ -463,18 +455,17 @@ export function ImportPage() {
       {/* ── Step 3: Confirm & Import ── */}
       {step === 3 && preview && !importResult && (
         <div className="space-y-5">
-          {/* Summary card */}
           <div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50 p-5 space-y-3">
-            <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">Import Summary</p>
+            <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">{t("import.importSummary")}</p>
             <div className="space-y-1.5">
               <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                 <span className="opacity-60">📄</span>
-                <span>File: <span className="font-medium text-gray-800 dark:text-gray-200">{file?.name}</span></span>
+                <span>{t("import.fileLabel")} <span className="font-medium text-gray-800 dark:text-gray-200">{file?.name}</span></span>
               </div>
               <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                 <span className="opacity-60">📌</span>
                 <span>
-                  Topic:{" "}
+                  {t("import.topicLabel")}{" "}
                   <span className="font-medium text-gray-800 dark:text-gray-200">
                     {target === "new"
                       ? `Create "${preview.title}"`
@@ -493,16 +484,16 @@ export function ImportPage() {
               <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                 <span className="opacity-60">✏️</span>
                 <span>
-                  Total:{" "}
+                  {t("import.totalLabel")}{" "}
                   <span className="font-medium text-gray-800 dark:text-gray-200">
-                    {preview.versions.reduce((s, v) => s + v.sentenceCount, 0)} sentences
+                    {t("dashboard.sentences", { count: preview.versions.reduce((s, v) => s + v.sentenceCount, 0) })}
                   </span>
                 </span>
               </div>
               {conflicts.length > 0 && (
                 <div className="flex items-center gap-2 text-sm text-amber-600 dark:text-amber-400">
                   <span>⚠️</span>
-                  <span>{conflicts.map((c) => langLabel(c)).join(", ")} will be skipped (already exist)</span>
+                  <span>{t("import.willBeSkipped", { langs: conflicts.map((c) => langLabel(c)).join(", ") })}</span>
                 </div>
               )}
             </div>
@@ -519,7 +510,7 @@ export function ImportPage() {
               onClick={() => setStep(2)}
               disabled={importing}
               className="text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors disabled:opacity-40"
-            >← Back</button>
+            >← {t("common.back")}</button>
             <button
               onClick={handleImport}
               disabled={importing}
@@ -528,7 +519,7 @@ export function ImportPage() {
               {importing && (
                 <span className="w-4 h-4 rounded-full border-2 border-white/40 border-t-white animate-spin" />
               )}
-              {importing ? "Importing…" : "Import"}
+              {importing ? t("import.importing") : t("import.importBtn")}
             </button>
           </div>
         </div>
@@ -540,11 +531,13 @@ export function ImportPage() {
           <div className="rounded-2xl border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/20 p-6 text-center">
             <div className="text-5xl mb-3">✅</div>
             <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-1">
-              Import successful!
+              {t("import.successTitle")}
             </h2>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Imported <span className="font-semibold">{importResult.totalSentences}</span> sentence{importResult.totalSentences !== 1 ? "s" : ""} into{" "}
-              <span className="font-semibold">"{importResult.topicTitle}"</span>
+              {t("import.successSubtitle", {
+                count: importResult.totalSentences,
+                title: importResult.topicTitle,
+              })}
             </p>
           </div>
           <div className="flex items-center justify-center gap-3">
@@ -553,13 +546,13 @@ export function ImportPage() {
               params={{ topicId: importResult.topicId }}
               className="px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-sm font-semibold text-white transition-colors"
             >
-              View Topic →
+              {t("import.viewTopic")} →
             </Link>
             <button
               onClick={reset}
               className="px-5 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
             >
-              Import Another
+              {t("import.importAnother")}
             </button>
           </div>
         </div>
@@ -568,5 +561,4 @@ export function ImportPage() {
   );
 }
 
-// Re-export as default for compatibility with router stub reference
 export default ImportPage;

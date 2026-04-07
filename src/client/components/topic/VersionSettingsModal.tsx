@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { XMarkIcon, GlobeAltIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { api, type Version } from "../../lib/api";
 import { langFlag, langLabel } from "../../lib/lang";
@@ -50,9 +51,9 @@ interface Props {
 }
 
 export function VersionSettingsModal({ version, onClose }: Props) {
+  const { t } = useTranslation();
   const qc = useQueryClient();
 
-  // Fetch global settings for context display
   const { data: settings } = useQuery({
     queryKey: ["settings"],
     queryFn: api.getSettings,
@@ -62,11 +63,9 @@ export function VersionSettingsModal({ version, onClose }: Props) {
   const globalSpeed = parseFloat(settings?.["tts.global.speed"] ?? "1.0");
   const globalPitch = parseInt(settings?.["tts.global.pitch"] ?? "0", 10);
 
-  // Local editable state — starts from version's override or global value
   const [speed, setSpeed] = useState<number>(version.speed ?? globalSpeed);
   const [pitch, setPitch] = useState<number>(version.pitch ?? globalPitch);
 
-  // Keep in sync if version prop changes (unlikely but safe)
   useEffect(() => {
     setSpeed(version.speed ?? globalSpeed);
     setPitch(version.pitch ?? globalPitch);
@@ -103,17 +102,17 @@ export function VersionSettingsModal({ version, onClose }: Props) {
             <span className="text-xl">{langFlag(version.language_code)}</span>
             <div>
               <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">
-                {langLabel(version.language_code)} — Voice Settings
+                {t("versionSettings.title", { lang: langLabel(version.language_code) })}
               </h2>
               <p className="text-xs text-gray-500 dark:text-gray-400">
-                Override global TTS settings for this language version
+                {t("versionSettings.subtitle")}
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
             className="p-1 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            aria-label="Close"
+            aria-label={t("common.close")}
           >
             <XMarkIcon className="w-5 h-5" />
           </button>
@@ -125,11 +124,13 @@ export function VersionSettingsModal({ version, onClose }: Props) {
           <div className="px-3 py-2.5 bg-gray-50 dark:bg-gray-800/60 rounded-xl text-xs text-gray-500 dark:text-gray-400 flex items-center gap-2">
             <GlobeAltIcon className="w-3.5 h-3.5 opacity-60 flex-shrink-0" />
             <span>
-              Global defaults: <span className="font-mono font-semibold text-gray-700 dark:text-gray-300">{globalSpeed.toFixed(2)}×</span> speed,{" "}
-              pitch <span className="font-mono font-semibold text-gray-700 dark:text-gray-300">{globalPitch > 0 ? "+" : ""}{globalPitch} st</span>
+              {t("versionSettings.globalDefaults", {
+                speed: globalSpeed.toFixed(2),
+                pitch: `${globalPitch > 0 ? "+" : ""}${globalPitch}`,
+              })}
               {hasOverride && (
                 <span className="ml-2 px-1.5 py-0.5 bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded font-semibold">
-                  overridden
+                  {t("versionSettings.overridden")}
                 </span>
               )}
             </span>
@@ -138,7 +139,7 @@ export function VersionSettingsModal({ version, onClose }: Props) {
           {/* Speed */}
           <div className="space-y-3">
             <Slider
-              label="Speed"
+              label={t("versionSettings.speedLabel")}
               value={speed}
               min={0.5} max={2.0} step={0.05}
               format={(v) => `${v.toFixed(2)}×`}
@@ -164,18 +165,20 @@ export function VersionSettingsModal({ version, onClose }: Props) {
                     ? "bg-gray-500 text-white"
                     : "bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-700"
                 }`}
-                title="Use global default"
-              >global</button>
+                title={t("versionSettings.global")}
+              >{t("versionSettings.global")}</button>
             </div>
           </div>
 
           {/* Pitch */}
           <div className="space-y-3">
             <Slider
-              label="Pitch"
+              label={t("versionSettings.pitchLabel")}
               value={pitch}
               min={-10} max={10} step={1}
-              format={(v) => v === 0 ? "0 (default)" : `${v > 0 ? "+" : ""}${v} st`}
+              format={(v) => v === 0
+                ? t("versionSettings.pitchDefault", { value: 0 })
+                : t("versionSettings.pitchValue", { value: `${v > 0 ? "+" : ""}${v}` })}
               onChange={(v) => setPitch(Math.round(v))}
             />
             <div className="flex items-center gap-2">
@@ -197,14 +200,14 @@ export function VersionSettingsModal({ version, onClose }: Props) {
                     ? "bg-gray-500 text-white"
                     : "bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-700"
                 }`}
-                title="Use global default"
-              >global</button>
+                title={t("versionSettings.global")}
+              >{t("versionSettings.global")}</button>
             </div>
           </div>
 
           <p className="text-xs text-amber-600 dark:text-amber-500 bg-amber-50 dark:bg-amber-900/20 px-3 py-2 rounded-lg flex items-start gap-2">
             <ExclamationTriangleIcon className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
-            Changing speed or pitch does not affect cached audio. Clear the TTS cache in Settings to regenerate.
+            {t("versionSettings.cacheWarning")}
           </p>
         </div>
 
@@ -217,7 +220,7 @@ export function VersionSettingsModal({ version, onClose }: Props) {
                 disabled={updateMutation.isPending}
                 className="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors disabled:opacity-40"
               >
-                Clear Override
+                {t("versionSettings.clearOverride")}
               </button>
             )}
           </div>
@@ -226,7 +229,7 @@ export function VersionSettingsModal({ version, onClose }: Props) {
               onClick={onClose}
               className="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             >
-              Cancel
+              {t("common.cancel")}
             </button>
             <button
               onClick={handleSave}
@@ -236,7 +239,7 @@ export function VersionSettingsModal({ version, onClose }: Props) {
               {updateMutation.isPending && (
                 <span className="w-3.5 h-3.5 rounded-full border-2 border-white/40 border-t-white animate-spin" />
               )}
-              Save Override
+              {t("versionSettings.saveOverride")}
             </button>
           </div>
         </div>

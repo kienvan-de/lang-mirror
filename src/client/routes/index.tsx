@@ -1,21 +1,24 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
+import type { TFunction } from "i18next";
 import { api } from "../lib/api";
 import { langFlag, langLabel, langName } from "../lib/lang";
 import { StreakCalendar } from "../components/tracking/StreakCalendar";
 
-function timeAgo(isoStr: string): string {
+function timeAgo(isoStr: string, t: TFunction): string {
   const diff = Date.now() - new Date(isoStr).getTime();
   const minutes = Math.floor(diff / 60_000);
-  if (minutes < 1)   return "just now";
-  if (minutes < 60)  return `${minutes}m ago`;
+  if (minutes < 1)   return t("dashboard.justNow");
+  if (minutes < 60)  return t("dashboard.minutesAgo", { n: minutes });
   const hours = Math.floor(minutes / 60);
-  if (hours < 24)    return `${hours}h ago`;
+  if (hours < 24)    return t("dashboard.hoursAgo", { n: hours });
   const days = Math.floor(hours / 24);
-  return `${days}d ago`;
+  return t("dashboard.daysAgo", { n: days });
 }
 
 export function DashboardPage() {
+  const { t } = useTranslation();
   const qc = useQueryClient();
 
   const { data: daily, isLoading: dailyLoading } = useQuery({
@@ -48,15 +51,15 @@ export function DashboardPage() {
     <div className="max-w-4xl mx-auto px-6 py-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Dashboard</h1>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">Your language practice overview</p>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{t("dashboard.title")}</h1>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{t("dashboard.subtitle")}</p>
       </div>
 
       {/* Top stats row */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         {/* Today's attempts */}
         <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5 shadow-sm">
-          <div className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-2">Today</div>
+          <div className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-2">{t("dashboard.today")}</div>
           {isLoading ? (
             <div className="space-y-2 animate-pulse">
               <div className="h-8 w-16 bg-gray-200 dark:bg-gray-700 rounded" />
@@ -68,11 +71,11 @@ export function DashboardPage() {
                 {daily?.today.attempts ?? 0}
               </div>
               <div className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
-                attempt{(daily?.today.attempts ?? 0) !== 1 ? "s" : ""}
+                {t("dashboard.attempts", { count: daily?.today.attempts ?? 0 })}
               </div>
               <div className="mt-2 text-xs text-gray-400 dark:text-gray-500">
-                {daily?.today.sentences ?? 0} sentence{(daily?.today.sentences ?? 0) !== 1 ? "s" : ""} ·{" "}
-                {daily?.today.topics ?? 0} topic{(daily?.today.topics ?? 0) !== 1 ? "s" : ""}
+                {t("dashboard.sentences", { count: daily?.today.sentences ?? 0 })} ·{" "}
+                {t("dashboard.topics", { count: daily?.today.topics ?? 0 })}
               </div>
             </>
           )}
@@ -80,7 +83,7 @@ export function DashboardPage() {
 
         {/* Streak */}
         <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5 shadow-sm">
-          <div className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-2">Streak</div>
+          <div className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-2">{t("dashboard.streak")}</div>
           {isLoading ? (
             <div className="space-y-2 animate-pulse">
               <div className="h-8 w-20 bg-gray-200 dark:bg-gray-700 rounded" />
@@ -93,10 +96,10 @@ export function DashboardPage() {
                 {streak?.currentStreak ?? 0}
               </div>
               <div className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
-                day{(streak?.currentStreak ?? 0) !== 1 ? "s" : ""} in a row
+                {t("dashboard.days", { count: streak?.currentStreak ?? 0 })} {t("dashboard.inARow")}
               </div>
               <div className="mt-2 text-xs text-gray-400 dark:text-gray-500">
-                Longest: {streak?.longestStreak ?? 0} day{(streak?.longestStreak ?? 0) !== 1 ? "s" : ""}
+                {t("dashboard.longest")} {t("dashboard.days", { count: streak?.longestStreak ?? 0 })}
               </div>
             </>
           )}
@@ -104,7 +107,7 @@ export function DashboardPage() {
 
         {/* This week */}
         <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5 shadow-sm">
-          <div className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-2">This Week</div>
+          <div className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-2">{t("dashboard.thisWeek")}</div>
           {isLoading ? (
             <div className="space-y-1 animate-pulse">
               {[...Array(7)].map((_, i) => (
@@ -120,9 +123,9 @@ export function DashboardPage() {
       {/* Recent topics */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">Recent Practice</h2>
+          <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">{t("dashboard.recentPractice")}</h2>
           <Link to="/topics" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
-            View all topics →
+            {t("dashboard.viewAllTopics")} →
           </Link>
         </div>
 
@@ -135,13 +138,13 @@ export function DashboardPage() {
         ) : (recent ?? []).length === 0 ? (
           <div className="rounded-2xl border-2 border-dashed border-gray-200 dark:border-gray-700 p-8 text-center">
             <div className="text-4xl mb-3">🪞</div>
-            <p className="text-gray-600 dark:text-gray-400 font-medium mb-1">No practice sessions yet</p>
-            <p className="text-sm text-gray-500 dark:text-gray-500 mb-4">Start practicing to see your history here.</p>
+            <p className="text-gray-600 dark:text-gray-400 font-medium mb-1">{t("dashboard.noPracticeYet")}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-500 mb-4">{t("dashboard.noPracticeSubtitle")}</p>
             <Link
               to="/topics"
               className="inline-block px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-sm font-semibold text-white transition-colors"
             >
-              Go to Topics
+              {t("dashboard.goToTopics")}
             </Link>
           </div>
         ) : (
@@ -165,7 +168,7 @@ export function DashboardPage() {
                   <div className="flex-1 min-w-0">
                     <p className="font-semibold text-gray-900 dark:text-gray-100 truncate">{item.topicTitle}</p>
                     <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                      {langName(item.langCode)} · {timeAgo(item.lastAttemptAt)}
+                      {langName(item.langCode)} · {timeAgo(item.lastAttemptAt, t)}
                     </p>
                     {/* Today's progress */}
                     {item.totalSentences > 0 && (
@@ -183,7 +186,7 @@ export function DashboardPage() {
                           />
                         </div>
                         <span className="text-xs text-gray-400 dark:text-gray-500 whitespace-nowrap">
-                          {item.sentencesAttemptedToday}/{item.totalSentences} today
+                          {t("dashboard.todayCount", { count: item.sentencesAttemptedToday })}/{item.totalSentences}
                         </span>
                       </div>
                     )}
@@ -194,12 +197,11 @@ export function DashboardPage() {
                     to="/practice/$topicId/$langCode"
                     params={{ topicId: item.topicId, langCode: item.langCode }}
                     onClick={() => {
-                      // Invalidate stats so they refresh after practice
                       qc.invalidateQueries({ queryKey: ["stats"] });
                     }}
                     className="flex-shrink-0 px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-xs font-semibold text-white transition-colors shadow-sm"
                   >
-                    Continue ▶
+                    {t("dashboard.continue")} ▶
                   </Link>
                 </div>
               );
@@ -210,7 +212,7 @@ export function DashboardPage() {
 
       {/* Calendar heatmap */}
       <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 shadow-sm">
-        <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-5">Practice History</h2>
+        <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-5">{t("dashboard.practiceHistory")}</h2>
         {calendarLoading || streakLoading ? (
           <div className="h-32 animate-pulse bg-gray-50 dark:bg-gray-800 rounded-xl" />
         ) : (
@@ -231,9 +233,11 @@ export function DashboardPage() {
 // ── Mini bar chart for the week ───────────────────────────────────────────────
 
 function WeekBarChart({ week }: { week: Array<{ date: string; attempts: number }> }) {
+  const { t } = useTranslation();
+
   if (week.length === 0) {
     return (
-      <p className="text-sm text-gray-400 dark:text-gray-600">No practice this week yet.</p>
+      <p className="text-sm text-gray-400 dark:text-gray-600">{t("dashboard.noPracticeThisWeek")}</p>
     );
   }
 
@@ -247,7 +251,7 @@ function WeekBarChart({ week }: { week: Array<{ date: string; attempts: number }
     days.push({ date: ds, attempts: week.find((w) => w.date === ds)?.attempts ?? 0 });
   }
 
-  const dayNames = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+  const dayNames = t("dashboard.days_short", { returnObjects: true }) as string[];
 
   return (
     <div className="flex items-end gap-1.5 h-16">

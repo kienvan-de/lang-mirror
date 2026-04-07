@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { useParams, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import {
   PlayIcon, StopIcon, PauseIcon,
   ChevronLeftIcon, ChevronRightIcon,
@@ -64,6 +65,7 @@ function DrillStartModal({
   onStart: (interleaved: boolean) => void;
   onCancel: () => void;
 }) {
+  const { t } = useTranslation();
   const [interleaved, setInterleaved] = useState(false);
   return (
     <div
@@ -71,9 +73,9 @@ function DrillStartModal({
       onClick={(e) => { if (e.target === e.currentTarget) onCancel(); }}
     >
       <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-sm mx-4 p-6">
-        <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Start Drill</h2>
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">{t("practice.drillModal.title")}</h2>
         <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-          Drill mode will automatically cycle through all sentences.
+          {t("practice.drillModal.subtitle")}
         </p>
         {versionCount >= 2 && (
           <label className="flex items-start gap-3 cursor-pointer mb-4 p-3 rounded-xl border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
@@ -84,9 +86,9 @@ function DrillStartModal({
               className="mt-0.5 accent-purple-600"
             />
             <div>
-              <p className="text-sm font-medium text-gray-800 dark:text-gray-200">Interleaved languages</p>
+              <p className="text-sm font-medium text-gray-800 dark:text-gray-200">{t("practice.drillModal.interleaved")}</p>
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                Practice each sentence in all {versionCount} languages before moving on.
+                {t("practice.drillModal.interleavedHint", { count: versionCount })}
               </p>
             </div>
           </label>
@@ -96,13 +98,13 @@ function DrillStartModal({
             onClick={onCancel}
             className="flex-1 py-2 rounded-lg border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
           >
-            Cancel
+            {t("common.cancel")}
           </button>
           <button
             onClick={() => onStart(interleaved)}
             className="flex-1 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-sm font-semibold text-white transition-colors inline-flex items-center justify-center gap-1.5"
           >
-            <ForwardIcon className="w-4 h-4" /> Start Drill
+            <ForwardIcon className="w-4 h-4" /> {t("practice.drillModal.start")}
           </button>
         </div>
       </div>
@@ -112,6 +114,7 @@ function DrillStartModal({
 
 // ── Main practice page ────────────────────────────────────────────────────────
 export function PracticePage() {
+  const { t } = useTranslation();
   const { topicId, langCode } = useParams({ strict: false }) as { topicId: string; langCode: string };
   const navigate = useNavigate();
 
@@ -120,38 +123,27 @@ export function PracticePage() {
   const recorder = useRecorder();
   const qc = useQueryClient();
 
-  // Countdown timer state (auto mode)
   const [countdownRemaining, setCountdownRemaining] = useState(0);
   const [countdownTotal, setCountdownTotal] = useState(0);
   const countdownRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  // Drill auto-advance timer
   const drillTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // Playback audio element for recording playback
   const playbackAudioRef = useRef<HTMLAudioElement | null>(null);
-
-  // Drill start modal visibility
   const [showDrillModal, setShowDrillModal] = useState(false);
 
-  // Fetch settings
   const { data: settings } = useQuery({
     queryKey: ["settings"],
     queryFn: api.getSettings,
     staleTime: 60_000,
   });
 
-  // Fetch topic to get all versions
   const { data: topic, isLoading: topicLoading } = useQuery({
     queryKey: ["topic", topicId],
     queryFn: () => api.getTopic(topicId),
   });
 
-  // Resolve current version
   const version = topic?.versions?.find((v) => v.language_code === langCode);
   const allVersions: Version[] = topic?.versions ?? [];
 
-  // Init store when data is ready — preserve index if just switching language
   const prevVersionIdRef = useRef<string | undefined>(undefined);
   useEffect(() => {
     if (!version || !topic) return;
@@ -169,7 +161,6 @@ export function PracticePage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [version?.id, settings]);
 
-  // Reset on unmount
   useEffect(() => {
     return () => {
       store.resetSession();
@@ -181,7 +172,6 @@ export function PracticePage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Derived values
   const {
     sentences, currentIndex, phase, practiceMode, isDrillMode, isDrillPaused,
     isDrillInterleaved, drillLanguageIndex,
@@ -191,8 +181,6 @@ export function PracticePage() {
   const voice = version?.voice_name ?? defaultVoiceForLang(langCode);
   const speed = version?.speed ?? parseFloat(settings?.["tts.global.speed"] ?? "1.0");
   const pitch = version?.pitch ?? parseInt(settings?.["tts.global.pitch"] ?? "0", 10);
-
-  // ── Core actions ────────────────────────────────────────────────────────────
 
   const stopCountdown = useCallback(() => {
     if (countdownRef.current) { clearInterval(countdownRef.current); countdownRef.current = null; }
@@ -213,7 +201,6 @@ export function PracticePage() {
     if (!sentence || !version) return;
     try {
       await api.logAttempt({ sentence_id: sentence.id, version_id: version.id, topic_id: topicId });
-      // Invalidate stats and topic so attempt counts + progress bars refresh
       qc.invalidateQueries({ queryKey: ["stats"] });
       qc.invalidateQueries({ queryKey: ["topic", topicId] });
     } catch { /* non-fatal */ }
@@ -230,11 +217,9 @@ export function PracticePage() {
 
     const recordDur = Math.max(3, ttsDur * 1.5);
 
-    // Start recording
     store.setPhase("recording");
     await recorder.start();
 
-    // Countdown
     setCountdownTotal(recordDur);
     setCountdownRemaining(recordDur);
     store.setTTSDuration(ttsDur);
@@ -255,7 +240,6 @@ export function PracticePage() {
     store.setPhase("uploading");
   }, [sentence, voice, speed, pitch, tts, recorder, store, stopCountdown]);
 
-  // When recording blob arrives (auto mode) — upload then play back
   useEffect(() => {
     if (!recorder.recordingBlob || !sentence) return;
     if (phase !== "uploading") return;
@@ -268,13 +252,10 @@ export function PracticePage() {
         await logAttempt();
       } catch { store.setPhase("idle"); }
 
-      // Drill auto-advance
       if (isDrillMode && !isDrillPaused) {
         if (isDrillInterleaved && allVersions.length > 1) {
-          // Interleaved: advance to next language, or next sentence if all languages done
           const sentenceAdvanced = store.nextDrillLanguage(allVersions.length);
           if (!sentenceAdvanced || store.currentIndex < sentences.length - 1) {
-            // Navigate to next language version
             const nextLangIdx = store.drillLanguageIndex;
             const nextVersion = allVersions[nextLangIdx];
             if (nextVersion) {
@@ -283,11 +264,9 @@ export function PracticePage() {
               }, 800);
             }
           } else {
-            // All sentences + all languages done
             store.stopDrill();
           }
         } else {
-          // Regular drill: advance sentence
           if (currentIndex < sentences.length - 1) {
             drillTimerRef.current = setTimeout(() => { store.nextSentence(); }, 1000);
           } else {
@@ -321,7 +300,6 @@ export function PracticePage() {
     }
   }, [phase, recorder, store]);
 
-  // Manual mode: when blob arrives → upload (no auto-playback)
   useEffect(() => {
     if (!recorder.recordingBlob || !sentence) return;
     if (phase !== "uploading") return;
@@ -351,7 +329,6 @@ export function PracticePage() {
     api.setSetting("practice.mode", mode).catch(() => {});
   }, [recorder, tts, stopCountdown, store]);
 
-  // Language tab switch — cancel recording, navigate
   const handleLangSwitch = useCallback((newLangCode: string) => {
     if (newLangCode === langCode) return;
     if (recorder.isRecording) recorder.stop();
@@ -363,7 +340,6 @@ export function PracticePage() {
 
   const canNavigate = phase === "idle" || phase === "done";
 
-  // ── Keyboard shortcuts ──────────────────────────────────────────────────────
   useKeyboardShortcuts({
     shortcuts: {
       space: () => { if (phase === "idle" || phase === "done") handlePlay(); },
@@ -378,21 +354,18 @@ export function PracticePage() {
     },
   });
 
-  // Escape for help overlay
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === "Escape" && showShortcutHelp) store.toggleShortcutHelp(); };
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
   }, [showShortcutHelp, store]);
 
-  // ── Redirect if version not found ──────────────────────────────────────────
   useEffect(() => {
     if (!topicLoading && topic && !version) {
       navigate({ to: "/topics/$topicId", params: { topicId } });
     }
   }, [topicLoading, topic, version, navigate, topicId]);
 
-  // ── Drill mode: auto-start first sentence ───────────────────────────────────
   useEffect(() => {
     if (isDrillMode && !isDrillPaused && phase === "idle" && sentence) {
       runAutoMode();
@@ -400,11 +373,10 @@ export function PracticePage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDrillMode, currentIndex, drillLanguageIndex]);
 
-  // ── Loading ─────────────────────────────────────────────────────────────────
   if (topicLoading || !topic || (sentences.length === 0 && !version)) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="text-gray-400 dark:text-gray-600 animate-pulse text-lg">Loading practice…</div>
+        <div className="text-gray-400 dark:text-gray-600 animate-pulse text-lg">{t("practice.loading")}</div>
       </div>
     );
   }
@@ -413,32 +385,30 @@ export function PracticePage() {
     return (
       <div className="max-w-xl mx-auto px-6 py-16 text-center">
         <div className="text-5xl mb-4">📭</div>
-        <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">No sentences yet</h2>
+        <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">{t("practice.noSentences")}</h2>
         <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
-          Add sentences in the topic detail view first.
+          {t("practice.noSentencesSubtitle")}
         </p>
         <Link to="/topics/$topicId" params={{ topicId }}
           className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold transition-colors">
-          ← Back to Topic
+          {t("practice.backToTopic")}
         </Link>
       </div>
     );
   }
 
-  // ── Phase label ─────────────────────────────────────────────────────────────
   const phaseLabel = {
-    idle: "Click ▶ Play to start",
-    playing: "▶ Playing TTS…",
+    idle: t("practice.phaseIdle"),
+    playing: t("practice.phasePlaying"),
     countdown: "",
-    recording: "🔴 Recording…",
-    uploading: "⬆ Saving recording…",
-    playingBack: "⏵ Playing back…",
-    done: "✓ Done — next?",
+    recording: t("practice.phaseRecording"),
+    uploading: t("practice.phaseUploading"),
+    playingBack: t("practice.phasePlayingBack"),
+    done: t("practice.phaseDone"),
   }[phase];
 
   const isIdle = phase === "idle" || phase === "done";
 
-  // ── Interleaved drill progress label ───────────────────────────────────────
   const interleavedLang = isDrillInterleaved ? allVersions[drillLanguageIndex] : null;
 
   return (
@@ -473,16 +443,18 @@ export function PracticePage() {
             onClick={() => setShowDrillModal(true)}
             disabled={sentences.length === 0}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 disabled:opacity-40 text-xs font-semibold text-white transition-colors"
-          ><ForwardIcon className="w-4 h-4" /> Drill</button>
+          ><ForwardIcon className="w-4 h-4" /> {t("practice.drill")}</button>
         ) : (
           <div className="flex items-center gap-1">
             <button onClick={() => store.pauseDrill()}
               className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-xs font-semibold text-white transition-colors">
-              {isDrillPaused ? <><PlayIcon className="w-3.5 h-3.5" /> Resume</> : <><PauseIcon className="w-3.5 h-3.5" /> Pause</>}
+              {isDrillPaused
+                ? <><PlayIcon className="w-3.5 h-3.5" /> {t("practice.drillResume")}</>
+                : <><PauseIcon className="w-3.5 h-3.5" /> {t("practice.drillPause")}</>}
             </button>
             <button onClick={() => { store.stopDrill(); tts.stop(); stopCountdown(); }}
               className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-red-500 hover:bg-red-600 text-xs font-semibold text-white transition-colors">
-              <StopIcon className="w-3.5 h-3.5" /> Stop
+              <StopIcon className="w-3.5 h-3.5" /> {t("practice.drillStop")}
             </button>
           </div>
         )}
@@ -490,7 +462,7 @@ export function PracticePage() {
         {/* Help button */}
         <button onClick={() => store.toggleShortcutHelp()}
           className="w-7 h-7 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 border border-gray-200 dark:border-gray-700 transition-colors"
-          title="Keyboard shortcuts (?)">
+          title={t("practice.shortcutsTitle")}>
           <QuestionMarkCircleIcon className="w-4 h-4" />
         </button>
       </div>
@@ -515,7 +487,7 @@ export function PracticePage() {
                 <span>{langFlag(v.language_code)}</span>
                 <span>{langLabel(v.language_code)}</span>
                 {isInterleaveActive && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse" title="Active in interleaved drill" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse" title={t("practice.interleavedActive")} />
                 )}
               </button>
             );
@@ -564,7 +536,7 @@ export function PracticePage() {
                 className={`w-2 h-2 rounded-full transition-colors ${
                   i === currentIndex ? "bg-blue-500" : "bg-gray-300 dark:bg-gray-700 hover:bg-gray-400"
                 }`}
-                aria-label={`Go to sentence ${i + 1}`}
+                aria-label={t("practice.goToSentence", { n: i + 1 })}
               />
             ))}
           </div>
@@ -589,7 +561,7 @@ export function PracticePage() {
                     ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-700"
                     : "bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:border-blue-300"
                 }`}>
-                <EyeIcon className="w-3.5 h-3.5" /> Translation
+                <EyeIcon className="w-3.5 h-3.5" /> {t("practice.translation")}
               </button>
               <button onClick={() => store.toggleNotes()}
                 className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium transition-colors border ${
@@ -597,7 +569,7 @@ export function PracticePage() {
                     ? "bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-700"
                     : "bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:border-amber-300"
                 }`}>
-                <DocumentTextIcon className="w-3.5 h-3.5" /> Notes
+                <DocumentTextIcon className="w-3.5 h-3.5" /> {t("practice.notes")}
               </button>
               <div className="flex-1" />
               {/* Font size */}
@@ -609,7 +581,7 @@ export function PracticePage() {
                   }}
                   disabled={fontSize === "xs"}
                   className="w-6 h-6 rounded flex items-center justify-center text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 disabled:opacity-30 text-sm"
-                  title="Smaller font">A−</button>
+                  title={t("practice.fontSmaller")}>A−</button>
                 <button
                   onClick={() => {
                     const idx = FONT_SIZE_ORDER.indexOf(fontSize);
@@ -617,7 +589,7 @@ export function PracticePage() {
                   }}
                   disabled={fontSize === "xl"}
                   className="w-6 h-6 rounded flex items-center justify-center text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 disabled:opacity-30 text-base"
-                  title="Larger font">A+</button>
+                  title={t("practice.fontLarger")}>A+</button>
               </div>
             </div>
 
@@ -626,7 +598,7 @@ export function PracticePage() {
               {sentence.text}
             </p>
 
-            {/* Attempt count (US-7.4) */}
+            {/* Attempt count */}
             {sentence.attempt_count !== undefined && (
               <div className="mb-2">
                 <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
@@ -637,8 +609,8 @@ export function PracticePage() {
                       : "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400"
                 }`}>
                   {(sentence.attempt_count ?? 0) === 0
-                    ? "New"
-                    : `Practiced ${sentence.attempt_count}×`}
+                    ? t("practice.sentenceNew")
+                    : t("practice.sentencePracticed", { count: sentence.attempt_count })}
                 </span>
               </div>
             )}
@@ -687,19 +659,19 @@ export function PracticePage() {
           {/* Prev */}
           <button onClick={() => store.prevSentence()} disabled={currentIndex === 0 || !canNavigate}
             className="w-10 h-10 rounded-full flex items-center justify-center border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-30 transition-colors"
-            title="Previous (←)"><ChevronLeftIcon className="w-5 h-5" /></button>
+            title={t("practice.prevTitle")}><ChevronLeftIcon className="w-5 h-5" /></button>
 
           {/* Play TTS */}
           <button
             onClick={handlePlay}
             disabled={!isIdle || tts.isLoading || tts.isPlaying}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white font-semibold transition-colors shadow-sm"
-            title="Play TTS (Space)"
+            title={t("practice.playTitle")}
           >
             {tts.isLoading ? (
               <span className="w-4 h-4 rounded-full border-2 border-white/40 border-t-white animate-spin" />
             ) : <PlayIcon className="w-5 h-5" />}
-            Play
+            {t("practice.play")}
             <kbd className="hidden sm:inline text-[10px] px-1 py-0.5 rounded bg-white/20 font-mono">Space</kbd>
           </button>
 
@@ -711,18 +683,18 @@ export function PracticePage() {
                   onClick={handleRecord}
                   disabled={phase === "playing" || phase === "uploading" || phase === "playingBack"}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 disabled:opacity-40 text-white font-semibold transition-colors shadow-sm"
-                  title="Record (R)"
+                  title={t("practice.recordTitle")}
                 >
-                  <MicrophoneIcon className="w-5 h-5" /> Record
+                  <MicrophoneIcon className="w-5 h-5" /> {t("practice.record")}
                   <kbd className="hidden sm:inline text-[10px] px-1 py-0.5 rounded bg-white/20 font-mono">R</kbd>
                 </button>
               ) : (
                 <button
                   onClick={handleRecord}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-700 text-white font-semibold shadow-sm animate-pulse"
-                  title="Stop recording (R)"
+                  title={t("practice.stopTitle")}
                 >
-                  <StopIcon className="w-5 h-5" /> Stop
+                  <StopIcon className="w-5 h-5" /> {t("practice.stop")}
                 </button>
               )}
 
@@ -730,9 +702,9 @@ export function PracticePage() {
                 onClick={handlePlayback}
                 disabled={!hasRecording || phase === "recording" || phase === "playingBack"}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-green-600 hover:bg-green-700 disabled:opacity-40 text-white font-semibold transition-colors shadow-sm"
-                title="Play back recording (P)"
+                title={t("practice.playbackTitle")}
               >
-                <SpeakerWaveIcon className="w-5 h-5" /> Playback
+                <SpeakerWaveIcon className="w-5 h-5" /> {t("practice.playback")}
                 <kbd className="hidden sm:inline text-[10px] px-1 py-0.5 rounded bg-white/20 font-mono">P</kbd>
               </button>
             </>
@@ -741,7 +713,7 @@ export function PracticePage() {
           {/* Next */}
           <button onClick={() => store.nextSentence()} disabled={currentIndex === sentences.length - 1 || !canNavigate}
             className="w-10 h-10 rounded-full flex items-center justify-center border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-30 transition-colors"
-            title="Next (→)"><ChevronRightIcon className="w-5 h-5" /></button>
+            title={t("practice.nextTitle")}><ChevronRightIcon className="w-5 h-5" /></button>
         </div>
 
         {/* TTS error */}

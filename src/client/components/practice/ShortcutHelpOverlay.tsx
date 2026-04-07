@@ -1,21 +1,24 @@
+import { useTranslation } from "react-i18next";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-
-const SHORTCUTS = [
-  { key: "Space", action: "Play TTS", condition: "When idle" },
-  { key: "R", action: "Start / Stop recording", condition: "Manual mode" },
-  { key: "P", action: "Play back recording", condition: "Recording exists" },
-  { key: "→ / L", action: "Next sentence", condition: "Not recording" },
-  { key: "← / H", action: "Previous sentence", condition: "Not recording" },
-  { key: "T", action: "Toggle translation", condition: "Always" },
-  { key: "?", action: "Show this help", condition: "Always" },
-  { key: "Esc", action: "Close this help", condition: "Help open" },
-];
 
 interface Props {
   onClose: () => void;
 }
 
 export function ShortcutHelpOverlay({ onClose }: Props) {
+  const { t } = useTranslation();
+
+  const SHORTCUTS = [
+    { key: "Space", action: t("shortcuts.space"), condition: t("shortcuts.spaceCondition") },
+    { key: "R", action: t("shortcuts.r"), condition: t("shortcuts.rCondition") },
+    { key: "P", action: t("shortcuts.p"), condition: t("shortcuts.pCondition") },
+    { key: "→ / L", action: t("shortcuts.arrowRight"), condition: t("shortcuts.arrowRightCondition") },
+    { key: "← / H", action: t("shortcuts.arrowLeft"), condition: t("shortcuts.arrowLeftCondition") },
+    { key: "T", action: t("shortcuts.t"), condition: t("shortcuts.tCondition") },
+    { key: "?", action: t("shortcuts.question"), condition: t("shortcuts.questionCondition") },
+    { key: "Esc", action: t("shortcuts.esc"), condition: t("shortcuts.escCondition") },
+  ];
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
@@ -23,11 +26,11 @@ export function ShortcutHelpOverlay({ onClose }: Props) {
     >
       <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-sm mx-4 p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Keyboard Shortcuts</h2>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{t("shortcuts.title")}</h2>
           <button
             onClick={onClose}
             className="p-1 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            aria-label="Close"
+            aria-label={t("common.close")}
           >
             <XMarkIcon className="w-5 h-5" />
           </button>
@@ -49,7 +52,7 @@ export function ShortcutHelpOverlay({ onClose }: Props) {
           onClick={onClose}
           className="mt-5 w-full py-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 transition-colors"
         >
-          Close
+          {t("common.close")}
         </button>
       </div>
     </div>

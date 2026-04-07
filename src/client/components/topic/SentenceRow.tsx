@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import {
   ChevronUpIcon, ChevronDownIcon,
   PencilIcon, TrashIcon,
@@ -19,12 +20,12 @@ interface Props {
 }
 
 export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReorderDown, isFirst, isLast }: Props) {
+  const { t } = useTranslation();
   const qc = useQueryClient();
   const [editing, setEditing] = useState(false);
   const [showTranslation, setShowTranslation] = useState(false);
   const [showNotes, setShowNotes] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-
 
   const [editText, setEditText] = useState(sentence.text);
   const [editTranslation, setEditTranslation] = useState(sentence.translation ?? "");
@@ -76,33 +77,33 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
           value={editText}
           onChange={(e) => setEditText(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Sentence text"
+          placeholder={t("sentenceRow.textPlaceholder")}
           className="w-full px-3 py-1.5 text-sm rounded-lg border border-blue-300 dark:border-blue-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <input
           value={editTranslation}
           onChange={(e) => setEditTranslation(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Translation (optional)"
+          placeholder={t("sentenceRow.translationPlaceholder")}
           className="w-full px-3 py-1.5 text-sm rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <input
           value={editNotes}
           onChange={(e) => setEditNotes(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Notes (optional)"
+          placeholder={t("sentenceRow.notesPlaceholder")}
           className="w-full px-3 py-1.5 text-sm rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <div className="flex gap-2 justify-end">
           <button onClick={cancelEdit} className="px-3 py-1 text-xs rounded-lg border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-            Cancel
+            {t("common.cancel")}
           </button>
           <button
             onClick={saveEdit}
             disabled={updateMutation.isPending}
             className="px-3 py-1 text-xs rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors disabled:opacity-60"
           >
-            {updateMutation.isPending ? "Saving…" : "Save"}
+            {updateMutation.isPending ? t("common.saving") : t("common.save")}
           </button>
         </div>
       </div>
@@ -129,8 +130,8 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
               className="cursor-pointer inline-flex items-center gap-0.5 text-xs text-gray-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 transition-colors mt-0.5"
             >
               {showTranslation
-                ? <><ChevronUpIcon className="w-3 h-3" /> hide</>
-                : <><ChevronDownIcon className="w-3 h-3" /> translation</>}
+                ? <><ChevronUpIcon className="w-3 h-3" /> {t("sentenceRow.hideTranslation")}</>
+                : <><ChevronDownIcon className="w-3 h-3" /> {t("sentenceRow.showTranslation")}</>}
             </button>
             {showTranslation && (
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 italic">{sentence.translation}</p>
@@ -147,8 +148,8 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
               className="cursor-pointer inline-flex items-center gap-0.5 text-xs text-amber-500 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 transition-colors mt-0.5"
             >
               {showNotes
-                ? <><ChevronUpIcon className="w-3 h-3" /> hide note</>
-                : <><ChevronDownIcon className="w-3 h-3" /> note</>}
+                ? <><ChevronUpIcon className="w-3 h-3" /> {t("sentenceRow.hideNote")}</>
+                : <><ChevronDownIcon className="w-3 h-3" /> {t("sentenceRow.showNote")}</>}
             </button>
             {showNotes && (
               <p className="text-xs text-amber-700 dark:text-amber-400 mt-1 bg-amber-50 dark:bg-amber-900/20 rounded-lg px-2 py-1.5 leading-relaxed">{sentence.notes}</p>
@@ -157,11 +158,11 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
         )}
       </div>
 
-      {/* Attempt count badge (US-7.4) */}
+      {/* Attempt count badge */}
       <div className="flex-shrink-0 self-center">
         {sentence.attempt_count === undefined || sentence.attempt_count === 0 ? (
           <span className="text-xs px-1.5 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 font-medium">
-            New
+            {t("sentenceRow.new")}
           </span>
         ) : (
           <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${
@@ -169,7 +170,7 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
               ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400"
               : "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400"
           }`}>
-            {sentence.attempt_count}×
+            {t("sentenceRow.practicedCount", { count: sentence.attempt_count })}
           </span>
         )}
       </div>
@@ -181,7 +182,7 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
           onClick={onReorderUp}
           disabled={isFirst}
           className="p-1 rounded text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-20 transition-colors"
-          title="Move up"
+          title={t("common.moveUp")}
         >
           <ChevronDoubleUpIcon className="w-3.5 h-3.5" />
         </button>
@@ -189,7 +190,7 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
           onClick={onReorderDown}
           disabled={isLast}
           className="p-1 rounded text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-20 transition-colors"
-          title="Move down"
+          title={t("common.moveDown")}
         >
           <ChevronDoubleDownIcon className="w-3.5 h-3.5" />
         </button>
@@ -198,7 +199,7 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
         <button
           onClick={() => setEditing(true)}
           className="p-1 rounded text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-          title="Edit"
+          title={t("common.edit")}
         >
           <PencilIcon className="w-3.5 h-3.5" />
         </button>
@@ -206,26 +207,26 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
         {/* Delete */}
         {showDeleteConfirm ? (
           <span className="flex items-center gap-1">
-            <span className="text-xs text-red-500">Delete?</span>
+            <span className="text-xs text-red-500">{t("sentenceRow.deleteConfirm")}</span>
             <button
               onClick={() => deleteMutation.mutate()}
               disabled={deleteMutation.isPending}
               className="text-xs px-2 py-0.5 rounded bg-red-500 hover:bg-red-600 text-white font-medium transition-colors"
             >
-              Yes
+              {t("common.yes")}
             </button>
             <button
               onClick={() => setShowDeleteConfirm(false)}
               className="text-xs px-2 py-0.5 rounded border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             >
-              No
+              {t("common.no")}
             </button>
           </span>
         ) : (
           <button
             onClick={() => setShowDeleteConfirm(true)}
             className="p-1 rounded text-gray-400 hover:text-red-500 transition-colors"
-            title="Delete"
+            title={t("common.delete")}
           >
             <TrashIcon className="w-3.5 h-3.5" />
           </button>

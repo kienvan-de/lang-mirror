@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams, Link } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 import {
   PencilIcon, ArrowDownTrayIcon, PlayIcon,
   ChevronLeftIcon, ChevronRightIcon,
@@ -14,6 +15,7 @@ import { AddLanguageModal } from "../../components/topic/AddLanguageModal";
 import { VersionSettingsModal } from "../../components/topic/VersionSettingsModal";
 
 export function TopicDetailPage() {
+  const { t } = useTranslation();
   const { topicId } = useParams({ strict: false }) as { topicId: string };
   const qc = useQueryClient();
 
@@ -45,7 +47,6 @@ export function TopicDetailPage() {
   const reorderVersionsMutation = useMutation({
     mutationFn: (ids: string[]) => api.reorderVersions(topicId, ids),
     onMutate: async (ids) => {
-      // Optimistic update
       await qc.cancelQueries({ queryKey: ["topic", topicId] });
       const prev = qc.getQueryData(["topic", topicId]);
       qc.setQueryData(["topic", topicId], (old: typeof topic) => {
@@ -68,8 +69,8 @@ export function TopicDetailPage() {
     return (
       <div className="max-w-4xl mx-auto px-6 py-8">
         <div className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 p-6 text-center">
-          <p className="text-red-600 dark:text-red-400 font-medium">Topic not found</p>
-          <Link to="/topics" className="mt-3 inline-block text-sm text-blue-600 dark:text-blue-400 hover:underline">← Back to Topics</Link>
+          <p className="text-red-600 dark:text-red-400 font-medium">{t("topics.notFound")}</p>
+          <Link to="/topics" className="mt-3 inline-block text-sm text-blue-600 dark:text-blue-400 hover:underline">{t("topics.backToTopics")}</Link>
         </div>
       </div>
     );
@@ -98,7 +99,6 @@ export function TopicDetailPage() {
     if (e.key === "Escape") setEditingTitle(false);
   };
 
-  // Move a version up or down by one position
   const moveVersion = (versionId: string, direction: "up" | "down") => {
     const idx = versions.findIndex((v) => v.id === versionId);
     if (idx < 0) return;
@@ -113,7 +113,7 @@ export function TopicDetailPage() {
     <div className="max-w-4xl mx-auto px-6 py-8">
       {/* Breadcrumb */}
       <Link to="/topics" className="text-sm text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors mb-4 inline-flex items-center gap-1">
-        <ChevronLeftIcon className="w-4 h-4" /> Topics
+        <ChevronLeftIcon className="w-4 h-4" /> {t("topics.backLink")}
       </Link>
 
       {/* Topic header */}
@@ -132,7 +132,7 @@ export function TopicDetailPage() {
             <h1
               className="text-2xl font-bold text-gray-900 dark:text-gray-100 cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors group inline-flex items-center gap-2"
               onClick={startEditTitle}
-              title="Click to edit"
+              title={t("topics.clickToEdit")}
             >
               {topic.title}
               <PencilIcon className="w-4 h-4 opacity-0 group-hover:opacity-40 transition-opacity" />
@@ -148,9 +148,9 @@ export function TopicDetailPage() {
           <button
             onClick={() => api.exportTopic(topicId, topic.title).catch(() => alert("Export failed"))}
             className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-            title="Export topic as JSON"
+            title={t("topics.exportTitle")}
           >
-            <ArrowDownTrayIcon className="w-4 h-4" /> Export
+            <ArrowDownTrayIcon className="w-4 h-4" /> {t("topics.export")}
           </button>
           {activeVersion && (
             <Link
@@ -158,7 +158,7 @@ export function TopicDetailPage() {
               params={{ topicId, langCode: activeVersion.language_code }}
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-sm font-semibold text-white transition-colors shadow-sm"
             >
-              <PlayIcon className="w-4 h-4" /> Practice
+              <PlayIcon className="w-4 h-4" /> {t("topics.practice")}
             </Link>
           )}
         </div>
@@ -177,13 +177,13 @@ export function TopicDetailPage() {
                     onClick={() => moveVersion(v.id, "up")}
                     disabled={idx === 0}
                     className="w-4 h-3.5 text-gray-400 hover:text-blue-500 disabled:opacity-20 disabled:cursor-not-allowed flex items-center justify-center"
-                    title="Move left"
+                    title={t("topics.moveLeft")}
                   ><ChevronLeftIcon className="w-3 h-3" /></button>
                   <button
                     onClick={() => moveVersion(v.id, "down")}
                     disabled={idx === versions.length - 1}
                     className="w-4 h-3.5 text-gray-400 hover:text-blue-500 disabled:opacity-20 disabled:cursor-not-allowed flex items-center justify-center"
-                    title="Move right"
+                    title={t("topics.moveRight")}
                   ><ChevronRightIcon className="w-3 h-3" /></button>
                 </div>
               )}
@@ -205,13 +205,13 @@ export function TopicDetailPage() {
                 }`}>
                   {v.sentences?.length ?? "…"}
                 </span>
-                {/* Today's progress dot (US-7.5) */}
+                {/* Today's progress dot */}
                 {(v.progressToday ?? 0) > 0 && (
                   <span
                     className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
                       v.progressToday === 100 ? "bg-green-500" : "bg-blue-400"
                     }`}
-                    title={`${v.practicedToday}/${v.totalSentences} sentences practiced today`}
+                    title={t("topics.progressToday", { practiced: v.practicedToday, total: v.totalSentences })}
                   />
                 )}
                 {/* Delete version button (hidden in reorder mode) */}
@@ -219,13 +219,13 @@ export function TopicDetailPage() {
                   <span
                     onClick={(e) => {
                       e.stopPropagation();
-                      if (confirm(`Delete ${langLabel(v.language_code)} version and all its sentences?`)) {
+                      if (confirm(t("topics.deleteVersionConfirm", { lang: langLabel(v.language_code) }))) {
                         deleteVersionMutation.mutate(v.id);
                         if (activeVersionId === v.id) setActiveVersionId(null);
                       }
                     }}
                     className="opacity-0 group-hover:opacity-100 ml-1 text-gray-300 hover:text-red-500 dark:hover:text-red-400 transition-all"
-                    title="Remove this language"
+                    title={t("topics.removeLanguageTitle")}
                     role="button"
                   >
                     <XMarkIcon className="w-3.5 h-3.5" />
@@ -239,7 +239,7 @@ export function TopicDetailPage() {
                       setVersionSettingsId(v.id);
                     }}
                     className="opacity-0 group-hover:opacity-100 ml-0.5 text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-all"
-                    title="Voice settings for this version"
+                    title={t("topics.voiceSettingsTitle")}
                     role="button"
                   >
                     <Cog6ToothIcon className="w-3.5 h-3.5" />
@@ -259,9 +259,9 @@ export function TopicDetailPage() {
                 ? "text-blue-600 dark:text-blue-400 font-semibold"
                 : "text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
             }`}
-            title={reorderMode ? "Done reordering" : "Reorder languages"}
+            title={reorderMode ? t("topics.doneReordering") : t("topics.reorderLanguages")}
           >
-            {reorderMode ? <><CheckIcon className="w-3.5 h-3.5" /> Done</> : <ArrowsUpDownIcon className="w-3.5 h-3.5" />}
+            {reorderMode ? <><CheckIcon className="w-3.5 h-3.5" /> {t("common.save")}</> : <ArrowsUpDownIcon className="w-3.5 h-3.5" />}
           </button>
         )}
 
@@ -269,9 +269,9 @@ export function TopicDetailPage() {
         <button
           onClick={() => setShowAddLang(true)}
           className="inline-flex items-center gap-1 px-3 py-2.5 text-sm text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 border-b-2 border-transparent hover:border-blue-400 transition-colors whitespace-nowrap"
-          title="Add a language"
+          title={t("topics.addLanguage")}
         >
-          <PlusIcon className="w-4 h-4" /> Add language
+          <PlusIcon className="w-4 h-4" /> {t("topics.addLanguage")}
         </button>
       </div>
 
@@ -279,29 +279,29 @@ export function TopicDetailPage() {
       <div className="mt-0 bg-white dark:bg-gray-900 rounded-b-xl border border-t-0 border-gray-200 dark:border-gray-800 p-4">
         {versions.length === 0 ? (
           <div className="py-10 text-center">
-            <p className="text-gray-400 dark:text-gray-600 text-sm mb-3">No language versions yet.</p>
+            <p className="text-gray-400 dark:text-gray-600 text-sm mb-3">{t("topics.noVersions")}</p>
             <button
               onClick={() => setShowAddLang(true)}
               className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-sm font-semibold text-white transition-colors"
             >
-              Add a language
+              {t("topics.addLanguageBtn")}
             </button>
           </div>
         ) : activeVersion ? (
           <>
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wide">
-                {langFlag(activeVersion.language_code)} {activeVersion.language_code} sentences
+                {langFlag(activeVersion.language_code)} {t("topics.sentencesLabel", { lang: activeVersion.language_code })}
               </span>
               <Link
                 to="/practice/$topicId/$langCode"
                 params={{ topicId, langCode: activeVersion.language_code }}
                 className="inline-flex items-center gap-1 text-xs px-3 py-1 rounded-lg bg-green-600 hover:bg-green-700 text-white font-medium transition-colors"
               >
-                <PlayIcon className="w-3.5 h-3.5" /> Practice this language
+                <PlayIcon className="w-3.5 h-3.5" /> {t("topics.practiceThis")}
               </Link>
             </div>
-            {/* US-7.5 — today's progress bar */}
+            {/* Today's progress bar */}
             {(activeVersion.totalSentences ?? 0) > 0 && (
               <div className="mb-3 flex items-center gap-2">
                 <div className="flex-1 h-1.5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
@@ -317,7 +317,7 @@ export function TopicDetailPage() {
                   />
                 </div>
                 <span className="text-xs text-gray-400 dark:text-gray-500 whitespace-nowrap">
-                  {activeVersion.practicedToday ?? 0}/{activeVersion.totalSentences} today
+                  {t("topics.progressToday", { practiced: activeVersion.practicedToday ?? 0, total: activeVersion.totalSentences })}
                 </span>
               </div>
             )}

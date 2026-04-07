@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import type { Topic } from "../../lib/api";
 import { langFlag, langLabel } from "../../lib/lang";
@@ -8,9 +9,9 @@ interface Props {
 }
 
 export function TopicCard({ topic }: Props) {
+  const { t } = useTranslation();
   const versions = topic.versions ?? [];
 
-  // US-7.5: best progress today across all versions
   const bestProgress = versions.reduce((best, v) => Math.max(best, v.progressToday ?? 0), 0);
   const bestVersion = versions.find((v) => (v.progressToday ?? 0) === bestProgress && bestProgress > 0);
 
@@ -40,21 +41,21 @@ export function TopicCard({ topic }: Props) {
             </span>
           ))
         ) : (
-          <span className="text-xs text-gray-400 dark:text-gray-600 italic">No languages yet</span>
+          <span className="text-xs text-gray-400 dark:text-gray-600 italic">{t("topicCard.noLanguages")}</span>
         )}
         {(topic.version_count ?? versions.length) > 4 && (
           <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-500">
-            +{(topic.version_count ?? versions.length) - 4} more
+            {t("topicCard.moreLanguages", { count: (topic.version_count ?? versions.length) - 4 })}
           </span>
         )}
       </div>
 
-      {/* US-7.5 — today's progress bar */}
+      {/* Today's progress bar */}
       {bestVersion && (
         <div className="mb-3">
           <div className="flex items-center justify-between mb-1">
             <span className="text-xs text-gray-400 dark:text-gray-500">
-              {langFlag(bestVersion.language_code)} Today
+              {langFlag(bestVersion.language_code)} {t("topicCard.today")}
             </span>
             <span className="text-xs text-gray-400 dark:text-gray-500">
               {bestVersion.practicedToday}/{bestVersion.totalSentences}
@@ -74,14 +75,14 @@ export function TopicCard({ topic }: Props) {
       {/* Footer */}
       <div className="mt-auto flex items-center justify-between gap-2">
         <span className="text-xs text-gray-400 dark:text-gray-500">
-          {topic.version_count ?? versions.length} language{(topic.version_count ?? versions.length) !== 1 ? "s" : ""}
+          {t("topicCard.languageCount", { count: topic.version_count ?? versions.length })}
         </span>
         <Link
           to="/topics/$topicId"
           params={{ topicId: topic.id }}
           className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-xs font-semibold text-white transition-colors"
         >
-          Open <ArrowRightIcon className="w-3.5 h-3.5" />
+          {t("topicCard.open")} <ArrowRightIcon className="w-3.5 h-3.5" />
         </Link>
       </div>
     </div>

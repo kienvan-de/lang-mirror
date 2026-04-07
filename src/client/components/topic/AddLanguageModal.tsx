@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { api, type Voice } from "../../lib/api";
 import { langFlag, langName } from "../../lib/lang";
@@ -17,6 +18,7 @@ interface LangOption {
 }
 
 export function AddLanguageModal({ topicId, onClose }: Props) {
+  const { t } = useTranslation();
   const qc = useQueryClient();
   const [search, setSearch] = useState("");
   const [selectedLang, setSelectedLang] = useState<LangOption | null>(null);
@@ -67,9 +69,9 @@ export function AddLanguageModal({ topicId, onClose }: Props) {
     },
     onError: (err: Error & { status?: number; data?: { error?: string } }) => {
       if (err.status === 409) {
-        setApiError("This language already exists for this topic");
+        setApiError(t("addLanguage.alreadyExists"));
       } else {
-        setApiError(err.data?.error ?? "Failed to add language");
+        setApiError(err.data?.error ?? t("common.error"));
       }
     },
   });
@@ -92,11 +94,11 @@ export function AddLanguageModal({ topicId, onClose }: Props) {
     >
       <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-md mx-4 p-6 max-h-[90vh] flex flex-col">
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Add Language</h2>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{t("addLanguage.title")}</h2>
           <button
             onClick={onClose}
             className="p-1 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            aria-label="Close"
+            aria-label={t("common.close")}
           >
             <XMarkIcon className="w-5 h-5" />
           </button>
@@ -109,7 +111,7 @@ export function AddLanguageModal({ topicId, onClose }: Props) {
               onClick={() => { setSelectedLang(null); setSelectedVoice(""); }}
               className="text-xs text-blue-500 hover:text-blue-700 dark:hover:text-blue-300"
             >
-              Change
+              {t("common.change")}
             </button>
           </div>
         ) : (
@@ -119,12 +121,12 @@ export function AddLanguageModal({ topicId, onClose }: Props) {
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search language…"
+              placeholder={t("addLanguage.searchPlaceholder")}
               className="w-full px-3 py-2 mb-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <div className="overflow-y-auto flex-1 min-h-0 max-h-56 rounded-xl border border-gray-200 dark:border-gray-700 divide-y divide-gray-100 dark:divide-gray-800">
               {filtered.length === 0 && (
-                <p className="py-4 text-center text-sm text-gray-400">No languages found</p>
+                <p className="py-4 text-center text-sm text-gray-400">{t("addLanguage.noLanguages")}</p>
               )}
               {filtered.map((opt) => (
                 <button
@@ -133,7 +135,7 @@ export function AddLanguageModal({ topicId, onClose }: Props) {
                   className="w-full text-left px-4 py-2.5 text-sm hover:bg-blue-50 dark:hover:bg-blue-900/20 text-gray-800 dark:text-gray-200 transition-colors flex items-center justify-between"
                 >
                   <span>{opt.displayLabel}</span>
-                  <span className="text-xs text-gray-400">{opt.voices.length} voice{opt.voices.length !== 1 ? "s" : ""}</span>
+                  <span className="text-xs text-gray-400">{t("addLanguage.voiceCount", { count: opt.voices.length })}</span>
                 </button>
               ))}
             </div>
@@ -142,7 +144,7 @@ export function AddLanguageModal({ topicId, onClose }: Props) {
 
         {selectedLang && selectedLang.voices.length > 0 && (
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Voice</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t("addLanguage.voiceLabel")}</label>
             <select
               value={selectedVoice}
               onChange={(e) => setSelectedVoice(e.target.value)}
@@ -168,14 +170,14 @@ export function AddLanguageModal({ topicId, onClose }: Props) {
             onClick={onClose}
             className="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
           >
-            Cancel
+            {t("common.cancel")}
           </button>
           <button
             onClick={() => mutation.mutate()}
             disabled={!selectedLang || mutation.isPending}
             className="flex-1 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-sm font-medium text-white transition-colors"
           >
-            {mutation.isPending ? "Adding…" : "Add Language"}
+            {mutation.isPending ? t("addLanguage.adding") : t("addLanguage.add")}
           </button>
         </div>
       </div>

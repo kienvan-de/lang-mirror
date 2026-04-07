@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 interface Props {
   data: Array<{ date: string; attempts: number }>;
   currentStreak: number;
@@ -12,30 +14,24 @@ function intensityClass(attempts: number): string {
   return "bg-green-600 dark:bg-green-500";
 }
 
-const DAY_LABELS = ["S", "M", "T", "W", "T", "F", "S"];
-
 export function StreakCalendar({ data, currentStreak, longestStreak, weeks = 12 }: Props) {
+  const { t } = useTranslation();
   const totalDays = weeks * 7;
 
-  // Build lookup map date → attempts
   const attemptMap = new Map<string, number>();
   for (const { date, attempts } of data) {
     attemptMap.set(date, attempts);
   }
 
-  // Build grid: array of columns (weeks), each column is 7 days (Sun→Sat)
   const today = new Date();
   today.setHours(12, 0, 0, 0);
 
-  // Start at Sunday of the week containing (today - totalDays + 1)
   const startDate = new Date(today);
   startDate.setDate(startDate.getDate() - (totalDays - 1));
-  // Rewind to Sunday
   startDate.setDate(startDate.getDate() - startDate.getDay());
 
   const todayStr = today.toISOString().slice(0, 10);
 
-  // Build columns
   type DayCell = { date: string; attempts: number; isToday: boolean; isFuture: boolean };
   const columns: DayCell[][] = [];
 
@@ -55,8 +51,9 @@ export function StreakCalendar({ data, currentStreak, longestStreak, weeks = 12 
     columns.push(col);
   }
 
-  // Build month labels for columns
-  const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const monthNames = t("calendar.months", { returnObjects: true }) as string[];
+  const dayLabels = t("calendar.days", { returnObjects: true }) as string[];
+
   const monthLabels: Array<{ label: string; colIndex: number }> = [];
   let lastMonth = -1;
   columns.forEach((col, i) => {
@@ -66,9 +63,6 @@ export function StreakCalendar({ data, currentStreak, longestStreak, weeks = 12 
       lastMonth = month;
     }
   });
-
-  // Tooltip state
-  // We use a native title attribute for simplicity
 
   return (
     <div className="select-none">
@@ -90,7 +84,7 @@ export function StreakCalendar({ data, currentStreak, longestStreak, weeks = 12 
       <div className="flex gap-[3px]">
         {/* Day-of-week labels */}
         <div className="flex flex-col gap-[3px] mr-1">
-          {DAY_LABELS.map((d, i) => (
+          {dayLabels.map((d, i) => (
             <div key={i} className="w-4 h-[14px] flex items-center justify-center">
               {i % 2 === 1 ? (
                 <span className="text-[10px] text-gray-400 dark:text-gray-500 leading-none">{d}</span>
@@ -105,7 +99,7 @@ export function StreakCalendar({ data, currentStreak, longestStreak, weeks = 12 
             {col.map((cell) => (
               <div
                 key={cell.date}
-                title={`${cell.date}: ${cell.attempts} attempt${cell.attempts !== 1 ? "s" : ""}`}
+                title={`${cell.date}: ${t("calendar.attempts", { count: cell.attempts })}`}
                 className={[
                   "w-[14px] h-[14px] rounded-sm transition-colors",
                   cell.isFuture
@@ -123,13 +117,13 @@ export function StreakCalendar({ data, currentStreak, longestStreak, weeks = 12 
 
       {/* Footer */}
       <div className="mt-3 flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
-        <span>🔥 {currentStreak} day{currentStreak !== 1 ? "s" : ""} streak</span>
+        <span>🔥 {t("calendar.streakDays", { count: currentStreak })}</span>
         <span className="text-gray-300 dark:text-gray-700">·</span>
-        <span>Longest: {longestStreak} day{longestStreak !== 1 ? "s" : ""}</span>
+        <span>{t("calendar.longest", { count: longestStreak })}</span>
         <div className="flex-1" />
         {/* Legend */}
         <div className="flex items-center gap-1">
-          <span className="text-gray-400 dark:text-gray-500">Less</span>
+          <span className="text-gray-400 dark:text-gray-500">{t("calendar.less")}</span>
           {[0, 2, 5, 10].map((n) => (
             <div
               key={n}
@@ -137,7 +131,7 @@ export function StreakCalendar({ data, currentStreak, longestStreak, weeks = 12 
               title={n === 0 ? "0" : n === 2 ? "1–3" : n === 5 ? "4–9" : "10+"}
             />
           ))}
-          <span className="text-gray-400 dark:text-gray-500">More</span>
+          <span className="text-gray-400 dark:text-gray-500">{t("calendar.more")}</span>
         </div>
       </div>
     </div>

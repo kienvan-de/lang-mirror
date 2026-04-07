@@ -99,19 +99,24 @@
       "speed": 1,
       "sentences": [
         {
-          "text": "Hôm nay, tôi sẽ cập nhật cho nhóm về tiến độ của mình với mô-đun xác thực."
+          "text": "Hôm nay, tôi sẽ cập nhật cho nhóm về tiến độ của mình với mô-đun xác thực.",
+          "notes": "## Ngữ pháp\nTrợ từ **sẽ** đứng trước động từ để chỉ hành động trong tương lai gần. Cấu trúc **cập nhật cho + [người] + về + [chủ đề]** là cụm động từ kép thông dụng trong ngữ cảnh làm việc nhóm, tương đương \"update someone on something\".\n\n## Từ vựng\n- **cập nhật**: thông báo thông tin mới nhất về tình trạng; to update\n- **nhóm**: tập hợp người làm việc cùng nhau; team, group\n- **tiến độ**: mức độ hoàn thành công việc so với kế hoạch; progress\n- **mô-đun**: phần riêng biệt trong một hệ thống phần mềm; module\n- **xác thực**: quá trình kiểm tra danh tính người dùng; authentication"
         },
         {
-          "text": "Tôi đã hoàn thành logic đăng nhập cơ bản, nhưng vẫn đang làm tính năng đặt lại mật khẩu."
+          "text": "Tôi đã hoàn thành logic đăng nhập cơ bản, nhưng vẫn đang làm tính năng đặt lại mật khẩu.",
+          "notes": "## Ngữ pháp\nTrợ từ **đã** chỉ hành động đã hoàn tất trong quá khứ (\"đã hoàn thành\"), còn cụm **vẫn đang** kết hợp \"vẫn\" (still) + \"đang\" (ongoing) để nhấn mạnh hành động chưa hoàn thành vẫn đang tiếp tục.\n\n## Từ vựng\n- **hoàn thành**: làm xong, kết thúc một nhiệm vụ; to complete, to finish\n- **logic đăng nhập**: phần xử lý quá trình người dùng vào hệ thống; login logic\n- **cơ bản**: ở mức nền tảng, chưa đầy đủ tính năng; basic, fundamental\n- **tính năng**: chức năng cụ thể trong phần mềm; feature, functionality\n- **mật khẩu**: chuỗi ký tự bí mật dùng để xác thực; password"
         },
         {
-          "text": "Tôi đã gặp một vấn đề nhỏ với kết nối cơ sở dữ liệu vào chiều hôm qua."
+          "text": "Tôi đã gặp một vấn đề nhỏ với kết nối cơ sở dữ liệu vào chiều hôm qua.",
+          "notes": "## Ngữ pháp\nCụm trạng ngữ thời gian **vào chiều hôm qua** đặt ở cuối câu xác định thời điểm xảy ra sự việc. Trong tiếng Việt, trạng ngữ thời gian linh hoạt — có thể đặt đầu hoặc cuối câu mà không thay đổi nghĩa.\n\n## Từ vựng\n- **gặp**: đối mặt với, tình cờ gặp phải; to encounter, to meet\n- **vấn đề**: điều gây khó khăn cần giải quyết; problem, issue\n- **kết nối**: liên kết giữa các thành phần trong hệ thống; connection\n- **cơ sở dữ liệu**: hệ thống lưu trữ và quản lý dữ liệu có cấu trúc; database\n- **hôm qua**: ngày trước ngày hôm nay; yesterday"
         },
         {
-          "text": "Tôi dự định giải quyết lỗi này trong hôm nay để có thể bắt đầu kiểm thử vào sáng mai."
+          "text": "Tôi dự định giải quyết lỗi này trong hôm nay để có thể bắt đầu kiểm thử vào sáng mai.",
+          "notes": "## Ngữ pháp\nCấu trúc **để có thể + [động từ]** kết hợp mục đích (để) với khả năng (có thể), diễn tả điều kiện cần thiết để hành động tiếp theo có thể thực hiện được. Cụm **trong hôm nay** nhấn mạnh thời hạn hoàn thành là trong ngày.\n\n## Từ vựng\n- **dự định**: có kế hoạch, có ý định làm gì; to plan, to intend\n- **giải quyết**: xử lý và kết thúc một vấn đề; to resolve, to solve\n- **kiểm thử**: chạy thử để phát hiện lỗi trong phần mềm; to test\n- **bắt đầu**: khởi động, khởi đầu một hành động; to start, to begin\n- **sáng mai**: buổi sáng của ngày hôm sau; tomorrow morning"
         },
         {
-          "text": "Nhìn chung, dự án đang tiến triển và tôi không có vướng mắc lớn nào."
+          "text": "Nhìn chung, dự án đang tiến triển và tôi không có vướng mắc lớn nào.",
+          "notes": "## Ngữ pháp\nCụm trạng ngữ **Nhìn chung** (overall) tổng kết tình hình. Cấu trúc phủ định **không có + [danh từ] + nào** diễn đạt sự vắng mặt hoàn toàn, tương đương \"don't have any\". Từ \"nào\" ở cuối tăng cường tính phủ định.\n\n## Từ vựng\n- **dự án**: kế hoạch hoặc công trình lớn có thời hạn cụ thể; project\n- **tiến triển**: phát triển theo hướng tích cực, tiến về phía trước; to progress, to move forward\n- **vướng mắc**: điều cản trở, khó khăn chưa được giải quyết; blocker, obstacle, issue\n- **lớn**: có tầm ảnh hưởng đáng kể; major, significant\n- **nhìn chung**: đánh giá tổng thể; overall, in general"
         }
       ]
     }

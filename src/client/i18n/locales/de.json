@@ -140,8 +140,9 @@
   "sentenceRow": {
     "showTranslation": "Übersetzung",
     "hideTranslation": "ausblenden",
-    "showNote": "Notiz",
+    "showNote": "Notizen",
     "hideNote": "Notiz ausblenden",
+    "notesDialogLabel": "Notizen",
     "deleteConfirm": "Löschen?",
     "textPlaceholder": "Satztext",
     "translationPlaceholder": "Übersetzung (optional)",

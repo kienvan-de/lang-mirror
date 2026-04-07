@@ -142,6 +142,7 @@
     "hideTranslation": "ẩn",
     "showNote": "ghi chú",
     "hideNote": "ẩn ghi chú",
+    "notesDialogLabel": "Ghi chú",
     "deleteConfirm": "Xóa?",
     "textPlaceholder": "Nội dung câu",
     "translationPlaceholder": "Dịch nghĩa (tùy chọn)",

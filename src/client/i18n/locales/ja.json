@@ -142,6 +142,7 @@
     "hideTranslation": "非表示",
     "showNote": "メモ",
     "hideNote": "メモを隠す",
+    "notesDialogLabel": "メモ",
     "deleteConfirm": "削除しますか？",
     "textPlaceholder": "文のテキスト",
     "translationPlaceholder": "翻訳（任意）",

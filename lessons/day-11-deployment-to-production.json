@@ -101,19 +101,24 @@
       "speed": 1,
       "sentences": [
         {
-          "text": "Chúng tôi đang dự định triển khai phiên bản mới nhất của ứng dụng vào đêm nay."
+          "text": "Chúng tôi đang dự định triển khai phiên bản mới nhất của ứng dụng vào đêm nay.",
+          "notes": "## Ngữ pháp\nCụm **đang dự định + [động từ]** kết hợp tính tiếp diễn (đang) với kế hoạch (dự định), nhấn mạnh đây là kế hoạch đang được chuẩn bị tích cực. Cụm danh từ **phiên bản mới nhất** dùng tính từ bậc cao nhất (mới nhất = newest) để chỉ phiên bản gần đây nhất.\n\n## Từ vựng\n- **triển khai**: đưa vào hoạt động thực tế, áp dụng rộng rãi; to deploy, to roll out\n- **phiên bản**: lần xuất bản hoặc cập nhật cụ thể của phần mềm; version\n- **mới nhất**: ra đời gần đây nhất trong số các phiên bản; latest, newest\n- **ứng dụng**: phần mềm dành cho người dùng cuối; application, app\n- **đêm nay**: tối hôm nay; tonight"
         },
         {
-          "text": "Tất cả các bài kiểm tra tự động đã vượt qua thành công trong môi trường thử nghiệm (staging)."
+          "text": "Tất cả các bài kiểm tra tự động đã vượt qua thành công trong môi trường thử nghiệm (staging).",
+          "notes": "## Ngữ pháp\nCụm lượng từ **tất cả các + [danh từ]** nhấn mạnh toàn bộ không có ngoại lệ, tương đương \"all the\". Cụm **vượt qua thành công** là động từ kết quả: \"vượt qua\" (to pass) + \"thành công\" (successfully) chỉ hành động hoàn thành tốt đẹp.\n\n## Từ vựng\n- **bài kiểm tra tự động**: quy trình kiểm tra được máy tính thực hiện tự động; automated test\n- **vượt qua**: hoàn thành bài kiểm tra với kết quả đạt yêu cầu; to pass\n- **thành công**: đạt được kết quả như mong muốn; successfully\n- **môi trường thử nghiệm**: hệ thống giả lập production để kiểm tra; staging environment\n- **tất cả**: toàn bộ, không thiếu một; all, every"
         },
         {
-          "text": "Tôi sẽ theo dõi kỹ các chỉ số hệ thống sau khi bản phát hành đi vào hoạt động."
+          "text": "Tôi sẽ theo dõi kỹ các chỉ số hệ thống sau khi bản phát hành đi vào hoạt động.",
+          "notes": "## Ngữ pháp\nCụm **sau khi + [mệnh đề]** chỉ hành động xảy ra tiếp theo sau một sự kiện khác hoàn tất. Cụm **đi vào hoạt động** là thành ngữ trong tiếng Việt kỹ thuật, nghĩa là bắt đầu chạy thực tế (tương đương \"go live\").\n\n## Từ vựng\n- **theo dõi**: quan sát liên tục để nắm bắt thông tin; to monitor\n- **kỹ**: cẩn thận, tỉ mỉ, không bỏ sót; closely, carefully\n- **chỉ số**: con số đo lường trạng thái hoặc hiệu suất; metric, indicator\n- **bản phát hành**: phiên bản phần mềm được đưa ra công khai; release\n- **đi vào hoạt động**: bắt đầu chạy chính thức; to go live, to become active"
         },
         {
-          "text": "Nếu phát hiện lỗi nghiêm trọng, chúng tôi sẽ hoàn tác (rollback) về phiên bản trước đó."
+          "text": "Nếu phát hiện lỗi nghiêm trọng, chúng tôi sẽ hoàn tác (rollback) về phiên bản trước đó.",
+          "notes": "## Ngữ pháp\nMệnh đề điều kiện rút gọn **Nếu + [động từ không có chủ ngữ]** lược bỏ chủ ngữ khi ngữ cảnh đã rõ (chủ ngữ ngầm là \"chúng tôi\"). Cụm **hoàn tác về** kết hợp động từ kỹ thuật với giới từ chỉ đích đến.\n\n## Từ vựng\n- **phát hiện**: tìm ra điều trước đây chưa biết; to detect, to discover\n- **lỗi nghiêm trọng**: lỗi gây ảnh hưởng lớn đến hệ thống; critical bug\n- **nghiêm trọng**: có mức độ nguy hiểm hoặc ảnh hưởng cao; critical, serious\n- **hoàn tác**: đảo ngược thay đổi, quay về trạng thái trước; to rollback, to undo\n- **phiên bản trước đó**: bản cũ hơn phiên bản hiện tại; previous version"
         },
         {
-          "text": "Giao tiếp là điều thiết yếu để đảm bảo quá trình chuyển đổi diễn ra suôn sẻ cho khách hàng."
+          "text": "Giao tiếp là điều thiết yếu để đảm bảo quá trình chuyển đổi diễn ra suôn sẻ cho khách hàng.",
+          "notes": "## Ngữ pháp\nCấu trúc **[X] là điều thiết yếu để + [mục đích]** dùng để nhấn mạnh tầm quan trọng bắt buộc của X. Cụm **diễn ra suôn sẻ** là cụm động từ + tính từ bổ ngữ chỉ kết quả: quá trình diễn ra với kết quả thuận lợi.\n\n## Từ vựng\n- **giao tiếp**: trao đổi thông tin giữa các bên; communication\n- **thiết yếu**: cực kỳ quan trọng, không thể thiếu; essential\n- **đảm bảo**: cam kết hoặc làm cho điều gì chắc chắn xảy ra; to ensure, to guarantee\n- **quá trình chuyển đổi**: giai đoạn thay đổi từ trạng thái này sang trạng thái khác; transition process\n- **suôn sẻ**: trôi chảy, không gặp trở ngại; smooth, without issues"
         }
       ]
     }

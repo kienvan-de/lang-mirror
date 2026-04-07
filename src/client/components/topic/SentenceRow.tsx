@@ -8,6 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import type { Sentence } from "../../lib/api";
 import { api } from "../../lib/api";
+import { NotesDialog } from "./NotesDialog";
 
 interface Props {
   sentence: Sentence;
@@ -24,7 +25,7 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
   const qc = useQueryClient();
   const [editing, setEditing] = useState(false);
   const [showTranslation, setShowTranslation] = useState(false);
-  const [showNotes, setShowNotes] = useState(false);
+  const [showNotesDialog, setShowNotesDialog] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const [editText, setEditText] = useState(sentence.text);
@@ -87,12 +88,12 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
           placeholder={t("sentenceRow.translationPlaceholder")}
           className="w-full px-3 py-1.5 text-sm rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <input
+        <textarea
           value={editNotes}
           onChange={(e) => setEditNotes(e.target.value)}
-          onKeyDown={handleKeyDown}
           placeholder={t("sentenceRow.notesPlaceholder")}
-          className="w-full px-3 py-1.5 text-sm rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          rows={4}
+          className="w-full px-3 py-1.5 text-sm rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y font-mono"
         />
         <div className="flex gap-2 justify-end">
           <button onClick={cancelEdit} className="px-3 py-1 text-xs rounded-lg border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
@@ -111,127 +112,133 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
   }
 
   return (
-    <div className="group flex items-start gap-3 px-4 py-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
-      {/* Position number */}
-      <span className="flex-shrink-0 w-6 text-center text-xs font-mono text-gray-400 dark:text-gray-600 pt-0.5">
-        {sentence.position + 1}
-      </span>
+    <>
+      <div className="group flex items-start gap-3 px-4 py-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+        {/* Position number */}
+        <span className="flex-shrink-0 w-6 text-center text-xs font-mono text-gray-400 dark:text-gray-600 pt-0.5">
+          {sentence.position + 1}
+        </span>
 
-      {/* Content */}
-      <div className="flex-1 min-w-0">
-        <p className="text-sm text-gray-900 dark:text-gray-100 leading-relaxed">{sentence.text}</p>
+        {/* Content */}
+        <div className="flex-1 min-w-0">
+          <p className="text-sm text-gray-900 dark:text-gray-100 leading-relaxed">{sentence.text}</p>
 
-        {/* Translation toggle */}
-        {sentence.translation && (
-          <div>
-            <button
-              type="button"
-              onClick={(e) => { e.stopPropagation(); setShowTranslation((v) => !v); }}
-              className="cursor-pointer inline-flex items-center gap-0.5 text-xs text-gray-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 transition-colors mt-0.5"
-            >
-              {showTranslation
-                ? <><ChevronUpIcon className="w-3 h-3" /> {t("sentenceRow.hideTranslation")}</>
-                : <><ChevronDownIcon className="w-3 h-3" /> {t("sentenceRow.showTranslation")}</>}
-            </button>
-            {showTranslation && (
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 italic">{sentence.translation}</p>
+          <div className="flex items-center gap-3 mt-0.5 flex-wrap">
+            {/* Translation toggle */}
+            {sentence.translation && (
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); setShowTranslation((v) => !v); }}
+                className="cursor-pointer inline-flex items-center gap-0.5 text-xs text-gray-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+              >
+                {showTranslation
+                  ? <><ChevronUpIcon className="w-3 h-3" /> {t("sentenceRow.hideTranslation")}</>
+                  : <><ChevronDownIcon className="w-3 h-3" /> {t("sentenceRow.showTranslation")}</>}
+              </button>
+            )}
+
+            {/* Notes button — opens dialog */}
+            {sentence.notes && (
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); setShowNotesDialog(true); }}
+                className="cursor-pointer inline-flex items-center gap-0.5 text-xs text-amber-500 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 transition-colors"
+              >
+                📝 {t("sentenceRow.showNote")}
+              </button>
             )}
           </div>
-        )}
 
-        {/* Notes toggle */}
-        {sentence.notes && (
-          <div>
-            <button
-              type="button"
-              onClick={(e) => { e.stopPropagation(); setShowNotes((v) => !v); }}
-              className="cursor-pointer inline-flex items-center gap-0.5 text-xs text-amber-500 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 transition-colors mt-0.5"
-            >
-              {showNotes
-                ? <><ChevronUpIcon className="w-3 h-3" /> {t("sentenceRow.hideNote")}</>
-                : <><ChevronDownIcon className="w-3 h-3" /> {t("sentenceRow.showNote")}</>}
-            </button>
-            {showNotes && (
-              <p className="text-xs text-amber-700 dark:text-amber-400 mt-1 bg-amber-50 dark:bg-amber-900/20 rounded-lg px-2 py-1.5 leading-relaxed">{sentence.notes}</p>
-            )}
-          </div>
-        )}
-      </div>
+          {/* Translation (inline, collapsible) */}
+          {showTranslation && sentence.translation && (
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 italic">{sentence.translation}</p>
+          )}
+        </div>
 
-      {/* Attempt count badge */}
-      <div className="flex-shrink-0 self-center">
-        {sentence.attempt_count === undefined || sentence.attempt_count === 0 ? (
-          <span className="text-xs px-1.5 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 font-medium">
-            {t("sentenceRow.new")}
-          </span>
-        ) : (
-          <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${
-            (sentence.attempt_count ?? 0) >= 3
-              ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400"
-              : "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400"
-          }`}>
-            {t("sentenceRow.practicedCount", { count: sentence.attempt_count })}
-          </span>
-        )}
-      </div>
+        {/* Attempt count badge */}
+        <div className="flex-shrink-0 self-center">
+          {sentence.attempt_count === undefined || sentence.attempt_count === 0 ? (
+            <span className="text-xs px-1.5 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 font-medium">
+              {t("sentenceRow.new")}
+            </span>
+          ) : (
+            <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${
+              (sentence.attempt_count ?? 0) >= 3
+                ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400"
+                : "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400"
+            }`}>
+              {t("sentenceRow.practicedCount", { count: sentence.attempt_count })}
+            </span>
+          )}
+        </div>
 
-      {/* Actions (visible on hover) */}
-      <div className="flex-shrink-0 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-        {/* Reorder */}
-        <button
-          onClick={onReorderUp}
-          disabled={isFirst}
-          className="p-1 rounded text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-20 transition-colors"
-          title={t("common.moveUp")}
-        >
-          <ChevronDoubleUpIcon className="w-3.5 h-3.5" />
-        </button>
-        <button
-          onClick={onReorderDown}
-          disabled={isLast}
-          className="p-1 rounded text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-20 transition-colors"
-          title={t("common.moveDown")}
-        >
-          <ChevronDoubleDownIcon className="w-3.5 h-3.5" />
-        </button>
-
-        {/* Edit */}
-        <button
-          onClick={() => setEditing(true)}
-          className="p-1 rounded text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-          title={t("common.edit")}
-        >
-          <PencilIcon className="w-3.5 h-3.5" />
-        </button>
-
-        {/* Delete */}
-        {showDeleteConfirm ? (
-          <span className="flex items-center gap-1">
-            <span className="text-xs text-red-500">{t("sentenceRow.deleteConfirm")}</span>
-            <button
-              onClick={() => deleteMutation.mutate()}
-              disabled={deleteMutation.isPending}
-              className="text-xs px-2 py-0.5 rounded bg-red-500 hover:bg-red-600 text-white font-medium transition-colors"
-            >
-              {t("common.yes")}
-            </button>
-            <button
-              onClick={() => setShowDeleteConfirm(false)}
-              className="text-xs px-2 py-0.5 rounded border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            >
-              {t("common.no")}
-            </button>
-          </span>
-        ) : (
+        {/* Actions (visible on hover) */}
+        <div className="flex-shrink-0 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+          {/* Reorder */}
           <button
-            onClick={() => setShowDeleteConfirm(true)}
-            className="p-1 rounded text-gray-400 hover:text-red-500 transition-colors"
-            title={t("common.delete")}
+            onClick={onReorderUp}
+            disabled={isFirst}
+            className="p-1 rounded text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-20 transition-colors"
+            title={t("common.moveUp")}
           >
-            <TrashIcon className="w-3.5 h-3.5" />
+            <ChevronDoubleUpIcon className="w-3.5 h-3.5" />
           </button>
-        )}
+          <button
+            onClick={onReorderDown}
+            disabled={isLast}
+            className="p-1 rounded text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-20 transition-colors"
+            title={t("common.moveDown")}
+          >
+            <ChevronDoubleDownIcon className="w-3.5 h-3.5" />
+          </button>
+
+          {/* Edit */}
+          <button
+            onClick={() => setEditing(true)}
+            className="p-1 rounded text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            title={t("common.edit")}
+          >
+            <PencilIcon className="w-3.5 h-3.5" />
+          </button>
+
+          {/* Delete */}
+          {showDeleteConfirm ? (
+            <span className="flex items-center gap-1">
+              <span className="text-xs text-red-500">{t("sentenceRow.deleteConfirm")}</span>
+              <button
+                onClick={() => deleteMutation.mutate()}
+                disabled={deleteMutation.isPending}
+                className="text-xs px-2 py-0.5 rounded bg-red-500 hover:bg-red-600 text-white font-medium transition-colors"
+              >
+                {t("common.yes")}
+              </button>
+              <button
+                onClick={() => setShowDeleteConfirm(false)}
+                className="text-xs px-2 py-0.5 rounded border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              >
+                {t("common.no")}
+              </button>
+            </span>
+          ) : (
+            <button
+              onClick={() => setShowDeleteConfirm(true)}
+              className="p-1 rounded text-gray-400 hover:text-red-500 transition-colors"
+              title={t("common.delete")}
+            >
+              <TrashIcon className="w-3.5 h-3.5" />
+            </button>
+          )}
+        </div>
       </div>
-    </div>
+
+      {/* Notes modal */}
+      {showNotesDialog && sentence.notes && (
+        <NotesDialog
+          notes={sentence.notes}
+          sentenceText={sentence.text}
+          onClose={() => setShowNotesDialog(false)}
+        />
+      )}
+    </>
   );
 }

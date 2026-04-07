@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import { api, type Voice } from "../../lib/api";
 import { langFlag, langName } from "../../lib/lang";
 
@@ -31,7 +32,6 @@ export function AddLanguageModal({ topicId, onClose }: Props) {
     staleTime: 60_000,
   });
 
-  // Deduplicate by langCode, build grouped options
   const langOptions = useMemo<LangOption[]>(() => {
     const map = new Map<string, LangOption>();
     for (const v of voices) {
@@ -93,10 +93,15 @@ export function AddLanguageModal({ topicId, onClose }: Props) {
       <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-md mx-4 p-6 max-h-[90vh] flex flex-col">
         <div className="flex items-center justify-between mb-5">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Add Language</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 text-xl leading-none">×</button>
+          <button
+            onClick={onClose}
+            className="p-1 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            aria-label="Close"
+          >
+            <XMarkIcon className="w-5 h-5" />
+          </button>
         </div>
 
-        {/* Selected language display */}
         {selectedLang ? (
           <div className="flex items-center justify-between mb-4 px-3 py-2 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
             <span className="text-sm font-medium text-blue-800 dark:text-blue-200">{selectedLang.displayLabel}</span>
@@ -109,7 +114,6 @@ export function AddLanguageModal({ topicId, onClose }: Props) {
           </div>
         ) : (
           <>
-            {/* Search */}
             <input
               ref={searchRef}
               type="text"
@@ -118,8 +122,6 @@ export function AddLanguageModal({ topicId, onClose }: Props) {
               placeholder="Search language…"
               className="w-full px-3 py-2 mb-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-
-            {/* Language list */}
             <div className="overflow-y-auto flex-1 min-h-0 max-h-56 rounded-xl border border-gray-200 dark:border-gray-700 divide-y divide-gray-100 dark:divide-gray-800">
               {filtered.length === 0 && (
                 <p className="py-4 text-center text-sm text-gray-400">No languages found</p>
@@ -138,7 +140,6 @@ export function AddLanguageModal({ topicId, onClose }: Props) {
           </>
         )}
 
-        {/* Voice picker */}
         {selectedLang && selectedLang.voices.length > 0 && (
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Voice</label>

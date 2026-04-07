@@ -1,5 +1,6 @@
 import { Link, Outlet } from "@tanstack/react-router";
 import { useState } from "react";
+import { SunIcon, MoonIcon } from "@heroicons/react/24/outline";
 
 export function RootLayout() {
   const [dark, setDark] = useState(() =>
@@ -42,10 +43,10 @@ export function RootLayout() {
         </div>
         <button
           onClick={toggleDark}
-          className="text-sm px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-400"
+          className="p-1.5 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-400"
           aria-label="Toggle dark mode"
         >
-          {dark ? "☀️" : "🌙"}
+          {dark ? <SunIcon className="w-4 h-4" /> : <MoonIcon className="w-4 h-4" />}
         </button>
       </nav>
       <main>

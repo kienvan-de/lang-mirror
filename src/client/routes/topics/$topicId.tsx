@@ -1,6 +1,12 @@
 import { useState, useRef } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams, Link } from "@tanstack/react-router";
+import {
+  PencilIcon, ArrowDownTrayIcon, PlayIcon,
+  ChevronLeftIcon, ChevronRightIcon,
+  XMarkIcon, Cog6ToothIcon,
+  ArrowsUpDownIcon, CheckIcon, PlusIcon,
+} from "@heroicons/react/24/outline";
 import { api, type Version } from "../../lib/api";
 import { langFlag, langLabel } from "../../lib/lang";
 import { SentenceList } from "../../components/topic/SentenceList";
@@ -107,7 +113,7 @@ export function TopicDetailPage() {
     <div className="max-w-4xl mx-auto px-6 py-8">
       {/* Breadcrumb */}
       <Link to="/topics" className="text-sm text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors mb-4 inline-flex items-center gap-1">
-        ← Topics
+        <ChevronLeftIcon className="w-4 h-4" /> Topics
       </Link>
 
       {/* Topic header */}
@@ -129,7 +135,7 @@ export function TopicDetailPage() {
               title="Click to edit"
             >
               {topic.title}
-              <span className="text-base opacity-0 group-hover:opacity-50 transition-opacity">✏️</span>
+              <PencilIcon className="w-4 h-4 opacity-0 group-hover:opacity-40 transition-opacity" />
             </h1>
           )}
           {topic.description && (
@@ -141,18 +147,18 @@ export function TopicDetailPage() {
         <div className="flex items-center gap-2 flex-shrink-0">
           <button
             onClick={() => api.exportTopic(topicId, topic.title).catch(() => alert("Export failed"))}
-            className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
             title="Export topic as JSON"
           >
-            ↓ Export
+            <ArrowDownTrayIcon className="w-4 h-4" /> Export
           </button>
           {activeVersion && (
             <Link
               to="/practice/$topicId/$langCode"
               params={{ topicId, langCode: activeVersion.language_code }}
-              className="px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-sm font-semibold text-white transition-colors shadow-sm"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-sm font-semibold text-white transition-colors shadow-sm"
             >
-              ▶ Practice
+              <PlayIcon className="w-4 h-4" /> Practice
             </Link>
           )}
         </div>
@@ -170,15 +176,15 @@ export function TopicDetailPage() {
                   <button
                     onClick={() => moveVersion(v.id, "up")}
                     disabled={idx === 0}
-                    className="w-4 h-3.5 text-[9px] text-gray-400 hover:text-blue-500 disabled:opacity-20 disabled:cursor-not-allowed leading-none flex items-center justify-center"
+                    className="w-4 h-3.5 text-gray-400 hover:text-blue-500 disabled:opacity-20 disabled:cursor-not-allowed flex items-center justify-center"
                     title="Move left"
-                  >▲</button>
+                  ><ChevronLeftIcon className="w-3 h-3" /></button>
                   <button
                     onClick={() => moveVersion(v.id, "down")}
                     disabled={idx === versions.length - 1}
-                    className="w-4 h-3.5 text-[9px] text-gray-400 hover:text-blue-500 disabled:opacity-20 disabled:cursor-not-allowed leading-none flex items-center justify-center"
+                    className="w-4 h-3.5 text-gray-400 hover:text-blue-500 disabled:opacity-20 disabled:cursor-not-allowed flex items-center justify-center"
                     title="Move right"
-                  >▼</button>
+                  ><ChevronRightIcon className="w-3 h-3" /></button>
                 </div>
               )}
               <button
@@ -218,11 +224,11 @@ export function TopicDetailPage() {
                         if (activeVersionId === v.id) setActiveVersionId(null);
                       }
                     }}
-                    className="opacity-0 group-hover:opacity-100 ml-1 text-gray-300 hover:text-red-500 dark:hover:text-red-400 transition-all text-xs"
+                    className="opacity-0 group-hover:opacity-100 ml-1 text-gray-300 hover:text-red-500 dark:hover:text-red-400 transition-all"
                     title="Remove this language"
                     role="button"
                   >
-                    ×
+                    <XMarkIcon className="w-3.5 h-3.5" />
                   </span>
                 )}
                 {/* Version TTS settings (hidden in reorder mode) */}
@@ -232,11 +238,11 @@ export function TopicDetailPage() {
                       e.stopPropagation();
                       setVersionSettingsId(v.id);
                     }}
-                    className="opacity-0 group-hover:opacity-100 ml-0.5 text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-all text-xs"
+                    className="opacity-0 group-hover:opacity-100 ml-0.5 text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-all"
                     title="Voice settings for this version"
                     role="button"
                   >
-                    ⚙
+                    <Cog6ToothIcon className="w-3.5 h-3.5" />
                   </span>
                 )}
               </button>
@@ -255,17 +261,17 @@ export function TopicDetailPage() {
             }`}
             title={reorderMode ? "Done reordering" : "Reorder languages"}
           >
-            {reorderMode ? "✓ Done" : "⇅"}
+            {reorderMode ? <><CheckIcon className="w-3.5 h-3.5" /> Done</> : <ArrowsUpDownIcon className="w-3.5 h-3.5" />}
           </button>
         )}
 
         {/* Add language tab */}
         <button
           onClick={() => setShowAddLang(true)}
-          className="flex items-center gap-1 px-3 py-2.5 text-sm text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 border-b-2 border-transparent hover:border-blue-400 transition-colors whitespace-nowrap"
+          className="inline-flex items-center gap-1 px-3 py-2.5 text-sm text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 border-b-2 border-transparent hover:border-blue-400 transition-colors whitespace-nowrap"
           title="Add a language"
         >
-          + Add language
+          <PlusIcon className="w-4 h-4" /> Add language
         </button>
       </div>
 
@@ -290,9 +296,9 @@ export function TopicDetailPage() {
               <Link
                 to="/practice/$topicId/$langCode"
                 params={{ topicId, langCode: activeVersion.language_code }}
-                className="text-xs px-3 py-1 rounded-lg bg-green-600 hover:bg-green-700 text-white font-medium transition-colors"
+                className="inline-flex items-center gap-1 text-xs px-3 py-1 rounded-lg bg-green-600 hover:bg-green-700 text-white font-medium transition-colors"
               >
-                ▶ Practice this language
+                <PlayIcon className="w-3.5 h-3.5" /> Practice this language
               </Link>
             </div>
             {/* US-7.5 — today's progress bar */}

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
+import { XMarkIcon, GlobeAltIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { api, type Version } from "../../lib/api";
 import { langFlag, langLabel } from "../../lib/lang";
 
@@ -111,16 +112,18 @@ export function VersionSettingsModal({ version, onClose }: Props) {
           </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 text-xl leading-none"
+            className="p-1 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             aria-label="Close"
-          >×</button>
+          >
+            <XMarkIcon className="w-5 h-5" />
+          </button>
         </div>
 
         {/* Body */}
         <div className="px-6 py-5 space-y-6">
           {/* Global context hint */}
           <div className="px-3 py-2.5 bg-gray-50 dark:bg-gray-800/60 rounded-xl text-xs text-gray-500 dark:text-gray-400 flex items-center gap-2">
-            <span className="opacity-60">🌐</span>
+            <GlobeAltIcon className="w-3.5 h-3.5 opacity-60 flex-shrink-0" />
             <span>
               Global defaults: <span className="font-mono font-semibold text-gray-700 dark:text-gray-300">{globalSpeed.toFixed(2)}×</span> speed,{" "}
               pitch <span className="font-mono font-semibold text-gray-700 dark:text-gray-300">{globalPitch > 0 ? "+" : ""}{globalPitch} st</span>
@@ -199,8 +202,9 @@ export function VersionSettingsModal({ version, onClose }: Props) {
             </div>
           </div>
 
-          <p className="text-xs text-amber-600 dark:text-amber-500 bg-amber-50 dark:bg-amber-900/20 px-3 py-2 rounded-lg">
-            ⚠️ Changing speed or pitch does not affect cached audio. Clear the TTS cache in Settings to regenerate.
+          <p className="text-xs text-amber-600 dark:text-amber-500 bg-amber-50 dark:bg-amber-900/20 px-3 py-2 rounded-lg flex items-start gap-2">
+            <ExclamationTriangleIcon className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
+            Changing speed or pitch does not affect cached audio. Clear the TTS cache in Settings to regenerate.
           </p>
         </div>
 

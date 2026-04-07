@@ -1,6 +1,13 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { useParams, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  PlayIcon, StopIcon, PauseIcon,
+  ChevronLeftIcon, ChevronRightIcon,
+  QuestionMarkCircleIcon, ForwardIcon,
+  MicrophoneIcon, SpeakerWaveIcon,
+  EyeIcon, DocumentTextIcon,
+} from "@heroicons/react/24/outline";
 import { usePracticeStore, type PracticeMode } from "../../stores/practice.store";
 import { useTTS, defaultVoiceForLang } from "../../hooks/useTTS";
 import { useRecorder } from "../../hooks/useRecorder";
@@ -93,9 +100,9 @@ function DrillStartModal({
           </button>
           <button
             onClick={() => onStart(interleaved)}
-            className="flex-1 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-sm font-semibold text-white transition-colors"
+            className="flex-1 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-sm font-semibold text-white transition-colors inline-flex items-center justify-center gap-1.5"
           >
-            ▶▶ Start Drill
+            <ForwardIcon className="w-4 h-4" /> Start Drill
           </button>
         </div>
       </div>
@@ -441,7 +448,7 @@ export function PracticePage() {
       <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-4 py-3 flex items-center gap-3 flex-wrap shadow-sm">
         <Link to="/topics/$topicId" params={{ topicId }}
           className="text-sm text-gray-400 hover:text-blue-500 transition-colors flex items-center gap-1 shrink-0">
-          ← {topic.title}
+          <ChevronLeftIcon className="w-4 h-4" /> {topic.title}
         </Link>
 
         <div className="flex-1" />
@@ -465,25 +472,27 @@ export function PracticePage() {
           <button
             onClick={() => setShowDrillModal(true)}
             disabled={sentences.length === 0}
-            className="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 disabled:opacity-40 text-xs font-semibold text-white transition-colors"
-          >▶▶ Drill</button>
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 disabled:opacity-40 text-xs font-semibold text-white transition-colors"
+          ><ForwardIcon className="w-4 h-4" /> Drill</button>
         ) : (
           <div className="flex items-center gap-1">
             <button onClick={() => store.pauseDrill()}
-              className="px-2.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-xs font-semibold text-white transition-colors">
-              {isDrillPaused ? "▶ Resume" : "⏸ Pause"}
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-xs font-semibold text-white transition-colors">
+              {isDrillPaused ? <><PlayIcon className="w-3.5 h-3.5" /> Resume</> : <><PauseIcon className="w-3.5 h-3.5" /> Pause</>}
             </button>
             <button onClick={() => { store.stopDrill(); tts.stop(); stopCountdown(); }}
-              className="px-2.5 py-1.5 rounded-lg bg-red-500 hover:bg-red-600 text-xs font-semibold text-white transition-colors">
-              ⏹ Stop
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-red-500 hover:bg-red-600 text-xs font-semibold text-white transition-colors">
+              <StopIcon className="w-3.5 h-3.5" /> Stop
             </button>
           </div>
         )}
 
         {/* Help button */}
         <button onClick={() => store.toggleShortcutHelp()}
-          className="w-7 h-7 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 border border-gray-200 dark:border-gray-700 text-xs font-bold transition-colors"
-          title="Keyboard shortcuts (?)">?</button>
+          className="w-7 h-7 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 border border-gray-200 dark:border-gray-700 transition-colors"
+          title="Keyboard shortcuts (?)">
+          <QuestionMarkCircleIcon className="w-4 h-4" />
+        </button>
       </div>
 
       {/* ── Language tabs ──────────────────────────────────────────────────── */}
@@ -575,20 +584,20 @@ export function PracticePage() {
             {/* Display toolbar */}
             <div className="flex items-center gap-2 mb-4 flex-wrap">
               <button onClick={() => store.toggleTranslation()}
-                className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors border ${
+                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium transition-colors border ${
                   showTranslation
                     ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-700"
                     : "bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:border-blue-300"
                 }`}>
-                👁 Translation
+                <EyeIcon className="w-3.5 h-3.5" /> Translation
               </button>
               <button onClick={() => store.toggleNotes()}
-                className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors border ${
+                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium transition-colors border ${
                   showNotes
                     ? "bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-700"
                     : "bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:border-amber-300"
                 }`}>
-                📝 Notes
+                <DocumentTextIcon className="w-3.5 h-3.5" /> Notes
               </button>
               <div className="flex-1" />
               {/* Font size */}
@@ -677,19 +686,19 @@ export function PracticePage() {
 
           {/* Prev */}
           <button onClick={() => store.prevSentence()} disabled={currentIndex === 0 || !canNavigate}
-            className="w-10 h-10 rounded-full flex items-center justify-center border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-30 transition-colors text-lg"
-            title="Previous (←)">←</button>
+            className="w-10 h-10 rounded-full flex items-center justify-center border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-30 transition-colors"
+            title="Previous (←)"><ChevronLeftIcon className="w-5 h-5" /></button>
 
           {/* Play TTS */}
           <button
             onClick={handlePlay}
             disabled={!isIdle || tts.isLoading || tts.isPlaying}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white font-semibold transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white font-semibold transition-colors shadow-sm"
             title="Play TTS (Space)"
           >
             {tts.isLoading ? (
               <span className="w-4 h-4 rounded-full border-2 border-white/40 border-t-white animate-spin" />
-            ) : "▶"}
+            ) : <PlayIcon className="w-5 h-5" />}
             Play
             <kbd className="hidden sm:inline text-[10px] px-1 py-0.5 rounded bg-white/20 font-mono">Space</kbd>
           </button>
@@ -701,29 +710,29 @@ export function PracticePage() {
                 <button
                   onClick={handleRecord}
                   disabled={phase === "playing" || phase === "uploading" || phase === "playingBack"}
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 disabled:opacity-40 text-white font-semibold transition-colors shadow-sm"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 disabled:opacity-40 text-white font-semibold transition-colors shadow-sm"
                   title="Record (R)"
                 >
-                  ● Record
+                  <MicrophoneIcon className="w-5 h-5" /> Record
                   <kbd className="hidden sm:inline text-[10px] px-1 py-0.5 rounded bg-white/20 font-mono">R</kbd>
                 </button>
               ) : (
                 <button
                   onClick={handleRecord}
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-700 text-white font-semibold shadow-sm animate-pulse"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-700 text-white font-semibold shadow-sm animate-pulse"
                   title="Stop recording (R)"
                 >
-                  ■ Stop
+                  <StopIcon className="w-5 h-5" /> Stop
                 </button>
               )}
 
               <button
                 onClick={handlePlayback}
                 disabled={!hasRecording || phase === "recording" || phase === "playingBack"}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-green-600 hover:bg-green-700 disabled:opacity-40 text-white font-semibold transition-colors shadow-sm"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-green-600 hover:bg-green-700 disabled:opacity-40 text-white font-semibold transition-colors shadow-sm"
                 title="Play back recording (P)"
               >
-                ⏵ Playback
+                <SpeakerWaveIcon className="w-5 h-5" /> Playback
                 <kbd className="hidden sm:inline text-[10px] px-1 py-0.5 rounded bg-white/20 font-mono">P</kbd>
               </button>
             </>
@@ -731,8 +740,8 @@ export function PracticePage() {
 
           {/* Next */}
           <button onClick={() => store.nextSentence()} disabled={currentIndex === sentences.length - 1 || !canNavigate}
-            className="w-10 h-10 rounded-full flex items-center justify-center border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-30 transition-colors text-lg"
-            title="Next (→)">→</button>
+            className="w-10 h-10 rounded-full flex items-center justify-center border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-30 transition-colors"
+            title="Next (→)"><ChevronRightIcon className="w-5 h-5" /></button>
         </div>
 
         {/* TTS error */}

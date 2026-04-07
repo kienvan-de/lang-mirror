@@ -1,5 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  ChevronUpIcon, ChevronDownIcon,
+  PencilIcon, TrashIcon,
+  ChevronDoubleUpIcon, ChevronDoubleDownIcon,
+} from "@heroicons/react/24/outline";
 import type { Sentence } from "../../lib/api";
 import { api } from "../../lib/api";
 
@@ -121,9 +126,11 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
             <button
               type="button"
               onClick={(e) => { e.stopPropagation(); setShowTranslation((v) => !v); }}
-              className="cursor-pointer text-xs text-gray-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 transition-colors mt-0.5"
+              className="cursor-pointer inline-flex items-center gap-0.5 text-xs text-gray-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 transition-colors mt-0.5"
             >
-              {showTranslation ? "▲ hide" : "▼ translation"}
+              {showTranslation
+                ? <><ChevronUpIcon className="w-3 h-3" /> hide</>
+                : <><ChevronDownIcon className="w-3 h-3" /> translation</>}
             </button>
             {showTranslation && (
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 italic">{sentence.translation}</p>
@@ -137,9 +144,11 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
             <button
               type="button"
               onClick={(e) => { e.stopPropagation(); setShowNotes((v) => !v); }}
-              className="cursor-pointer text-xs text-amber-500 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 transition-colors mt-0.5"
+              className="cursor-pointer inline-flex items-center gap-0.5 text-xs text-amber-500 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 transition-colors mt-0.5"
             >
-              {showNotes ? "▲ hide note" : "📝 note"}
+              {showNotes
+                ? <><ChevronUpIcon className="w-3 h-3" /> hide note</>
+                : <><ChevronDownIcon className="w-3 h-3" /> note</>}
             </button>
             {showNotes && (
               <p className="text-xs text-amber-700 dark:text-amber-400 mt-1 bg-amber-50 dark:bg-amber-900/20 rounded-lg px-2 py-1.5 leading-relaxed">{sentence.notes}</p>
@@ -174,7 +183,7 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
           className="p-1 rounded text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-20 transition-colors"
           title="Move up"
         >
-          ↑
+          <ChevronDoubleUpIcon className="w-3.5 h-3.5" />
         </button>
         <button
           onClick={onReorderDown}
@@ -182,7 +191,7 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
           className="p-1 rounded text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-20 transition-colors"
           title="Move down"
         >
-          ↓
+          <ChevronDoubleDownIcon className="w-3.5 h-3.5" />
         </button>
 
         {/* Edit */}
@@ -191,7 +200,7 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
           className="p-1 rounded text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
           title="Edit"
         >
-          ✏️
+          <PencilIcon className="w-3.5 h-3.5" />
         </button>
 
         {/* Delete */}
@@ -218,7 +227,7 @@ export function SentenceRow({ sentence, topicId, versionId, onReorderUp, onReord
             className="p-1 rounded text-gray-400 hover:text-red-500 transition-colors"
             title="Delete"
           >
-            🗑️
+            <TrashIcon className="w-3.5 h-3.5" />
           </button>
         )}
       </div>

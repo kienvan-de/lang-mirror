@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import { api } from "../../lib/api";
 
 interface Props {
@@ -33,7 +34,6 @@ export function CreateTopicModal({ onClose }: Props) {
     mutation.mutate();
   };
 
-  // Close on backdrop click
   const handleBackdrop = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) onClose();
   };
@@ -48,10 +48,10 @@ export function CreateTopicModal({ onClose }: Props) {
           <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">New Topic</h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 text-xl leading-none"
+            className="p-1 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             aria-label="Close"
           >
-            ×
+            <XMarkIcon className="w-5 h-5" />
           </button>
         </div>
 

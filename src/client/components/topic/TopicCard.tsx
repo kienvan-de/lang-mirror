@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import type { Topic } from "../../lib/api";
 import { langFlag, langLabel } from "../../lib/lang";
 
@@ -78,9 +79,9 @@ export function TopicCard({ topic }: Props) {
         <Link
           to="/topics/$topicId"
           params={{ topicId: topic.id }}
-          className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-xs font-semibold text-white transition-colors"
+          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-xs font-semibold text-white transition-colors"
         >
-          Open →
+          Open <ArrowRightIcon className="w-3.5 h-3.5" />
         </Link>
       </div>
     </div>

@@ -1,3 +1,5 @@
+import { XMarkIcon } from "@heroicons/react/24/outline";
+
 const SHORTCUTS = [
   { key: "Space", action: "Play TTS", condition: "When idle" },
   { key: "R", action: "Start / Stop recording", condition: "Manual mode" },
@@ -22,7 +24,13 @@ export function ShortcutHelpOverlay({ onClose }: Props) {
       <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-sm mx-4 p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Keyboard Shortcuts</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 text-xl leading-none">×</button>
+          <button
+            onClick={onClose}
+            className="p-1 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            aria-label="Close"
+          >
+            <XMarkIcon className="w-5 h-5" />
+          </button>
         </div>
         <div className="space-y-2">
           {SHORTCUTS.map(({ key, action, condition }) => (

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
+import { PlusIcon } from "@heroicons/react/24/outline";
 import { api } from "../../lib/api";
 import { TopicCard, TopicCardSkeleton } from "../../components/topic/TopicCard";
 import { CreateTopicModal } from "../../components/topic/CreateTopicModal";
@@ -25,9 +26,9 @@ export function TopicsPage() {
         </div>
         <button
           onClick={() => setShowCreate(true)}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-sm font-semibold text-white transition-colors shadow-sm"
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-sm font-semibold text-white transition-colors shadow-sm"
         >
-          <span className="text-base leading-none">+</span> New Topic
+          <PlusIcon className="w-4 h-4" /> New Topic
         </button>
       </div>
 

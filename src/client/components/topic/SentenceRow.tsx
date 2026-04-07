@@ -156,8 +156,8 @@ export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onR
               </button>
             )}
 
-            {/* Notes button — opens dialog */}
-            {sentence.notes && Object.keys(sentence.notes).length > 0 && (
+            {/* Notes button — only shown when a note exists for the current UI language */}
+            {sentence.notes?.[uiLang] && (
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); setShowNotesDialog(true); }}
@@ -259,7 +259,7 @@ export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onR
       </div>
 
       {/* Notes modal */}
-      {showNotesDialog && sentence.notes && Object.keys(sentence.notes).length > 0 && (
+      {showNotesDialog && sentence.notes?.[uiLang] && (
         <NotesDialog
           notes={sentence.notes}
           uiLang={uiLang}

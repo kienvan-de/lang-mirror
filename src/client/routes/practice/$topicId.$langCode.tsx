@@ -569,14 +569,16 @@ export function PracticePage() {
                 }`}>
                 <EyeIcon className="w-3.5 h-3.5" /> {t("practice.translation")}
               </button>
-              <button onClick={() => store.toggleNotes()}
-                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium transition-colors border ${
-                  showNotes
-                    ? "bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-700"
-                    : "bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:border-amber-300"
-                }`}>
-                <DocumentTextIcon className="w-3.5 h-3.5" /> {t("practice.notes")}
-              </button>
+              {sentence.notes?.[uiLang] && (
+                <button onClick={() => store.toggleNotes()}
+                  className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium transition-colors border ${
+                    showNotes
+                      ? "bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-700"
+                      : "bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:border-amber-300"
+                  }`}>
+                  <DocumentTextIcon className="w-3.5 h-3.5" /> {t("practice.notes")}
+                </button>
+              )}
               <div className="flex-1" />
               {/* Font size */}
               <div className="flex items-center gap-1">
@@ -643,24 +645,14 @@ export function PracticePage() {
               ) : null;
             })()}
 
-            {/* Notes — markdown rendered in UI language */}
-            {showNotes && sentence.notes && (() => {
-              const notesMap = sentence.notes;
-              const notesText = notesMap[uiLang] ?? Object.values(notesMap)[0] ?? null;
-              const fallbackLang = !notesMap[uiLang] && notesText ? Object.keys(notesMap)[0] : null;
-              return notesText ? (
-                <div className="mt-2 bg-amber-50 dark:bg-amber-900/20 rounded-lg px-3 py-2 border-t border-gray-100 dark:border-gray-800">
-                  {fallbackLang && (
-                    <p className="text-[10px] text-amber-500 dark:text-amber-400 italic mb-1 uppercase font-medium">
-                      {langFlag(fallbackLang)} {langLabel(fallbackLang)}
-                    </p>
-                  )}
-                  <div className="text-xs text-amber-700 dark:text-amber-400 prose prose-xs prose-amber dark:prose-invert max-w-none [&_h2]:text-xs [&_h2]:font-semibold [&_h2]:mb-1 [&_p]:my-0.5 [&_ul]:my-0.5 [&_li]:my-0">
-                    <DocumentTextIcon className="w-3.5 h-3.5 inline-block mr-1 align-middle opacity-70" /><ReactMarkdown>{notesText}</ReactMarkdown>
-                  </div>
+            {/* Notes — markdown rendered in UI language only */}
+            {showNotes && sentence.notes?.[uiLang] && (
+              <div className="mt-2 bg-amber-50 dark:bg-amber-900/20 rounded-lg px-3 py-2 border-t border-gray-100 dark:border-gray-800">
+                <div className="text-xs text-amber-700 dark:text-amber-400 prose prose-xs prose-amber dark:prose-invert max-w-none [&_h2]:text-xs [&_h2]:font-semibold [&_h2]:mb-1 [&_p]:my-0.5 [&_ul]:my-0.5 [&_li]:my-0">
+                  <DocumentTextIcon className="w-3.5 h-3.5 inline-block mr-1 align-middle opacity-70" /><ReactMarkdown>{sentence.notes[uiLang]}</ReactMarkdown>
                 </div>
-              ) : null;
-            })()}
+              </div>
+            )}
           </div>
         )}
 

@@ -1,7 +1,6 @@
 import ReactMarkdown from "react-markdown";
 import { useTranslation } from "react-i18next";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { langFlag, langLabel } from "../../lib/lang";
 
 interface Props {
   notes: Record<string, string>;
@@ -13,9 +12,10 @@ interface Props {
 export function NotesDialog({ notes, uiLang, sentenceText, onClose }: Props) {
   const { t } = useTranslation();
 
-  // Pick notes for UI language, fall back to first available
-  const notesText = notes[uiLang] ?? Object.values(notes)[0] ?? null;
-  const fallbackLang = !notes[uiLang] && notesText ? Object.keys(notes)[0] : null;
+  // Only show notes for the current UI language — no cross-language fallback
+  // (notes explain grammar in the sentence's own language; another language's
+  //  grammar notes would not apply to a different language's sentence)
+  const notesText = notes[uiLang] ?? null;
 
   return (
     <div
@@ -46,11 +46,6 @@ export function NotesDialog({ notes, uiLang, sentenceText, onClose }: Props) {
 
         {/* Markdown body */}
         <div className="overflow-y-auto px-5 py-4 flex-1">
-          {fallbackLang && (
-            <p className="text-xs text-gray-400 dark:text-gray-500 italic mb-3">
-              {langFlag(fallbackLang)} <span className="uppercase font-medium">{langLabel(fallbackLang)}</span>
-            </p>
-          )}
           {notesText ? (
             <div className="prose prose-sm dark:prose-invert max-w-none
               prose-headings:text-gray-900 dark:prose-headings:text-gray-100

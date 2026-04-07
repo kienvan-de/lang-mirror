@@ -182,7 +182,7 @@ function importSingle(
     `);
     for (let i = 0; i < data.sentences.length; i++) {
       const s = data.sentences[i]!;
-      insertSentence.run(version.id, s.text, s.notes ?? null, i);
+      insertSentence.run(version.id, s.text, s.notes ? JSON.stringify(s.notes) : null, i);
     }
 
     const topic = db.prepare("SELECT * FROM topics WHERE id = ?").get(topicId) as TopicRow;
@@ -271,7 +271,7 @@ function importTopic(
       `);
       for (let i = 0; i < v.sentences.length; i++) {
         const s = v.sentences[i]!;
-        insertSentence.run(version.id, s.text, s.notes ?? null, i);
+        insertSentence.run(version.id, s.text, s.notes ? JSON.stringify(s.notes) : null, i);
       }
 
       versionsResult.push({ version, sentenceCount: v.sentences.length });

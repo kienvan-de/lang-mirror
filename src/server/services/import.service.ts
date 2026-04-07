@@ -4,7 +4,7 @@ import * as yaml from "js-yaml";
 
 export interface ImportSentence {
   text: string;
-  notes?: string;
+  notes?: Record<string, string>;
 }
 
 export interface ImportVersion {
@@ -104,9 +104,18 @@ function validateSentences(
       continue;
     }
     const text = validateString(s["text"], `${field}[${i}].text`, { required: true, maxLen: 2000 }, errors);
-    const notes = s["notes"] !== undefined && s["notes"] !== null
-      ? validateString(s["notes"], `${field}[${i}].notes`, { maxLen: 2000 }, errors)
-      : undefined;
+    let notes: Record<string, string> | undefined;
+    if (s["notes"] !== undefined && s["notes"] !== null) {
+      if (typeof s["notes"] !== "object" || Array.isArray(s["notes"])) {
+        errors.push({ field: `${field}[${i}].notes`, message: "notes must be an object mapping language codes to strings" });
+      } else {
+        notes = {};
+        for (const [lang, val] of Object.entries(s["notes"] as Record<string, unknown>)) {
+          const v = validateString(val, `${field}[${i}].notes.${lang}`, { maxLen: 2000 }, errors);
+          if (v !== undefined) notes[lang] = v;
+        }
+      }
+    }
     if (text !== undefined) {
       result.push({ text, notes });
     }

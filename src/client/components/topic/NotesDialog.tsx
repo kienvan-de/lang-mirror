@@ -1,15 +1,21 @@
 import ReactMarkdown from "react-markdown";
 import { useTranslation } from "react-i18next";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { langFlag, langLabel } from "../../lib/lang";
 
 interface Props {
-  notes: string;
+  notes: Record<string, string>;
+  uiLang: string;
   sentenceText: string;
   onClose: () => void;
 }
 
-export function NotesDialog({ notes, sentenceText, onClose }: Props) {
+export function NotesDialog({ notes, uiLang, sentenceText, onClose }: Props) {
   const { t } = useTranslation();
+
+  // Pick notes for UI language, fall back to first available
+  const notesText = notes[uiLang] ?? Object.values(notes)[0] ?? null;
+  const fallbackLang = !notes[uiLang] && notesText ? Object.keys(notes)[0] : null;
 
   return (
     <div
@@ -40,18 +46,27 @@ export function NotesDialog({ notes, sentenceText, onClose }: Props) {
 
         {/* Markdown body */}
         <div className="overflow-y-auto px-5 py-4 flex-1">
-          <div className="prose prose-sm dark:prose-invert max-w-none
-            prose-headings:text-gray-900 dark:prose-headings:text-gray-100
-            prose-headings:font-semibold prose-h2:text-sm prose-h2:uppercase
-            prose-h2:tracking-wide prose-h2:text-amber-600 dark:prose-h2:text-amber-400
-            prose-h2:mt-4 prose-h2:mb-2 prose-h2:first:mt-0
-            prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-relaxed
-            prose-li:text-gray-700 dark:prose-li:text-gray-300
-            prose-strong:text-gray-900 dark:prose-strong:text-gray-100
-            prose-ul:my-1 prose-li:my-0.5
-          ">
-            <ReactMarkdown>{notes}</ReactMarkdown>
-          </div>
+          {fallbackLang && (
+            <p className="text-xs text-gray-400 dark:text-gray-500 italic mb-3">
+              {langFlag(fallbackLang)} <span className="uppercase font-medium">{langLabel(fallbackLang)}</span>
+            </p>
+          )}
+          {notesText ? (
+            <div className="prose prose-sm dark:prose-invert max-w-none
+              prose-headings:text-gray-900 dark:prose-headings:text-gray-100
+              prose-headings:font-semibold prose-h2:text-sm prose-h2:uppercase
+              prose-h2:tracking-wide prose-h2:text-amber-600 dark:prose-h2:text-amber-400
+              prose-h2:mt-4 prose-h2:mb-2 prose-h2:first:mt-0
+              prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-relaxed
+              prose-li:text-gray-700 dark:prose-li:text-gray-300
+              prose-strong:text-gray-900 dark:prose-strong:text-gray-100
+              prose-ul:my-1 prose-li:my-0.5
+            ">
+              <ReactMarkdown>{notesText}</ReactMarkdown>
+            </div>
+          ) : (
+            <p className="text-sm text-gray-400 dark:text-gray-500 italic">{t("sentenceRow.noNotes")}</p>
+          )}
         </div>
 
         {/* Footer */}

@@ -142,6 +142,7 @@
     "showTranslation": "translation",
     "hideTranslation": "hide",
     "showNote": "notes",
+    "noNotes": "No notes available in this language.",
     "hideNote": "hide note",
     "notesDialogLabel": "Notes",
     "deleteConfirm": "Delete?",

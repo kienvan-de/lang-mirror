@@ -40,7 +40,7 @@ async function handleUpdateSentence(req: Request, id: string): Promise<Response>
 
   if (!current) return error("Sentence not found", 404);
 
-  let body: { text?: string; notes?: string; position?: number };
+  let body: { text?: string; notes?: Record<string, string>; position?: number };
   try {
     body = await req.json() as typeof body;
   } catch {
@@ -66,13 +66,13 @@ async function handleUpdateSentence(req: Request, id: string): Promise<Response>
     WHERE id = ?
   `).run(
     newText,
-    body.notes !== undefined ? body.notes : current.notes,
+    body.notes !== undefined ? JSON.stringify(body.notes) : current.notes,
     newCacheKey,
     id
   );
 
   const updated = db.prepare("SELECT * FROM sentences WHERE id = ?").get(id) as SentenceRow;
-  return json(updated);
+  return json({ ...updated, notes: updated.notes ? JSON.parse(updated.notes) : null });
 }
 
 // ── DELETE /api/sentences/:id ───────────────────────────────────────────────

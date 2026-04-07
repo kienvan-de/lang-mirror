@@ -19,7 +19,6 @@ export function SentenceList({ sentences, versionId, topicId, allVersions, activ
   const { t } = useTranslation();
   const qc = useQueryClient();
   const [newText, setNewText] = useState("");
-  const [newNotes, setNewNotes] = useState("");
   const [addError, setAddError] = useState("");
 
   const invalidate = () => qc.invalidateQueries({ queryKey: ["topic", topicId] });
@@ -28,11 +27,9 @@ export function SentenceList({ sentences, versionId, topicId, allVersions, activ
     mutationFn: () =>
       api.createSentence(versionId, {
         text: newText.trim(),
-        notes: newNotes.trim() || undefined,
       }),
     onSuccess: () => {
       setNewText("");
-      setNewNotes("");
       setAddError("");
       invalidate();
     },
@@ -113,14 +110,7 @@ export function SentenceList({ sentences, versionId, topicId, allVersions, activ
           placeholder={t("sentenceList.textPlaceholder")}
           className="w-full px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
         />
-        <input
-          type="text"
-          value={newNotes}
-          onChange={(e) => setNewNotes(e.target.value)}
-          placeholder={t("sentenceList.notesPlaceholder")}
-          className="w-full px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
-        />
-        {addError && <p className="text-xs text-red-500">{addError}</p>}
+{addError && <p className="text-xs text-red-500">{addError}</p>}
         <div className="flex justify-end">
           <button
             type="submit"

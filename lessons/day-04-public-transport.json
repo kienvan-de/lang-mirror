@@ -9,21 +9,27 @@
       "sentences": [
         {
           "text": "Taking public transportation is often more convenient than driving a car.",
-          "notes": "Present continuous: subject + am/is/are + verb-ing"
+          "notes": {
+            "en": "Present continuous: subject + am/is/are + verb-ing"
+          }
         },
         {
           "text": "I check the train schedule on my phone before I leave the house."
         },
         {
           "text": "The train is usually crowded in the morning, so I prefer to stand.",
-          "notes": "Present continuous: subject + am/is/are + verb-ing"
+          "notes": {
+            "en": "Present continuous: subject + am/is/are + verb-ing"
+          }
         },
         {
           "text": "I listen to a language podcast to make the commute more interesting."
         },
         {
           "text": "Overall, using the train is a cost-effective and eco-friendly choice.",
-          "notes": "Present continuous: subject + am/is/are + verb-ing"
+          "notes": {
+            "en": "Present continuous: subject + am/is/are + verb-ing"
+          }
         }
       ]
     },
@@ -34,21 +40,27 @@
       "sentences": [
         {
           "text": "Ich fahre oft mit dem Zug oder mit dem Bus.",
-          "notes": "Present tense: regular verbs → ich + stem + -e"
+          "notes": {
+            "de": "Present tense: regular verbs → ich + stem + -e"
+          }
         },
         {
           "text": "Ich sehe die Fahrpläne auf meinem Handy an."
         },
         {
           "text": "Am Morgen sind viele Leute im Zug, deshalb stehe ich.",
-          "notes": "Connective: 'deshalb/denn' (therefore/because) — note word order"
+          "notes": {
+            "de": "Connective: 'deshalb/denn' (therefore/because) — note word order"
+          }
         },
         {
           "text": "Ich höre einen Podcast und lerne Sprachen beim Fahren."
         },
         {
           "text": "Das Ticket ist nicht teuer und es ist gut für die Umwelt.",
-          "notes": "Negation: 'nicht' (verb/adj) vs 'kein' (noun)"
+          "notes": {
+            "de": "Negation: 'nicht' (verb/adj) vs 'kein' (noun)"
+          }
         }
       ]
     },
@@ -59,23 +71,33 @@
       "sentences": [
         {
           "text": "車を運転するより、電車に乗る方が便利です。",
-          "notes": "Review verb form / politeness level (ます/です)"
+          "notes": {
+            "ja": "Review verb form / politeness level (ます/です)"
+          }
         },
         {
           "text": "家を出る前に、スマホで時刻表（じこくひょう）を調べます。",
-          "notes": "Furigana reading shown in （）for N4 kanji"
+          "notes": {
+            "ja": "Furigana reading shown in （）for N4 kanji"
+          }
         },
         {
           "text": "朝は電車が混んでいる（こんでいる）ので、たいてい立っています。",
-          "notes": "〜ています: ongoing state or habitual action"
+          "notes": {
+            "ja": "〜ています: ongoing state or habitual action"
+          }
         },
         {
           "text": "通学（つうがく）の時間に、ポッドキャストで外国語を勉強します。",
-          "notes": "Furigana reading shown in （）for N4 kanji"
+          "notes": {
+            "ja": "Furigana reading shown in （）for N4 kanji"
+          }
         },
         {
           "text": "電車は安いし、環境（かんきょう）にもいいと思います。",
-          "notes": "Furigana reading shown in （）for N4 kanji"
+          "notes": {
+            "ja": "Furigana reading shown in （）for N4 kanji"
+          }
         }
       ]
     },
@@ -86,23 +108,33 @@
       "sentences": [
         {
           "text": "Sử dụng phương tiện công cộng thường thuận tiện hơn là tự lái xe hơi.",
-          "notes": "## Ngữ pháp\nCấu trúc so sánh hơn **[tính từ] hơn là** dùng để đối chiếu hai phương án. \"Thuận tiện hơn là\" nối \"sử dụng phương tiện công cộng\" với \"tự lái xe\". Trạng từ **thường** (usually) đứng trước tính từ để giảm nhẹ tính tuyệt đối của khẳng định.\n\n## Từ vựng\n- **phương tiện công cộng**: xe buýt, tàu điện... phục vụ nhiều người cùng lúc; public transportation\n- **thường**: hay xảy ra trong đa số trường hợp; usually, often\n- **thuận tiện**: dễ dàng, không gây phiền phức; convenient\n- **tự**: do chính mình thực hiện, không nhờ ai; by oneself, on one's own\n- **lái xe**: điều khiển phương tiện giao thông có động cơ; to drive"
+          "notes": {
+            "vi": "## Ngữ pháp\nCấu trúc so sánh hơn **[tính từ] hơn là** dùng để đối chiếu hai phương án. \"Thuận tiện hơn là\" nối \"sử dụng phương tiện công cộng\" với \"tự lái xe\". Trạng từ **thường** (usually) đứng trước tính từ để giảm nhẹ tính tuyệt đối của khẳng định.\n\n## Từ vựng\n- **phương tiện công cộng**: xe buýt, tàu điện... phục vụ nhiều người cùng lúc; public transportation\n- **thường**: hay xảy ra trong đa số trường hợp; usually, often\n- **thuận tiện**: dễ dàng, không gây phiền phức; convenient\n- **tự**: do chính mình thực hiện, không nhờ ai; by oneself, on one's own\n- **lái xe**: điều khiển phương tiện giao thông có động cơ; to drive"
+          }
         },
         {
           "text": "Tôi kiểm tra lịch trình tàu trên điện thoại trước khi rời nhà.",
-          "notes": "## Ngữ pháp\nCấu trúc **trước khi + [động từ]** chỉ hành động được thực hiện trước một hành động khác. Ở đây, \"kiểm tra lịch trình\" xảy ra trước \"rời nhà\". Phó từ chỉ nơi chốn \"trên điện thoại\" cho biết công cụ hoặc phương tiện thực hiện hành động.\n\n## Từ vựng\n- **kiểm tra**: xem xét, xác nhận thông tin hoặc trạng thái; to check, to verify\n- **lịch trình**: thời gian biểu, kế hoạch di chuyển; schedule, timetable\n- **điện thoại**: thiết bị liên lạc cá nhân, ở đây chỉ điện thoại thông minh; phone, smartphone\n- **trước khi**: ngay trước thời điểm xảy ra hành động kia; before\n- **rời**: đi khỏi một nơi nào đó; to leave, to depart from"
+          "notes": {
+            "vi": "## Ngữ pháp\nCấu trúc **trước khi + [động từ]** chỉ hành động được thực hiện trước một hành động khác. Ở đây, \"kiểm tra lịch trình\" xảy ra trước \"rời nhà\". Phó từ chỉ nơi chốn \"trên điện thoại\" cho biết công cụ hoặc phương tiện thực hiện hành động.\n\n## Từ vựng\n- **kiểm tra**: xem xét, xác nhận thông tin hoặc trạng thái; to check, to verify\n- **lịch trình**: thời gian biểu, kế hoạch di chuyển; schedule, timetable\n- **điện thoại**: thiết bị liên lạc cá nhân, ở đây chỉ điện thoại thông minh; phone, smartphone\n- **trước khi**: ngay trước thời điểm xảy ra hành động kia; before\n- **rời**: đi khỏi một nơi nào đó; to leave, to depart from"
+          }
         },
         {
           "text": "Tàu thường đông đúc vào buổi sáng, nên tôi thích đứng hơn.",
-          "notes": "## Ngữ pháp\nLiên từ **nên** (vì thế, do đó) nối nguyên nhân và hệ quả: tàu đông đúc → tôi chọn đứng. Cấu trúc **thích + [hành động] hơn** diễn đạt sự ưa thích giữa hai lựa chọn, tương đương \"prefer to\" trong tiếng Anh.\n\n## Từ vựng\n- **đông đúc**: có nhiều người ở cùng một chỗ, chen chúc; crowded\n- **buổi sáng**: khoảng thời gian từ khi thức dậy đến trưa; morning\n- **nên**: liên từ chỉ kết quả/hệ quả; so, therefore\n- **thích ... hơn**: ưa thích một lựa chọn so với lựa chọn khác; to prefer\n- **đứng**: ở tư thế thẳng người, không ngồi; to stand"
+          "notes": {
+            "vi": "## Ngữ pháp\nLiên từ **nên** (vì thế, do đó) nối nguyên nhân và hệ quả: tàu đông đúc → tôi chọn đứng. Cấu trúc **thích + [hành động] hơn** diễn đạt sự ưa thích giữa hai lựa chọn, tương đương \"prefer to\" trong tiếng Anh.\n\n## Từ vựng\n- **đông đúc**: có nhiều người ở cùng một chỗ, chen chúc; crowded\n- **buổi sáng**: khoảng thời gian từ khi thức dậy đến trưa; morning\n- **nên**: liên từ chỉ kết quả/hệ quả; so, therefore\n- **thích ... hơn**: ưa thích một lựa chọn so với lựa chọn khác; to prefer\n- **đứng**: ở tư thế thẳng người, không ngồi; to stand"
+          }
         },
         {
           "text": "Tôi nghe podcast ngoại ngữ để quãng đường đi làm trở nên thú vị hơn.",
-          "notes": "## Ngữ pháp\nCấu trúc **để + [mệnh đề]** chỉ mục đích. Đặc biệt, cụm **trở nên + [tính từ]** diễn tả sự thay đổi trạng thái, tương đương \"become\" trong tiếng Anh. Ví dụ: \"trở nên mệt\", \"trở nên giỏi hơn.\"\n\n## Từ vựng\n- **podcast**: chương trình âm thanh phát trực tuyến, thường theo chủ đề; podcast\n- **ngoại ngữ**: ngôn ngữ không phải tiếng mẹ đẻ; foreign language\n- **quãng đường**: khoảng cách hoặc hành trình từ nơi này đến nơi khác; route, journey\n- **đi làm**: di chuyển đến nơi làm việc; commute, going to work\n- **trở nên**: bắt đầu có đặc điểm hoặc trạng thái mới; to become"
+          "notes": {
+            "vi": "## Ngữ pháp\nCấu trúc **để + [mệnh đề]** chỉ mục đích. Đặc biệt, cụm **trở nên + [tính từ]** diễn tả sự thay đổi trạng thái, tương đương \"become\" trong tiếng Anh. Ví dụ: \"trở nên mệt\", \"trở nên giỏi hơn.\"\n\n## Từ vựng\n- **podcast**: chương trình âm thanh phát trực tuyến, thường theo chủ đề; podcast\n- **ngoại ngữ**: ngôn ngữ không phải tiếng mẹ đẻ; foreign language\n- **quãng đường**: khoảng cách hoặc hành trình từ nơi này đến nơi khác; route, journey\n- **đi làm**: di chuyển đến nơi làm việc; commute, going to work\n- **trở nên**: bắt đầu có đặc điểm hoặc trạng thái mới; to become"
+          }
         },
         {
           "text": "Nhìn chung, đi tàu là một lựa chọn tiết kiệm và thân thiện với môi trường.",
-          "notes": "## Ngữ pháp\nCụm **Nhìn chung** là trạng ngữ mở đầu câu, dùng để tổng kết hoặc đưa ra đánh giá bao quát, tương đương \"overall\" hay \"in general\". Cấu trúc **[X] là một [danh từ] + [tính từ]** dùng để định nghĩa hoặc phân loại X.\n\n## Từ vựng\n- **nhìn chung**: xét một cách tổng thể, nói chung; overall, in general\n- **lựa chọn**: phương án được chọn trong số nhiều khả năng; choice, option\n- **tiết kiệm**: không tốn nhiều tiền hoặc tài nguyên; economical, cost-effective\n- **thân thiện với môi trường**: không gây hại cho tự nhiên; eco-friendly, environmentally friendly\n- **môi trường**: hệ sinh thái và điều kiện tự nhiên xung quanh; environment"
+          "notes": {
+            "vi": "## Ngữ pháp\nCụm **Nhìn chung** là trạng ngữ mở đầu câu, dùng để tổng kết hoặc đưa ra đánh giá bao quát, tương đương \"overall\" hay \"in general\". Cấu trúc **[X] là một [danh từ] + [tính từ]** dùng để định nghĩa hoặc phân loại X.\n\n## Từ vựng\n- **nhìn chung**: xét một cách tổng thể, nói chung; overall, in general\n- **lựa chọn**: phương án được chọn trong số nhiều khả năng; choice, option\n- **tiết kiệm**: không tốn nhiều tiền hoặc tài nguyên; economical, cost-effective\n- **thân thiện với môi trường**: không gây hại cho tự nhiên; eco-friendly, environmentally friendly\n- **môi trường**: hệ sinh thái và điều kiện tự nhiên xung quanh; environment"
+          }
         }
       ]
     }

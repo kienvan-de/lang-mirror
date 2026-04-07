@@ -142,6 +142,7 @@
     "showTranslation": "dịch nghĩa",
     "hideTranslation": "ẩn",
     "showNote": "ghi chú",
+    "noNotes": "Không có ghi chú cho ngôn ngữ này.",
     "hideNote": "ẩn ghi chú",
     "notesDialogLabel": "Ghi chú",
     "deleteConfirm": "Xóa?",

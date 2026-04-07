@@ -24,7 +24,8 @@ interface Props {
 }
 
 export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onReorderUp, onReorderDown, isFirst, isLast }: Props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const uiLang = i18n.language.split("-")[0]!;
   const qc = useQueryClient();
   const [editing, setEditing] = useState(false);
   const [showSiblings, setShowSiblings] = useState(false);
@@ -32,7 +33,8 @@ export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onR
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const [editText, setEditText] = useState(sentence.text);
-  const [editNotes, setEditNotes] = useState(sentence.notes ?? "");
+  // Edit only the UI-language slot; other language notes are preserved on save
+  const [editNotes, setEditNotes] = useState(sentence.notes?.[uiLang] ?? "");
   const editRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -42,10 +44,20 @@ export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onR
   const invalidate = () => qc.invalidateQueries({ queryKey: ["topic", topicId] });
 
   const updateMutation = useMutation({
-    mutationFn: () => api.updateSentence(sentence.id, {
-      text: editText.trim(),
-      notes: editNotes.trim() || undefined,
-    }),
+    mutationFn: () => {
+      // Merge edited UI-language note back into the map; remove key if empty
+      const existing = sentence.notes ?? {};
+      const merged: Record<string, string> = { ...existing };
+      if (editNotes.trim()) {
+        merged[uiLang] = editNotes.trim();
+      } else {
+        delete merged[uiLang];
+      }
+      return api.updateSentence(sentence.id, {
+        text: editText.trim(),
+        notes: Object.keys(merged).length > 0 ? merged : undefined,
+      });
+    },
     onSuccess: () => { setEditing(false); invalidate(); },
   });
 
@@ -61,7 +73,7 @@ export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onR
 
   const cancelEdit = () => {
     setEditText(sentence.text);
-    setEditNotes(sentence.notes ?? "");
+    setEditNotes(sentence.notes?.[uiLang] ?? "");
     setEditing(false);
   };
 
@@ -81,6 +93,11 @@ export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onR
           placeholder={t("sentenceRow.textPlaceholder")}
           className="w-full px-3 py-1.5 text-sm rounded-lg border border-blue-300 dark:border-blue-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
+        <div className="flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500">
+          <span>📝</span>
+          <span>{t("sentenceRow.notesPlaceholder")}</span>
+          <span className="ml-auto px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 font-medium uppercase text-[10px]">{uiLang}</span>
+        </div>
         <textarea
           value={editNotes}
           onChange={(e) => setEditNotes(e.target.value)}
@@ -139,7 +156,7 @@ export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onR
             )}
 
             {/* Notes button — opens dialog */}
-            {sentence.notes && (
+            {sentence.notes && Object.keys(sentence.notes).length > 0 && (
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); setShowNotesDialog(true); }}
@@ -241,9 +258,10 @@ export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onR
       </div>
 
       {/* Notes modal */}
-      {showNotesDialog && sentence.notes && (
+      {showNotesDialog && sentence.notes && Object.keys(sentence.notes).length > 0 && (
         <NotesDialog
           notes={sentence.notes}
+          uiLang={uiLang}
           sentenceText={sentence.text}
           onClose={() => setShowNotesDialog(false)}
         />

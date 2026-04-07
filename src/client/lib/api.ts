@@ -32,7 +32,7 @@ export interface Sentence {
   text: string;
   /** @deprecated Use sibling version sentences instead of per-sentence translations */
   translation?: string | null;
-  notes: string | null;
+  notes: Record<string, string> | null;
   position: number;
   tts_cache_key: string | null;
   created_at: string;
@@ -87,9 +87,9 @@ export const api = {
 
   // Sentences
   getSentences: (versionId: string) => apiFetch<Sentence[]>(`/versions/${versionId}/sentences`),
-  createSentence: (versionId: string, body: { text: string; notes?: string }) =>
+  createSentence: (versionId: string, body: { text: string; notes?: Record<string, string> }) =>
     apiFetch<Sentence>(`/versions/${versionId}/sentences`, { method: "POST", body: JSON.stringify(body) }),
-  updateSentence: (id: string, body: { text?: string; notes?: string }) =>
+  updateSentence: (id: string, body: { text?: string; notes?: Record<string, string> }) =>
     apiFetch<Sentence>(`/sentences/${id}`, { method: "PUT", body: JSON.stringify(body) }),
   deleteSentence: (id: string) =>
     apiFetch<{ deleted: boolean }>(`/sentences/${id}`, { method: "DELETE" }),

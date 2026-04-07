@@ -9,11 +9,15 @@
       "sentences": [
         {
           "text": "Sometimes I encounter unexpected bugs while I am developing software.",
-          "notes": "Present continuous: subject + am/is/are + verb-ing"
+          "notes": {
+            "en": "Present continuous: subject + am/is/are + verb-ing"
+          }
         },
         {
           "text": "First, I try to reproduce the error to understand exactly what is happening.",
-          "notes": "Present continuous: subject + am/is/are + verb-ing"
+          "notes": {
+            "en": "Present continuous: subject + am/is/are + verb-ing"
+          }
         },
         {
           "text": "Then, I search for solutions in the documentation or online forums."
@@ -39,15 +43,21 @@
         },
         {
           "text": "Ich lese die Dokumentation oder frage im Internet.",
-          "notes": "Contracted preposition: im=in dem, am=an dem, zum=zu dem"
+          "notes": {
+            "de": "Contracted preposition: im=in dem, am=an dem, zum=zu dem"
+          }
         },
         {
           "text": "Dann schreibe ich den Code neu und teste alles.",
-          "notes": "Word order: 'dann' (then) causes verb-second position"
+          "notes": {
+            "de": "Word order: 'dann' (then) causes verb-second position"
+          }
         },
         {
           "text": "Wenn der Code funktioniert, bin ich sehr glücklich.",
-          "notes": "Subordinate clause: 'wenn' sends verb to the end"
+          "notes": {
+            "de": "Subordinate clause: 'wenn' sends verb to the end"
+          }
         }
       ]
     },
@@ -58,23 +68,33 @@
       "sentences": [
         {
           "text": "プログラミングをしている時、時々バグを見つけます。",
-          "notes": "〜ています: ongoing state or habitual action"
+          "notes": {
+            "ja": "〜ています: ongoing state or habitual action"
+          }
         },
         {
           "text": "まず、どこが間違っているか確認（かくにん）します。",
-          "notes": "〜ています: ongoing state or habitual action"
+          "notes": {
+            "ja": "〜ています: ongoing state or habitual action"
+          }
         },
         {
           "text": "それから、ドキュメントを読んだり、ネットで調べたりします。",
-          "notes": "Review verb form / politeness level (ます/です)"
+          "notes": {
+            "ja": "Review verb form / politeness level (ます/です)"
+          }
         },
         {
           "text": "原因（げんいん）がわかったら、コードを書き直してテストします。",
-          "notes": "Conditional form: たら (if/when completed), ば (hypothetical)"
+          "notes": {
+            "ja": "Conditional form: たら (if/when completed), ば (hypothetical)"
+          }
         },
         {
           "text": "難しい問題が解決（かいけつ）すると、とてもうれしいです。",
-          "notes": "Furigana reading shown in （）for N4 kanji"
+          "notes": {
+            "ja": "Furigana reading shown in （）for N4 kanji"
+          }
         }
       ]
     },
@@ -85,23 +105,33 @@
       "sentences": [
         {
           "text": "Đôi khi tôi gặp phải những lỗi (bug) bất ngờ trong khi đang phát triển phần mềm.",
-          "notes": "## Ngữ pháp\nCụm **trong khi đang + [động từ]** diễn đạt hành động đang diễn ra tại một thời điểm nhất định, tương đương \"while + V-ing\". Trợ từ **đang** nhấn mạnh tính liên tục của hành động. Động từ **gặp phải** (gặp + phải) mang nghĩa tiêu cực hơn \"gặp\" đơn thuần — chỉ việc bất ngờ đối mặt với điều không mong muốn.\n\n## Từ vựng\n- **đôi khi**: thỉnh thoảng, không thường xuyên; sometimes, occasionally\n- **gặp phải**: bất ngờ đối mặt với điều không mong muốn; to encounter, to run into\n- **lỗi**: điều sai sót, hỏng hóc trong phần mềm hoặc hệ thống; bug, error\n- **bất ngờ**: không được dự đoán trước, xảy ra đột ngột; unexpected, sudden\n- **phần mềm**: chương trình máy tính, ứng dụng; software"
+          "notes": {
+            "vi": "## Ngữ pháp\nCụm **trong khi đang + [động từ]** diễn đạt hành động đang diễn ra tại một thời điểm nhất định, tương đương \"while + V-ing\". Trợ từ **đang** nhấn mạnh tính liên tục của hành động. Động từ **gặp phải** (gặp + phải) mang nghĩa tiêu cực hơn \"gặp\" đơn thuần — chỉ việc bất ngờ đối mặt với điều không mong muốn.\n\n## Từ vựng\n- **đôi khi**: thỉnh thoảng, không thường xuyên; sometimes, occasionally\n- **gặp phải**: bất ngờ đối mặt với điều không mong muốn; to encounter, to run into\n- **lỗi**: điều sai sót, hỏng hóc trong phần mềm hoặc hệ thống; bug, error\n- **bất ngờ**: không được dự đoán trước, xảy ra đột ngột; unexpected, sudden\n- **phần mềm**: chương trình máy tính, ứng dụng; software"
+          }
         },
         {
           "text": "Đầu tiên, tôi cố gắng tái hiện lỗi để hiểu chính xác chuyện gì đang xảy ra.",
-          "notes": "## Ngữ pháp\nCấu trúc **cố gắng + [động từ]** diễn đạt nỗ lực thực hiện điều gì đó, tương đương \"try to do\". Mệnh đề **chuyện gì đang xảy ra** là mệnh đề danh từ làm tân ngữ cho \"hiểu\", có cấu trúc tương tự câu hỏi gián tiếp trong tiếng Anh (\"what is happening\").\n\n## Từ vựng\n- **đầu tiên**: vị trí hoặc bước thứ nhất trong một chuỗi; first, firstly\n- **cố gắng**: nỗ lực hết sức để làm gì; to try, to make an effort\n- **tái hiện**: làm cho điều gì đó xảy ra lại giống như lần trước; to reproduce, to recreate\n- **chính xác**: đúng không sai, phù hợp với thực tế; exactly, accurately\n- **xảy ra**: diễn ra, xuất hiện (thường nói về sự kiện); to happen, to occur"
+          "notes": {
+            "vi": "## Ngữ pháp\nCấu trúc **cố gắng + [động từ]** diễn đạt nỗ lực thực hiện điều gì đó, tương đương \"try to do\". Mệnh đề **chuyện gì đang xảy ra** là mệnh đề danh từ làm tân ngữ cho \"hiểu\", có cấu trúc tương tự câu hỏi gián tiếp trong tiếng Anh (\"what is happening\").\n\n## Từ vựng\n- **đầu tiên**: vị trí hoặc bước thứ nhất trong một chuỗi; first, firstly\n- **cố gắng**: nỗ lực hết sức để làm gì; to try, to make an effort\n- **tái hiện**: làm cho điều gì đó xảy ra lại giống như lần trước; to reproduce, to recreate\n- **chính xác**: đúng không sai, phù hợp với thực tế; exactly, accurately\n- **xảy ra**: diễn ra, xuất hiện (thường nói về sự kiện); to happen, to occur"
+          }
         },
         {
           "text": "Sau đó, tôi tìm kiếm giải pháp trong tài liệu hoặc các diễn đàn trực tuyến.",
-          "notes": "## Ngữ pháp\nCụm **sau đó** là trạng từ chỉ trình tự thời gian, dùng để nối các bước trong một quy trình. Giới từ **trong** ở đây chỉ không gian tìm kiếm (trong tài liệu), còn liên từ **hoặc** nối hai lựa chọn tương đương.\n\n## Từ vựng\n- **sau đó**: tiếp theo sau, ở bước tiếp theo; after that, then\n- **tìm kiếm**: dò tìm một cách có chủ đích; to search for, to look for\n- **giải pháp**: cách giải quyết vấn đề; solution\n- **tài liệu**: văn bản, hướng dẫn ghi chép thông tin kỹ thuật; documentation, reference material\n- **diễn đàn trực tuyến**: cộng đồng trao đổi thông tin trên mạng internet; online forum"
+          "notes": {
+            "vi": "## Ngữ pháp\nCụm **sau đó** là trạng từ chỉ trình tự thời gian, dùng để nối các bước trong một quy trình. Giới từ **trong** ở đây chỉ không gian tìm kiếm (trong tài liệu), còn liên từ **hoặc** nối hai lựa chọn tương đương.\n\n## Từ vựng\n- **sau đó**: tiếp theo sau, ở bước tiếp theo; after that, then\n- **tìm kiếm**: dò tìm một cách có chủ đích; to search for, to look for\n- **giải pháp**: cách giải quyết vấn đề; solution\n- **tài liệu**: văn bản, hướng dẫn ghi chép thông tin kỹ thuật; documentation, reference material\n- **diễn đàn trực tuyến**: cộng đồng trao đổi thông tin trên mạng internet; online forum"
+          }
         },
         {
           "text": "Sau khi tìm ra nguyên nhân, tôi viết lại mã nguồn và kiểm tra nó vài lần.",
-          "notes": "## Ngữ pháp\nCụm **Sau khi + [động từ/mệnh đề]** chỉ hành động xảy ra tiếp theo sau một hành động khác đã hoàn thành. Động từ **tìm ra** (tìm + ra) là động từ kết quả — \"ra\" nhấn mạnh việc tìm kiếm đã đi đến thành công.\n\n## Từ vựng\n- **sau khi**: tiếp theo ngay khi một hành động hoàn tất; after (doing something)\n- **nguyên nhân**: lý do, căn nguyên dẫn đến một kết quả; cause, root cause\n- **mã nguồn**: tập hợp các lệnh lập trình tạo nên phần mềm; source code\n- **kiểm tra**: xem xét, đánh giá để tìm ra vấn đề; to test, to check\n- **vài lần**: số lần không nhiều, khoảng 2–4 lần; a few times, several times"
+          "notes": {
+            "vi": "## Ngữ pháp\nCụm **Sau khi + [động từ/mệnh đề]** chỉ hành động xảy ra tiếp theo sau một hành động khác đã hoàn thành. Động từ **tìm ra** (tìm + ra) là động từ kết quả — \"ra\" nhấn mạnh việc tìm kiếm đã đi đến thành công.\n\n## Từ vựng\n- **sau khi**: tiếp theo ngay khi một hành động hoàn tất; after (doing something)\n- **nguyên nhân**: lý do, căn nguyên dẫn đến một kết quả; cause, root cause\n- **mã nguồn**: tập hợp các lệnh lập trình tạo nên phần mềm; source code\n- **kiểm tra**: xem xét, đánh giá để tìm ra vấn đề; to test, to check\n- **vài lần**: số lần không nhiều, khoảng 2–4 lần; a few times, several times"
+          }
         },
         {
           "text": "Việc sửa được một vấn đề khó mang lại cho tôi cảm giác thành tựu tuyệt vời.",
-          "notes": "## Ngữ pháp\nDanh hóa động từ bằng từ **Việc** biến cụm \"sửa được một vấn đề khó\" thành chủ ngữ danh từ. Cấu trúc **mang lại cho + [người] + [điều gì]** có nghĩa là đem đến cho ai đó điều gì, tương đương \"give somebody something\".\n\n## Từ vựng\n- **việc**: từ dùng để danh hóa một hành động hoặc cụm động từ; nominalizer for actions\n- **sửa được**: sửa thành công, khắc phục được lỗi; to successfully fix\n- **vấn đề**: điều cần được giải quyết, tình huống khó khăn; problem, issue\n- **cảm giác**: trạng thái cảm xúc hoặc nhận thức chủ quan; feeling, sense\n- **thành tựu**: kết quả tốt đạt được sau nỗ lực; achievement, accomplishment"
+          "notes": {
+            "vi": "## Ngữ pháp\nDanh hóa động từ bằng từ **Việc** biến cụm \"sửa được một vấn đề khó\" thành chủ ngữ danh từ. Cấu trúc **mang lại cho + [người] + [điều gì]** có nghĩa là đem đến cho ai đó điều gì, tương đương \"give somebody something\".\n\n## Từ vựng\n- **việc**: từ dùng để danh hóa một hành động hoặc cụm động từ; nominalizer for actions\n- **sửa được**: sửa thành công, khắc phục được lỗi; to successfully fix\n- **vấn đề**: điều cần được giải quyết, tình huống khó khăn; problem, issue\n- **cảm giác**: trạng thái cảm xúc hoặc nhận thức chủ quan; feeling, sense\n- **thành tựu**: kết quả tốt đạt được sau nỗ lực; achievement, accomplishment"
+          }
         }
       ]
     }

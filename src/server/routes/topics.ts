@@ -133,7 +133,7 @@ function getTopic(id: string): Response {
 
     return {
       ...v,
-      sentences,
+      sentences: sentences.map((s) => ({ ...s, notes: s.notes ? JSON.parse(s.notes) as Record<string, string> : null })),
       totalSentences,
       practicedToday: practiced_today,
       progressToday,

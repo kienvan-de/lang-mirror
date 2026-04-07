@@ -133,7 +133,7 @@ function getVersion(id: string): Response {
     "SELECT * FROM sentences WHERE version_id = ? ORDER BY position ASC"
   ).all(id) as SentenceRow[];
 
-  return json({ ...version, sentences });
+  return json({ ...version, sentences: sentences.map(parseNotesRow) });
 }
 
 // ── PUT /api/versions/:id ────────────────────────────────────────────────────
@@ -195,6 +195,12 @@ function deleteVersion(id: string): Response {
   return json({ deleted: true });
 }
 
+// ── Helper: parse notes JSON string → object ─────────────────────────────────
+
+function parseNotesRow(row: SentenceRow): object {
+  return { ...row, notes: row.notes ? JSON.parse(row.notes) as Record<string, string> : null };
+}
+
 // ── GET /api/versions/:id/sentences ──────────────────────────────────────────
 
 function listSentences(versionId: string): Response {
@@ -206,7 +212,7 @@ function listSentences(versionId: string): Response {
   const rows = db.prepare(
     "SELECT * FROM sentences WHERE version_id = ? ORDER BY position ASC"
   ).all(versionId) as SentenceRow[];
-  return json(rows);
+  return json(rows.map(parseNotesRow));
 }
 
 // ── POST /api/versions/:id/sentences ─────────────────────────────────────────
@@ -217,7 +223,7 @@ async function createSentence(req: Request, versionId: string): Promise<Response
   ).get(versionId);
   if (!version) return error("Version not found", 404);
 
-  let body: { text?: string; notes?: string; position?: number };
+  let body: { text?: string; notes?: Record<string, string>; position?: number };
   try {
     body = await req.json() as typeof body;
   } catch {
@@ -246,13 +252,13 @@ async function createSentence(req: Request, versionId: string): Promise<Response
   db.prepare(`
     INSERT INTO sentences (version_id, text, notes, position)
     VALUES (?, ?, ?, ?)
-  `).run(versionId, text, body.notes?.trim() || null, position);
+  `).run(versionId, text, body.notes ? JSON.stringify(body.notes) : null, position);
 
   const created = db.prepare(
     "SELECT * FROM sentences WHERE version_id = ? ORDER BY created_at DESC LIMIT 1"
   ).get(versionId) as SentenceRow;
 
-  return json(created, 201);
+  return json(parseNotesRow(created), 201);
 }
 
 // ── POST /api/topics/:topicId/versions/reorder ───────────────────────────────
@@ -331,5 +337,5 @@ async function reorderSentences(req: Request, versionId: string): Promise<Respon
   const updated = db.prepare(
     "SELECT * FROM sentences WHERE version_id = ? ORDER BY position ASC"
   ).all(versionId) as SentenceRow[];
-  return json(updated);
+  return json(updated.map(parseNotesRow));
 }

@@ -45,7 +45,9 @@ function buildTopicPayload(topic: TopicRow): object {
     if (v.pitch !== null) versionObj["pitch"] = v.pitch;
     versionObj["sentences"] = sentences.map((s) => {
       const obj: Record<string, unknown> = { text: s.text };
-      if (s.notes) obj["notes"] = s.notes;
+      if (s.notes) {
+        try { obj["notes"] = JSON.parse(s.notes); } catch { obj["notes"] = s.notes; }
+      }
       return obj;
     });
     return versionObj;

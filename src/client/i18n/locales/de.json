@@ -142,6 +142,7 @@
     "showTranslation": "Übersetzung",
     "hideTranslation": "ausblenden",
     "showNote": "Notizen",
+    "noNotes": "Keine Notizen in dieser Sprache verfügbar.",
     "hideNote": "Notiz ausblenden",
     "notesDialogLabel": "Notizen",
     "deleteConfirm": "Löschen?",

@@ -9,18 +9,24 @@
       "sentences": [
         {
           "text": "We are currently investigating why the API is returning a 500 error code.",
-          "notes": "Present continuous: subject + am/is/are + verb-ing"
+          "notes": {
+            "en": "Present continuous: subject + am/is/are + verb-ing"
+          }
         },
         {
           "text": "It seems that the server is not receiving the correct parameters from the client.",
-          "notes": "Present continuous: subject + am/is/are + verb-ing"
+          "notes": {
+            "en": "Present continuous: subject + am/is/are + verb-ing"
+          }
         },
         {
           "text": "I will check the logs to see exactly where the connection fails."
         },
         {
           "text": "If the configuration is wrong, we need to update the environment variables.",
-          "notes": "Conditional: 'If + present simple, … will/can…'"
+          "notes": {
+            "en": "Conditional: 'If + present simple, … will/can…'"
+          }
         },
         {
           "text": "We hope to fix this issue before the users notice any downtime."
@@ -34,22 +40,30 @@
       "sentences": [
         {
           "text": "Die API funktioniert nicht, wir suchen jetzt den Fehler.",
-          "notes": "Negation: 'nicht' (verb/adj) vs 'kein' (noun)"
+          "notes": {
+            "de": "Negation: 'nicht' (verb/adj) vs 'kein' (noun)"
+          }
         },
         {
           "text": "Der Server bekommt keine Informationen vom Client.",
-          "notes": "Negation: 'nicht' (verb/adj) vs 'kein' (noun)"
+          "notes": {
+            "de": "Negation: 'nicht' (verb/adj) vs 'kein' (noun)"
+          }
         },
         {
           "text": "Ich lese die Logs und suche die falsche Verbindung."
         },
         {
           "text": "Vielleicht ist die Konfiguration falsch, dann ändern wir sie.",
-          "notes": "Word order: 'dann' (then) causes verb-second position"
+          "notes": {
+            "de": "Word order: 'dann' (then) causes verb-second position"
+          }
         },
         {
           "text": "Wir reparieren das schnell, dann läuft das System wieder.",
-          "notes": "Word order: 'dann' (then) causes verb-second position"
+          "notes": {
+            "de": "Word order: 'dann' (then) causes verb-second position"
+          }
         }
       ]
     },
@@ -60,23 +74,33 @@
       "sentences": [
         {
           "text": "今、どうしてAPIがエラーを返しているか調べています。",
-          "notes": "〜ています: ongoing state or habitual action"
+          "notes": {
+            "ja": "〜ています: ongoing state or habitual action"
+          }
         },
         {
           "text": "サーバーがクライアントから正しいデータを受け取っていないようです。",
-          "notes": "〜ています: ongoing state or habitual action"
+          "notes": {
+            "ja": "〜ています: ongoing state or habitual action"
+          }
         },
         {
           "text": "ログを確認して、どこでエラーが起きているか探します。",
-          "notes": "〜ています: ongoing state or habitual action"
+          "notes": {
+            "ja": "〜ています: ongoing state or habitual action"
+          }
         },
         {
           "text": "設定（せってい）が間違っていたら、環境変数（かんきょうへんすう）を更新します。",
-          "notes": "Conditional form: たら (if/when completed), ば (hypothetical)"
+          "notes": {
+            "ja": "Conditional form: たら (if/when completed), ば (hypothetical)"
+          }
         },
         {
           "text": "ユーザーが困る前に、この問題を解決したいです。",
-          "notes": "Review verb form / politeness level (ます/です)"
+          "notes": {
+            "ja": "Review verb form / politeness level (ます/です)"
+          }
         }
       ]
     },
@@ -87,23 +111,33 @@
       "sentences": [
         {
           "text": "Chúng tôi hiện đang điều tra lý do tại sao API lại trả về mã lỗi",
-          "notes": "## Ngữ pháp\nCụm **hiện đang + [động từ]** nhấn mạnh hành động đang diễn ra ngay tại thời điểm hiện tại. Mệnh đề danh từ **tại sao API lại trả về mã lỗi** làm tân ngữ cho \"điều tra\". Từ **lại** trong \"lại trả về\" mang hàm ý bất ngờ hoặc không mong muốn.\n\n## Từ vựng\n- **hiện đang**: ngay lúc này, tại thời điểm nói; currently, right now\n- **điều tra**: tìm hiểu kỹ lưỡng nguyên nhân của sự việc; to investigate\n- **lý do**: nguyên nhân hoặc mục đích của một hành động; reason\n- **trả về**: gửi lại kết quả hoặc giá trị; to return (a value)\n- **mã lỗi**: con số hoặc ký hiệu cho biết loại lỗi xảy ra; error code"
+          "notes": {
+            "vi": "## Ngữ pháp\nCụm **hiện đang + [động từ]** nhấn mạnh hành động đang diễn ra ngay tại thời điểm hiện tại. Mệnh đề danh từ **tại sao API lại trả về mã lỗi** làm tân ngữ cho \"điều tra\". Từ **lại** trong \"lại trả về\" mang hàm ý bất ngờ hoặc không mong muốn.\n\n## Từ vựng\n- **hiện đang**: ngay lúc này, tại thời điểm nói; currently, right now\n- **điều tra**: tìm hiểu kỹ lưỡng nguyên nhân của sự việc; to investigate\n- **lý do**: nguyên nhân hoặc mục đích của một hành động; reason\n- **trả về**: gửi lại kết quả hoặc giá trị; to return (a value)\n- **mã lỗi**: con số hoặc ký hiệu cho biết loại lỗi xảy ra; error code"
+          }
         },
         {
           "text": "Có vẻ như máy chủ không nhận được các tham số chính xác từ phía khách hàng.",
-          "notes": "## Ngữ pháp\nCụm **có vẻ như + [mệnh đề]** diễn đạt suy đoán dựa trên bằng chứng chưa chắc chắn, tương đương \"it seems that\" hay \"it appears that\". Cấu trúc phủ định **không nhận được** = \"not receive/get\".\n\n## Từ vựng\n- **có vẻ như**: dường như, có dấu hiệu cho thấy; it seems that, apparently\n- **máy chủ**: máy tính trung tâm cung cấp dịch vụ cho các máy khác; server\n- **tham số**: giá trị đầu vào truyền vào hàm hoặc yêu cầu; parameter\n- **chính xác**: đúng, không có sai sót; correct, accurate\n- **khách hàng**: ở đây chỉ phần mềm client gửi yêu cầu đến server; client"
+          "notes": {
+            "vi": "## Ngữ pháp\nCụm **có vẻ như + [mệnh đề]** diễn đạt suy đoán dựa trên bằng chứng chưa chắc chắn, tương đương \"it seems that\" hay \"it appears that\". Cấu trúc phủ định **không nhận được** = \"not receive/get\".\n\n## Từ vựng\n- **có vẻ như**: dường như, có dấu hiệu cho thấy; it seems that, apparently\n- **máy chủ**: máy tính trung tâm cung cấp dịch vụ cho các máy khác; server\n- **tham số**: giá trị đầu vào truyền vào hàm hoặc yêu cầu; parameter\n- **chính xác**: đúng, không có sai sót; correct, accurate\n- **khách hàng**: ở đây chỉ phần mềm client gửi yêu cầu đến server; client"
+          }
         },
         {
           "text": "Tôi sẽ kiểm tra nhật ký (logs) để xem chính xác kết nối bị lỗi ở đâu.",
-          "notes": "## Ngữ pháp\nCấu trúc **để xem + [mệnh đề hỏi gián tiếp]** diễn đạt mục đích điều tra. Mệnh đề \"kết nối bị lỗi ở đâu\" là câu hỏi gián tiếp làm tân ngữ cho \"xem\". Từ **bị** trước động từ mang nghĩa thụ động tiêu cực (\"bị lỗi\" = bị ảnh hưởng bởi lỗi).\n\n## Từ vựng\n- **nhật ký**: bản ghi lại các sự kiện và hoạt động của hệ thống; log\n- **kết nối**: liên kết giữa các thành phần trong mạng; connection\n- **bị lỗi**: gặp phải trục trặc, hoạt động không đúng; to fail, to have an error\n- **chính xác**: đúng với thực tế, không mơ hồ; exactly, precisely\n- **ở đâu**: tại vị trí nào; where"
+          "notes": {
+            "vi": "## Ngữ pháp\nCấu trúc **để xem + [mệnh đề hỏi gián tiếp]** diễn đạt mục đích điều tra. Mệnh đề \"kết nối bị lỗi ở đâu\" là câu hỏi gián tiếp làm tân ngữ cho \"xem\". Từ **bị** trước động từ mang nghĩa thụ động tiêu cực (\"bị lỗi\" = bị ảnh hưởng bởi lỗi).\n\n## Từ vựng\n- **nhật ký**: bản ghi lại các sự kiện và hoạt động của hệ thống; log\n- **kết nối**: liên kết giữa các thành phần trong mạng; connection\n- **bị lỗi**: gặp phải trục trặc, hoạt động không đúng; to fail, to have an error\n- **chính xác**: đúng với thực tế, không mơ hồ; exactly, precisely\n- **ở đâu**: tại vị trí nào; where"
+          }
         },
         {
           "text": "Nếu cấu hình sai, chúng ta cần cập nhật các biến môi trường.",
-          "notes": "## Ngữ pháp\nCâu điều kiện rút gọn **Nếu + [chủ ngữ + tính từ]** lược bỏ động từ \"là\" (\"cấu hình sai\" = \"cấu hình là sai\"). Đây là cách nói ngắn gọn phổ biến trong tiếng Việt. Trợ từ **cần** diễn đạt sự cần thiết bắt buộc.\n\n## Từ vựng\n- **cấu hình**: thiết lập tham số để hệ thống hoạt động đúng; configuration\n- **sai**: không đúng, không khớp với yêu cầu; wrong, incorrect\n- **cần**: bắt buộc phải có hoặc thực hiện; to need to, must\n- **cập nhật**: thay đổi sang phiên bản hoặc giá trị mới hơn; to update\n- **biến môi trường**: giá trị cài đặt được lưu trong hệ điều hành; environment variable"
+          "notes": {
+            "vi": "## Ngữ pháp\nCâu điều kiện rút gọn **Nếu + [chủ ngữ + tính từ]** lược bỏ động từ \"là\" (\"cấu hình sai\" = \"cấu hình là sai\"). Đây là cách nói ngắn gọn phổ biến trong tiếng Việt. Trợ từ **cần** diễn đạt sự cần thiết bắt buộc.\n\n## Từ vựng\n- **cấu hình**: thiết lập tham số để hệ thống hoạt động đúng; configuration\n- **sai**: không đúng, không khớp với yêu cầu; wrong, incorrect\n- **cần**: bắt buộc phải có hoặc thực hiện; to need to, must\n- **cập nhật**: thay đổi sang phiên bản hoặc giá trị mới hơn; to update\n- **biến môi trường**: giá trị cài đặt được lưu trong hệ điều hành; environment variable"
+          }
         },
         {
           "text": "Chúng tôi hy vọng sẽ khắc phục vấn đề này trước khi người dùng nhận thấy bất kỳ thời gian chết (downtime) nào.",
-          "notes": "## Ngữ pháp\nCấu trúc **hy vọng sẽ + [động từ]** diễn đạt kỳ vọng về kết quả trong tương lai. Cụm **trước khi + [mệnh đề]** đặt ra thời hạn. Cụm **bất kỳ ... nào** mang nghĩa phủ định hoàn toàn khi đi cùng cấu trúc phủ định, nhưng ở đây mang nghĩa \"any\".\n\n## Từ vựng\n- **hy vọng**: mong điều gì xảy ra như mong muốn; to hope\n- **khắc phục**: giải quyết và chữa trị một vấn đề; to fix, to resolve\n- **người dùng**: người sử dụng sản phẩm hoặc dịch vụ; user\n- **nhận thấy**: phát hiện, ý thức được điều gì đó; to notice, to realize\n- **thời gian chết**: khoảng thời gian hệ thống ngừng hoạt động; downtime"
+          "notes": {
+            "vi": "## Ngữ pháp\nCấu trúc **hy vọng sẽ + [động từ]** diễn đạt kỳ vọng về kết quả trong tương lai. Cụm **trước khi + [mệnh đề]** đặt ra thời hạn. Cụm **bất kỳ ... nào** mang nghĩa phủ định hoàn toàn khi đi cùng cấu trúc phủ định, nhưng ở đây mang nghĩa \"any\".\n\n## Từ vựng\n- **hy vọng**: mong điều gì xảy ra như mong muốn; to hope\n- **khắc phục**: giải quyết và chữa trị một vấn đề; to fix, to resolve\n- **người dùng**: người sử dụng sản phẩm hoặc dịch vụ; user\n- **nhận thấy**: phát hiện, ý thức được điều gì đó; to notice, to realize\n- **thời gian chết**: khoảng thời gian hệ thống ngừng hoạt động; downtime"
+          }
         }
       ]
     }

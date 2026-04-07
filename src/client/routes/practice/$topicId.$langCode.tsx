@@ -115,7 +115,8 @@ function DrillStartModal({
 
 // ── Main practice page ────────────────────────────────────────────────────────
 export function PracticePage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const uiLang = i18n.language.split("-")[0]!;
   const { topicId, langCode } = useParams({ strict: false }) as { topicId: string; langCode: string };
   const navigate = useNavigate();
 
@@ -638,12 +639,24 @@ export function PracticePage() {
               ) : null;
             })()}
 
-            {/* Notes — markdown rendered */}
-            {showNotes && sentence.notes && (
-              <div className="text-xs text-amber-700 dark:text-amber-400 mt-2 bg-amber-50 dark:bg-amber-900/20 rounded-lg px-3 py-2 border-t border-gray-100 dark:border-gray-800 prose prose-xs prose-amber dark:prose-invert max-w-none [&_h2]:text-xs [&_h2]:font-semibold [&_h2]:mb-1 [&_p]:my-0.5 [&_ul]:my-0.5 [&_li]:my-0">
-                📝 <ReactMarkdown>{sentence.notes}</ReactMarkdown>
-              </div>
-            )}
+            {/* Notes — markdown rendered in UI language */}
+            {showNotes && sentence.notes && (() => {
+              const notesMap = sentence.notes;
+              const notesText = notesMap[uiLang] ?? Object.values(notesMap)[0] ?? null;
+              const fallbackLang = !notesMap[uiLang] && notesText ? Object.keys(notesMap)[0] : null;
+              return notesText ? (
+                <div className="mt-2 bg-amber-50 dark:bg-amber-900/20 rounded-lg px-3 py-2 border-t border-gray-100 dark:border-gray-800">
+                  {fallbackLang && (
+                    <p className="text-[10px] text-amber-500 dark:text-amber-400 italic mb-1 uppercase font-medium">
+                      {langFlag(fallbackLang)} {langLabel(fallbackLang)}
+                    </p>
+                  )}
+                  <div className="text-xs text-amber-700 dark:text-amber-400 prose prose-xs prose-amber dark:prose-invert max-w-none [&_h2]:text-xs [&_h2]:font-semibold [&_h2]:mb-1 [&_p]:my-0.5 [&_ul]:my-0.5 [&_li]:my-0">
+                    📝 <ReactMarkdown>{notesText}</ReactMarkdown>
+                  </div>
+                </div>
+              ) : null;
+            })()}
           </div>
         )}
 

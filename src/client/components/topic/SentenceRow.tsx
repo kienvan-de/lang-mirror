@@ -5,6 +5,7 @@ import {
   ChevronUpIcon, ChevronDownIcon,
   PencilIcon, TrashIcon,
   ChevronDoubleUpIcon, ChevronDoubleDownIcon,
+  DocumentTextIcon,
 } from "@heroicons/react/24/outline";
 import type { Sentence, Version } from "../../lib/api";
 import { api } from "../../lib/api";
@@ -94,7 +95,7 @@ export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onR
           className="w-full px-3 py-1.5 text-sm rounded-lg border border-blue-300 dark:border-blue-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <div className="flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500">
-          <span>📝</span>
+          <DocumentTextIcon className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
           <span>{t("sentenceRow.notesPlaceholder")}</span>
           <span className="ml-auto px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 font-medium uppercase text-[10px]">{uiLang}</span>
         </div>
@@ -162,7 +163,7 @@ export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onR
                 onClick={(e) => { e.stopPropagation(); setShowNotesDialog(true); }}
                 className="cursor-pointer inline-flex items-center gap-0.5 text-xs text-amber-500 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 transition-colors"
               >
-                📝 {t("sentenceRow.showNote")}
+                <DocumentTextIcon className="w-3 h-3" /> {t("sentenceRow.showNote")}
               </button>
             )}
           </div>

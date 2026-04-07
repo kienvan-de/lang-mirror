@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { ExclamationTriangleIcon, MicrophoneIcon } from "@heroicons/react/24/outline";
 
 interface Props {
   permissionState: "unknown" | "granted" | "denied" | "unavailable";
@@ -22,7 +23,7 @@ export function MicPermissionBanner({ permissionState }: Props) {
 
     return (
       <div className="flex items-start gap-3 px-4 py-3 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-sm">
-        <span className="text-lg">⚠️</span>
+        <ExclamationTriangleIcon className="w-5 h-5 text-red-500 dark:text-red-400 flex-shrink-0" />
         <div>
           <p className="font-semibold text-red-700 dark:text-red-400">{t("mic.deniedTitle")}</p>
           <p className="text-red-600 dark:text-red-500 mt-0.5">{instructions}</p>
@@ -34,7 +35,7 @@ export function MicPermissionBanner({ permissionState }: Props) {
   if (permissionState === "unavailable") {
     return (
       <div className="flex items-start gap-3 px-4 py-3 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 text-sm">
-        <span className="text-lg">🎙️</span>
+        <MicrophoneIcon className="w-5 h-5 text-amber-500 dark:text-amber-400 flex-shrink-0" />
         <div>
           <p className="font-semibold text-amber-700 dark:text-amber-400">{t("mic.unavailableTitle")}</p>
           <p className="text-amber-600 dark:text-amber-500 mt-0.5">{t("mic.unavailableSubtitle")}</p>

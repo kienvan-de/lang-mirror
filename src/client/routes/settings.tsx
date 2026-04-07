@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import { ExclamationTriangleIcon, PlayIcon } from "@heroicons/react/24/outline";
 import { api, type Voice } from "../lib/api";
 import { langFlag, langName } from "../lib/lang";
 import { defaultVoiceForLang } from "../hooks/useTTS";
@@ -68,7 +69,8 @@ function Slider({
               onClick={onPreview}
               className="px-2.5 py-1 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-xs font-medium text-gray-600 dark:text-gray-400 transition-colors"
               title={t("settings.preview")}
-            >▶ {t("settings.preview")}</button>
+            >
+              <PlayIcon className="w-3 h-3 inline-block mr-0.5" />{t("settings.preview")}</button>
           )}
         </div>
       </div>
@@ -266,8 +268,8 @@ export function SettingsPage() {
                 onChange={(v) => setPitch(Math.round(v))}
               />
 
-              <p className="text-xs text-amber-600 dark:text-amber-500 bg-amber-50 dark:bg-amber-900/20 px-3 py-2 rounded-lg">
-                ⚠️ {t("settings.cacheWarning")}
+              <p className="text-xs text-amber-600 dark:text-amber-500 bg-amber-50 dark:bg-amber-900/20 px-3 py-2 rounded-lg flex items-start gap-1.5">
+                <ExclamationTriangleIcon className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" /><span>{t("settings.cacheWarning")}</span>
               </p>
 
               <div className="flex items-center gap-3 justify-end">

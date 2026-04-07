@@ -2,6 +2,9 @@ import { useState, useCallback, useRef } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
+import {
+  ExclamationTriangleIcon, XCircleIcon, CheckCircleIcon, XMarkIcon,
+} from "@heroicons/react/24/outline";
 import { api } from "../lib/api";
 import { langFlag, langLabel } from "../lib/lang";
 
@@ -267,7 +270,7 @@ export function ImportPage() {
             <div className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 p-4 space-y-2">
               {preview.parseError && (
                 <p className="text-sm font-medium text-red-600 dark:text-red-400">
-                  ❌ {preview.parseError}
+                  <XCircleIcon className="w-4 h-4 inline-block mr-1 align-middle" />{preview.parseError}
                 </p>
               )}
               {preview.errors.map((e, i) => (
@@ -333,8 +336,8 @@ export function ImportPage() {
                   <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{preview.description}</p>
                 )}
               </div>
-              <button onClick={reset} className="text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 flex-shrink-0">
-                ✕ {t("common.change")}
+              <button onClick={reset} className="text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 flex-shrink-0 inline-flex items-center gap-0.5">
+                <XMarkIcon className="w-3 h-3" /> {t("common.change")}
               </button>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -428,7 +431,7 @@ export function ImportPage() {
           {conflicts.length > 0 && (
             <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 px-4 py-3">
               <p className="text-sm text-amber-700 dark:text-amber-400 font-medium">
-                ⚠️ {t("import.conflictWarning", { langs: conflicts.map((c) => langLabel(c)).join(", ") })}
+                <ExclamationTriangleIcon className="w-4 h-4 inline-block mr-1 align-middle" />{t("import.conflictWarning", { langs: conflicts.map((c) => langLabel(c)).join(", ") })}
               </p>
               <p className="text-xs text-amber-600 dark:text-amber-500 mt-0.5">
                 {t("import.conflictHint")}
@@ -492,7 +495,7 @@ export function ImportPage() {
               </div>
               {conflicts.length > 0 && (
                 <div className="flex items-center gap-2 text-sm text-amber-600 dark:text-amber-400">
-                  <span>⚠️</span>
+                  <ExclamationTriangleIcon className="w-4 h-4 flex-shrink-0" />
                   <span>{t("import.willBeSkipped", { langs: conflicts.map((c) => langLabel(c)).join(", ") })}</span>
                 </div>
               )}
@@ -501,7 +504,7 @@ export function ImportPage() {
 
           {importError && (
             <div className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 px-4 py-3">
-              <p className="text-sm text-red-600 dark:text-red-400 font-medium">❌ {importError}</p>
+              <p className="text-sm text-red-600 dark:text-red-400 font-medium"><XCircleIcon className="w-4 h-4 inline-block mr-1 align-middle" />{importError}</p>
             </div>
           )}
 
@@ -529,7 +532,9 @@ export function ImportPage() {
       {importResult && (
         <div className="space-y-6">
           <div className="rounded-2xl border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/20 p-6 text-center">
-            <div className="text-5xl mb-3">✅</div>
+            <div className="flex justify-center mb-3">
+              <CheckCircleIcon className="w-12 h-12 text-green-500 dark:text-green-400" />
+            </div>
             <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-1">
               {t("import.successTitle")}
             </h2>

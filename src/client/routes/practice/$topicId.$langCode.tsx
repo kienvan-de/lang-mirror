@@ -656,7 +656,7 @@ export function PracticePage() {
                     </p>
                   )}
                   <div className="text-xs text-amber-700 dark:text-amber-400 prose prose-xs prose-amber dark:prose-invert max-w-none [&_h2]:text-xs [&_h2]:font-semibold [&_h2]:mb-1 [&_p]:my-0.5 [&_ul]:my-0.5 [&_li]:my-0">
-                    📝 <ReactMarkdown>{notesText}</ReactMarkdown>
+                    <DocumentTextIcon className="w-3.5 h-3.5 inline-block mr-1 align-middle opacity-70" /><ReactMarkdown>{notesText}</ReactMarkdown>
                   </div>
                 </div>
               ) : null;

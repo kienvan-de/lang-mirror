@@ -9,25 +9,20 @@
       "sentences": [
         {
           "text": "Taking public transportation is often more convenient than driving a car.",
-          "translation": "Sử dụng phương tiện công cộng thường thuận tiện hơn là tự lái xe hơi.",
           "notes": "Present continuous: subject + am/is/are + verb-ing"
         },
         {
-          "text": "I check the train schedule on my phone before I leave the house.",
-          "translation": "Tôi kiểm tra lịch trình tàu trên điện thoại trước khi rời nhà."
+          "text": "I check the train schedule on my phone before I leave the house."
         },
         {
           "text": "The train is usually crowded in the morning, so I prefer to stand.",
-          "translation": "Tàu thường đông đúc vào buổi sáng, nên tôi thích đứng hơn.",
           "notes": "Present continuous: subject + am/is/are + verb-ing"
         },
         {
-          "text": "I listen to a language podcast to make the commute more interesting.",
-          "translation": "Tôi nghe podcast ngoại ngữ để quãng đường đi làm trở nên thú vị hơn."
+          "text": "I listen to a language podcast to make the commute more interesting."
         },
         {
           "text": "Overall, using the train is a cost-effective and eco-friendly choice.",
-          "translation": "Nhìn chung, đi tàu là một lựa chọn tiết kiệm và thân thiện với môi trường.",
           "notes": "Present continuous: subject + am/is/are + verb-ing"
         }
       ]
@@ -39,25 +34,20 @@
       "sentences": [
         {
           "text": "Ich fahre oft mit dem Zug oder mit dem Bus.",
-          "translation": "Sử dụng phương tiện công cộng thường thuận tiện hơn là tự lái xe hơi.",
           "notes": "Present tense: regular verbs → ich + stem + -e"
         },
         {
-          "text": "Ich sehe die Fahrpläne auf meinem Handy an.",
-          "translation": "Tôi kiểm tra lịch trình tàu trên điện thoại trước khi rời nhà."
+          "text": "Ich sehe die Fahrpläne auf meinem Handy an."
         },
         {
           "text": "Am Morgen sind viele Leute im Zug, deshalb stehe ich.",
-          "translation": "Tàu thường đông đúc vào buổi sáng, nên tôi thích đứng hơn.",
           "notes": "Connective: 'deshalb/denn' (therefore/because) — note word order"
         },
         {
-          "text": "Ich höre einen Podcast und lerne Sprachen beim Fahren.",
-          "translation": "Tôi nghe podcast ngoại ngữ để quãng đường đi làm trở nên thú vị hơn."
+          "text": "Ich höre einen Podcast und lerne Sprachen beim Fahren."
         },
         {
           "text": "Das Ticket ist nicht teuer und es ist gut für die Umwelt.",
-          "translation": "Nhìn chung, đi tàu là một lựa chọn tiết kiệm và thân thiện với môi trường.",
           "notes": "Negation: 'nicht' (verb/adj) vs 'kein' (noun)"
         }
       ]
@@ -69,27 +59,22 @@
       "sentences": [
         {
           "text": "車を運転するより、電車に乗る方が便利です。",
-          "translation": "Sử dụng phương tiện công cộng thường thuận tiện hơn là tự lái xe hơi.",
           "notes": "Review verb form / politeness level (ます/です)"
         },
         {
           "text": "家を出る前に、スマホで時刻表（じこくひょう）を調べます。",
-          "translation": "Tôi kiểm tra lịch trình tàu trên điện thoại trước khi rời nhà.",
           "notes": "Furigana reading shown in （）for N4 kanji"
         },
         {
           "text": "朝は電車が混んでいる（こんでいる）ので、たいてい立っています。",
-          "translation": "Tàu thường đông đúc vào buổi sáng, nên tôi thích đứng hơn.",
           "notes": "〜ています: ongoing state or habitual action"
         },
         {
           "text": "通学（つうがく）の時間に、ポッドキャストで外国語を勉強します。",
-          "translation": "Tôi nghe podcast ngoại ngữ để quãng đường đi làm trở nên thú vị hơn.",
           "notes": "Furigana reading shown in （）for N4 kanji"
         },
         {
           "text": "電車は安いし、環境（かんきょう）にもいいと思います。",
-          "translation": "Nhìn chung, đi tàu là một lựa chọn tiết kiệm và thân thiện với môi trường.",
           "notes": "Furigana reading shown in （）for N4 kanji"
         }
       ]

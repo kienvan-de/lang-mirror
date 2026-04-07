@@ -9,25 +9,20 @@
       "sentences": [
         {
           "text": "Sometimes I encounter unexpected bugs while I am developing software.",
-          "translation": "Đôi khi tôi gặp phải những lỗi (bug) bất ngờ trong khi đang phát triển phần mềm.",
           "notes": "Present continuous: subject + am/is/are + verb-ing"
         },
         {
           "text": "First, I try to reproduce the error to understand exactly what is happening.",
-          "translation": "Đầu tiên, tôi cố gắng tái hiện lỗi để hiểu chính xác chuyện gì đang xảy ra.",
           "notes": "Present continuous: subject + am/is/are + verb-ing"
         },
         {
-          "text": "Then, I search for solutions in the documentation or online forums.",
-          "translation": "Sau đó, tôi tìm kiếm giải pháp trong tài liệu hoặc các diễn đàn trực tuyến."
+          "text": "Then, I search for solutions in the documentation or online forums."
         },
         {
-          "text": "Once I find the cause, I rewrite the code and test it several times.",
-          "translation": "Sau khi tìm ra nguyên nhân, tôi viết lại mã nguồn và kiểm tra nó vài lần."
+          "text": "Once I find the cause, I rewrite the code and test it several times."
         },
         {
-          "text": "Fixing a difficult problem gives me a great sense of achievement.",
-          "translation": "Việc sửa được một vấn đề khó mang lại cho tôi cảm giác thành tựu tuyệt vời."
+          "text": "Fixing a difficult problem gives me a great sense of achievement."
         }
       ]
     },
@@ -37,26 +32,21 @@
       "speed": 0.85,
       "sentences": [
         {
-          "text": "Manchmal hat meine Software einen Fehler oder einen \"Bug\".",
-          "translation": "Đôi khi tôi gặp phải những lỗi (bug) bất ngờ trong khi đang phát triển phần mềm."
+          "text": "Manchmal hat meine Software einen Fehler oder einen \"Bug\"."
         },
         {
-          "text": "Zuerst suche ich den Fehler in meinem Code.",
-          "translation": "Đầu tiên, tôi cố gắng tái hiện lỗi để hiểu chính xác chuyện gì đang xảy ra."
+          "text": "Zuerst suche ich den Fehler in meinem Code."
         },
         {
           "text": "Ich lese die Dokumentation oder frage im Internet.",
-          "translation": "Sau đó, tôi tìm kiếm giải pháp trong tài liệu hoặc các diễn đàn trực tuyến.",
           "notes": "Contracted preposition: im=in dem, am=an dem, zum=zu dem"
         },
         {
           "text": "Dann schreibe ich den Code neu und teste alles.",
-          "translation": "Sau khi tìm ra nguyên nhân, tôi viết lại mã nguồn và kiểm tra nó vài lần.",
           "notes": "Word order: 'dann' (then) causes verb-second position"
         },
         {
           "text": "Wenn der Code funktioniert, bin ich sehr glücklich.",
-          "translation": "Việc sửa được một vấn đề khó mang lại cho tôi cảm giác thành tựu tuyệt vời.",
           "notes": "Subordinate clause: 'wenn' sends verb to the end"
         }
       ]
@@ -68,27 +58,22 @@
       "sentences": [
         {
           "text": "プログラミングをしている時、時々バグを見つけます。",
-          "translation": "Đôi khi tôi gặp phải những lỗi (bug) bất ngờ trong khi đang phát triển phần mềm.",
           "notes": "〜ています: ongoing state or habitual action"
         },
         {
           "text": "まず、どこが間違っているか確認（かくにん）します。",
-          "translation": "Đầu tiên, tôi cố gắng tái hiện lỗi để hiểu chính xác chuyện gì đang xảy ra.",
           "notes": "〜ています: ongoing state or habitual action"
         },
         {
           "text": "それから、ドキュメントを読んだり、ネットで調べたりします。",
-          "translation": "Sau đó, tôi tìm kiếm giải pháp trong tài liệu hoặc các diễn đàn trực tuyến.",
           "notes": "Review verb form / politeness level (ます/です)"
         },
         {
           "text": "原因（げんいん）がわかったら、コードを書き直してテストします。",
-          "translation": "Sau khi tìm ra nguyên nhân, tôi viết lại mã nguồn và kiểm tra nó vài lần.",
           "notes": "Conditional form: たら (if/when completed), ば (hypothetical)"
         },
         {
           "text": "難しい問題が解決（かいけつ）すると、とてもうれしいです。",
-          "translation": "Việc sửa được một vấn đề khó mang lại cho tôi cảm giác thành tựu tuyệt vời.",
           "notes": "Furigana reading shown in （）for N4 kanji"
         }
       ]

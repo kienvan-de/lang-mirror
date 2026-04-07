@@ -9,26 +9,21 @@
       "sentences": [
         {
           "text": "We are planning to deploy the latest version of the application tonight.",
-          "translation": "Chúng tôi đang dự định triển khai phiên bản mới nhất của ứng dụng vào đêm nay.",
           "notes": "Present continuous: subject + am/is/are + verb-ing"
         },
         {
-          "text": "All the automated tests passed successfully in the staging environment.",
-          "translation": "Tất cả các bài kiểm tra tự động đã vượt qua thành công trong môi trường thử nghiệm (staging)."
+          "text": "All the automated tests passed successfully in the staging environment."
         },
         {
           "text": "I will monitor the system metrics closely after the release is live.",
-          "translation": "Tôi sẽ theo dõi kỹ các chỉ số hệ thống sau khi bản phát hành đi vào hoạt động.",
           "notes": "Present continuous: subject + am/is/are + verb-ing"
         },
         {
           "text": "If we detect any critical bugs, we will rollback to the previous version.",
-          "translation": "Nếu phát hiện lỗi nghiêm trọng, chúng tôi sẽ hoàn tác (rollback) về phiên bản trước đó.",
           "notes": "Conditional: 'If + present simple, … will/can…'"
         },
         {
           "text": "Communication is essential to ensure a smooth transition for our customers.",
-          "translation": "Giao tiếp là điều thiết yếu để đảm bảo quá trình chuyển đổi diễn ra suôn sẻ cho khách hàng.",
           "notes": "Present continuous: subject + am/is/are + verb-ing"
         }
       ]
@@ -39,26 +34,21 @@
       "speed": 0.85,
       "sentences": [
         {
-          "text": "Wir bringen die neue Software heute Nacht online.",
-          "translation": "Chúng tôi đang dự định triển khai phiên bản mới nhất của ứng dụng vào đêm nay."
+          "text": "Wir bringen die neue Software heute Nacht online."
         },
         {
           "text": "Alle Tests im Labor sind gut und fertig.",
-          "translation": "Tất cả các bài kiểm tra tự động đã vượt qua thành công trong môi trường thử nghiệm (staging).",
           "notes": "Contracted preposition: im=in dem, am=an dem, zum=zu dem"
         },
         {
-          "text": "Nach dem Release kontrolliere ich das System sehr genau.",
-          "translation": "Tôi sẽ theo dõi kỹ các chỉ số hệ thống sau khi bản phát hành đi vào hoạt động."
+          "text": "Nach dem Release kontrolliere ich das System sehr genau."
         },
         {
           "text": "Gibt es einen großen Fehler? Dann gehen wir zurück zur alten Version.",
-          "translation": "Nếu phát hiện lỗi nghiêm trọng, chúng tôi sẽ hoàn tác (rollback) về phiên bản trước đó.",
           "notes": "Word order: 'dann' (then) causes verb-second position"
         },
         {
           "text": "Wir müssen viel sprechen, damit alles gut funktioniert.",
-          "translation": "Giao tiếp là điều thiết yếu để đảm bảo quá trình chuyển đổi diễn ra suôn sẻ cho khách hàng.",
           "notes": "Purpose clause: 'damit' + subject + verb-at-end"
         }
       ]
@@ -70,27 +60,22 @@
       "sentences": [
         {
           "text": "今夜、アプリケーションの最新（さいしん）バージョンをリリースします。",
-          "translation": "Chúng tôi đang dự định triển khai phiên bản mới nhất của ứng dụng vào đêm nay.",
           "notes": "Furigana reading shown in （）for N4 kanji"
         },
         {
           "text": "テスト環境（かんきょう）でのテストは、すべて成功（せいこう）しました。",
-          "translation": "Tất cả các bài kiểm tra tự động đã vượt qua thành công trong môi trường thử nghiệm (staging).",
           "notes": "Furigana reading shown in （）for N4 kanji"
         },
         {
           "text": "リリースした後は、システムの状況（じょうきょう）を注意して見ます。",
-          "translation": "Tôi sẽ theo dõi kỹ các chỉ số hệ thống sau khi bản phát hành đi vào hoạt động.",
           "notes": "Furigana reading shown in （）for N4 kanji"
         },
         {
           "text": "重大なバグが見つかったら、前のバージョンに戻（もど）します。",
-          "translation": "Nếu phát hiện lỗi nghiêm trọng, chúng tôi sẽ hoàn tác (rollback) về phiên bản trước đó.",
           "notes": "Conditional form: たら (if/when completed), ば (hypothetical)"
         },
         {
           "text": "スムーズにリリースするために、連絡（れんらく）し合うことが大切です。",
-          "translation": "Giao tiếp là điều thiết yếu để đảm bảo quá trình chuyển đổi diễn ra suôn sẻ cho khách hàng.",
           "notes": "〜ために: purpose 'in order to / for the sake of'"
         }
       ]

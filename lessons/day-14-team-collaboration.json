@@ -8,25 +8,20 @@
       "speed": 0.9,
       "sentences": [
         {
-          "text": "Our team works best when we share our knowledge with each other.",
-          "translation": "Nhóm của chúng tôi làm việc tốt nhất khi chia sẻ kiến thức với nhau."
+          "text": "Our team works best when we share our knowledge with each other."
         },
         {
-          "text": "I enjoy mentoring junior developers and helping them solve complex problems.",
-          "translation": "Tôi thích hướng dẫn các lập trình viên cấp dưới và giúp họ giải quyết các vấn đề phức tạp."
+          "text": "I enjoy mentoring junior developers and helping them solve complex problems."
         },
         {
-          "text": "We often have brainstorming sessions to find creative solutions for the UI.",
-          "translation": "Chúng tôi thường có các buổi động não để tìm ra giải pháp sáng tạo cho giao diện người dùng."
+          "text": "We often have brainstorming sessions to find creative solutions for the UI."
         },
         {
           "text": "If someone is struggling with a task, we offer support immediately.",
-          "translation": "Nếu ai đó đang gặp khó khăn với một nhiệm vụ, chúng tôi sẽ hỗ trợ ngay lập tức.",
           "notes": "Conditional: 'If + present simple, … will/can…'"
         },
         {
-          "text": "Collaboration makes our software stronger and our work more enjoyable.",
-          "translation": "Sự hợp tác làm cho phần mềm của chúng tôi mạnh mẽ hơn và công việc trở nên thú vị hơn."
+          "text": "Collaboration makes our software stronger and our work more enjoyable."
         }
       ]
     },
@@ -36,25 +31,20 @@
       "speed": 0.85,
       "sentences": [
         {
-          "text": "Wir arbeiten gut zusammen und teilen unser Wissen.",
-          "translation": "Nhóm của chúng tôi làm việc tốt nhất khi chia sẻ kiến thức với nhau."
+          "text": "Wir arbeiten gut zusammen und teilen unser Wissen."
         },
         {
-          "text": "Ich helfe jungen Kollegen bei schweren Problemen.",
-          "translation": "Tôi thích hướng dẫn các lập trình viên cấp dưới và giúp họ giải quyết các vấn đề phức tạp."
+          "text": "Ich helfe jungen Kollegen bei schweren Problemen."
         },
         {
-          "text": "Wir sprechen oft zusammen über neue Ideen für das Design.",
-          "translation": "Chúng tôi thường có các buổi động não để tìm ra giải pháp sáng tạo cho giao diện người dùng."
+          "text": "Wir sprechen oft zusammen über neue Ideen für das Design."
         },
         {
           "text": "Braucht jemand Hilfe? Dann helfen wir sofort.",
-          "translation": "Nếu ai đó đang gặp khó khăn với một nhiệm vụ, chúng tôi sẽ hỗ trợ ngay lập tức.",
           "notes": "Word order: 'dann' (then) causes verb-second position"
         },
         {
-          "text": "Zusammenarbeit macht den Code besser und die Arbeit macht Spaß.",
-          "translation": "Sự hợp tác làm cho phần mềm của chúng tôi mạnh mẽ hơn và công việc trở nên thú vị hơn."
+          "text": "Zusammenarbeit macht den Code besser und die Arbeit macht Spaß."
         }
       ]
     },
@@ -65,27 +55,22 @@
       "sentences": [
         {
           "text": "私たちのチームは、知識（ちしき）を共有（きょうゆう）して働いています。",
-          "translation": "Nhóm của chúng tôi làm việc tốt nhất khi chia sẻ kiến thức với nhau.",
           "notes": "〜ています: ongoing state or habitual action"
         },
         {
           "text": "後輩（こうはい）に教えたり、難しい問題を一緒に解決したりするのが好きです。",
-          "translation": "Tôi thích hướng dẫn các lập trình viên cấp dưới và giúp họ giải quyết các vấn đề phức tạp.",
           "notes": "〜たり〜たりします: listing actions (do things like X and Y)"
         },
         {
           "text": "デザインのために、みんなでアイデアを出す会議（かいぎ）をよくします。",
-          "translation": "Chúng tôi thường có các buổi động não để tìm ra giải pháp sáng tạo cho giao diện người dùng.",
           "notes": "〜ために: purpose 'in order to / for the sake of'"
         },
         {
           "text": "困っている人がいたら、すぐに手伝（てつだ）います。",
-          "translation": "Nếu ai đó đang gặp khó khăn với một nhiệm vụ, chúng tôi sẽ hỗ trợ ngay lập tức.",
           "notes": "Conditional form: たら (if/when completed), ば (hypothetical)"
         },
         {
           "text": "協力（きょうりょく）すれば、もっといいソフトが作れるし、仕事も楽しくなります。",
-          "translation": "Sự hợp tác làm cho phần mềm của chúng tôi mạnh mẽ hơn và công việc trở nên thú vị hơn.",
           "notes": "Conditional form: たら (if/when completed), ば (hypothetical)"
         }
       ]

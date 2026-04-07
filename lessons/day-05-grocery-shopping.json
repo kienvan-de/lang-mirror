@@ -8,25 +8,20 @@
       "speed": 0.9,
       "sentences": [
         {
-          "text": "I go to the supermarket once a week to buy fresh ingredients.",
-          "translation": "Tôi đi siêu thị một lần mỗi tuần để mua nguyên liệu tươi."
+          "text": "I go to the supermarket once a week to buy fresh ingredients."
         },
         {
-          "text": "I always prepare a shopping list to avoid buying things I don't need.",
-          "translation": "Tôi luôn chuẩn bị danh sách mua sắm để tránh mua những thứ không cần thiết."
+          "text": "I always prepare a shopping list to avoid buying things I don't need."
         },
         {
-          "text": "I look for seasonal vegetables and high-quality meat or fish.",
-          "translation": "Tôi tìm mua rau củ theo mùa và thịt hoặc cá chất lượng cao."
+          "text": "I look for seasonal vegetables and high-quality meat or fish."
         },
         {
           "text": "If I find a good discount, I might buy extra items for the pantry.",
-          "translation": "Nếu thấy giảm giá tốt, tôi có thể mua thêm đồ dự trữ.",
           "notes": "Conditional: 'If + present simple, … will/can…'"
         },
         {
           "text": "Cooking with fresh food is much healthier than eating out every day.",
-          "translation": "Nấu ăn với thực phẩm tươi sạch thì lành mạnh hơn nhiều so với việc đi ăn ngoài mỗi ngày.",
           "notes": "Present continuous: subject + am/is/are + verb-ing"
         }
       ]
@@ -38,26 +33,21 @@
       "sentences": [
         {
           "text": "Einmal pro Woche gehe ich in den Supermarkt.",
-          "translation": "Tôi đi siêu thị một lần mỗi tuần để mua nguyên liệu tươi.",
           "notes": "Regular verb conjugation (1st person singular)"
         },
         {
           "text": "Ich schreibe eine Liste, dann kaufe ich nicht zu viel.",
-          "translation": "Tôi luôn chuẩn bị danh sách mua sắm để tránh mua những thứ không cần thiết.",
           "notes": "Word order: 'dann' (then) causes verb-second position"
         },
         {
-          "text": "Ich kaufe frisches Gemüse, Fleisch und Fisch.",
-          "translation": "Tôi tìm mua rau củ theo mùa và thịt hoặc cá chất lượng cao."
+          "text": "Ich kaufe frisches Gemüse, Fleisch und Fisch."
         },
         {
           "text": "Wenn das Obst billig ist, kaufe ich mehr.",
-          "translation": "Nếu thấy giảm giá tốt, tôi có thể mua thêm đồ dự trữ.",
           "notes": "Subordinate clause: 'wenn' sends verb to the end"
         },
         {
-          "text": "Gesundes Essen ist wichtig für meine Familie.",
-          "translation": "Nấu ăn với thực phẩm tươi sạch thì lành mạnh hơn nhiều so với việc đi ăn ngoài mỗi ngày."
+          "text": "Gesundes Essen ist wichtig für meine Familie."
         }
       ]
     },
@@ -68,27 +58,22 @@
       "sentences": [
         {
           "text": "新鮮（しんせん）な材料（ざいりょう）を買うために、週に一度スーパーに行きます。",
-          "translation": "Tôi đi siêu thị một lần mỗi tuần để mua nguyên liệu tươi.",
           "notes": "〜ために: purpose 'in order to / for the sake of'"
         },
         {
           "text": "無駄（むだ）な買い物をしないように、買い物リストを作ります。",
-          "translation": "Tôi luôn chuẩn bị danh sách mua sắm để tránh mua những thứ không cần thiết.",
           "notes": "〜ように: purpose/manner 'so that / in a way that'"
         },
         {
           "text": "季節（きせつ）の野菜や、いい肉、魚を選びます。",
-          "translation": "Tôi tìm mua rau củ theo mùa và thịt hoặc cá chất lượng cao.",
           "notes": "Furigana reading shown in （）for N4 kanji"
         },
         {
           "text": "安いものがあれば、たくさん買うかもしれません。",
-          "translation": "Nếu thấy giảm giá tốt, tôi có thể mua thêm đồ dự trữ.",
           "notes": "〜かもしれません: possibility 'might / may'"
         },
         {
           "text": "毎日外食（がいしょく）するより、自分で料理する方が健康的（けんこうてき）です。",
-          "translation": "Nấu ăn với thực phẩm tươi sạch thì lành mạnh hơn nhiều so với việc đi ăn ngoài mỗi ngày.",
           "notes": "Furigana reading shown in （）for N4 kanji"
         }
       ]

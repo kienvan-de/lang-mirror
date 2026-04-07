@@ -9,26 +9,21 @@
       "sentences": [
         {
           "text": "I have just submitted my pull request and I would appreciate your feedback.",
-          "translation": "Tôi vừa gửi yêu cầu kéo (PR) và rất mong nhận được phản hồi của bạn.",
           "notes": "Modal verb expressing possibility or politeness"
         },
         {
-          "text": "Please look at the new function I added to handle the data processing.",
-          "translation": "Làm ơn xem qua hàm mới tôi đã thêm để xử lý dữ liệu."
+          "text": "Please look at the new function I added to handle the data processing."
         },
         {
           "text": "I tried to make the code more readable by using descriptive variable names.",
-          "translation": "Tôi đã cố gắng làm cho mã dễ đọc hơn bằng cách dùng tên biến có tính mô tả.",
           "notes": "Gerund phrase: 'By + verb-ing' expresses means/method"
         },
         {
           "text": "If you see any performance issues, please let me know as soon as possible.",
-          "translation": "Nếu bạn thấy bất kỳ vấn đề gì về hiệu năng, hãy cho tôi biết sớm nhất có thể.",
           "notes": "Conditional: 'If + present simple, … will/can…'"
         },
         {
           "text": "I am happy to make changes to improve the overall quality of the code.",
-          "translation": "Tôi rất sẵn lòng thay đổi để cải thiện chất lượng tổng thể của mã nguồn.",
           "notes": "Present continuous: subject + am/is/are + verb-ing"
         }
       ]
@@ -39,24 +34,19 @@
       "speed": 0.85,
       "sentences": [
         {
-          "text": "Mein Code ist fertig, bitte lesen Sie meine Arbeit.",
-          "translation": "Tôi vừa gửi yêu cầu kéo (PR) và rất mong nhận được phản hồi của bạn."
+          "text": "Mein Code ist fertig, bitte lesen Sie meine Arbeit."
         },
         {
-          "text": "Die neue Funktion für die Daten ist in Zeile zehn.",
-          "translation": "Làm ơn xem qua hàm mới tôi đã thêm để xử lý dữ liệu."
+          "text": "Die neue Funktion für die Daten ist in Zeile zehn."
         },
         {
-          "text": "Ich schreibe den Code sehr einfach und klar.",
-          "translation": "Tôi đã cố gắng làm cho mã dễ đọc hơn bằng cách dùng tên biến có tính mô tả."
+          "text": "Ich schreibe den Code sehr einfach und klar."
         },
         {
-          "text": "Finden Sie Fehler? Sagen Sie es mir bitte schnell.",
-          "translation": "Nếu bạn thấy bất kỳ vấn đề gì về hiệu năng, hãy cho tôi biết sớm nhất có thể."
+          "text": "Finden Sie Fehler? Sagen Sie es mir bitte schnell."
         },
         {
           "text": "Ich ändere den Code gerne, damit er besser wird.",
-          "translation": "Tôi rất sẵn lòng thay đổi để cải thiện chất lượng tổng thể của mã nguồn.",
           "notes": "Purpose clause: 'damit' + subject + verb-at-end"
         }
       ]
@@ -68,27 +58,22 @@
       "sentences": [
         {
           "text": "プルリクエストを送りましたので、確認（かくにん）をお願いします。",
-          "translation": "Tôi vừa gửi yêu cầu kéo (PR) và rất mong nhận được phản hồi của bạn.",
           "notes": "Furigana reading shown in （）for N4 kanji"
         },
         {
           "text": "データ処理（しょり）のために新しく作った関数（かんすう）を見てください。",
-          "translation": "Làm ơn xem qua hàm mới tôi đã thêm để xử lý dữ liệu.",
           "notes": "〜ために: purpose 'in order to / for the sake of'"
         },
         {
           "text": "読みやすいように、わかりやすい変数名（へんすうめい）を使いました。",
-          "translation": "Tôi đã cố gắng làm cho mã dễ đọc hơn bằng cách dùng tên biến có tính mô tả.",
           "notes": "〜ように: purpose/manner 'so that / in a way that'"
         },
         {
           "text": "もしパフォーマンスの問題があれば、教えていただけませんか。",
-          "translation": "Nếu bạn thấy bất kỳ vấn đề gì về hiệu năng, hãy cho tôi biết sớm nhất có thể.",
           "notes": "Conditional form: たら (if/when completed), ば (hypothetical)"
         },
         {
           "text": "コードを良くするために、修正（しゅうせい）する準備ができています。",
-          "translation": "Tôi rất sẵn lòng thay đổi để cải thiện chất lượng tổng thể của mã nguồn.",
           "notes": "〜ために: purpose 'in order to / for the sake of'"
         }
       ]

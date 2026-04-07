@@ -12,28 +12,35 @@
         {
           "text": "Today, I am going to update the team on my progress with the authentication module.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing"
+            "en": "Present continuous: subject + am/is/are + verb-ing",
+            "vi": "## Ngữ pháp\nTrợ từ **sẽ** đứng trước động từ để chỉ hành động trong tương lai gần. Cấu trúc **cập nhật cho + [người] + về + [chủ đề]** là cụm động từ kép thông dụng trong ngữ cảnh làm việc nhóm, tương đương \"update someone on something\".\n\n## Từ vựng\n- **cập nhật**: thông báo thông tin mới nhất về tình trạng; to update\n- **nhóm**: tập hợp người làm việc cùng nhau; team, group\n- **tiến độ**: mức độ hoàn thành công việc so với kế hoạch; progress\n- **mô-đun**: phần riêng biệt trong một hệ thống phần mềm; module\n- **xác thực**: quá trình kiểm tra danh tính người dùng; authentication"
           }
         },
         {
           "text": "I have finished the basic login logic, but I am still working on the password reset feature.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing"
+            "en": "Present continuous: subject + am/is/are + verb-ing",
+            "vi": "## Ngữ pháp\nTrợ từ **đã** chỉ hành động đã hoàn tất trong quá khứ (\"đã hoàn thành\"), còn cụm **vẫn đang** kết hợp \"vẫn\" (still) + \"đang\" (ongoing) để nhấn mạnh hành động chưa hoàn thành vẫn đang tiếp tục.\n\n## Từ vựng\n- **hoàn thành**: làm xong, kết thúc một nhiệm vụ; to complete, to finish\n- **logic đăng nhập**: phần xử lý quá trình người dùng vào hệ thống; login logic\n- **cơ bản**: ở mức nền tảng, chưa đầy đủ tính năng; basic, fundamental\n- **tính năng**: chức năng cụ thể trong phần mềm; feature, functionality\n- **mật khẩu**: chuỗi ký tự bí mật dùng để xác thực; password"
           }
         },
         {
-          "text": "I encountered a small issue with the database connection yesterday afternoon."
+          "text": "I encountered a small issue with the database connection yesterday afternoon.",
+          "notes": {
+            "vi": "## Ngữ pháp\nCụm trạng ngữ thời gian **vào chiều hôm qua** đặt ở cuối câu xác định thời điểm xảy ra sự việc. Trong tiếng Việt, trạng ngữ thời gian linh hoạt — có thể đặt đầu hoặc cuối câu mà không thay đổi nghĩa.\n\n## Từ vựng\n- **gặp**: đối mặt với, tình cờ gặp phải; to encounter, to meet\n- **vấn đề**: điều gây khó khăn cần giải quyết; problem, issue\n- **kết nối**: liên kết giữa các thành phần trong hệ thống; connection\n- **cơ sở dữ liệu**: hệ thống lưu trữ và quản lý dữ liệu có cấu trúc; database\n- **hôm qua**: ngày trước ngày hôm nay; yesterday"
+          }
         },
         {
           "text": "I plan to resolve this bug today so that I can start testing tomorrow morning.",
           "notes": {
-            "en": "Purpose clause: 'so that + subject + can/will…'"
+            "en": "Purpose clause: 'so that + subject + can/will…'",
+            "vi": "## Ngữ pháp\nCấu trúc **để có thể + [động từ]** kết hợp mục đích (để) với khả năng (có thể), diễn tả điều kiện cần thiết để hành động tiếp theo có thể thực hiện được. Cụm **trong hôm nay** nhấn mạnh thời hạn hoàn thành là trong ngày.\n\n## Từ vựng\n- **dự định**: có kế hoạch, có ý định làm gì; to plan, to intend\n- **giải quyết**: xử lý và kết thúc một vấn đề; to resolve, to solve\n- **kiểm thử**: chạy thử để phát hiện lỗi trong phần mềm; to test\n- **bắt đầu**: khởi động, khởi đầu một hành động; to start, to begin\n- **sáng mai**: buổi sáng của ngày hôm sau; tomorrow morning"
           }
         },
         {
           "text": "Overall, the project is moving forward and I don't have any major blockers.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing"
+            "en": "Present continuous: subject + am/is/are + verb-ing",
+            "vi": "## Ngữ pháp\nCụm trạng ngữ **Nhìn chung** (overall) tổng kết tình hình. Cấu trúc phủ định **không có + [danh từ] + nào** diễn đạt sự vắng mặt hoàn toàn, tương đương \"don't have any\". Từ \"nào\" ở cuối tăng cường tính phủ định.\n\n## Từ vựng\n- **dự án**: kế hoạch hoặc công trình lớn có thời hạn cụ thể; project\n- **tiến triển**: phát triển theo hướng tích cực, tiến về phía trước; to progress, to move forward\n- **vướng mắc**: điều cản trở, khó khăn chưa được giải quyết; blocker, obstacle, issue\n- **lớn**: có tầm ảnh hưởng đáng kể; major, significant\n- **nhìn chung**: đánh giá tổng thể; overall, in general"
           }
         }
       ]
@@ -46,21 +53,34 @@
       "speed": 0.85,
       "sentences": [
         {
-          "text": "Heute sage ich dem Team: Mein Projekt läuft gut."
+          "text": "Heute sage ich dem Team: Mein Projekt läuft gut.",
+          "notes": {
+            "vi": "## Ngữ pháp\nTrợ từ **sẽ** đứng trước động từ để chỉ hành động trong tương lai gần. Cấu trúc **cập nhật cho + [người] + về + [chủ đề]** là cụm động từ kép thông dụng trong ngữ cảnh làm việc nhóm, tương đương \"update someone on something\".\n\n## Từ vựng\n- **cập nhật**: thông báo thông tin mới nhất về tình trạng; to update\n- **nhóm**: tập hợp người làm việc cùng nhau; team, group\n- **tiến độ**: mức độ hoàn thành công việc so với kế hoạch; progress\n- **mô-đun**: phần riêng biệt trong một hệ thống phần mềm; module\n- **xác thực**: quá trình kiểm tra danh tính người dùng; authentication"
+          }
         },
         {
-          "text": "Ich schreibe den Code für das Login, aber das Passwort-System fehlt noch."
+          "text": "Ich schreibe den Code für das Login, aber das Passwort-System fehlt noch.",
+          "notes": {
+            "vi": "## Ngữ pháp\nTrợ từ **đã** chỉ hành động đã hoàn tất trong quá khứ (\"đã hoàn thành\"), còn cụm **vẫn đang** kết hợp \"vẫn\" (still) + \"đang\" (ongoing) để nhấn mạnh hành động chưa hoàn thành vẫn đang tiếp tục.\n\n## Từ vựng\n- **hoàn thành**: làm xong, kết thúc một nhiệm vụ; to complete, to finish\n- **logic đăng nhập**: phần xử lý quá trình người dùng vào hệ thống; login logic\n- **cơ bản**: ở mức nền tảng, chưa đầy đủ tính năng; basic, fundamental\n- **tính năng**: chức năng cụ thể trong phần mềm; feature, functionality\n- **mật khẩu**: chuỗi ký tự bí mật dùng để xác thực; password"
+          }
         },
         {
-          "text": "Gestern hatte ich ein Problem mit der Datenbank."
+          "text": "Gestern hatte ich ein Problem mit der Datenbank.",
+          "notes": {
+            "vi": "## Ngữ pháp\nCụm trạng ngữ thời gian **vào chiều hôm qua** đặt ở cuối câu xác định thời điểm xảy ra sự việc. Trong tiếng Việt, trạng ngữ thời gian linh hoạt — có thể đặt đầu hoặc cuối câu mà không thay đổi nghĩa.\n\n## Từ vựng\n- **gặp**: đối mặt với, tình cờ gặp phải; to encounter, to meet\n- **vấn đề**: điều gây khó khăn cần giải quyết; problem, issue\n- **kết nối**: liên kết giữa các thành phần trong hệ thống; connection\n- **cơ sở dữ liệu**: hệ thống lưu trữ và quản lý dữ liệu có cấu trúc; database\n- **hôm qua**: ngày trước ngày hôm nay; yesterday"
+          }
         },
         {
-          "text": "Ich repariere den Fehler heute und teste alles morgen."
+          "text": "Ich repariere den Fehler heute und teste alles morgen.",
+          "notes": {
+            "vi": "## Ngữ pháp\nCấu trúc **để có thể + [động từ]** kết hợp mục đích (để) với khả năng (có thể), diễn tả điều kiện cần thiết để hành động tiếp theo có thể thực hiện được. Cụm **trong hôm nay** nhấn mạnh thời hạn hoàn thành là trong ngày.\n\n## Từ vựng\n- **dự định**: có kế hoạch, có ý định làm gì; to plan, to intend\n- **giải quyết**: xử lý và kết thúc một vấn đề; to resolve, to solve\n- **kiểm thử**: chạy thử để phát hiện lỗi trong phần mềm; to test\n- **bắt đầu**: khởi động, khởi đầu một hành động; to start, to begin\n- **sáng mai**: buổi sáng của ngày hôm sau; tomorrow morning"
+          }
         },
         {
           "text": "Alles ist okay und ich habe keine großen Probleme.",
           "notes": {
-            "de": "Regular verb conjugation (1st person singular)"
+            "de": "Regular verb conjugation (1st person singular)",
+            "vi": "## Ngữ pháp\nCụm trạng ngữ **Nhìn chung** (overall) tổng kết tình hình. Cấu trúc phủ định **không có + [danh từ] + nào** diễn đạt sự vắng mặt hoàn toàn, tương đương \"don't have any\". Từ \"nào\" ở cuối tăng cường tính phủ định.\n\n## Từ vựng\n- **dự án**: kế hoạch hoặc công trình lớn có thời hạn cụ thể; project\n- **tiến triển**: phát triển theo hướng tích cực, tiến về phía trước; to progress, to move forward\n- **vướng mắc**: điều cản trở, khó khăn chưa được giải quyết; blocker, obstacle, issue\n- **lớn**: có tầm ảnh hưởng đáng kể; major, significant\n- **nhìn chung**: đánh giá tổng thể; overall, in general"
           }
         }
       ]
@@ -75,31 +95,36 @@
         {
           "text": "今日は、チームに進捗（しんちょく）を報告（ほうこく）します。",
           "notes": {
-            "ja": "Furigana reading shown in （）for N4 kanji"
+            "ja": "Furigana reading shown in （）for N4 kanji",
+            "vi": "## Ngữ pháp\nTrợ từ **sẽ** đứng trước động từ để chỉ hành động trong tương lai gần. Cấu trúc **cập nhật cho + [người] + về + [chủ đề]** là cụm động từ kép thông dụng trong ngữ cảnh làm việc nhóm, tương đương \"update someone on something\".\n\n## Từ vựng\n- **cập nhật**: thông báo thông tin mới nhất về tình trạng; to update\n- **nhóm**: tập hợp người làm việc cùng nhau; team, group\n- **tiến độ**: mức độ hoàn thành công việc so với kế hoạch; progress\n- **mô-đun**: phần riêng biệt trong một hệ thống phần mềm; module\n- **xác thực**: quá trình kiểm tra danh tính người dùng; authentication"
           }
         },
         {
           "text": "ログインの機能（きのう）はできましたが、パスワードの変更はまだ作っています。",
           "notes": {
-            "ja": "〜ています: ongoing state or habitual action"
+            "ja": "〜ています: ongoing state or habitual action",
+            "vi": "## Ngữ pháp\nTrợ từ **đã** chỉ hành động đã hoàn tất trong quá khứ (\"đã hoàn thành\"), còn cụm **vẫn đang** kết hợp \"vẫn\" (still) + \"đang\" (ongoing) để nhấn mạnh hành động chưa hoàn thành vẫn đang tiếp tục.\n\n## Từ vựng\n- **hoàn thành**: làm xong, kết thúc một nhiệm vụ; to complete, to finish\n- **logic đăng nhập**: phần xử lý quá trình người dùng vào hệ thống; login logic\n- **cơ bản**: ở mức nền tảng, chưa đầy đủ tính năng; basic, fundamental\n- **tính năng**: chức năng cụ thể trong phần mềm; feature, functionality\n- **mật khẩu**: chuỗi ký tự bí mật dùng để xác thực; password"
           }
         },
         {
           "text": "昨日の午後、データベースの接続（せつぞく）に問題がありました。",
           "notes": {
-            "ja": "Furigana reading shown in （）for N4 kanji"
+            "ja": "Furigana reading shown in （）for N4 kanji",
+            "vi": "## Ngữ pháp\nCụm trạng ngữ thời gian **vào chiều hôm qua** đặt ở cuối câu xác định thời điểm xảy ra sự việc. Trong tiếng Việt, trạng ngữ thời gian linh hoạt — có thể đặt đầu hoặc cuối câu mà không thay đổi nghĩa.\n\n## Từ vựng\n- **gặp**: đối mặt với, tình cờ gặp phải; to encounter, to meet\n- **vấn đề**: điều gây khó khăn cần giải quyết; problem, issue\n- **kết nối**: liên kết giữa các thành phần trong hệ thống; connection\n- **cơ sở dữ liệu**: hệ thống lưu trữ và quản lý dữ liệu có cấu trúc; database\n- **hôm qua**: ngày trước ngày hôm nay; yesterday"
           }
         },
         {
           "text": "今日中にバグを直して、明日の朝からテストをするつもりです。",
           "notes": {
-            "ja": "〜つもりです: intention 'I plan to / I intend to'"
+            "ja": "〜つもりです: intention 'I plan to / I intend to'",
+            "vi": "## Ngữ pháp\nCấu trúc **để có thể + [động từ]** kết hợp mục đích (để) với khả năng (có thể), diễn tả điều kiện cần thiết để hành động tiếp theo có thể thực hiện được. Cụm **trong hôm nay** nhấn mạnh thời hạn hoàn thành là trong ngày.\n\n## Từ vựng\n- **dự định**: có kế hoạch, có ý định làm gì; to plan, to intend\n- **giải quyết**: xử lý và kết thúc một vấn đề; to resolve, to solve\n- **kiểm thử**: chạy thử để phát hiện lỗi trong phần mềm; to test\n- **bắt đầu**: khởi động, khởi đầu một hành động; to start, to begin\n- **sáng mai**: buổi sáng của ngày hôm sau; tomorrow morning"
           }
         },
         {
           "text": "今のところ、仕事は順調（じゅんちょう）で、困っていることはありません。",
           "notes": {
-            "ja": "〜ています: ongoing state or habitual action"
+            "ja": "〜ています: ongoing state or habitual action",
+            "vi": "## Ngữ pháp\nCụm trạng ngữ **Nhìn chung** (overall) tổng kết tình hình. Cấu trúc phủ định **không có + [danh từ] + nào** diễn đạt sự vắng mặt hoàn toàn, tương đương \"don't have any\". Từ \"nào\" ở cuối tăng cường tính phủ định.\n\n## Từ vựng\n- **dự án**: kế hoạch hoặc công trình lớn có thời hạn cụ thể; project\n- **tiến triển**: phát triển theo hướng tích cực, tiến về phía trước; to progress, to move forward\n- **vướng mắc**: điều cản trở, khó khăn chưa được giải quyết; blocker, obstacle, issue\n- **lớn**: có tầm ảnh hưởng đáng kể; major, significant\n- **nhìn chung**: đánh giá tổng thể; overall, in general"
           }
         }
       ]

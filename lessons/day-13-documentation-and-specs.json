@@ -12,28 +12,35 @@
         {
           "text": "I am writing the documentation for the new API endpoints today.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing"
+            "en": "Present continuous: subject + am/is/are + verb-ing",
+            "vi": "## Ngữ pháp\nTrợ từ **đang** chỉ hành động đang diễn ra ngay lúc này (hiện tại tiếp diễn). Cụm giới từ **vào hôm nay** chỉ thời gian cụ thể — \"vào\" thường đi với các đơn vị thời gian như ngày, tuần, buổi.\n\n## Từ vựng\n- **tài liệu**: văn bản giải thích cách hoạt động của hệ thống; documentation\n- **điểm cuối**: địa chỉ URL cụ thể trong API nhận yêu cầu; endpoint\n- **API**: giao diện lập trình ứng dụng, cầu nối giữa các hệ thống; API (Application Programming Interface)\n- **mới**: vừa được tạo ra hoặc thêm vào gần đây; new\n- **hôm nay**: ngày hiện tại; today"
           }
         },
         {
           "text": "It is important to describe the request body and the expected response clearly.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing"
+            "en": "Present continuous: subject + am/is/are + verb-ing",
+            "vi": "## Ngữ pháp\nTừ **Việc** danh hóa cụm động từ \"mô tả nội dung yêu cầu...\" để làm chủ ngữ. Cụm **một cách + [tính từ]** là trạng từ cách thức, tương đương \"-ly\" trong tiếng Anh (\"clearly\"). Vị ngữ **là rất quan trọng** khẳng định tầm quan trọng.\n\n## Từ vựng\n- **mô tả**: diễn đạt bằng lời đặc điểm hoặc nội dung của điều gì; to describe\n- **nội dung yêu cầu**: dữ liệu được gửi kèm trong một HTTP request; request body\n- **phản hồi**: dữ liệu trả về từ server; response\n- **mong đợi**: được dự kiến sẽ xảy ra; expected\n- **rõ ràng**: dễ hiểu, không mơ hồ; clear, unambiguous"
           }
         },
         {
-          "text": "I will also include some examples to help other developers integrate faster."
+          "text": "I will also include some examples to help other developers integrate faster.",
+          "notes": {
+            "vi": "## Ngữ pháp\nĐộng từ **bao gồm** (to include) có chức năng đưa thêm thành phần vào một tập hợp. Cấu trúc **giúp + [tân ngữ] + [động từ] + [tính từ so sánh] hơn** diễn đạt tác động tích cực lên ai đó: \"giúp họ tích hợp nhanh hơn\".\n\n## Từ vựng\n- **bao gồm**: chứa đựng, đưa vào trong danh sách hoặc nội dung; to include\n- **ví dụ**: trường hợp cụ thể minh họa cho một nguyên tắc; example\n- **lập trình viên**: người viết mã phần mềm chuyên nghiệp; developer, programmer\n- **tích hợp**: kết nối API hoặc hệ thống vào sản phẩm của mình; to integrate\n- **nhanh hơn**: với tốc độ hoặc thời gian ít hơn; faster"
+          }
         },
         {
           "text": "If the documentation is accurate, we will receive fewer support tickets.",
           "notes": {
-            "en": "Conditional: 'If + present simple, … will/can…'"
+            "en": "Conditional: 'If + present simple, … will/can…'",
+            "vi": "## Ngữ pháp\nCấu trúc so sánh ít hơn **ít + [danh từ] + hơn** ngược chiều với \"nhiều hơn\", tương đương \"fewer\" hoặc \"less\" trong tiếng Anh. Câu điều kiện **Nếu + [điều kiện tốt], [kết quả tốt]** thể hiện lợi ích của tài liệu chất lượng.\n\n## Từ vựng\n- **chính xác**: phù hợp với thực tế, không có sai sót; accurate, correct\n- **nhận được**: tiếp nhận điều gì đó từ người khác; to receive\n- **ít**: số lượng thấp, không nhiều; few, little, less\n- **vé hỗ trợ**: yêu cầu trợ giúp từ người dùng gặp vấn đề; support ticket\n- **hơn**: so sánh mức độ với một mốc khác; more/fewer (comparative)"
           }
         },
         {
           "text": "Good technical writing is just as important as writing good code.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing"
+            "en": "Present continuous: subject + am/is/are + verb-ing",
+            "vi": "## Ngữ pháp\nCấu trúc so sánh ngang bằng **[A] cũng [tính từ] giống như [B] vậy** khẳng định A và B có cùng mức độ, tương đương \"just as ... as\". Từ **vậy** cuối câu là hư từ nhấn mạnh, làm câu nghe tự nhiên hơn.\n\n## Từ vựng\n- **kỹ năng**: năng lực thực hành được rèn luyện; skill, ability\n- **viết tài liệu kỹ thuật**: soạn thảo văn bản hướng dẫn kỹ thuật; technical writing\n- **cũng**: ngoài ra, tương đương, tương tự; also, equally\n- **quan trọng**: có giá trị và tầm ảnh hưởng đáng kể; important\n- **giống như**: tương tự, có cùng đặc điểm với; just like, the same as"
           }
         }
       ]
@@ -48,23 +55,34 @@
         {
           "text": "Ich schreibe heute die Dokumentation für die API.",
           "notes": {
-            "de": "Present tense: regular verbs → ich + stem + -e"
+            "de": "Present tense: regular verbs → ich + stem + -e",
+            "vi": "## Ngữ pháp\nTrợ từ **đang** chỉ hành động đang diễn ra ngay lúc này (hiện tại tiếp diễn). Cụm giới từ **vào hôm nay** chỉ thời gian cụ thể — \"vào\" thường đi với các đơn vị thời gian như ngày, tuần, buổi.\n\n## Từ vựng\n- **tài liệu**: văn bản giải thích cách hoạt động của hệ thống; documentation\n- **điểm cuối**: địa chỉ URL cụ thể trong API nhận yêu cầu; endpoint\n- **API**: giao diện lập trình ứng dụng, cầu nối giữa các hệ thống; API (Application Programming Interface)\n- **mới**: vừa được tạo ra hoặc thêm vào gần đây; new\n- **hôm nay**: ngày hiện tại; today"
           }
         },
         {
-          "text": "Ich beschreibe alle Daten und Antworten sehr klar."
+          "text": "Ich beschreibe alle Daten und Antworten sehr klar.",
+          "notes": {
+            "vi": "## Ngữ pháp\nTừ **Việc** danh hóa cụm động từ \"mô tả nội dung yêu cầu...\" để làm chủ ngữ. Cụm **một cách + [tính từ]** là trạng từ cách thức, tương đương \"-ly\" trong tiếng Anh (\"clearly\"). Vị ngữ **là rất quan trọng** khẳng định tầm quan trọng.\n\n## Từ vựng\n- **mô tả**: diễn đạt bằng lời đặc điểm hoặc nội dung của điều gì; to describe\n- **nội dung yêu cầu**: dữ liệu được gửi kèm trong một HTTP request; request body\n- **phản hồi**: dữ liệu trả về từ server; response\n- **mong đợi**: được dự kiến sẽ xảy ra; expected\n- **rõ ràng**: dễ hiểu, không mơ hồ; clear, unambiguous"
+          }
         },
         {
-          "text": "Ich gebe auch Beispiele für andere Entwickler."
+          "text": "Ich gebe auch Beispiele für andere Entwickler.",
+          "notes": {
+            "vi": "## Ngữ pháp\nĐộng từ **bao gồm** (to include) có chức năng đưa thêm thành phần vào một tập hợp. Cấu trúc **giúp + [tân ngữ] + [động từ] + [tính từ so sánh] hơn** diễn đạt tác động tích cực lên ai đó: \"giúp họ tích hợp nhanh hơn\".\n\n## Từ vựng\n- **bao gồm**: chứa đựng, đưa vào trong danh sách hoặc nội dung; to include\n- **ví dụ**: trường hợp cụ thể minh họa cho một nguyên tắc; example\n- **lập trình viên**: người viết mã phần mềm chuyên nghiệp; developer, programmer\n- **tích hợp**: kết nối API hoặc hệ thống vào sản phẩm của mình; to integrate\n- **nhanh hơn**: với tốc độ hoặc thời gian ít hơn; faster"
+          }
         },
         {
           "text": "Wenn die Dokumentation gut ist, haben wir weniger Fragen.",
           "notes": {
-            "de": "Subordinate clause: 'wenn' sends verb to the end"
+            "de": "Subordinate clause: 'wenn' sends verb to the end",
+            "vi": "## Ngữ pháp\nCấu trúc so sánh ít hơn **ít + [danh từ] + hơn** ngược chiều với \"nhiều hơn\", tương đương \"fewer\" hoặc \"less\" trong tiếng Anh. Câu điều kiện **Nếu + [điều kiện tốt], [kết quả tốt]** thể hiện lợi ích của tài liệu chất lượng.\n\n## Từ vựng\n- **chính xác**: phù hợp với thực tế, không có sai sót; accurate, correct\n- **nhận được**: tiếp nhận điều gì đó từ người khác; to receive\n- **ít**: số lượng thấp, không nhiều; few, little, less\n- **vé hỗ trợ**: yêu cầu trợ giúp từ người dùng gặp vấn đề; support ticket\n- **hơn**: so sánh mức độ với một mốc khác; more/fewer (comparative)"
           }
         },
         {
-          "text": "Gute Texte sind so wichtig wie guter Code."
+          "text": "Gute Texte sind so wichtig wie guter Code.",
+          "notes": {
+            "vi": "## Ngữ pháp\nCấu trúc so sánh ngang bằng **[A] cũng [tính từ] giống như [B] vậy** khẳng định A và B có cùng mức độ, tương đương \"just as ... as\". Từ **vậy** cuối câu là hư từ nhấn mạnh, làm câu nghe tự nhiên hơn.\n\n## Từ vựng\n- **kỹ năng**: năng lực thực hành được rèn luyện; skill, ability\n- **viết tài liệu kỹ thuật**: soạn thảo văn bản hướng dẫn kỹ thuật; technical writing\n- **cũng**: ngoài ra, tương đương, tương tự; also, equally\n- **quan trọng**: có giá trị và tầm ảnh hưởng đáng kể; important\n- **giống như**: tương tự, có cùng đặc điểm với; just like, the same as"
+          }
         }
       ]
     },
@@ -78,31 +96,36 @@
         {
           "text": "今日は、新しいAPIのドキュメントを書いています。",
           "notes": {
-            "ja": "〜ています: ongoing state or habitual action"
+            "ja": "〜ています: ongoing state or habitual action",
+            "vi": "## Ngữ pháp\nTrợ từ **đang** chỉ hành động đang diễn ra ngay lúc này (hiện tại tiếp diễn). Cụm giới từ **vào hôm nay** chỉ thời gian cụ thể — \"vào\" thường đi với các đơn vị thời gian như ngày, tuần, buổi.\n\n## Từ vựng\n- **tài liệu**: văn bản giải thích cách hoạt động của hệ thống; documentation\n- **điểm cuối**: địa chỉ URL cụ thể trong API nhận yêu cầu; endpoint\n- **API**: giao diện lập trình ứng dụng, cầu nối giữa các hệ thống; API (Application Programming Interface)\n- **mới**: vừa được tạo ra hoặc thêm vào gần đây; new\n- **hôm nay**: ngày hiện tại; today"
           }
         },
         {
           "text": "リクエストの内容（ないよう）とレスポンスを、わかりやすく書くことが大切です。",
           "notes": {
-            "ja": "Furigana reading shown in （）for N4 kanji"
+            "ja": "Furigana reading shown in （）for N4 kanji",
+            "vi": "## Ngữ pháp\nTừ **Việc** danh hóa cụm động từ \"mô tả nội dung yêu cầu...\" để làm chủ ngữ. Cụm **một cách + [tính từ]** là trạng từ cách thức, tương đương \"-ly\" trong tiếng Anh (\"clearly\"). Vị ngữ **là rất quan trọng** khẳng định tầm quan trọng.\n\n## Từ vựng\n- **mô tả**: diễn đạt bằng lời đặc điểm hoặc nội dung của điều gì; to describe\n- **nội dung yêu cầu**: dữ liệu được gửi kèm trong một HTTP request; request body\n- **phản hồi**: dữ liệu trả về từ server; response\n- **mong đợi**: được dự kiến sẽ xảy ra; expected\n- **rõ ràng**: dễ hiểu, không mơ hồ; clear, unambiguous"
           }
         },
         {
           "text": "他の開発者が使いやすいように、例（れい）も入れます。",
           "notes": {
-            "ja": "〜ように: purpose/manner 'so that / in a way that'"
+            "ja": "〜ように: purpose/manner 'so that / in a way that'",
+            "vi": "## Ngữ pháp\nĐộng từ **bao gồm** (to include) có chức năng đưa thêm thành phần vào một tập hợp. Cấu trúc **giúp + [tân ngữ] + [động từ] + [tính từ so sánh] hơn** diễn đạt tác động tích cực lên ai đó: \"giúp họ tích hợp nhanh hơn\".\n\n## Từ vựng\n- **bao gồm**: chứa đựng, đưa vào trong danh sách hoặc nội dung; to include\n- **ví dụ**: trường hợp cụ thể minh họa cho một nguyên tắc; example\n- **lập trình viên**: người viết mã phần mềm chuyên nghiệp; developer, programmer\n- **tích hợp**: kết nối API hoặc hệ thống vào sản phẩm của mình; to integrate\n- **nhanh hơn**: với tốc độ hoặc thời gian ít hơn; faster"
           }
         },
         {
           "text": "ドキュメントが正確（せいかく）なら、質問（しつもん）が少なくなります。",
           "notes": {
-            "ja": "Conditional form: たら (if/when completed), ば (hypothetical)"
+            "ja": "Conditional form: たら (if/when completed), ば (hypothetical)",
+            "vi": "## Ngữ pháp\nCấu trúc so sánh ít hơn **ít + [danh từ] + hơn** ngược chiều với \"nhiều hơn\", tương đương \"fewer\" hoặc \"less\" trong tiếng Anh. Câu điều kiện **Nếu + [điều kiện tốt], [kết quả tốt]** thể hiện lợi ích của tài liệu chất lượng.\n\n## Từ vựng\n- **chính xác**: phù hợp với thực tế, không có sai sót; accurate, correct\n- **nhận được**: tiếp nhận điều gì đó từ người khác; to receive\n- **ít**: số lượng thấp, không nhiều; few, little, less\n- **vé hỗ trợ**: yêu cầu trợ giúp từ người dùng gặp vấn đề; support ticket\n- **hơn**: so sánh mức độ với một mốc khác; more/fewer (comparative)"
           }
         },
         {
           "text": "いいドキュメントを書くことは、いいコードを書くのと同じくらい大切です。",
           "notes": {
-            "ja": "Review verb form / politeness level (ます/です)"
+            "ja": "Review verb form / politeness level (ます/です)",
+            "vi": "## Ngữ pháp\nCấu trúc so sánh ngang bằng **[A] cũng [tính từ] giống như [B] vậy** khẳng định A và B có cùng mức độ, tương đương \"just as ... as\". Từ **vậy** cuối câu là hư từ nhấn mạnh, làm câu nghe tự nhiên hơn.\n\n## Từ vựng\n- **kỹ năng**: năng lực thực hành được rèn luyện; skill, ability\n- **viết tài liệu kỹ thuật**: soạn thảo văn bản hướng dẫn kỹ thuật; technical writing\n- **cũng**: ngoài ra, tương đương, tương tự; also, equally\n- **quan trọng**: có giá trị và tầm ảnh hưởng đáng kể; important\n- **giống như**: tương tự, có cùng đặc điểm với; just like, the same as"
           }
         }
       ]

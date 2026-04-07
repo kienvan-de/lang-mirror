@@ -12,23 +12,34 @@
         {
           "text": "Learning three languages at once is a difficult but rewarding challenge.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing"
+            "en": "Present continuous: subject + am/is/are + verb-ing",
+            "vi": "## Ngữ pháp\nDanh ngữ **Học ba ngôn ngữ cùng lúc** đóng vai trò chủ ngữ của câu — đây là cách danh hóa bằng cách để nguyên cụm động từ không cần thêm \"việc\". Cấu trúc **[A] nhưng [B]** nối hai tính chất tương phản (khó khăn vs. xứng đáng) về cùng một đối tượng.\n\n## Từ vựng\n- **ngôn ngữ**: hệ thống âm thanh và ký hiệu dùng để giao tiếp; language\n- **cùng lúc**: tại cùng một thời điểm, đồng thời; at the same time, simultaneously\n- **thử thách**: tình huống đòi hỏi nỗ lực và sự kiên nhẫn; challenge\n- **khó khăn**: đòi hỏi nhiều công sức, không dễ dàng; difficult, hard\n- **xứng đáng**: đáng được phần thưởng hoặc kết quả tốt; worthwhile, rewarding"
           }
         },
         {
           "text": "I try to practice every day, even if it is only for a short time.",
           "notes": {
-            "en": "Conditional: 'If + present simple, … will/can…'"
+            "en": "Conditional: 'If + present simple, … will/can…'",
+            "vi": "## Ngữ pháp\nCụm **ngay cả khi + [điều kiện]** diễn đạt tính kiên định bất kể hoàn cảnh, tương đương \"even if / even when\". Đây là cách nhấn mạnh sự cam kết: cho dù thời gian ít, vẫn không bỏ qua việc luyện tập.\n\n## Từ vựng\n- **cố gắng**: nỗ lực hết sức để thực hiện điều gì; to try hard, to make an effort\n- **luyện tập**: thực hành lặp đi lặp lại để nâng cao kỹ năng; to practice, to train\n- **mỗi ngày**: hàng ngày, không bỏ ngày nào; every day, daily\n- **ngay cả khi**: kể cả trong trường hợp...; even if, even when\n- **thời gian ngắn**: khoảng thời gian ít, không kéo dài; short time, brief period"
           }
         },
         {
-          "text": "Comparing the grammar of different languages helps me understand them better."
+          "text": "Comparing the grammar of different languages helps me understand them better.",
+          "notes": {
+            "vi": "## Ngữ pháp\nTừ **Việc** đứng đầu câu danh hóa toàn bộ cụm \"so sánh ngữ pháp của các ngôn ngữ khác nhau\", biến nó thành chủ ngữ. Cấu trúc **giúp + [người] + [động từ]** mang nghĩa tạo điều kiện để ai đó thực hiện hành động, tương đương \"help somebody do something\".\n\n## Từ vựng\n- **so sánh**: đặt hai hay nhiều thứ cạnh nhau để tìm điểm giống và khác; to compare\n- **ngữ pháp**: hệ thống quy tắc cấu tạo từ và câu của một ngôn ngữ; grammar\n- **khác nhau**: không giống nhau, có sự phân biệt; different, varied\n- **hiểu**: nắm bắt được ý nghĩa và cách hoạt động; to understand\n- **rõ hơn**: với độ rõ ràng cao hơn, dễ hiểu hơn; more clearly"
+          }
         },
         {
-          "text": "Sometimes I feel confused, but I don't want to give up my goal."
+          "text": "Sometimes I feel confused, but I don't want to give up my goal.",
+          "notes": {
+            "vi": "## Ngữ pháp\nCấu trúc **không muốn + [động từ]** diễn đạt sự từ chối hoặc không sẵn sàng làm điều gì. Liên từ **nhưng** nối hai mệnh đề mâu thuẫn: cảm thấy khó khăn (tiêu cực) nhưng vẫn kiên trì (tích cực).\n\n## Từ vựng\n- **đôi khi**: thỉnh thoảng, không phải lúc nào cũng vậy; sometimes\n- **cảm thấy**: có cảm giác chủ quan về một trạng thái nào đó; to feel\n- **bối rối**: không biết phải làm gì, lúng túng; confused, bewildered\n- **từ bỏ**: dừng lại, không tiếp tục nữa; to give up, to quit\n- **mục tiêu**: điều muốn đạt được, đích đến; goal, objective"
+          }
         },
         {
-          "text": "With enough patience, I believe I can become a true polyglot."
+          "text": "With enough patience, I believe I can become a true polyglot.",
+          "notes": {
+            "vi": "## Ngữ pháp\nCụm giới từ **Với + [danh từ]** đứng đầu câu làm trạng ngữ chỉ điều kiện hoặc phương tiện. Cấu trúc **tin + [mệnh đề]** diễn đạt niềm tin vào một khả năng. Cụm **trở thành** chỉ sự biến đổi từ trạng thái này sang trạng thái khác (tương đương \"become\").\n\n## Từ vựng\n- **sự kiên trì**: tính bền bỉ, không bỏ cuộc dù gặp khó khăn; perseverance, patience\n- **tin**: tin tưởng, cho là đúng; to believe\n- **trở thành**: biến đổi, đạt đến một trạng thái mới; to become\n- **đa ngôn ngữ**: biết nhiều ngôn ngữ; multilingual, polyglot\n- **thực thụ**: thật sự, theo nghĩa đầy đủ nhất; true, genuine, real"
+          }
         }
       ]
     },
@@ -42,20 +53,33 @@
         {
           "text": "Ich lerne drei Sprachen gleichzeitig, das ist schwer aber interessant.",
           "notes": {
-            "de": "Present tense: regular verbs → ich + stem + -e"
+            "de": "Present tense: regular verbs → ich + stem + -e",
+            "vi": "## Ngữ pháp\nDanh ngữ **Học ba ngôn ngữ cùng lúc** đóng vai trò chủ ngữ của câu — đây là cách danh hóa bằng cách để nguyên cụm động từ không cần thêm \"việc\". Cấu trúc **[A] nhưng [B]** nối hai tính chất tương phản (khó khăn vs. xứng đáng) về cùng một đối tượng.\n\n## Từ vựng\n- **ngôn ngữ**: hệ thống âm thanh và ký hiệu dùng để giao tiếp; language\n- **cùng lúc**: tại cùng một thời điểm, đồng thời; at the same time, simultaneously\n- **thử thách**: tình huống đòi hỏi nỗ lực và sự kiên nhẫn; challenge\n- **khó khăn**: đòi hỏi nhiều công sức, không dễ dàng; difficult, hard\n- **xứng đáng**: đáng được phần thưởng hoặc kết quả tốt; worthwhile, rewarding"
           }
         },
         {
-          "text": "Ich übe jeden Tag ein bisschen Deutsch, Englisch und Japanisch."
+          "text": "Ich übe jeden Tag ein bisschen Deutsch, Englisch und Japanisch.",
+          "notes": {
+            "vi": "## Ngữ pháp\nCụm **ngay cả khi + [điều kiện]** diễn đạt tính kiên định bất kể hoàn cảnh, tương đương \"even if / even when\". Đây là cách nhấn mạnh sự cam kết: cho dù thời gian ít, vẫn không bỏ qua việc luyện tập.\n\n## Từ vựng\n- **cố gắng**: nỗ lực hết sức để thực hiện điều gì; to try hard, to make an effort\n- **luyện tập**: thực hành lặp đi lặp lại để nâng cao kỹ năng; to practice, to train\n- **mỗi ngày**: hàng ngày, không bỏ ngày nào; every day, daily\n- **ngay cả khi**: kể cả trong trường hợp...; even if, even when\n- **thời gian ngắn**: khoảng thời gian ít, không kéo dài; short time, brief period"
+          }
         },
         {
-          "text": "Ich vergleiche die Grammatik und lerne viele neue Wörter."
+          "text": "Ich vergleiche die Grammatik und lerne viele neue Wörter.",
+          "notes": {
+            "vi": "## Ngữ pháp\nTừ **Việc** đứng đầu câu danh hóa toàn bộ cụm \"so sánh ngữ pháp của các ngôn ngữ khác nhau\", biến nó thành chủ ngữ. Cấu trúc **giúp + [người] + [động từ]** mang nghĩa tạo điều kiện để ai đó thực hiện hành động, tương đương \"help somebody do something\".\n\n## Từ vựng\n- **so sánh**: đặt hai hay nhiều thứ cạnh nhau để tìm điểm giống và khác; to compare\n- **ngữ pháp**: hệ thống quy tắc cấu tạo từ và câu của một ngôn ngữ; grammar\n- **khác nhau**: không giống nhau, có sự phân biệt; different, varied\n- **hiểu**: nắm bắt được ý nghĩa và cách hoạt động; to understand\n- **rõ hơn**: với độ rõ ràng cao hơn, dễ hiểu hơn; more clearly"
+          }
         },
         {
-          "text": "Manchmal ist es kompliziert, aber ich mache weiter."
+          "text": "Manchmal ist es kompliziert, aber ich mache weiter.",
+          "notes": {
+            "vi": "## Ngữ pháp\nCấu trúc **không muốn + [động từ]** diễn đạt sự từ chối hoặc không sẵn sàng làm điều gì. Liên từ **nhưng** nối hai mệnh đề mâu thuẫn: cảm thấy khó khăn (tiêu cực) nhưng vẫn kiên trì (tích cực).\n\n## Từ vựng\n- **đôi khi**: thỉnh thoảng, không phải lúc nào cũng vậy; sometimes\n- **cảm thấy**: có cảm giác chủ quan về một trạng thái nào đó; to feel\n- **bối rối**: không biết phải làm gì, lúng túng; confused, bewildered\n- **từ bỏ**: dừng lại, không tiếp tục nữa; to give up, to quit\n- **mục tiêu**: điều muốn đạt được, đích đến; goal, objective"
+          }
         },
         {
-          "text": "Mein Ziel ist es, viele Sprachen zu sprechen."
+          "text": "Mein Ziel ist es, viele Sprachen zu sprechen.",
+          "notes": {
+            "vi": "## Ngữ pháp\nCụm giới từ **Với + [danh từ]** đứng đầu câu làm trạng ngữ chỉ điều kiện hoặc phương tiện. Cấu trúc **tin + [mệnh đề]** diễn đạt niềm tin vào một khả năng. Cụm **trở thành** chỉ sự biến đổi từ trạng thái này sang trạng thái khác (tương đương \"become\").\n\n## Từ vựng\n- **sự kiên trì**: tính bền bỉ, không bỏ cuộc dù gặp khó khăn; perseverance, patience\n- **tin**: tin tưởng, cho là đúng; to believe\n- **trở thành**: biến đổi, đạt đến một trạng thái mới; to become\n- **đa ngôn ngữ**: biết nhiều ngôn ngữ; multilingual, polyglot\n- **thực thụ**: thật sự, theo nghĩa đầy đủ nhất; true, genuine, real"
+          }
         }
       ]
     },
@@ -69,31 +93,36 @@
         {
           "text": "三つの言葉を同時に勉強するのは大変（たいへん）ですが、楽しいです。",
           "notes": {
-            "ja": "Furigana reading shown in （）for N4 kanji"
+            "ja": "Furigana reading shown in （）for N4 kanji",
+            "vi": "## Ngữ pháp\nDanh ngữ **Học ba ngôn ngữ cùng lúc** đóng vai trò chủ ngữ của câu — đây là cách danh hóa bằng cách để nguyên cụm động từ không cần thêm \"việc\". Cấu trúc **[A] nhưng [B]** nối hai tính chất tương phản (khó khăn vs. xứng đáng) về cùng một đối tượng.\n\n## Từ vựng\n- **ngôn ngữ**: hệ thống âm thanh và ký hiệu dùng để giao tiếp; language\n- **cùng lúc**: tại cùng một thời điểm, đồng thời; at the same time, simultaneously\n- **thử thách**: tình huống đòi hỏi nỗ lực và sự kiên nhẫn; challenge\n- **khó khăn**: đòi hỏi nhiều công sức, không dễ dàng; difficult, hard\n- **xứng đáng**: đáng được phần thưởng hoặc kết quả tốt; worthwhile, rewarding"
           }
         },
         {
           "text": "毎日、短い時間でも練習（れんしゅう）するようにしています。",
           "notes": {
-            "ja": "〜ように: purpose/manner 'so that / in a way that'"
+            "ja": "〜ように: purpose/manner 'so that / in a way that'",
+            "vi": "## Ngữ pháp\nCụm **ngay cả khi + [điều kiện]** diễn đạt tính kiên định bất kể hoàn cảnh, tương đương \"even if / even when\". Đây là cách nhấn mạnh sự cam kết: cho dù thời gian ít, vẫn không bỏ qua việc luyện tập.\n\n## Từ vựng\n- **cố gắng**: nỗ lực hết sức để thực hiện điều gì; to try hard, to make an effort\n- **luyện tập**: thực hành lặp đi lặp lại để nâng cao kỹ năng; to practice, to train\n- **mỗi ngày**: hàng ngày, không bỏ ngày nào; every day, daily\n- **ngay cả khi**: kể cả trong trường hợp...; even if, even when\n- **thời gian ngắn**: khoảng thời gian ít, không kéo dài; short time, brief period"
           }
         },
         {
           "text": "文法（ぶんぽう）を比べる（くらべる）と、もっとよくわかります。",
           "notes": {
-            "ja": "Furigana reading shown in （）for N4 kanji"
+            "ja": "Furigana reading shown in （）for N4 kanji",
+            "vi": "## Ngữ pháp\nTừ **Việc** đứng đầu câu danh hóa toàn bộ cụm \"so sánh ngữ pháp của các ngôn ngữ khác nhau\", biến nó thành chủ ngữ. Cấu trúc **giúp + [người] + [động từ]** mang nghĩa tạo điều kiện để ai đó thực hiện hành động, tương đương \"help somebody do something\".\n\n## Từ vựng\n- **so sánh**: đặt hai hay nhiều thứ cạnh nhau để tìm điểm giống và khác; to compare\n- **ngữ pháp**: hệ thống quy tắc cấu tạo từ và câu của một ngôn ngữ; grammar\n- **khác nhau**: không giống nhau, có sự phân biệt; different, varied\n- **hiểu**: nắm bắt được ý nghĩa và cách hoạt động; to understand\n- **rõ hơn**: với độ rõ ràng cao hơn, dễ hiểu hơn; more clearly"
           }
         },
         {
           "text": "時々わからなくなりますが、あきらめたくないです。",
           "notes": {
-            "ja": "Review verb form / politeness level (ます/です)"
+            "ja": "Review verb form / politeness level (ます/です)",
+            "vi": "## Ngữ pháp\nCấu trúc **không muốn + [động từ]** diễn đạt sự từ chối hoặc không sẵn sàng làm điều gì. Liên từ **nhưng** nối hai mệnh đề mâu thuẫn: cảm thấy khó khăn (tiêu cực) nhưng vẫn kiên trì (tích cực).\n\n## Từ vựng\n- **đôi khi**: thỉnh thoảng, không phải lúc nào cũng vậy; sometimes\n- **cảm thấy**: có cảm giác chủ quan về một trạng thái nào đó; to feel\n- **bối rối**: không biết phải làm gì, lúng túng; confused, bewildered\n- **từ bỏ**: dừng lại, không tiếp tục nữa; to give up, to quit\n- **mục tiêu**: điều muốn đạt được, đích đến; goal, objective"
           }
         },
         {
           "text": "頑張れば、きっと上手に話せるようになると思います。",
           "notes": {
-            "ja": "〜ように: purpose/manner 'so that / in a way that'"
+            "ja": "〜ように: purpose/manner 'so that / in a way that'",
+            "vi": "## Ngữ pháp\nCụm giới từ **Với + [danh từ]** đứng đầu câu làm trạng ngữ chỉ điều kiện hoặc phương tiện. Cấu trúc **tin + [mệnh đề]** diễn đạt niềm tin vào một khả năng. Cụm **trở thành** chỉ sự biến đổi từ trạng thái này sang trạng thái khác (tương đương \"become\").\n\n## Từ vựng\n- **sự kiên trì**: tính bền bỉ, không bỏ cuộc dù gặp khó khăn; perseverance, patience\n- **tin**: tin tưởng, cho là đúng; to believe\n- **trở thành**: biến đổi, đạt đến một trạng thái mới; to become\n- **đa ngôn ngữ**: biết nhiều ngôn ngữ; multilingual, polyglot\n- **thực thụ**: thật sự, theo nghĩa đầy đủ nhất; true, genuine, real"
           }
         }
       ]

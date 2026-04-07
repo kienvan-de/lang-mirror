@@ -10,22 +10,35 @@
       "speed": 0.9,
       "sentences": [
         {
-          "text": "I enjoy visiting local cafés to relax and have a hot drink."
+          "text": "I enjoy visiting local cafés to relax and have a hot drink.",
+          "notes": {
+            "vi": "## Ngữ pháp\nĐộng từ **thích + [động từ nguyên thể]** diễn đạt sở thích, tương đương \"enjoy + V-ing\" trong tiếng Anh. Ví dụ: \"Tôi thích đọc sách\" hay \"Tôi thích nghe nhạc.\" Cấu trúc **để + [mục đích]** cuối câu bổ sung lý do cho hành động đó.\n\n## Từ vựng\n- **thích**: có cảm tình, yêu mến với điều gì; to like, to enjoy\n- **ghé thăm**: dừng lại thăm nơi nào đó trong thời gian ngắn; to stop by, to visit briefly\n- **địa phương**: thuộc về khu vực hay vùng cụ thể gần đó; local\n- **thư giãn**: để cơ thể và tinh thần nghỉ ngơi, thoải mái; to relax, to unwind\n- **đồ nóng**: thức uống có nhiệt độ cao như trà, cà phê; hot drink"
+          }
         },
         {
-          "text": "When I arrive, I usually look at the menu for a few minutes before ordering."
+          "text": "When I arrive, I usually look at the menu for a few minutes before ordering.",
+          "notes": {
+            "vi": "## Ngữ pháp\nCấu trúc **Khi + [mệnh đề], [mệnh đề chính]** diễn đạt hai hành động xảy ra liên tiếp hoặc cùng thời điểm. Cụm **trước khi + [động từ]** chỉ thứ tự thời gian, việc \"xem thực đơn\" xảy ra trước \"gọi món\".\n\n## Từ vựng\n- **khi**: từ nối chỉ thời điểm, lúc nào đó; when, at the time\n- **đến nơi**: tới địa điểm đã định; to arrive at the destination\n- **thực đơn**: danh sách các món ăn, thức uống của quán; menu\n- **trước khi**: sớm hơn, xảy ra ở thời điểm trước; before\n- **gọi món**: yêu cầu phục vụ mang đồ ăn/uống; to order food or drinks"
+          }
         },
         {
-          "text": "I often choose a latte with almond milk and a small pastry on the side."
+          "text": "I often choose a latte with almond milk and a small pastry on the side.",
+          "notes": {
+            "vi": "## Ngữ pháp\nLoại từ **ly** dùng khi đếm đồ uống (một ly nước, hai ly cà phê), còn **chiếc** dùng cho vật thể đơn lẻ có hình dạng cụ thể (một chiếc bánh, một chiếc áo). Việc dùng đúng loại từ là đặc điểm quan trọng của tiếng Việt.\n\n## Từ vựng\n- **chọn**: quyết định lấy một thứ trong số nhiều lựa chọn; to choose, to select\n- **ly**: loại từ dùng cho đồ uống đựng trong cốc/ly; a glass of, a cup of\n- **sữa hạnh nhân**: loại sữa làm từ hạt hạnh nhân, không phải sữa bò; almond milk\n- **bánh ngọt**: loại bánh có vị ngọt, thường ăn kèm đồ uống; pastry, sweet cake\n- **ăn kèm**: dùng chung với món chính, đi kèm; on the side, as an accompaniment"
+          }
         },
         {
           "text": "While I wait for my order, I like to read a book or browse the news.",
           "notes": {
-            "en": "Subordinate clause with 'while' (simultaneous actions)"
+            "en": "Subordinate clause with 'while' (simultaneous actions)",
+            "vi": "## Ngữ pháp\nCụm **Trong khi + [hành động]** diễn tả hai hành động xảy ra đồng thời, tương đương \"while\" trong tiếng Anh. Ví dụ: \"Trong khi nấu ăn, tôi nghe nhạc.\" Liên từ **hoặc** nối hai lựa chọn ngang nhau (đọc sách hoặc lướt tin tức).\n\n## Từ vựng\n- **trong khi**: cùng lúc với hành động khác đang xảy ra; while, during the time that\n- **chờ**: ở lại một chỗ cho đến khi điều gì đó xảy ra; to wait\n- **đồ uống**: thức uống nói chung; drink, beverage\n- **lướt**: xem qua nhanh, không đọc kỹ từng chi tiết; to browse, to scroll through\n- **tin tức**: thông tin về các sự kiện đang xảy ra; news"
           }
         },
         {
-          "text": "Cafés provide a great atmosphere for a quick break during the afternoon."
+          "text": "Cafés provide a great atmosphere for a quick break during the afternoon.",
+          "notes": {
+            "vi": "## Ngữ pháp\nĐộng từ **mang lại** có nghĩa là \"đem đến, tạo ra\" và thường đi với những thứ tích cực (mang lại niềm vui, mang lại lợi ích). Cụm **bầu không khí** là danh từ ghép chỉ môi trường, cảm giác chung của một nơi chốn.\n\n## Từ vựng\n- **mang lại**: đem đến, tạo ra điều gì tốt đẹp; to bring, to provide, to offer\n- **bầu không khí**: không gian và cảm giác chung tại một nơi; atmosphere, ambiance\n- **tuyệt vời**: rất tốt, xuất sắc, gây ấn tượng mạnh; wonderful, excellent\n- **nghỉ ngơi**: tạm dừng hoạt động để lấy lại sức; to rest, to take a break\n- **buổi chiều**: khoảng thời gian từ trưa đến tối; afternoon"
+          }
         }
       ]
     },
@@ -39,25 +52,34 @@
         {
           "text": "Ich gehe gerne ins Café, um mich zu entspannen.",
           "notes": {
-            "de": "Present tense: regular verbs → ich + stem + -e"
+            "de": "Present tense: regular verbs → ich + stem + -e",
+            "vi": "## Ngữ pháp\nĐộng từ **thích + [động từ nguyên thể]** diễn đạt sở thích, tương đương \"enjoy + V-ing\" trong tiếng Anh. Ví dụ: \"Tôi thích đọc sách\" hay \"Tôi thích nghe nhạc.\" Cấu trúc **để + [mục đích]** cuối câu bổ sung lý do cho hành động đó.\n\n## Từ vựng\n- **thích**: có cảm tình, yêu mến với điều gì; to like, to enjoy\n- **ghé thăm**: dừng lại thăm nơi nào đó trong thời gian ngắn; to stop by, to visit briefly\n- **địa phương**: thuộc về khu vực hay vùng cụ thể gần đó; local\n- **thư giãn**: để cơ thể và tinh thần nghỉ ngơi, thoải mái; to relax, to unwind\n- **đồ nóng**: thức uống có nhiệt độ cao như trà, cà phê; hot drink"
           }
         },
         {
           "text": "Ich lese die Speisekarte und bestelle dann einen Kaffee.",
           "notes": {
-            "de": "Word order: 'dann' (then) causes verb-second position"
+            "de": "Word order: 'dann' (then) causes verb-second position",
+            "vi": "## Ngữ pháp\nCấu trúc **Khi + [mệnh đề], [mệnh đề chính]** diễn đạt hai hành động xảy ra liên tiếp hoặc cùng thời điểm. Cụm **trước khi + [động từ]** chỉ thứ tự thời gian, việc \"xem thực đơn\" xảy ra trước \"gọi món\".\n\n## Từ vựng\n- **khi**: từ nối chỉ thời điểm, lúc nào đó; when, at the time\n- **đến nơi**: tới địa điểm đã định; to arrive at the destination\n- **thực đơn**: danh sách các món ăn, thức uống của quán; menu\n- **trước khi**: sớm hơn, xảy ra ở thời điểm trước; before\n- **gọi món**: yêu cầu phục vụ mang đồ ăn/uống; to order food or drinks"
           }
         },
         {
-          "text": "Ich nehme oft einen Milchkaffee und ein Stück Kuchen."
+          "text": "Ich nehme oft einen Milchkaffee und ein Stück Kuchen.",
+          "notes": {
+            "vi": "## Ngữ pháp\nLoại từ **ly** dùng khi đếm đồ uống (một ly nước, hai ly cà phê), còn **chiếc** dùng cho vật thể đơn lẻ có hình dạng cụ thể (một chiếc bánh, một chiếc áo). Việc dùng đúng loại từ là đặc điểm quan trọng của tiếng Việt.\n\n## Từ vựng\n- **chọn**: quyết định lấy một thứ trong số nhiều lựa chọn; to choose, to select\n- **ly**: loại từ dùng cho đồ uống đựng trong cốc/ly; a glass of, a cup of\n- **sữa hạnh nhân**: loại sữa làm từ hạt hạnh nhân, không phải sữa bò; almond milk\n- **bánh ngọt**: loại bánh có vị ngọt, thường ăn kèm đồ uống; pastry, sweet cake\n- **ăn kèm**: dùng chung với món chính, đi kèm; on the side, as an accompaniment"
+          }
         },
         {
-          "text": "Ich warte kurz und lese dabei eine Zeitung."
+          "text": "Ich warte kurz und lese dabei eine Zeitung.",
+          "notes": {
+            "vi": "## Ngữ pháp\nCụm **Trong khi + [hành động]** diễn tả hai hành động xảy ra đồng thời, tương đương \"while\" trong tiếng Anh. Ví dụ: \"Trong khi nấu ăn, tôi nghe nhạc.\" Liên từ **hoặc** nối hai lựa chọn ngang nhau (đọc sách hoặc lướt tin tức).\n\n## Từ vựng\n- **trong khi**: cùng lúc với hành động khác đang xảy ra; while, during the time that\n- **chờ**: ở lại một chỗ cho đến khi điều gì đó xảy ra; to wait\n- **đồ uống**: thức uống nói chung; drink, beverage\n- **lướt**: xem qua nhanh, không đọc kỹ từng chi tiết; to browse, to scroll through\n- **tin tức**: thông tin về các sự kiện đang xảy ra; news"
+          }
         },
         {
           "text": "Die Atmosphäre im Café gefällt mir sehr gut.",
           "notes": {
-            "de": "Contracted preposition: im=in dem, am=an dem, zum=zu dem"
+            "de": "Contracted preposition: im=in dem, am=an dem, zum=zu dem",
+            "vi": "## Ngữ pháp\nĐộng từ **mang lại** có nghĩa là \"đem đến, tạo ra\" và thường đi với những thứ tích cực (mang lại niềm vui, mang lại lợi ích). Cụm **bầu không khí** là danh từ ghép chỉ môi trường, cảm giác chung của một nơi chốn.\n\n## Từ vựng\n- **mang lại**: đem đến, tạo ra điều gì tốt đẹp; to bring, to provide, to offer\n- **bầu không khí**: không gian và cảm giác chung tại một nơi; atmosphere, ambiance\n- **tuyệt vời**: rất tốt, xuất sắc, gây ấn tượng mạnh; wonderful, excellent\n- **nghỉ ngơi**: tạm dừng hoạt động để lấy lại sức; to rest, to take a break\n- **buổi chiều**: khoảng thời gian từ trưa đến tối; afternoon"
           }
         }
       ]
@@ -72,31 +94,36 @@
         {
           "text": "リラックスするために、よく近くの喫茶店（きっさてん）に行きます。",
           "notes": {
-            "ja": "〜ために: purpose 'in order to / for the sake of'"
+            "ja": "〜ために: purpose 'in order to / for the sake of'",
+            "vi": "## Ngữ pháp\nĐộng từ **thích + [động từ nguyên thể]** diễn đạt sở thích, tương đương \"enjoy + V-ing\" trong tiếng Anh. Ví dụ: \"Tôi thích đọc sách\" hay \"Tôi thích nghe nhạc.\" Cấu trúc **để + [mục đích]** cuối câu bổ sung lý do cho hành động đó.\n\n## Từ vựng\n- **thích**: có cảm tình, yêu mến với điều gì; to like, to enjoy\n- **ghé thăm**: dừng lại thăm nơi nào đó trong thời gian ngắn; to stop by, to visit briefly\n- **địa phương**: thuộc về khu vực hay vùng cụ thể gần đó; local\n- **thư giãn**: để cơ thể và tinh thần nghỉ ngơi, thoải mái; to relax, to unwind\n- **đồ nóng**: thức uống có nhiệt độ cao như trà, cà phê; hot drink"
           }
         },
         {
           "text": "店に着いたら、注文する前にメニューを読みます。",
           "notes": {
-            "ja": "Conditional form: たら (if/when completed), ば (hypothetical)"
+            "ja": "Conditional form: たら (if/when completed), ば (hypothetical)",
+            "vi": "## Ngữ pháp\nCấu trúc **Khi + [mệnh đề], [mệnh đề chính]** diễn đạt hai hành động xảy ra liên tiếp hoặc cùng thời điểm. Cụm **trước khi + [động từ]** chỉ thứ tự thời gian, việc \"xem thực đơn\" xảy ra trước \"gọi món\".\n\n## Từ vựng\n- **khi**: từ nối chỉ thời điểm, lúc nào đó; when, at the time\n- **đến nơi**: tới địa điểm đã định; to arrive at the destination\n- **thực đơn**: danh sách các món ăn, thức uống của quán; menu\n- **trước khi**: sớm hơn, xảy ra ở thời điểm trước; before\n- **gọi món**: yêu cầu phục vụ mang đồ ăn/uống; to order food or drinks"
           }
         },
         {
           "text": "たいていラテと甘いお菓子（おかし）を頼みます。",
           "notes": {
-            "ja": "〜ています: ongoing state or habitual action"
+            "ja": "〜ています: ongoing state or habitual action",
+            "vi": "## Ngữ pháp\nLoại từ **ly** dùng khi đếm đồ uống (một ly nước, hai ly cà phê), còn **chiếc** dùng cho vật thể đơn lẻ có hình dạng cụ thể (một chiếc bánh, một chiếc áo). Việc dùng đúng loại từ là đặc điểm quan trọng của tiếng Việt.\n\n## Từ vựng\n- **chọn**: quyết định lấy một thứ trong số nhiều lựa chọn; to choose, to select\n- **ly**: loại từ dùng cho đồ uống đựng trong cốc/ly; a glass of, a cup of\n- **sữa hạnh nhân**: loại sữa làm từ hạt hạnh nhân, không phải sữa bò; almond milk\n- **bánh ngọt**: loại bánh có vị ngọt, thường ăn kèm đồ uống; pastry, sweet cake\n- **ăn kèm**: dùng chung với món chính, đi kèm; on the side, as an accompaniment"
           }
         },
         {
           "text": "飲み物を待っている間に、本を読んだりニュースを見たりします。",
           "notes": {
-            "ja": "〜ています: ongoing state or habitual action"
+            "ja": "〜ています: ongoing state or habitual action",
+            "vi": "## Ngữ pháp\nCụm **Trong khi + [hành động]** diễn tả hai hành động xảy ra đồng thời, tương đương \"while\" trong tiếng Anh. Ví dụ: \"Trong khi nấu ăn, tôi nghe nhạc.\" Liên từ **hoặc** nối hai lựa chọn ngang nhau (đọc sách hoặc lướt tin tức).\n\n## Từ vựng\n- **trong khi**: cùng lúc với hành động khác đang xảy ra; while, during the time that\n- **chờ**: ở lại một chỗ cho đến khi điều gì đó xảy ra; to wait\n- **đồ uống**: thức uống nói chung; drink, beverage\n- **lướt**: xem qua nhanh, không đọc kỹ từng chi tiết; to browse, to scroll through\n- **tin tức**: thông tin về các sự kiện đang xảy ra; news"
           }
         },
         {
           "text": "カフェの雰囲気（ふんいき）がいいので、午後の休憩（きゅうけい）にぴったりです。",
           "notes": {
-            "ja": "Furigana reading shown in （）for N4 kanji"
+            "ja": "Furigana reading shown in （）for N4 kanji",
+            "vi": "## Ngữ pháp\nĐộng từ **mang lại** có nghĩa là \"đem đến, tạo ra\" và thường đi với những thứ tích cực (mang lại niềm vui, mang lại lợi ích). Cụm **bầu không khí** là danh từ ghép chỉ môi trường, cảm giác chung của một nơi chốn.\n\n## Từ vựng\n- **mang lại**: đem đến, tạo ra điều gì tốt đẹp; to bring, to provide, to offer\n- **bầu không khí**: không gian và cảm giác chung tại một nơi; atmosphere, ambiance\n- **tuyệt vời**: rất tốt, xuất sắc, gây ấn tượng mạnh; wonderful, excellent\n- **nghỉ ngơi**: tạm dừng hoạt động để lấy lại sức; to rest, to take a break\n- **buổi chiều**: khoảng thời gian từ trưa đến tối; afternoon"
           }
         }
       ]

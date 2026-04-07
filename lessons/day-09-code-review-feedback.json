@@ -12,28 +12,35 @@
         {
           "text": "I have just submitted my pull request and I would appreciate your feedback.",
           "notes": {
-            "en": "Modal verb expressing possibility or politeness"
+            "en": "Modal verb expressing possibility or politeness",
+            "vi": "## Ngữ pháp\nTrợ từ **vừa** chỉ hành động xảy ra ngay trước thời điểm nói, tương đương \"just\" + quá khứ hoàn thành. Cụm **rất mong + [động từ]** diễn đạt sự kỳ vọng lịch sự, thường dùng trong ngữ cảnh công việc hay giao tiếp trang trọng.\n\n## Từ vựng\n- **vừa**: vừa mới xong, ngay trước thời điểm hiện tại; just (did something)\n- **gửi**: chuyển thứ gì đó đến người khác; to send, to submit\n- **yêu cầu kéo**: đề nghị hợp nhất code vào nhánh chính (PR); pull request\n- **mong**: hy vọng, kỳ vọng điều gì đó xảy ra; to hope, to wish for\n- **phản hồi**: ý kiến đánh giá, nhận xét về điều gì đó; feedback, response"
           }
         },
         {
-          "text": "Please look at the new function I added to handle the data processing."
+          "text": "Please look at the new function I added to handle the data processing.",
+          "notes": {
+            "vi": "## Ngữ pháp\nCụm **Làm ơn + [động từ]** là cách yêu cầu lịch sự, tương đương \"please\" trong tiếng Anh. Mệnh đề quan hệ rút gọn **tôi đã thêm** bổ nghĩa cho \"hàm mới\" — trong tiếng Việt không cần đại từ quan hệ như \"that/which\".\n\n## Từ vựng\n- **làm ơn**: yêu cầu lịch sự, nhờ vả người khác; please (polite request)\n- **xem qua**: đọc hoặc kiểm tra một cách tổng quát; to look through, to review\n- **hàm**: khối mã thực hiện một nhiệm vụ cụ thể; function\n- **thêm**: bổ sung vào chỗ đã có; to add\n- **xử lý dữ liệu**: thực hiện các thao tác trên dữ liệu; data processing"
+          }
         },
         {
           "text": "I tried to make the code more readable by using descriptive variable names.",
           "notes": {
-            "en": "Gerund phrase: 'By + verb-ing' expresses means/method"
+            "en": "Gerund phrase: 'By + verb-ing' expresses means/method",
+            "vi": "## Ngữ pháp\nCấu trúc **bằng cách + [động từ]** diễn đạt phương pháp hoặc phương tiện thực hiện, tương đương \"by + V-ing\" trong tiếng Anh. Cụm **làm cho + [tân ngữ] + [tính từ] hơn** có nghĩa là biến X trở nên có tính chất Y hơn.\n\n## Từ vựng\n- **mã**: tập hợp các lệnh lập trình; code\n- **dễ đọc**: dễ hiểu khi đọc, cấu trúc rõ ràng; readable\n- **bằng cách**: thông qua phương pháp nào đó; by (doing something)\n- **tên biến**: nhãn đặt cho vùng lưu trữ dữ liệu trong lập trình; variable name\n- **mô tả**: diễn đạt rõ ràng nội dung hoặc chức năng; descriptive"
           }
         },
         {
           "text": "If you see any performance issues, please let me know as soon as possible.",
           "notes": {
-            "en": "Conditional: 'If + present simple, … will/can…'"
+            "en": "Conditional: 'If + present simple, … will/can…'",
+            "vi": "## Ngữ pháp\nCấu trúc điều kiện **Nếu + [điều kiện], hãy + [yêu cầu]** kết hợp câu điều kiện với mệnh lệnh lịch sự. Cụm **bất kỳ ... gì** nhấn mạnh tất cả mọi trường hợp, tương đương \"any\". Cụm **sớm nhất có thể** = \"as soon as possible\".\n\n## Từ vựng\n- **bất kỳ ... gì**: bất luận là loại gì, nhấn mạnh không phân biệt; any ... whatsoever\n- **hiệu năng**: khả năng hoạt động nhanh và hiệu quả của hệ thống; performance\n- **hãy**: mệnh lệnh lịch sự, nhẹ nhàng; (please) do something\n- **cho biết**: thông báo, cung cấp thông tin; to let know, to inform\n- **sớm nhất có thể**: nhanh nhất trong khả năng; as soon as possible"
           }
         },
         {
           "text": "I am happy to make changes to improve the overall quality of the code.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing"
+            "en": "Present continuous: subject + am/is/are + verb-ing",
+            "vi": "## Ngữ pháp\nCụm **sẵn lòng + [động từ]** diễn đạt sự tự nguyện, không miễn cưỡng khi thực hiện điều gì, tương đương \"happy to / willing to\". Trạng từ **rất** trước \"sẵn lòng\" tăng cường độ sẵn sàng và thể hiện thái độ tích cực.\n\n## Từ vựng\n- **sẵn lòng**: vui vẻ, tự nguyện làm điều gì; willing, happy to\n- **thay đổi**: làm khác đi so với ban đầu; to change, to make changes\n- **cải thiện**: làm tốt hơn so với trước; to improve\n- **chất lượng tổng thể**: mức độ tốt xét trên tất cả các khía cạnh; overall quality\n- **mã nguồn**: toàn bộ code của chương trình; source code"
           }
         }
       ]
@@ -46,21 +53,34 @@
       "speed": 0.85,
       "sentences": [
         {
-          "text": "Mein Code ist fertig, bitte lesen Sie meine Arbeit."
+          "text": "Mein Code ist fertig, bitte lesen Sie meine Arbeit.",
+          "notes": {
+            "vi": "## Ngữ pháp\nTrợ từ **vừa** chỉ hành động xảy ra ngay trước thời điểm nói, tương đương \"just\" + quá khứ hoàn thành. Cụm **rất mong + [động từ]** diễn đạt sự kỳ vọng lịch sự, thường dùng trong ngữ cảnh công việc hay giao tiếp trang trọng.\n\n## Từ vựng\n- **vừa**: vừa mới xong, ngay trước thời điểm hiện tại; just (did something)\n- **gửi**: chuyển thứ gì đó đến người khác; to send, to submit\n- **yêu cầu kéo**: đề nghị hợp nhất code vào nhánh chính (PR); pull request\n- **mong**: hy vọng, kỳ vọng điều gì đó xảy ra; to hope, to wish for\n- **phản hồi**: ý kiến đánh giá, nhận xét về điều gì đó; feedback, response"
+          }
         },
         {
-          "text": "Die neue Funktion für die Daten ist in Zeile zehn."
+          "text": "Die neue Funktion für die Daten ist in Zeile zehn.",
+          "notes": {
+            "vi": "## Ngữ pháp\nCụm **Làm ơn + [động từ]** là cách yêu cầu lịch sự, tương đương \"please\" trong tiếng Anh. Mệnh đề quan hệ rút gọn **tôi đã thêm** bổ nghĩa cho \"hàm mới\" — trong tiếng Việt không cần đại từ quan hệ như \"that/which\".\n\n## Từ vựng\n- **làm ơn**: yêu cầu lịch sự, nhờ vả người khác; please (polite request)\n- **xem qua**: đọc hoặc kiểm tra một cách tổng quát; to look through, to review\n- **hàm**: khối mã thực hiện một nhiệm vụ cụ thể; function\n- **thêm**: bổ sung vào chỗ đã có; to add\n- **xử lý dữ liệu**: thực hiện các thao tác trên dữ liệu; data processing"
+          }
         },
         {
-          "text": "Ich schreibe den Code sehr einfach und klar."
+          "text": "Ich schreibe den Code sehr einfach und klar.",
+          "notes": {
+            "vi": "## Ngữ pháp\nCấu trúc **bằng cách + [động từ]** diễn đạt phương pháp hoặc phương tiện thực hiện, tương đương \"by + V-ing\" trong tiếng Anh. Cụm **làm cho + [tân ngữ] + [tính từ] hơn** có nghĩa là biến X trở nên có tính chất Y hơn.\n\n## Từ vựng\n- **mã**: tập hợp các lệnh lập trình; code\n- **dễ đọc**: dễ hiểu khi đọc, cấu trúc rõ ràng; readable\n- **bằng cách**: thông qua phương pháp nào đó; by (doing something)\n- **tên biến**: nhãn đặt cho vùng lưu trữ dữ liệu trong lập trình; variable name\n- **mô tả**: diễn đạt rõ ràng nội dung hoặc chức năng; descriptive"
+          }
         },
         {
-          "text": "Finden Sie Fehler? Sagen Sie es mir bitte schnell."
+          "text": "Finden Sie Fehler? Sagen Sie es mir bitte schnell.",
+          "notes": {
+            "vi": "## Ngữ pháp\nCấu trúc điều kiện **Nếu + [điều kiện], hãy + [yêu cầu]** kết hợp câu điều kiện với mệnh lệnh lịch sự. Cụm **bất kỳ ... gì** nhấn mạnh tất cả mọi trường hợp, tương đương \"any\". Cụm **sớm nhất có thể** = \"as soon as possible\".\n\n## Từ vựng\n- **bất kỳ ... gì**: bất luận là loại gì, nhấn mạnh không phân biệt; any ... whatsoever\n- **hiệu năng**: khả năng hoạt động nhanh và hiệu quả của hệ thống; performance\n- **hãy**: mệnh lệnh lịch sự, nhẹ nhàng; (please) do something\n- **cho biết**: thông báo, cung cấp thông tin; to let know, to inform\n- **sớm nhất có thể**: nhanh nhất trong khả năng; as soon as possible"
+          }
         },
         {
           "text": "Ich ändere den Code gerne, damit er besser wird.",
           "notes": {
-            "de": "Purpose clause: 'damit' + subject + verb-at-end"
+            "de": "Purpose clause: 'damit' + subject + verb-at-end",
+            "vi": "## Ngữ pháp\nCụm **sẵn lòng + [động từ]** diễn đạt sự tự nguyện, không miễn cưỡng khi thực hiện điều gì, tương đương \"happy to / willing to\". Trạng từ **rất** trước \"sẵn lòng\" tăng cường độ sẵn sàng và thể hiện thái độ tích cực.\n\n## Từ vựng\n- **sẵn lòng**: vui vẻ, tự nguyện làm điều gì; willing, happy to\n- **thay đổi**: làm khác đi so với ban đầu; to change, to make changes\n- **cải thiện**: làm tốt hơn so với trước; to improve\n- **chất lượng tổng thể**: mức độ tốt xét trên tất cả các khía cạnh; overall quality\n- **mã nguồn**: toàn bộ code của chương trình; source code"
           }
         }
       ]
@@ -75,31 +95,36 @@
         {
           "text": "プルリクエストを送りましたので、確認（かくにん）をお願いします。",
           "notes": {
-            "ja": "Furigana reading shown in （）for N4 kanji"
+            "ja": "Furigana reading shown in （）for N4 kanji",
+            "vi": "## Ngữ pháp\nTrợ từ **vừa** chỉ hành động xảy ra ngay trước thời điểm nói, tương đương \"just\" + quá khứ hoàn thành. Cụm **rất mong + [động từ]** diễn đạt sự kỳ vọng lịch sự, thường dùng trong ngữ cảnh công việc hay giao tiếp trang trọng.\n\n## Từ vựng\n- **vừa**: vừa mới xong, ngay trước thời điểm hiện tại; just (did something)\n- **gửi**: chuyển thứ gì đó đến người khác; to send, to submit\n- **yêu cầu kéo**: đề nghị hợp nhất code vào nhánh chính (PR); pull request\n- **mong**: hy vọng, kỳ vọng điều gì đó xảy ra; to hope, to wish for\n- **phản hồi**: ý kiến đánh giá, nhận xét về điều gì đó; feedback, response"
           }
         },
         {
           "text": "データ処理（しょり）のために新しく作った関数（かんすう）を見てください。",
           "notes": {
-            "ja": "〜ために: purpose 'in order to / for the sake of'"
+            "ja": "〜ために: purpose 'in order to / for the sake of'",
+            "vi": "## Ngữ pháp\nCụm **Làm ơn + [động từ]** là cách yêu cầu lịch sự, tương đương \"please\" trong tiếng Anh. Mệnh đề quan hệ rút gọn **tôi đã thêm** bổ nghĩa cho \"hàm mới\" — trong tiếng Việt không cần đại từ quan hệ như \"that/which\".\n\n## Từ vựng\n- **làm ơn**: yêu cầu lịch sự, nhờ vả người khác; please (polite request)\n- **xem qua**: đọc hoặc kiểm tra một cách tổng quát; to look through, to review\n- **hàm**: khối mã thực hiện một nhiệm vụ cụ thể; function\n- **thêm**: bổ sung vào chỗ đã có; to add\n- **xử lý dữ liệu**: thực hiện các thao tác trên dữ liệu; data processing"
           }
         },
         {
           "text": "読みやすいように、わかりやすい変数名（へんすうめい）を使いました。",
           "notes": {
-            "ja": "〜ように: purpose/manner 'so that / in a way that'"
+            "ja": "〜ように: purpose/manner 'so that / in a way that'",
+            "vi": "## Ngữ pháp\nCấu trúc **bằng cách + [động từ]** diễn đạt phương pháp hoặc phương tiện thực hiện, tương đương \"by + V-ing\" trong tiếng Anh. Cụm **làm cho + [tân ngữ] + [tính từ] hơn** có nghĩa là biến X trở nên có tính chất Y hơn.\n\n## Từ vựng\n- **mã**: tập hợp các lệnh lập trình; code\n- **dễ đọc**: dễ hiểu khi đọc, cấu trúc rõ ràng; readable\n- **bằng cách**: thông qua phương pháp nào đó; by (doing something)\n- **tên biến**: nhãn đặt cho vùng lưu trữ dữ liệu trong lập trình; variable name\n- **mô tả**: diễn đạt rõ ràng nội dung hoặc chức năng; descriptive"
           }
         },
         {
           "text": "もしパフォーマンスの問題があれば、教えていただけませんか。",
           "notes": {
-            "ja": "Conditional form: たら (if/when completed), ば (hypothetical)"
+            "ja": "Conditional form: たら (if/when completed), ば (hypothetical)",
+            "vi": "## Ngữ pháp\nCấu trúc điều kiện **Nếu + [điều kiện], hãy + [yêu cầu]** kết hợp câu điều kiện với mệnh lệnh lịch sự. Cụm **bất kỳ ... gì** nhấn mạnh tất cả mọi trường hợp, tương đương \"any\". Cụm **sớm nhất có thể** = \"as soon as possible\".\n\n## Từ vựng\n- **bất kỳ ... gì**: bất luận là loại gì, nhấn mạnh không phân biệt; any ... whatsoever\n- **hiệu năng**: khả năng hoạt động nhanh và hiệu quả của hệ thống; performance\n- **hãy**: mệnh lệnh lịch sự, nhẹ nhàng; (please) do something\n- **cho biết**: thông báo, cung cấp thông tin; to let know, to inform\n- **sớm nhất có thể**: nhanh nhất trong khả năng; as soon as possible"
           }
         },
         {
           "text": "コードを良くするために、修正（しゅうせい）する準備ができています。",
           "notes": {
-            "ja": "〜ために: purpose 'in order to / for the sake of'"
+            "ja": "〜ために: purpose 'in order to / for the sake of'",
+            "vi": "## Ngữ pháp\nCụm **sẵn lòng + [động từ]** diễn đạt sự tự nguyện, không miễn cưỡng khi thực hiện điều gì, tương đương \"happy to / willing to\". Trạng từ **rất** trước \"sẵn lòng\" tăng cường độ sẵn sàng và thể hiện thái độ tích cực.\n\n## Từ vựng\n- **sẵn lòng**: vui vẻ, tự nguyện làm điều gì; willing, happy to\n- **thay đổi**: làm khác đi so với ban đầu; to change, to make changes\n- **cải thiện**: làm tốt hơn so với trước; to improve\n- **chất lượng tổng thể**: mức độ tốt xét trên tất cả các khía cạnh; overall quality\n- **mã nguồn**: toàn bộ code của chương trình; source code"
           }
         }
       ]

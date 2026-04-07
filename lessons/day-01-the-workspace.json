@@ -10,25 +10,36 @@
       "speed": 0.9,
       "sentences": [
         {
-          "text": "I spend most of my day working at my desk in front of the computer."
+          "text": "I spend most of my day working at my desk in front of the computer.",
+          "notes": {
+            "vi": "## Ngữ pháp\nCấu trúc **dành + [thời gian] + [hoạt động]** diễn tả việc sử dụng thời gian cho một mục đích cụ thể. Ví dụ: \"Tôi dành 2 tiếng để học bài.\" Cụm \"phần lớn\" là định ngữ chỉ mức độ, đứng trước danh từ \"thời gian\" để nhấn mạnh đây là phần nhiều nhất.\n\n## Từ vựng\n- **dành**: sử dụng (thời gian, tiền bạc) cho một mục đích; to spend/devote\n- **phần lớn**: phần chiếm tỉ lệ cao nhất, đa phần; most of, the majority of\n- **làm việc**: thực hiện công việc chuyên môn hoặc hàng ngày; to work\n- **bàn**: đồ dùng có mặt phẳng để làm việc hoặc ăn uống; desk, table\n- **máy tính**: thiết bị điện tử xử lý và lưu trữ thông tin; computer"
+          }
         },
         {
           "text": "I usually keep my workspace organized so that I can find my tools easily.",
           "notes": {
-            "en": "Purpose clause: 'so that + subject + can/will…'"
+            "en": "Purpose clause: 'so that + subject + can/will…'",
+            "vi": "## Ngữ pháp\nCấu trúc **để + [động từ/mệnh đề]** chỉ mục đích, tương đương \"in order to\" trong tiếng Anh. Ví dụ: \"Tôi học chăm chỉ để đạt điểm cao.\" Từ **thường** là trạng từ chỉ tần suất, đứng trước động từ chính để diễn đạt thói quen thường xuyên.\n\n## Từ vựng\n- **thường**: hay xảy ra, không phải luôn luôn nhưng phổ biến; usually, often\n- **không gian làm việc**: khu vực được dành riêng để làm việc; workspace\n- **ngăn nắp**: có trật tự, gọn gàng, không lộn xộn; tidy, organized\n- **dụng cụ**: đồ vật dùng để thực hiện một công việc; tools, instruments\n- **dễ dàng**: không gặp khó khăn, thuận tiện; easily, without difficulty"
           }
         },
         {
-          "text": "My setup includes a high-resolution monitor and a mechanical keyboard for comfort."
+          "text": "My setup includes a high-resolution monitor and a mechanical keyboard for comfort.",
+          "notes": {
+            "vi": "## Ngữ pháp\nCấu trúc **[danh từ] của tôi có [danh từ khác]** dùng để mô tả sự sở hữu hoặc thành phần. \"Của tôi\" là cụm từ chỉ sở hữu, đứng ngay sau danh từ được sở hữu. Từ **để** ở cuối câu lại tiếp tục chỉ mục đích của việc trang bị các thiết bị đó.\n\n## Từ vựng\n- **góc làm việc**: khu vực riêng tư được bố trí để làm việc; workstation, work corner\n- **màn hình**: thiết bị hiển thị hình ảnh của máy tính; monitor, screen\n- **độ phân giải cao**: mức độ sắc nét và chi tiết của hình ảnh; high resolution\n- **bàn phím cơ**: loại bàn phím dùng công tắc cơ học, có cảm giác bấm rõ ràng; mechanical keyboard\n- **thoải mái**: dễ chịu, không gây khó chịu khi sử dụng lâu; comfortable, at ease"
+          }
         },
         {
           "text": "If the room is too noisy, I wear noise-canceling headphones to stay focused.",
           "notes": {
-            "en": "Conditional: 'If + present simple, … will/can…'"
+            "en": "Conditional: 'If + present simple, … will/can…'",
+            "vi": "## Ngữ pháp\nCấu trúc **Nếu + [điều kiện], [kết quả]** là câu điều kiện loại 1 dùng để diễn đạt tình huống có thể xảy ra và hệ quả của nó. Trợ từ **sẽ** trong mệnh đề kết quả nhấn mạnh đây là hành động sẽ được thực hiện khi điều kiện được thỏa mãn.\n\n## Từ vựng\n- **nếu**: từ nối dùng để đưa ra điều kiện giả định; if\n- **ồn**: có nhiều tiếng động gây khó chịu; noisy, loud\n- **đeo**: mặc/gắn vật gì lên cơ thể (tai nghe, vòng, kính...); to wear/put on (accessories)\n- **tai nghe chống ồn**: thiết bị âm thanh có khả năng loại bỏ tiếng ồn xung quanh; noise-canceling headphones\n- **tập trung**: dồn toàn bộ sự chú ý vào một việc; to focus, to concentrate"
           }
         },
         {
-          "text": "Having a comfortable environment makes a big difference in my productivity."
+          "text": "Having a comfortable environment makes a big difference in my productivity.",
+          "notes": {
+            "vi": "## Ngữ pháp\nCấu trúc **Có + [danh từ/cụm danh từ] + [động từ]** dùng danh ngữ làm chủ ngữ câu. \"Có một môi trường thoải mái\" đóng vai trò chủ ngữ, động từ \"tạo ra\" là vị ngữ. Đây là lối diễn đạt nhấn mạnh tầm quan trọng của một yếu tố nào đó.\n\n## Từ vựng\n- **môi trường**: hoàn cảnh, điều kiện xung quanh con người; environment, surroundings\n- **tạo ra**: làm xuất hiện điều gì đó; to create, to produce\n- **sự khác biệt**: điểm không giống nhau, điều làm thay đổi kết quả; difference\n- **lớn**: có quy mô, mức độ, tầm quan trọng cao; big, significant\n- **năng suất**: mức độ hiệu quả trong công việc, lượng công việc hoàn thành được; productivity"
+          }
         }
       ]
     },
@@ -42,26 +53,35 @@
         {
           "text": "Ich arbeite den ganzen Tag an meinem Schreibtisch am Computer.",
           "notes": {
-            "de": "Present tense: regular verbs → ich + stem + -e"
+            "de": "Present tense: regular verbs → ich + stem + -e",
+            "vi": "## Ngữ pháp\nCấu trúc **dành + [thời gian] + [hoạt động]** diễn tả việc sử dụng thời gian cho một mục đích cụ thể. Ví dụ: \"Tôi dành 2 tiếng để học bài.\" Cụm \"phần lớn\" là định ngữ chỉ mức độ, đứng trước danh từ \"thời gian\" để nhấn mạnh đây là phần nhiều nhất.\n\n## Từ vựng\n- **dành**: sử dụng (thời gian, tiền bạc) cho một mục đích; to spend/devote\n- **phần lớn**: phần chiếm tỉ lệ cao nhất, đa phần; most of, the majority of\n- **làm việc**: thực hiện công việc chuyên môn hoặc hàng ngày; to work\n- **bàn**: đồ dùng có mặt phẳng để làm việc hoặc ăn uống; desk, table\n- **máy tính**: thiết bị điện tử xử lý và lưu trữ thông tin; computer"
           }
         },
         {
-          "text": "Mein Schreibtisch ist immer ordentlich und sauber."
+          "text": "Mein Schreibtisch ist immer ordentlich und sauber.",
+          "notes": {
+            "vi": "## Ngữ pháp\nCấu trúc **để + [động từ/mệnh đề]** chỉ mục đích, tương đương \"in order to\" trong tiếng Anh. Ví dụ: \"Tôi học chăm chỉ để đạt điểm cao.\" Từ **thường** là trạng từ chỉ tần suất, đứng trước động từ chính để diễn đạt thói quen thường xuyên.\n\n## Từ vựng\n- **thường**: hay xảy ra, không phải luôn luôn nhưng phổ biến; usually, often\n- **không gian làm việc**: khu vực được dành riêng để làm việc; workspace\n- **ngăn nắp**: có trật tự, gọn gàng, không lộn xộn; tidy, organized\n- **dụng cụ**: đồ vật dùng để thực hiện một công việc; tools, instruments\n- **dễ dàng**: không gặp khó khăn, thuận tiện; easily, without difficulty"
+          }
         },
         {
           "text": "Ich habe einen großen Monitor und eine gute Tastatur.",
           "notes": {
-            "de": "Regular verb conjugation (1st person singular)"
+            "de": "Regular verb conjugation (1st person singular)",
+            "vi": "## Ngữ pháp\nCấu trúc **[danh từ] của tôi có [danh từ khác]** dùng để mô tả sự sở hữu hoặc thành phần. \"Của tôi\" là cụm từ chỉ sở hữu, đứng ngay sau danh từ được sở hữu. Từ **để** ở cuối câu lại tiếp tục chỉ mục đích của việc trang bị các thiết bị đó.\n\n## Từ vựng\n- **góc làm việc**: khu vực riêng tư được bố trí để làm việc; workstation, work corner\n- **màn hình**: thiết bị hiển thị hình ảnh của máy tính; monitor, screen\n- **độ phân giải cao**: mức độ sắc nét và chi tiết của hình ảnh; high resolution\n- **bàn phím cơ**: loại bàn phím dùng công tắc cơ học, có cảm giác bấm rõ ràng; mechanical keyboard\n- **thoải mái**: dễ chịu, không gây khó chịu khi sử dụng lâu; comfortable, at ease"
           }
         },
         {
           "text": "Wenn es laut ist, trage ich meine Kopfhörer.",
           "notes": {
-            "de": "Subordinate clause: 'wenn' sends verb to the end"
+            "de": "Subordinate clause: 'wenn' sends verb to the end",
+            "vi": "## Ngữ pháp\nCấu trúc **Nếu + [điều kiện], [kết quả]** là câu điều kiện loại 1 dùng để diễn đạt tình huống có thể xảy ra và hệ quả của nó. Trợ từ **sẽ** trong mệnh đề kết quả nhấn mạnh đây là hành động sẽ được thực hiện khi điều kiện được thỏa mãn.\n\n## Từ vựng\n- **nếu**: từ nối dùng để đưa ra điều kiện giả định; if\n- **ồn**: có nhiều tiếng động gây khó chịu; noisy, loud\n- **đeo**: mặc/gắn vật gì lên cơ thể (tai nghe, vòng, kính...); to wear/put on (accessories)\n- **tai nghe chống ồn**: thiết bị âm thanh có khả năng loại bỏ tiếng ồn xung quanh; noise-canceling headphones\n- **tập trung**: dồn toàn bộ sự chú ý vào một việc; to focus, to concentrate"
           }
         },
         {
-          "text": "Ein guter Arbeitsplatz ist sehr wichtig für mich."
+          "text": "Ein guter Arbeitsplatz ist sehr wichtig für mich.",
+          "notes": {
+            "vi": "## Ngữ pháp\nCấu trúc **Có + [danh từ/cụm danh từ] + [động từ]** dùng danh ngữ làm chủ ngữ câu. \"Có một môi trường thoải mái\" đóng vai trò chủ ngữ, động từ \"tạo ra\" là vị ngữ. Đây là lối diễn đạt nhấn mạnh tầm quan trọng của một yếu tố nào đó.\n\n## Từ vựng\n- **môi trường**: hoàn cảnh, điều kiện xung quanh con người; environment, surroundings\n- **tạo ra**: làm xuất hiện điều gì đó; to create, to produce\n- **sự khác biệt**: điểm không giống nhau, điều làm thay đổi kết quả; difference\n- **lớn**: có quy mô, mức độ, tầm quan trọng cao; big, significant\n- **năng suất**: mức độ hiệu quả trong công việc, lượng công việc hoàn thành được; productivity"
+          }
         }
       ]
     },
@@ -75,31 +95,36 @@
         {
           "text": "私は一日中、机の前で仕事をしています。",
           "notes": {
-            "ja": "〜ています: ongoing state or habitual action"
+            "ja": "〜ています: ongoing state or habitual action",
+            "vi": "## Ngữ pháp\nCấu trúc **dành + [thời gian] + [hoạt động]** diễn tả việc sử dụng thời gian cho một mục đích cụ thể. Ví dụ: \"Tôi dành 2 tiếng để học bài.\" Cụm \"phần lớn\" là định ngữ chỉ mức độ, đứng trước danh từ \"thời gian\" để nhấn mạnh đây là phần nhiều nhất.\n\n## Từ vựng\n- **dành**: sử dụng (thời gian, tiền bạc) cho một mục đích; to spend/devote\n- **phần lớn**: phần chiếm tỉ lệ cao nhất, đa phần; most of, the majority of\n- **làm việc**: thực hiện công việc chuyên môn hoặc hàng ngày; to work\n- **bàn**: đồ dùng có mặt phẳng để làm việc hoặc ăn uống; desk, table\n- **máy tính**: thiết bị điện tử xử lý và lưu trữ thông tin; computer"
           }
         },
         {
           "text": "道具がすぐに見つかるように、いつも机を片付けています。",
           "notes": {
-            "ja": "〜ように: purpose/manner 'so that / in a way that'"
+            "ja": "〜ように: purpose/manner 'so that / in a way that'",
+            "vi": "## Ngữ pháp\nCấu trúc **để + [động từ/mệnh đề]** chỉ mục đích, tương đương \"in order to\" trong tiếng Anh. Ví dụ: \"Tôi học chăm chỉ để đạt điểm cao.\" Từ **thường** là trạng từ chỉ tần suất, đứng trước động từ chính để diễn đạt thói quen thường xuyên.\n\n## Từ vựng\n- **thường**: hay xảy ra, không phải luôn luôn nhưng phổ biến; usually, often\n- **không gian làm việc**: khu vực được dành riêng để làm việc; workspace\n- **ngăn nắp**: có trật tự, gọn gàng, không lộn xộn; tidy, organized\n- **dụng cụ**: đồ vật dùng để thực hiện một công việc; tools, instruments\n- **dễ dàng**: không gặp khó khăn, thuận tiện; easily, without difficulty"
           }
         },
         {
           "text": "モニターは大きくて、キーボードは使いやすいです。",
           "notes": {
-            "ja": "Review verb form / politeness level (ます/です)"
+            "ja": "Review verb form / politeness level (ます/です)",
+            "vi": "## Ngữ pháp\nCấu trúc **[danh từ] của tôi có [danh từ khác]** dùng để mô tả sự sở hữu hoặc thành phần. \"Của tôi\" là cụm từ chỉ sở hữu, đứng ngay sau danh từ được sở hữu. Từ **để** ở cuối câu lại tiếp tục chỉ mục đích của việc trang bị các thiết bị đó.\n\n## Từ vựng\n- **góc làm việc**: khu vực riêng tư được bố trí để làm việc; workstation, work corner\n- **màn hình**: thiết bị hiển thị hình ảnh của máy tính; monitor, screen\n- **độ phân giải cao**: mức độ sắc nét và chi tiết của hình ảnh; high resolution\n- **bàn phím cơ**: loại bàn phím dùng công tắc cơ học, có cảm giác bấm rõ ràng; mechanical keyboard\n- **thoải mái**: dễ chịu, không gây khó chịu khi sử dụng lâu; comfortable, at ease"
           }
         },
         {
           "text": "うるさい時は、集中するためにヘッドホンを使います。",
           "notes": {
-            "ja": "〜ために: purpose 'in order to / for the sake of'"
+            "ja": "〜ために: purpose 'in order to / for the sake of'",
+            "vi": "## Ngữ pháp\nCấu trúc **Nếu + [điều kiện], [kết quả]** là câu điều kiện loại 1 dùng để diễn đạt tình huống có thể xảy ra và hệ quả của nó. Trợ từ **sẽ** trong mệnh đề kết quả nhấn mạnh đây là hành động sẽ được thực hiện khi điều kiện được thỏa mãn.\n\n## Từ vựng\n- **nếu**: từ nối dùng để đưa ra điều kiện giả định; if\n- **ồn**: có nhiều tiếng động gây khó chịu; noisy, loud\n- **đeo**: mặc/gắn vật gì lên cơ thể (tai nghe, vòng, kính...); to wear/put on (accessories)\n- **tai nghe chống ồn**: thiết bị âm thanh có khả năng loại bỏ tiếng ồn xung quanh; noise-canceling headphones\n- **tập trung**: dồn toàn bộ sự chú ý vào một việc; to focus, to concentrate"
           }
         },
         {
           "text": "快適な環境（かんきょう）のおかげで、仕事がはかどります。",
           "notes": {
-            "ja": "Furigana reading shown in （）for N4 kanji"
+            "ja": "Furigana reading shown in （）for N4 kanji",
+            "vi": "## Ngữ pháp\nCấu trúc **Có + [danh từ/cụm danh từ] + [động từ]** dùng danh ngữ làm chủ ngữ câu. \"Có một môi trường thoải mái\" đóng vai trò chủ ngữ, động từ \"tạo ra\" là vị ngữ. Đây là lối diễn đạt nhấn mạnh tầm quan trọng của một yếu tố nào đó.\n\n## Từ vựng\n- **môi trường**: hoàn cảnh, điều kiện xung quanh con người; environment, surroundings\n- **tạo ra**: làm xuất hiện điều gì đó; to create, to produce\n- **sự khác biệt**: điểm không giống nhau, điều làm thay đổi kết quả; difference\n- **lớn**: có quy mô, mức độ, tầm quan trọng cao; big, significant\n- **năng suất**: mức độ hiệu quả trong công việc, lượng công việc hoàn thành được; productivity"
           }
         }
       ]

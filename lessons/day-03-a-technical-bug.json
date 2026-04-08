@@ -12,23 +12,47 @@
         {
           "text": "Sometimes I encounter unexpected bugs while I am developing software.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing"
+            "en": "Present continuous: subject + am/is/are + verb-ing",
+            "de": "## Grammatik\n**Present Continuous (Verlaufsform)**: Aufbau: Subjekt + am/is/are + Verb-ing. 'I am developing' = ich entwickle gerade (laufende Handlung). 'While' leitet einen gleichzeitigen Nebensatz ein.\n\n## Wortschatz\n- **sometimes**: manchmal; gelegentlich, nicht immer\n- **encounter**: begegnen, auf etwas stoßen; to come across\n- **unexpected**: unerwartet; nicht vorhergesehen\n- **bugs**: Programmierfehler; errors in software\n- **developing**: entwickeln (Gerundium/Partizip); creating software",
+            "ja": "## 文法\n**現在進行形**: 構造: 主語 + am/is/are + 動詞-ing。'I am developing' = 今まさに開発している。'While'は同時進行の従属節を導く。\n\n## 語彙\n- **sometimes**: 時々; occasionally\n- **encounter**: 遭遇する; to come across\n- **unexpected**: 予期しない; not foreseen\n- **bugs**: バグ、プログラムエラー; errors in software\n- **developing**: 開発している（動名詞/現在分詞）; creating software",
+            "vi": "## Ngữ pháp\n**Thì hiện tại tiếp diễn**: Cấu trúc: chủ ngữ + am/is/are + động từ-ing. 'I am developing' = tôi đang phát triển (hành động đang diễn ra). 'While' dẫn đầu mệnh đề đồng thời.\n\n## Từ vựng\n- **sometimes**: đôi khi; không thường xuyên\n- **encounter**: gặp phải, đối mặt với; to come across\n- **unexpected**: bất ngờ, không được dự đoán trước; not foreseen\n- **bugs**: lỗi phần mềm; errors in software\n- **developing**: đang phát triển (gerund/phân từ); creating software"
           }
         },
         {
           "text": "First, I try to reproduce the error to understand exactly what is happening.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing"
+            "en": "Present continuous: subject + am/is/are + verb-ing",
+            "de": "## Grammatik\n**Indirekter Fragesatz**: 'what is happening' ist ein eingebetteter Fragesatz (indirekter Fragesatz), der als Objekt von 'understand' fungiert. Die Wortstellung bleibt normal (nicht invertiert wie in direkten Fragen).\n\n## Wortschatz\n- **first**: zuerst; erster Schritt in einer Abfolge\n- **try to**: versuchen zu; to make an effort to do\n- **reproduce**: reproduzieren, wiederherstellen; to make happen again\n- **error**: Fehler; a mistake or malfunction\n- **exactly**: genau; with precision",
+            "ja": "## 文法\n**間接疑問文**: 'what is happening'は'understand'の目的語として機能する埋め込み疑問文。語順は通常のまま（直接疑問文のような倒置なし）。\n\n## 語彙\n- **first**: まず、最初に; first step in a sequence\n- **try to**: 〜しようとする; to make an effort\n- **reproduce**: 再現する; to make happen again\n- **error**: エラー、誤り; a mistake or malfunction\n- **exactly**: 正確に; with precision",
+            "vi": "## Ngữ pháp\n**Câu hỏi gián tiếp**: 'what is happening' là câu hỏi nhúng, đóng vai trò tân ngữ của 'understand'. Trật tự từ bình thường (không đảo ngược như câu hỏi trực tiếp).\n\n## Từ vựng\n- **first**: đầu tiên; bước đầu trong một chuỗi\n- **try to**: cố gắng; to make an effort\n- **reproduce**: tái hiện, tái tạo; to make happen again\n- **error**: lỗi; a mistake or malfunction\n- **exactly**: chính xác; with precision"
           }
         },
         {
-          "text": "Then, I search for solutions in the documentation or online forums."
+          "text": "Then, I search for solutions in the documentation or online forums.",
+          "notes": {
+            "en": "## Grammar\n**'search for'** is a phrasal verb meaning to look for something. 'In the documentation or online forums' uses 'in' for physical/digital locations. 'Then' as a sequencing adverb signals the next step.\n\n## Vocabulary\n- **then**: after that; the next step in a sequence\n- **search for**: to look for; to seek out\n- **solutions**: answers to a problem; ways to fix something\n- **documentation**: official written guides or manuals for software\n- **online forums**: internet communities where people discuss topics",
+            "de": "## Grammatik\n**'search for'** ist ein Phrasal Verb für 'nach etwas suchen'. 'In the documentation or online forums' verwendet 'in' für physische/digitale Orte. 'Then' signalisiert den nächsten Schritt.\n\n## Wortschatz\n- **then**: dann; der nächste Schritt in einer Abfolge\n- **search for**: suchen nach; to seek out\n- **solutions**: Lösungen; ways to fix something\n- **documentation**: offizielle Handbücher oder Anleitungen für Software\n- **online forums**: Internet-Gemeinschaften zum Diskutieren von Themen",
+            "ja": "## 文法\n**'search for'**は「〜を探す」という意味の句動詞。'In the documentation or online forums'では場所に'in'を使う。'Then'は次のステップを示す順序副詞。\n\n## 語彙\n- **then**: それから; next step in a sequence\n- **search for**: 探す; to seek out\n- **solutions**: 解決策; ways to fix something\n- **documentation**: ソフトウェアの公式マニュアル; official guides\n- **online forums**: オンラインコミュニティ; internet discussion communities",
+            "vi": "## Ngữ pháp\n**'search for'** là động từ cụm có nghĩa 'tìm kiếm'. 'In the documentation or online forums' dùng 'in' cho vị trí thực/kỹ thuật số. 'Then' là trạng từ trình tự báo hiệu bước tiếp theo.\n\n## Từ vựng\n- **then**: sau đó; bước tiếp theo trong chuỗi\n- **search for**: tìm kiếm; to seek out\n- **solutions**: giải pháp; cách sửa vấn đề\n- **documentation**: tài liệu hướng dẫn chính thức của phần mềm\n- **online forums**: diễn đàn trực tuyến; cộng đồng thảo luận trên mạng"
+          }
         },
         {
-          "text": "Once I find the cause, I rewrite the code and test it several times."
+          "text": "Once I find the cause, I rewrite the code and test it several times.",
+          "notes": {
+            "en": "## Grammar\n**'once' as a subordinating conjunction**: 'once' here means 'as soon as' or 'after', introducing a time clause. It implies the second action follows immediately after the first is complete. 'Several times' is a frequency phrase modifying the verb.\n\n## Vocabulary\n- **once**: as soon as; after (a condition is met)\n- **cause**: the reason or source of the problem; root cause\n- **rewrite**: to write again from scratch; to redo\n- **test**: to check if something works correctly; to verify\n- **several times**: more than twice but not many; a few occurrences",
+            "de": "## Grammatik\n**'once' als unterordnende Konjunktion**: 'once' bedeutet hier 'sobald' oder 'nachdem', und leitet einen Zeitsatz ein. Impliziert, dass die zweite Handlung unmittelbar nach Abschluss der ersten folgt.\n\n## Wortschatz\n- **once**: sobald; as soon as\n- **cause**: Ursache, Grund des Problems; root cause\n- **rewrite**: neu schreiben; to redo from scratch\n- **test**: testen, prüfen; to check if something works\n- **several times**: mehrmals; more than twice",
+            "ja": "## 文法\n**従属接続詞としての'once'**: ここでの'once'は「〜したらすぐに」または「〜した後で」を意味し、時間節を導く。最初の行動が完了した直後に2番目の行動が続くことを意味する。\n\n## 語彙\n- **once**: 〜したらすぐ; as soon as\n- **cause**: 原因; root cause of the problem\n- **rewrite**: 書き直す; to redo from scratch\n- **test**: テストする、確認する; to check if it works\n- **several times**: 数回; more than twice",
+            "vi": "## Ngữ pháp\n**'once' là liên từ phụ**: 'once' ở đây nghĩa là 'ngay khi' hoặc 'sau khi', dẫn đầu mệnh đề thời gian. Hàm ý hành động thứ hai xảy ra ngay sau khi hành động đầu hoàn tất.\n\n## Từ vựng\n- **once**: ngay khi; as soon as\n- **cause**: nguyên nhân, căn nguyên của vấn đề; root cause\n- **rewrite**: viết lại từ đầu; to redo\n- **test**: kiểm tra, thử nghiệm; to check if it works\n- **several times**: vài lần; more than twice"
+          }
         },
         {
-          "text": "Fixing a difficult problem gives me a great sense of achievement."
+          "text": "Fixing a difficult problem gives me a great sense of achievement.",
+          "notes": {
+            "en": "## Grammar\n**Gerund as subject**: 'Fixing a difficult problem' is a gerund phrase acting as the sentence subject. The main verb 'gives' agrees with this singular gerund subject. 'Gives me' uses an indirect object (me = dative recipient).\n\n## Vocabulary\n- **fixing**: resolving, solving (gerund of 'fix'); repairing something broken\n- **difficult**: hard, challenging; requiring effort or skill\n- **gives me**: provides to me; indirect object construction\n- **sense of**: a feeling or awareness of something\n- **achievement**: something accomplished through effort; a success",
+            "de": "## Grammatik\n**Gerundium als Subjekt**: 'Fixing a difficult problem' ist eine Gerundialphrase als Satzsubjekt. Das Hauptverb 'gives' stimmt mit diesem Gerundium überein. 'Gives me' verwendet ein indirektes Objekt (me = Empfänger).\n\n## Wortschatz\n- **fixing**: lösen, reparieren (Gerundium von 'fix')\n- **difficult**: schwierig; requiring effort or skill\n- **gives me**: gibt mir; indirect object construction\n- **sense of**: ein Gefühl von; a feeling of\n- **achievement**: Leistung, Erfolg; something accomplished",
+            "ja": "## 文法\n**動名詞を主語に**: 'Fixing a difficult problem'は文の主語として機能する動名詞句。主動詞'gives'はこの単数の動名詞主語と一致する。'Gives me'は間接目的語を使う（me = 受け手）。\n\n## 語彙\n- **fixing**: 解決すること（'fix'の動名詞）\n- **difficult**: 難しい; requiring effort\n- **gives me**: 私に与える; indirect object\n- **sense of**: 〜の感覚; a feeling of\n- **achievement**: 達成感、成果; something accomplished",
+            "vi": "## Ngữ pháp\n**Gerund làm chủ ngữ**: 'Fixing a difficult problem' là cụm gerund đóng vai trò chủ ngữ. Động từ chính 'gives' nhất quán với gerund số ít này. 'Gives me' dùng tân ngữ gián tiếp (me = người nhận).\n\n## Từ vựng\n- **fixing**: việc sửa chữa, giải quyết (gerund của 'fix')\n- **difficult**: khó khăn; đòi hỏi nỗ lực\n- **gives me**: mang lại cho tôi; cấu trúc tân ngữ gián tiếp\n- **sense of**: cảm giác về; a feeling of\n- **achievement**: thành tựu, kết quả đạt được sau nỗ lực"
+          }
         }
       ]
     },
@@ -40,27 +64,48 @@
       "speed": 0.85,
       "sentences": [
         {
-          "text": "Manchmal hat meine Software einen Fehler oder einen \"Bug\"."
+          "text": "Manchmal hat meine Software einen Fehler oder einen \"Bug\".",
+          "notes": {
+            "en": "## Grammar\n**Accusative with 'haben'**: 'haben' (to have) takes a direct object in the accusative case. 'Einen Fehler' and 'einen Bug' are masculine accusative (ein → einen). 'Manchmal' is a frequency adverb placed at the start.\n\n## Vocabulary\n- **manchmal**: sometimes; occasionally\n- **hat**: has (3rd person singular of 'haben')\n- **meine Software**: my software (feminine nominative: meine)\n- **einen Fehler**: an error (masculine accusative)\n- **Bug**: a loanword from English; a software error",
+            "de": "Contracted preposition: im=in dem, am=an dem, zum=zu dem",
+            "ja": "## 文法\n**'haben'と対格**: 'haben'（持つ）は対格の直接目的語をとる。'Einen Fehler'と'einen Bug'は男性対格（ein → einen）。'Manchmal'は文頭に置かれる頻度副詞。\n\n## 語彙\n- **manchmal**: 時々; sometimes\n- **hat**: 持っている（'haben'の3人称単数）\n- **meine Software**: 私のソフトウェア（女性主格: meine）\n- **einen Fehler**: エラー（男性対格）\n- **Bug**: 英語からの借用語; ソフトウェアのエラー",
+            "vi": "## Ngữ pháp\n**Tân cách với 'haben'**: 'haben' (có) yêu cầu tân ngữ trực tiếp ở tân cách. 'Einen Fehler' và 'einen Bug' là giống đực tân cách (ein → einen). 'Manchmal' là trạng từ tần suất đặt ở đầu câu.\n\n## Từ vựng\n- **manchmal**: đôi khi; sometimes\n- **hat**: có (ngôi 3 số ít của 'haben')\n- **meine Software**: phần mềm của tôi (giống cái chủ cách: meine)\n- **einen Fehler**: một lỗi (giống đực tân cách)\n- **Bug**: từ vay mượn tiếng Anh; lỗi phần mềm"
+          }
         },
         {
-          "text": "Zuerst suche ich den Fehler in meinem Code."
+          "text": "Zuerst suche ich den Fehler in meinem Code.",
+          "notes": {
+            "en": "## Grammar\n**Verb-second word order**: 'Zuerst' (first) is a time adverb starting the sentence, which pushes the verb 'suche' to position 2 and the subject 'ich' to position 3. 'In meinem Code' uses dative: 'in + dative' for location.\n\n## Vocabulary\n- **zuerst**: first, firstly; at the very beginning\n- **suche**: I search, I look for (1st person singular of 'suchen')\n- **den Fehler**: the error (masculine accusative: den)\n- **in meinem Code**: in my code (dative: meinem)\n- **Code**: code; the written instructions of a program",
+            "de": "## Grammatik\n**Verb-Zweit-Wortstellung**: 'Zuerst' (zuerst) ist ein Zeitadverb am Satzanfang, das das Verb 'suche' auf Position 2 und das Subjekt 'ich' auf Position 3 schiebt. 'In meinem Code' verwendet Dativ.\n\n## Wortschatz\n- **zuerst**: zuerst, als erstes; at the very beginning\n- **suche**: ich suche (1. Person Singular von 'suchen')\n- **den Fehler**: den Fehler (maskulin Akkusativ: den)\n- **in meinem Code**: in meinem Code (Dativ: meinem)\n- **Code**: Code; written instructions of a program",
+            "ja": "## 文法\n**動詞第2位の語順**: 'Zuerst'（まず）は文頭の時間副詞で、動詞'suche'を2位に、主語'ich'を3位に押す。'In meinem Code'は場所に与格を使う。\n\n## 語彙\n- **zuerst**: まず、最初に; firstly\n- **suche**: 私は探す（'suchen'の1人称単数）\n- **den Fehler**: エラーを（男性対格: den）\n- **in meinem Code**: 私のコードの中で（与格: meinem）\n- **Code**: コード; プログラムの書かれた命令",
+            "vi": "## Ngữ pháp\n**Trật tự từ động-từ-thứ-hai**: 'Zuerst' (đầu tiên) là trạng từ thời gian đứng đầu câu, đẩy động từ 'suche' lên vị trí 2 và chủ ngữ 'ich' xuống vị trí 3. 'In meinem Code' dùng tặng cách cho địa điểm.\n\n## Từ vựng\n- **zuerst**: đầu tiên, trước hết; firstly\n- **suche**: tôi tìm kiếm (ngôi 1 số ít của 'suchen')\n- **den Fehler**: lỗi đó (giống đực tân cách: den)\n- **in meinem Code**: trong code của tôi (tặng cách: meinem)\n- **Code**: mã nguồn; written program instructions"
+          }
         },
         {
           "text": "Ich lese die Dokumentation oder frage im Internet.",
           "notes": {
-            "de": "Contracted preposition: im=in dem, am=an dem, zum=zu dem"
+            "de": "Contracted preposition: im=in dem, am=an dem, zum=zu dem",
+            "en": "## Grammar\n**Contracted preposition 'im'**: 'im' is a contraction of 'in dem' (dative). Used for location: 'im Internet' = 'on/in the internet'. 'Oder' (or) connects two equal alternatives with both verbs in position 2.\n\n## Vocabulary\n- **lese**: I read (1st person singular of 'lesen')\n- **die Dokumentation**: the documentation (feminine accusative)\n- **oder**: or; connects two alternatives\n- **frage**: I ask, I look up (1st person singular of 'fragen')\n- **im Internet**: on the internet ('im' = in dem, dative contraction)",
+            "ja": "## 文法\n**短縮前置詞'im'**: 'im'は'in dem'（与格）の短縮形。場所に使う: 'im Internet' = 'インターネットで/上で'。'Oder'（または）は両動詞が2位で二つの対等な選択肢をつなぐ。\n\n## 語彙\n- **lese**: 私は読む（'lesen'の1人称単数）\n- **die Dokumentation**: ドキュメント（女性対格）\n- **oder**: または; connects two alternatives\n- **frage**: 私は尋ねる/調べる（'fragen'の1人称単数）\n- **im Internet**: インターネットで（'im' = in dem、与格短縮）",
+            "vi": "## Ngữ pháp\n**Giới từ rút gọn 'im'**: 'im' là dạng rút gọn của 'in dem' (tặng cách). Dùng cho địa điểm: 'im Internet' = 'trên internet'. 'Oder' (hoặc) nối hai lựa chọn tương đương, cả hai động từ ở vị trí 2.\n\n## Từ vựng\n- **lese**: tôi đọc (ngôi 1 số ít của 'lesen')\n- **die Dokumentation**: tài liệu (giống cái tân cách)\n- **oder**: hoặc; nối hai lựa chọn\n- **frage**: tôi hỏi/tra cứu (ngôi 1 số ít của 'fragen')\n- **im Internet**: trên internet ('im' = in dem, tặng cách rút gọn)"
           }
         },
         {
           "text": "Dann schreibe ich den Code neu und teste alles.",
           "notes": {
-            "de": "Word order: 'dann' (then) causes verb-second position"
+            "de": "Word order: 'dann' (then) causes verb-second position",
+            "en": "## Grammar\n**'dann' triggers verb-second**: 'dann' (then) at the start sends the verb 'schreibe' to position 2, and the subject 'ich' to position 3. 'Neu' is a separable prefix/adverb here meaning 'anew'. Both verbs are coordinated with 'und'.\n\n## Vocabulary\n- **dann**: then; next in the sequence\n- **schreibe … neu**: rewrite (neu = anew; used as adverb here)\n- **den Code**: the code (masculine accusative: den)\n- **teste**: I test (1st person singular of 'testen')\n- **alles**: everything; all of it",
+            "ja": "## 文法\n**'dann'による動詞第2位**: 文頭の'dann'（それから）が動詞'schreibe'を2位、主語'ich'を3位に移す。'Neu'はここで副詞として「新たに」を意味する。両動詞は'und'で結ばれている。\n\n## 語彙\n- **dann**: それから; next in sequence\n- **schreibe … neu**: 書き直す（neu = 新たに）\n- **den Code**: コードを（男性対格: den）\n- **teste**: 私はテストする（'testen'の1人称単数）\n- **alles**: すべて; everything",
+            "vi": "## Ngữ pháp\n**'dann' kích hoạt động từ thứ hai**: 'dann' (sau đó) ở đầu câu đẩy động từ 'schreibe' lên vị trí 2, chủ ngữ 'ich' xuống vị trí 3. 'Neu' là trạng từ nghĩa 'mới lại'. Cả hai động từ được nối bằng 'und'.\n\n## Từ vựng\n- **dann**: sau đó; tiếp theo trong chuỗi\n- **schreibe … neu**: viết lại (neu = mới lại)\n- **den Code**: code đó (giống đực tân cách: den)\n- **teste**: tôi kiểm tra (ngôi 1 số ít của 'testen')\n- **alles**: tất cả mọi thứ; everything"
           }
         },
         {
           "text": "Wenn der Code funktioniert, bin ich sehr glücklich.",
           "notes": {
-            "de": "Subordinate clause: 'wenn' sends verb to the end"
+            "de": "Subordinate clause: 'wenn' sends verb to the end",
+            "en": "## Grammar\n**'wenn' subordinate clause**: 'wenn' (when/if) sends the verb to the **end** of its clause: 'Wenn der Code funktioniert' (verb last). The main clause that follows inverts: verb ('bin') comes before subject ('ich').\n\n## Vocabulary\n- **wenn**: when, if; introduces a conditional/time subordinate clause\n- **der Code**: the code (masculine nominative)\n- **funktioniert**: works, functions (3rd person singular of 'funktionieren')\n- **bin**: am (1st person singular of 'sein')\n- **glücklich**: happy; feeling joy or satisfaction",
+            "ja": "## 文法\n**'wenn'従属節**: 'wenn'（〜の時/もし）は動詞を節末に移す: 'Wenn der Code funktioniert'（動詞最後）。続く主節では倒置: 動詞（'bin'）が主語（'ich'）より前に来る。\n\n## 語彙\n- **wenn**: 〜の時、もし; 条件/時間の従属節を導く\n- **der Code**: コード（男性主格）\n- **funktioniert**: 機能する（'funktionieren'の3人称単数）\n- **bin**: です（'sein'の1人称単数）\n- **glücklich**: 嬉しい、幸せな; happy",
+            "vi": "## Ngữ pháp\n**Mệnh đề phụ với 'wenn'**: 'wenn' (khi/nếu) đẩy động từ xuống **cuối** mệnh đề: 'Wenn der Code funktioniert' (động từ cuối). Mệnh đề chính tiếp theo đảo ngược: động từ ('bin') đứng trước chủ ngữ ('ich').\n\n## Từ vựng\n- **wenn**: khi, nếu; dẫn đầu mệnh đề phụ điều kiện/thời gian\n- **der Code**: code đó (giống đực chủ cách)\n- **funktioniert**: hoạt động (ngôi 3 số ít của 'funktionieren')\n- **bin**: là/tôi là (ngôi 1 số ít của 'sein')\n- **glücklich**: vui mừng, hạnh phúc; happy"
           }
         }
       ]
@@ -75,31 +120,46 @@
         {
           "text": "プログラミングをしている時、時々バグを見つけます。",
           "notes": {
-            "ja": "〜ています: ongoing state or habitual action"
+            "ja": "〜ています: ongoing state or habitual action",
+            "en": "## Grammar\n**〜ている時 (when doing)**: '〜ている時' means 'when (in the middle of) doing ~'. The te-iru form indicates an ongoing action at the time of the second event. '時々' (sometimes) is a frequency adverb.\n\n## Vocabulary\n- **プログラミングをする**: to do programming; to code\n- **〜ている時**: when doing ~; while in the middle of an action\n- **時々**: sometimes; occasionally\n- **バグ**: bug; a software error (loanword from English)\n- **見つけます**: find, discover (polite present of 見つける)",
+            "de": "## Grammatik\n**〜ている時 (während man etwas tut)**: '〜ている時' bedeutet 'wenn man gerade dabei ist, ~ zu tun'. Die te-iru Form zeigt eine laufende Handlung zum Zeitpunkt des zweiten Ereignisses an. '時々' ist ein Häufigkeitsadverb.\n\n## Wortschatz\n- **プログラミングをする**: programmieren; to code\n- **〜ている時**: wenn man gerade ~ tut; while in the middle of\n- **時々**: manchmal; occasionally\n- **バグ**: Bug; Software-Fehler (Lehnwort aus dem Englischen)\n- **見つけます**: finden (höfliche Gegenwart von 見つける)",
+            "vi": "## Ngữ pháp\n**〜ている時 (khi đang làm)**: '〜ている時' nghĩa là 'khi đang (ở giữa) làm ~'. Dạng te-iru chỉ hành động đang diễn ra tại thời điểm sự kiện thứ hai. '時々' là trạng từ tần suất.\n\n## Từ vựng\n- **プログラミングをする**: lập trình; to code\n- **〜ている時**: khi đang làm ~; while in the middle of\n- **時々**: đôi khi; occasionally\n- **バグ**: bug; lỗi phần mềm (từ vay mượn tiếng Anh)\n- **見つけます**: tìm thấy (dạng lịch sự hiện tại của 見つける)"
           }
         },
         {
           "text": "まず、どこが間違っているか確認（かくにん）します。",
           "notes": {
-            "ja": "〜ています: ongoing state or habitual action"
+            "ja": "〜ています: ongoing state or habitual action",
+            "en": "## Grammar\n**Embedded question with か**: '〜か' at the end of a clause embeds it as an indirect question. 'どこが間違っているか確認する' = 'confirm where the mistake is'. Note: the clause ends in plain form before か.\n\n## Vocabulary\n- **まず**: first, to begin with; first step\n- **どこ**: where; interrogative pronoun\n- **間違っている**: is wrong/mistaken (te-iru form of 間違う)\n- **確認する**: to confirm, to check, to verify (N4 kanji; reading: かくにん)\n- **します**: do (polite present of する)",
+            "de": "## Grammatik\n**Eingebettete Frage mit か**: '〜か' am Ende einer Klausel macht sie zu einer indirekten Frage. 'どこが間違っているか確認する' = 'bestätigen, wo der Fehler ist'. Die Klausel endet im Wörterbuchform vor か.\n\n## Wortschatz\n- **まず**: zuerst, zunächst; first step\n- **どこ**: wo; interrogatives Pronomen\n- **間違っている**: falsch/fehlerhaft sein (te-iru Form von 間違う)\n- **確認する**: bestätigen, überprüfen (N4-Kanji; Lesung: かくにん)\n- **します**: tun (höfliche Gegenwart von する)",
+            "vi": "## Ngữ pháp\n**Câu hỏi nhúng với か**: '〜か' ở cuối mệnh đề biến nó thành câu hỏi gián tiếp. 'どこが間違っているか確認する' = 'xác nhận chỗ nào sai'. Mệnh đề kết thúc ở dạng thường trước か.\n\n## Từ vựng\n- **まず**: trước tiên; bước đầu tiên\n- **どこ**: ở đâu; đại từ nghi vấn\n- **間違っている**: sai, nhầm (dạng te-iru của 間違う)\n- **確認する**: xác nhận, kiểm tra (kanji N4; đọc: かくにん)\n- **します**: làm (dạng lịch sự hiện tại của する)"
           }
         },
         {
           "text": "それから、ドキュメントを読んだり、ネットで調べたりします。",
           "notes": {
-            "ja": "Review verb form / politeness level (ます/です)"
+            "ja": "Review verb form / politeness level (ます/です)",
+            "en": "## Grammar\n**〜たり〜たりする**: lists representative actions done alternately or as examples. '読んだり調べたりする' = 'do things like reading and researching'. Implies these are among several possible activities, not an exhaustive list.\n\n## Vocabulary\n- **それから**: after that, and then; sequential adverb\n- **ドキュメント**: documentation (loanword); technical reference material\n- **読んだり**: (doing things like) reading; たり-form of 読む\n- **ネットで**: on the internet; 'ネット' = net/internet, 'で' = location particle\n- **調べる**: to research, to look up; to investigate",
+            "de": "## Grammatik\n**〜たり〜たりする**: listet repräsentative abwechselnd ausgeführte Handlungen auf. '読んだり調べたりする' = 'Dinge wie Lesen und Recherchieren tun'. Impliziert, dass es unter mehreren möglichen Aktivitäten sind.\n\n## Wortschatz\n- **それから**: danach, und dann; sequenzielles Adverb\n- **ドキュメント**: Dokumentation (Lehnwort); technical reference\n- **読んだり**: (Dinge wie) lesen; たり-Form von 読む\n- **ネットで**: im Internet; 'ネット' = Netz, 'で' = Ortspartikel\n- **調べる**: nachschlagen, recherchieren; to look up",
+            "vi": "## Ngữ pháp\n**〜たり〜たりする**: liệt kê các hành động tiêu biểu luân phiên hoặc làm ví dụ. '読んだり調べたりする' = 'làm những việc như đọc và tra cứu'. Hàm ý đây là một trong nhiều hoạt động có thể.\n\n## Từ vựng\n- **それから**: sau đó; trạng từ trình tự\n- **ドキュメント**: tài liệu (từ vay mượn); technical reference\n- **読んだり**: (làm những việc như) đọc; dạng たり của 読む\n- **ネットで**: trên mạng; 'ネット' = mạng, 'で' = trợ từ địa điểm\n- **調べる**: tra cứu, nghiên cứu; to look up"
           }
         },
         {
           "text": "原因（げんいん）がわかったら、コードを書き直してテストします。",
           "notes": {
-            "ja": "Conditional form: たら (if/when completed), ば (hypothetical)"
+            "ja": "Conditional form: たら (if/when completed), ば (hypothetical)",
+            "en": "## Grammar\n**〜たら conditional**: '〜たら' expresses 'when/once ~ is done'. 'わかったら' = 'once I understand / when I figure it out'. The action in the main clause follows completion of the condition. '書き直して' connects two verbs with the て-form.\n\n## Vocabulary\n- **原因**: cause, root cause (N4 kanji; reading: げんいん)\n- **わかったら**: once (I) understand; たら-conditional of わかる\n- **コード**: code; program source code (loanword)\n- **書き直す**: to rewrite; 書く (write) + 直す (fix/redo)\n- **テストする**: to test; to verify the code works",
+            "de": "## Grammatik\n**〜たら Konditional**: '〜たら' drückt 'wenn/sobald ~ erledigt ist' aus. 'わかったら' = 'sobald ich verstehe / wenn ich es herausfinde'. '書き直して' verbindet zwei Verben mit der て-Form.\n\n## Wortschatz\n- **原因**: Ursache (N4-Kanji; Lesung: げんいん)\n- **わかったら**: sobald (ich) verstehe; たら-Konditional von わかる\n- **コード**: Code (Lehnwort); Programmquellcode\n- **書き直す**: neu schreiben; 書く (schreiben) + 直す (reparieren/redo)\n- **テストする**: testen; to verify the code works",
+            "vi": "## Ngữ pháp\n**Điều kiện 〜たら**: '〜たら' diễn đạt 'khi/sau khi ~ hoàn thành'. 'わかったら' = 'khi đã hiểu / khi tìm ra'. '書き直して' nối hai động từ bằng dạng て.\n\n## Từ vựng\n- **原因**: nguyên nhân (kanji N4; đọc: げんいん)\n- **わかったら**: khi đã hiểu; dạng điều kiện たら của わかる\n- **コード**: code; mã nguồn chương trình (từ vay mượn)\n- **書き直す**: viết lại; 書く (viết) + 直す (sửa/làm lại)\n- **テストする**: kiểm tra; to verify the code works"
           }
         },
         {
           "text": "難しい問題が解決（かいけつ）すると、とてもうれしいです。",
           "notes": {
-            "ja": "Furigana reading shown in （）for N4 kanji"
+            "ja": "Furigana reading shown in （）for N4 kanji",
+            "en": "## Grammar\n**〜すると (when/and then)**: 'すると' expresses a natural result or sequence: 'when X happens, Y naturally follows'. '解決すると' = 'when the problem is resolved'. This is different from conditional 〜たら — 〜すると describes natural consequences.\n\n## Vocabulary\n- **難しい**: difficult, hard (い-adjective)\n- **問題**: problem, issue (N4 kanji; reading: もんだい)\n- **解決する**: to solve, to resolve (N4 kanji; reading: かいけつ)\n- **すると**: when ~ happens; natural consequence connector\n- **うれしい**: happy, glad, pleased (い-adjective)",
+            "de": "## Grammatik\n**〜すると (wenn/und dann)**: 'すると' drückt ein natürliches Ergebnis oder eine Abfolge aus: 'wenn X passiert, folgt Y natürlich'. '解決すると' = 'wenn das Problem gelöst ist'. Anders als 〜たら beschreibt 〜すると natürliche Konsequenzen.\n\n## Wortschatz\n- **難しい**: schwierig (い-Adjektiv)\n- **問題**: Problem (N4-Kanji; Lesung: もんだい)\n- **解決する**: lösen, beheben (N4-Kanji; Lesung: かいけつ)\n- **すると**: wenn ~ passiert; natürlicher Konsequenzverbinder\n- **うれしい**: froh, glücklich (い-Adjektiv)",
+            "vi": "## Ngữ pháp\n**〜すると (khi/và rồi)**: 'すると' diễn đạt kết quả tự nhiên hoặc chuỗi: 'khi X xảy ra, Y tự nhiên theo sau'. '解決すると' = 'khi vấn đề được giải quyết'. Khác với 〜たら — 〜すると mô tả hệ quả tự nhiên.\n\n## Từ vựng\n- **難しい**: khó (tính từ い)\n- **問題**: vấn đề (kanji N4; đọc: もんだい)\n- **解決する**: giải quyết (kanji N4; đọc: かいけつ)\n- **すると**: khi ~ xảy ra; nối hệ quả tự nhiên\n- **うれしい**: vui mừng, hạnh phúc (tính từ い)"
           }
         }
       ]
@@ -114,31 +174,46 @@
         {
           "text": "Đôi khi tôi gặp phải những lỗi (bug) bất ngờ trong khi đang phát triển phần mềm.",
           "notes": {
-            "vi": "## Ngữ pháp\nCụm **trong khi đang + [động từ]** diễn đạt hành động đang diễn ra tại một thời điểm nhất định, tương đương \"while + V-ing\". Trợ từ **đang** nhấn mạnh tính liên tục của hành động. Động từ **gặp phải** (gặp + phải) mang nghĩa tiêu cực hơn \"gặp\" đơn thuần — chỉ việc bất ngờ đối mặt với điều không mong muốn.\n\n## Từ vựng\n- **đôi khi**: thỉnh thoảng, không thường xuyên; sometimes, occasionally\n- **gặp phải**: bất ngờ đối mặt với điều không mong muốn; to encounter, to run into\n- **lỗi**: điều sai sót, hỏng hóc trong phần mềm hoặc hệ thống; bug, error\n- **bất ngờ**: không được dự đoán trước, xảy ra đột ngột; unexpected, sudden\n- **phần mềm**: chương trình máy tính, ứng dụng; software"
+            "vi": "## Ngữ pháp\nCụm **trong khi đang + [động từ]** diễn đạt hành động đang diễn ra tại một thời điểm nhất định, tương đương \"while + V-ing\". Trợ từ **đang** nhấn mạnh tính liên tục của hành động. Động từ **gặp phải** (gặp + phải) mang nghĩa tiêu cực hơn \"gặp\" đơn thuần — chỉ việc bất ngờ đối mặt với điều không mong muốn.\n\n## Từ vựng\n- **đôi khi**: thỉnh thoảng, không thường xuyên; sometimes, occasionally\n- **gặp phải**: bất ngờ đối mặt với điều không mong muốn; to encounter, to run into\n- **lỗi**: điều sai sót, hỏng hóc trong phần mềm hoặc hệ thống; bug, error\n- **bất ngờ**: không được dự đoán trước, xảy ra đột ngột; unexpected, sudden\n- **phần mềm**: chương trình máy tính, ứng dụng; software",
+            "en": "## Grammar\n**'trong khi đang + verb'**: expresses an ongoing action at a specific moment, equivalent to 'while + V-ing'. 'Đang' emphasizes the ongoing nature. 'Gặp phải' is stronger than plain 'gặp' — implies an unwanted encounter.\n\n## Vocabulary\n- **đôi khi**: sometimes, occasionally; not often\n- **gặp phải**: to encounter, to run into (something unwanted)\n- **lỗi**: bug, error; a fault in software or a system\n- **bất ngờ**: unexpected, sudden; not foreseen\n- **phần mềm**: software; computer programs and applications",
+            "de": "## Grammatik\n**'trong khi đang + Verb'**: drückt eine laufende Handlung zu einem bestimmten Zeitpunkt aus, entspricht 'while + V-ing'. 'Đang' betont die Fortlaufend-Natur. 'Gặp phải' ist stärker als 'gặp' — impliziert eine unerwünschte Begegnung.\n\n## Wortschatz\n- **đôi khi**: manchmal, gelegentlich; not often\n- **gặp phải**: begegnen (etwas Unerwünschtem); to run into\n- **lỗi**: Bug, Fehler; a fault in software\n- **bất ngờ**: unerwartet; not foreseen\n- **phần mềm**: Software; computer programs",
+            "ja": "## 文法\n**'trong khi đang + 動詞'**: 特定の時点での進行中の行動を表し、'while + V-ing'に相当。'Đang'は進行中の性質を強調。'Gặp phải'は単純な'gặp'より強い — 望まない遭遇を示す。\n\n## 語彙\n- **đôi khi**: 時々; sometimes\n- **gặp phải**: 遭遇する（望まないものと）; to run into\n- **lỗi**: バグ、エラー; a fault in software\n- **bất ngờ**: 予期しない; unexpected\n- **phần mềm**: ソフトウェア; computer programs"
           }
         },
         {
           "text": "Đầu tiên, tôi cố gắng tái hiện lỗi để hiểu chính xác chuyện gì đang xảy ra.",
           "notes": {
-            "vi": "## Ngữ pháp\nCấu trúc **cố gắng + [động từ]** diễn đạt nỗ lực thực hiện điều gì đó, tương đương \"try to do\". Mệnh đề **chuyện gì đang xảy ra** là mệnh đề danh từ làm tân ngữ cho \"hiểu\", có cấu trúc tương tự câu hỏi gián tiếp trong tiếng Anh (\"what is happening\").\n\n## Từ vựng\n- **đầu tiên**: vị trí hoặc bước thứ nhất trong một chuỗi; first, firstly\n- **cố gắng**: nỗ lực hết sức để làm gì; to try, to make an effort\n- **tái hiện**: làm cho điều gì đó xảy ra lại giống như lần trước; to reproduce, to recreate\n- **chính xác**: đúng không sai, phù hợp với thực tế; exactly, accurately\n- **xảy ra**: diễn ra, xuất hiện (thường nói về sự kiện); to happen, to occur"
+            "vi": "## Ngữ pháp\nCấu trúc **cố gắng + [động từ]** diễn đạt nỗ lực thực hiện điều gì đó, tương đương \"try to do\". Mệnh đề **chuyện gì đang xảy ra** là mệnh đề danh từ làm tân ngữ cho \"hiểu\", có cấu trúc tương tự câu hỏi gián tiếp trong tiếng Anh (\"what is happening\").\n\n## Từ vựng\n- **đầu tiên**: vị trí hoặc bước thứ nhất trong một chuỗi; first, firstly\n- **cố gắng**: nỗ lực hết sức để làm gì; to try, to make an effort\n- **tái hiện**: làm cho điều gì đó xảy ra lại giống như lần trước; to reproduce, to recreate\n- **chính xác**: đúng không sai, phù hợp với thực tế; exactly, accurately\n- **xảy ra**: diễn ra, xuất hiện (thường nói về sự kiện); to happen, to occur",
+            "en": "## Grammar\n**'cố gắng + verb'**: expresses effort to do something, equivalent to 'try to do'. 'Chuyện gì đang xảy ra' is a noun clause as the object of 'hiểu', similar to indirect questions in English ('what is happening').\n\n## Vocabulary\n- **đầu tiên**: first, firstly; the first step in a sequence\n- **cố gắng**: to try, to make an effort; to strive\n- **tái hiện**: to reproduce, to recreate; to make something happen again\n- **chính xác**: exactly, accurately; with precision\n- **xảy ra**: to happen, to occur; used for events",
+            "de": "## Grammatik\n**'cố gắng + Verb'**: drückt Bemühung aus, etwas zu tun, entspricht 'try to do'. 'Chuyện gì đang xảy ra' ist ein Nominalclause als Objekt von 'hiểu', ähnlich indirekten Fragen im Englischen.\n\n## Wortschatz\n- **đầu tiên**: zuerst, erstens; the first step\n- **cố gắng**: versuchen, sich bemühen; to strive\n- **tái hiện**: reproduzieren, nachstellen; to recreate\n- **chính xác**: genau, präzise; with precision\n- **xảy ra**: passieren, vorkommen; to occur",
+            "ja": "## 文法\n**'cố gắng + 動詞'**: 何かをしようと努力することを表し、'try to do'に相当。'Chuyện gì đang xảy ra'は'hiểu'（理解する）の目的語となる名詞節で、英語の間接疑問文に相当。\n\n## 語彙\n- **đầu tiên**: まず、最初に; first step\n- **cố gắng**: 努力する、試みる; to strive\n- **tái hiện**: 再現する; to recreate\n- **chính xác**: 正確に; with precision\n- **xảy ra**: 起こる、発生する; to occur"
           }
         },
         {
           "text": "Sau đó, tôi tìm kiếm giải pháp trong tài liệu hoặc các diễn đàn trực tuyến.",
           "notes": {
-            "vi": "## Ngữ pháp\nCụm **sau đó** là trạng từ chỉ trình tự thời gian, dùng để nối các bước trong một quy trình. Giới từ **trong** ở đây chỉ không gian tìm kiếm (trong tài liệu), còn liên từ **hoặc** nối hai lựa chọn tương đương.\n\n## Từ vựng\n- **sau đó**: tiếp theo sau, ở bước tiếp theo; after that, then\n- **tìm kiếm**: dò tìm một cách có chủ đích; to search for, to look for\n- **giải pháp**: cách giải quyết vấn đề; solution\n- **tài liệu**: văn bản, hướng dẫn ghi chép thông tin kỹ thuật; documentation, reference material\n- **diễn đàn trực tuyến**: cộng đồng trao đổi thông tin trên mạng internet; online forum"
+            "vi": "## Ngữ pháp\nCụm **sau đó** là trạng từ chỉ trình tự thời gian, dùng để nối các bước trong một quy trình. Giới từ **trong** ở đây chỉ không gian tìm kiếm (trong tài liệu), còn liên từ **hoặc** nối hai lựa chọn tương đương.\n\n## Từ vựng\n- **sau đó**: tiếp theo sau, ở bước tiếp theo; after that, then\n- **tìm kiếm**: dò tìm một cách có chủ đích; to search for, to look for\n- **giải pháp**: cách giải quyết vấn đề; solution\n- **tài liệu**: văn bản, hướng dẫn ghi chép thông tin kỹ thuật; documentation, reference material\n- **diễn đàn trực tuyến**: cộng đồng trao đổi thông tin trên mạng internet; online forum",
+            "en": "## Grammar\n**'sau đó'** (after that): a sequencing adverb linking steps in a process. 'Trong' here marks the search space ('trong tài liệu' = in the documentation). 'Hoặc' (or) connects two equivalent alternatives.\n\n## Vocabulary\n- **sau đó**: after that, then; next in the process\n- **tìm kiếm**: to search for, to look for; deliberate searching\n- **giải pháp**: solution; a way to solve a problem\n- **tài liệu**: documentation, reference material; technical written guides\n- **diễn đàn trực tuyến**: online forum; internet discussion community",
+            "de": "## Grammatik\n**'sau đó'** (danach): ein Sequenzierungsadverb, das Schritte in einem Prozess verbindet. 'Trong' markiert hier den Suchraum. 'Hoặc' (oder) verbindet zwei gleichwertige Alternativen.\n\n## Wortschatz\n- **sau đó**: danach, dann; next in the process\n- **tìm kiếm**: suchen nach; to look for\n- **giải pháp**: Lösung; a way to solve a problem\n- **tài liệu**: Dokumentation; technical written guides\n- **diễn đàn trực tuyến**: Online-Forum; internet discussion community",
+            "ja": "## 文法\n**'sau đó'**（その後）: プロセスのステップをつなぐ順序副詞。'Trong'はここで検索空間を示す。'Hoặc'（または）は二つの対等な選択肢をつなぐ。\n\n## 語彙\n- **sau đó**: その後; next in process\n- **tìm kiếm**: 探す; to search for\n- **giải pháp**: 解決策; a solution\n- **tài liệu**: ドキュメント、参考資料; technical guides\n- **diễn đàn trực tuyến**: オンラインフォーラム; internet discussion"
           }
         },
         {
           "text": "Sau khi tìm ra nguyên nhân, tôi viết lại mã nguồn và kiểm tra nó vài lần.",
           "notes": {
-            "vi": "## Ngữ pháp\nCụm **Sau khi + [động từ/mệnh đề]** chỉ hành động xảy ra tiếp theo sau một hành động khác đã hoàn thành. Động từ **tìm ra** (tìm + ra) là động từ kết quả — \"ra\" nhấn mạnh việc tìm kiếm đã đi đến thành công.\n\n## Từ vựng\n- **sau khi**: tiếp theo ngay khi một hành động hoàn tất; after (doing something)\n- **nguyên nhân**: lý do, căn nguyên dẫn đến một kết quả; cause, root cause\n- **mã nguồn**: tập hợp các lệnh lập trình tạo nên phần mềm; source code\n- **kiểm tra**: xem xét, đánh giá để tìm ra vấn đề; to test, to check\n- **vài lần**: số lần không nhiều, khoảng 2–4 lần; a few times, several times"
+            "vi": "## Ngữ pháp\nCụm **Sau khi + [động từ/mệnh đề]** chỉ hành động xảy ra tiếp theo sau một hành động khác đã hoàn thành. Động từ **tìm ra** (tìm + ra) là động từ kết quả — \"ra\" nhấn mạnh việc tìm kiếm đã đi đến thành công.\n\n## Từ vựng\n- **sau khi**: tiếp theo ngay khi một hành động hoàn tất; after (doing something)\n- **nguyên nhân**: lý do, căn nguyên dẫn đến một kết quả; cause, root cause\n- **mã nguồn**: tập hợp các lệnh lập trình tạo nên phần mềm; source code\n- **kiểm tra**: xem xét, đánh giá để tìm ra vấn đề; to test, to check\n- **vài lần**: số lần không nhiều, khoảng 2–4 lần; a few times, several times",
+            "en": "## Grammar\n**'Sau khi + verb/clause'**: marks an action that follows after another is complete, equivalent to 'after doing'. 'Tìm ra' (tìm + ra) is a resultative verb — 'ra' signals the search reached a successful conclusion.\n\n## Vocabulary\n- **sau khi**: after (doing something); once an action is complete\n- **nguyên nhân**: cause, root cause; the reason leading to a result\n- **mã nguồn**: source code; the written instructions making up software\n- **kiểm tra**: to test, to check; to examine and evaluate\n- **vài lần**: a few times; approximately 2–4 occurrences",
+            "de": "## Grammatik\n**'Sau khi + Verb/Satz'**: markiert eine Handlung, die nach Abschluss einer anderen folgt, entspricht 'after doing'. 'Tìm ra' (tìm + ra) ist ein resultatives Verb — 'ra' signalisiert erfolgreichen Abschluss.\n\n## Wortschatz\n- **sau khi**: nachdem (etwas getan wurde); once complete\n- **nguyên nhân**: Ursache; the reason leading to a result\n- **mã nguồn**: Quellcode; written software instructions\n- **kiểm tra**: testen, überprüfen; to examine\n- **vài lần**: einige Male; approximately 2–4 times",
+            "ja": "## 文法\n**'Sau khi + 動詞/節'**: 別の行動が完了した後に続く行動を示し、'after doing'に相当。'Tìm ra'（tìm + ra）は結果動詞 — 'ra'は検索が成功に終わったことを示す。\n\n## 語彙\n- **sau khi**: 〜した後; after doing\n- **nguyên nhân**: 原因; root cause\n- **mã nguồn**: ソースコード; written software instructions\n- **kiểm tra**: テストする、確認する; to examine\n- **vài lần**: 数回; a few times"
           }
         },
         {
           "text": "Việc sửa được một vấn đề khó mang lại cho tôi cảm giác thành tựu tuyệt vời.",
           "notes": {
-            "vi": "## Ngữ pháp\nDanh hóa động từ bằng từ **Việc** biến cụm \"sửa được một vấn đề khó\" thành chủ ngữ danh từ. Cấu trúc **mang lại cho + [người] + [điều gì]** có nghĩa là đem đến cho ai đó điều gì, tương đương \"give somebody something\".\n\n## Từ vựng\n- **việc**: từ dùng để danh hóa một hành động hoặc cụm động từ; nominalizer for actions\n- **sửa được**: sửa thành công, khắc phục được lỗi; to successfully fix\n- **vấn đề**: điều cần được giải quyết, tình huống khó khăn; problem, issue\n- **cảm giác**: trạng thái cảm xúc hoặc nhận thức chủ quan; feeling, sense\n- **thành tựu**: kết quả tốt đạt được sau nỗ lực; achievement, accomplishment"
+            "vi": "## Ngữ pháp\nDanh hóa động từ bằng từ **Việc** biến cụm \"sửa được một vấn đề khó\" thành chủ ngữ danh từ. Cấu trúc **mang lại cho + [người] + [điều gì]** có nghĩa là đem đến cho ai đó điều gì, tương đương \"give somebody something\".\n\n## Từ vựng\n- **việc**: từ dùng để danh hóa một hành động hoặc cụm động từ; nominalizer for actions\n- **sửa được**: sửa thành công, khắc phục được lỗi; to successfully fix\n- **vấn đề**: điều cần được giải quyết, tình huống khó khăn; problem, issue\n- **cảm giác**: trạng thái cảm xúc hoặc nhận thức chủ quan; feeling, sense\n- **thành tựu**: kết quả tốt đạt được sau nỗ lực; achievement, accomplishment",
+            "en": "## Grammar\n**'Việc' nominalizer**: 'Việc' turns a verb phrase into a noun phrase (gerund-like), making it the sentence subject. 'Mang lại cho + person + thing' = 'give/bring somebody something', a double-object structure.\n\n## Vocabulary\n- **việc**: nominalizer; turns a verb/action into a noun subject\n- **sửa được**: to successfully fix; sửa (fix) + được (successfully able to)\n- **vấn đề**: problem, issue; something that needs resolving\n- **cảm giác**: feeling, sense; a subjective emotional state\n- **thành tựu**: achievement, accomplishment; a good result after effort",
+            "de": "## Grammatik\n**'Việc' Nominalisierung**: 'Việc' verwandelt eine Verbalphrase in eine Nominalphrase (ähnlich einem Gerundium) und macht sie zum Satzsubjekt. 'Mang lại cho + Person + Sache' = 'jemandem etwas geben/bringen'.\n\n## Wortschatz\n- **việc**: Nominalisierung; verwandelt ein Verb in ein Subjekt\n- **sửa được**: erfolgreich reparieren; sửa (reparieren) + được (erfolgreich)\n- **vấn đề**: Problem; something needing resolution\n- **cảm giác**: Gefühl; a subjective emotional state\n- **thành tựu**: Leistung, Erfolg; achievement after effort",
+            "ja": "## 文法\n**'Việc'名詞化**: 'Việc'は動詞句を名詞句に変え（動名詞的）、文の主語にする。'Mang lại cho + 人 + もの' = '誰かに何かをもたらす'、二重目的語構造。\n\n## 語彙\n- **việc**: 名詞化詞; 動詞を名詞主語に変える\n- **sửa được**: うまく修正できる; sửa（修正）+ được（成功）\n- **vấn đề**: 問題; something needing resolution\n- **cảm giác**: 感覚、気持ち; a subjective feeling\n- **thành tựu**: 達成感、成果; achievement after effort"
           }
         }
       ]

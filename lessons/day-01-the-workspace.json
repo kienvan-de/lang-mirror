@@ -10,25 +10,49 @@
       "speed": 0.9,
       "sentences": [
         {
-          "text": "I spend most of my day working at my desk in front of the computer."
+          "text": "I spend most of my day working at my desk in front of the computer.",
+          "notes": {
+            "en": "## Grammar\n**'spend time + V-ing'** — the gerund form follows 'spend' to describe how time is used. Example: 'She spends her evenings reading.'\n\n## Vocabulary\n- **spend**: to use time or money on something; to devote\n- **most of**: the greater part of; the majority of\n- **desk**: a flat-surface furniture piece used for working or writing\n- **in front of**: positioned directly before something; facing\n- **computer**: an electronic device for processing and storing data",
+            "de": "## Grammatik\n**'spend time + V-ing'** — das Gerundium (Verb + -ing) folgt auf 'spend', um auszudrücken, womit man Zeit verbringt. Beispiel: 'She spends her evenings reading.'\n\n## Wortschatz\n- **spend**: Zeit oder Geld für etwas aufwenden; to spend/devote\n- **most of**: der größte Teil von; the majority of\n- **desk**: ein Möbelstück mit flacher Oberfläche zum Arbeiten; desk\n- **in front of**: direkt vor etwas; in front of\n- **computer**: elektronisches Gerät zur Datenverarbeitung; computer",
+            "ja": "## 文法\n**'spend time + V-ing'** — 「時間を〜して過ごす」という表現。動詞のing形が'spend'の後に続く。例：'She spends her evenings reading.'\n\n## 語彙\n- **spend**: 時間やお金を何かに使う; to spend/devote\n- **most of**: 〜の大部分; the majority of\n- **desk**: 仕事や勉強に使う平らな家具; desk\n- **in front of**: 〜の前に; in front of\n- **computer**: データを処理・保存する電子機器; computer",
+            "vi": "## Ngữ pháp\n**'spend time + V-ing'** — dạng gerund theo sau 'spend' để diễn tả cách sử dụng thời gian. Ví dụ: 'She spends her evenings reading.'\n\n## Từ vựng\n- **spend**: dùng thời gian hoặc tiền cho việc gì; to spend/devote\n- **most of**: phần lớn, đa số; the majority of\n- **desk**: bàn làm việc có mặt phẳng; desk\n- **in front of**: ở phía trước; in front of\n- **computer**: thiết bị điện tử xử lý dữ liệu; computer"
+          }
         },
         {
           "text": "I usually keep my workspace organized so that I can find my tools easily.",
           "notes": {
-            "en": "Purpose clause: 'so that + subject + can/will…'"
+            "en": "Purpose clause: 'so that + subject + can/will…'",
+            "de": "## Grammatik\n**'so that + Subjekt + can/will'** — Finalsatz zur Angabe des Zwecks einer Handlung. 'So that' leitet einen Zwecksatz ein. Beispiel: 'I set an alarm so that I won't be late.'\n\n## Wortschatz\n- **usually**: meistens, in der Regel; usually\n- **keep**: etwas in einem bestimmten Zustand halten; to keep/maintain\n- **workspace**: der Bereich, in dem man arbeitet; workspace\n- **organized**: geordnet, aufgeräumt; organized, tidy\n- **tools**: Gegenstände oder Programme, die man für die Arbeit braucht; tools",
+            "ja": "## 文法\n**'so that + 主語 + can/will'** — 目的を表す副詞節。「〜できるように」という意味。例：'I set an alarm so that I won't be late.'\n\n## 語彙\n- **usually**: たいてい、普通は; usually\n- **keep**: 〜の状態を維持する; to keep/maintain\n- **workspace**: 作業スペース; workspace\n- **organized**: 整理整頓された; organized, tidy\n- **tools**: 作業に使う道具やソフト; tools",
+            "vi": "## Ngữ pháp\n**'so that + chủ ngữ + can/will'** — mệnh đề chỉ mục đích, tương đương cấu trúc 'để' trong tiếng Việt. Ví dụ: 'I set an alarm so that I won't be late.'\n\n## Từ vựng\n- **usually**: thường thường, phần lớn thời gian; usually\n- **keep**: duy trì trạng thái nào đó; to keep/maintain\n- **workspace**: không gian làm việc; workspace\n- **organized**: ngăn nắp, có trật tự; organized, tidy\n- **tools**: dụng cụ hoặc phần mềm dùng trong công việc; tools"
           }
         },
         {
-          "text": "My setup includes a high-resolution monitor and a mechanical keyboard for comfort."
+          "text": "My setup includes a high-resolution monitor and a mechanical keyboard for comfort.",
+          "notes": {
+            "en": "## Grammar\n**'includes'** — third-person singular present simple of 'include'. The subject 'my setup' is singular, so the verb takes -s. 'For + noun' at the end expresses purpose.\n\n## Vocabulary\n- **setup**: the arrangement of equipment or a system; configuration\n- **includes**: contains as part of a whole; comprises\n- **high-resolution**: having a large number of pixels, producing sharp images\n- **mechanical keyboard**: a keyboard using individual physical switches under each key\n- **comfort**: a state of physical ease; convenience",
+            "de": "## Grammatik\n**'includes'** — 3. Person Singular Präsens von 'include' (-s Endung). Das Subjekt 'my setup' ist Singular. 'For + Nomen' am Ende drückt den Zweck aus.\n\n## Wortschatz\n- **setup**: die Anordnung von Geräten oder einem System; setup/Einrichtung\n- **includes**: enthält als Teil eines Ganzen; umfasst\n- **high-resolution**: hohe Auflösung, scharfe Bilder; hochauflösend\n- **mechanical keyboard**: Tastatur mit mechanischen Schaltern unter jeder Taste; mechanische Tastatur\n- **comfort**: körperliches Wohlbefinden, Bequemlichkeit; Komfort",
+            "ja": "## 文法\n**'includes'** — 3人称単数現在形（-s付き）。主語'my setup'は単数。文末の'for + 名詞'は目的を表す。\n\n## 語彙\n- **setup**: 機器やシステムの配置・構成; セットアップ\n- **includes**: 〜を含む; 含む\n- **high-resolution**: 高解像度の、画像が鮮明な; 高解像度\n- **mechanical keyboard**: 各キーに独立したスイッチを持つキーボード; メカニカルキーボード\n- **comfort**: 身体的な快適さ; 快適さ",
+            "vi": "## Ngữ pháp\n**'includes'** — động từ chia ngôi thứ ba số ít (thêm -s). Chủ ngữ 'my setup' là số ít. Cụm 'for + danh từ' cuối câu chỉ mục đích.\n\n## Từ vựng\n- **setup**: cách bố trí thiết bị hoặc hệ thống; thiết lập\n- **includes**: bao gồm, chứa đựng; bao gồm\n- **high-resolution**: có độ phân giải cao, hình ảnh sắc nét; độ phân giải cao\n- **mechanical keyboard**: bàn phím dùng công tắc cơ học; bàn phím cơ\n- **comfort**: sự thoải mái về thể chất; sự thoải mái"
+          }
         },
         {
           "text": "If the room is too noisy, I wear noise-canceling headphones to stay focused.",
           "notes": {
-            "en": "Conditional: 'If + present simple, … will/can…'"
+            "en": "Conditional: 'If + present simple, … will/can…'",
+            "de": "## Grammatik\n**Typ-1-Konditionalsatz**: 'If + Präsens, … Präsens/will' — drückt eine realistische Bedingung und ihre Folge aus. Beispiel: 'If it rains, I take an umbrella.'\n\n## Wortschatz\n- **noisy**: laut, mit störendem Lärm; noisy\n- **wear**: Kleidung oder Accessoires am Körper tragen; to wear\n- **noise-canceling**: Geräusche von außen aktiv unterdrückend; geräuschunterdrückend\n- **headphones**: Kopfhörer, Gerät zum Hören von Audio; headphones\n- **stay focused**: konzentriert bleiben, die Aufmerksamkeit behalten; to stay focused",
+            "ja": "## 文法\n**第1条件文**: 'If + 現在形, 〜現在形/will' — 現実的な条件とその結果を表す。例：'If it rains, I take an umbrella.'\n\n## 語彙\n- **noisy**: うるさい、騒々しい; noisy\n- **wear**: 身につける（アクセサリー類）; to wear\n- **noise-canceling**: 周囲の音を遮断する; ノイズキャンセリング\n- **headphones**: ヘッドフォン、音声を聴く装置; headphones\n- **stay focused**: 集中し続ける; 集中を維持する",
+            "vi": "## Ngữ pháp\n**Câu điều kiện loại 1**: 'If + hiện tại đơn, … hiện tại đơn/will' — diễn đạt điều kiện có thật và kết quả của nó. Ví dụ: 'If it rains, I take an umbrella.'\n\n## Từ vựng\n- **noisy**: ồn ào, có nhiều tiếng động; ồn\n- **wear**: đeo hoặc mặc vật gì lên người; đeo/mặc\n- **noise-canceling**: có khả năng chặn tiếng ồn bên ngoài; chống ồn\n- **headphones**: tai nghe, thiết bị để nghe âm thanh; tai nghe\n- **stay focused**: duy trì sự tập trung; tập trung"
           }
         },
         {
-          "text": "Having a comfortable environment makes a big difference in my productivity."
+          "text": "Having a comfortable environment makes a big difference in my productivity.",
+          "notes": {
+            "en": "## Grammar\n**Gerund as subject**: 'Having a comfortable environment' is a gerund phrase acting as the subject of the sentence. The main verb is 'makes'. Pattern: 'V-ing + noun phrase + verb + object.'\n\n## Vocabulary\n- **having**: gerund of 'have'; possessing or experiencing something\n- **comfortable**: providing physical ease; pleasant to use or be in\n- **environment**: the surrounding conditions that affect one's work or life\n- **makes a difference**: has a noticeable effect; changes the outcome\n- **productivity**: the efficiency of work; output relative to effort",
+            "de": "## Grammatik\n**Gerundium als Subjekt**: 'Having a comfortable environment' ist eine Gerundialphrase als Satzsubjekt. Das Hauptverb ist 'makes'. Muster: 'V-ing + Nominalphrase + Verb + Objekt.'\n\n## Wortschatz\n- **having**: Gerundium von 'have'; etwas besitzen oder erleben\n- **comfortable**: körperlich angenehm, bequem; comfortable\n- **environment**: die Umgebungsbedingungen; Umgebung\n- **makes a difference**: eine spürbare Wirkung haben; einen Unterschied machen\n- **productivity**: Arbeitseffizienz; Produktivität",
+            "ja": "## 文法\n**動名詞を主語に**: 'Having a comfortable environment' は動名詞句で文の主語。主動詞は'makes'。パターン：'V-ing + 名詞句 + 動詞 + 目的語'\n\n## 語彙\n- **having**: 'have'の動名詞形; 持つ、経験する\n- **comfortable**: 身体的に快適な; 快適な\n- **environment**: 周囲の状況、作業環境; 環境\n- **makes a difference**: 目に見える効果がある; 違いを生む\n- **productivity**: 作業の効率; 生産性",
+            "vi": "## Ngữ pháp\n**Gerund làm chủ ngữ**: 'Having a comfortable environment' là cụm gerund đóng vai trò chủ ngữ. Động từ chính là 'makes'. Mẫu câu: 'V-ing + cụm danh từ + động từ + tân ngữ.'\n\n## Từ vựng\n- **having**: dạng gerund của 'have'; sở hữu hoặc trải nghiệm\n- **comfortable**: thoải mái về thể chất, dễ chịu; thoải mái\n- **environment**: điều kiện xung quanh ảnh hưởng đến công việc; môi trường\n- **makes a difference**: tạo ra tác động rõ rệt; tạo ra sự khác biệt\n- **productivity**: hiệu quả làm việc; năng suất"
+          }
         }
       ]
     },
@@ -42,26 +66,47 @@
         {
           "text": "Ich arbeite den ganzen Tag an meinem Schreibtisch am Computer.",
           "notes": {
-            "de": "Present tense: regular verbs → ich + stem + -e"
+            "de": "Present tense: regular verbs → ich + stem + -e",
+            "en": "## Grammar\n**Regular present tense (1st person singular)**: German regular verbs take the ending *-e* for 'ich'. 'Arbeite' = work (stem: arbeit- + e). 'An + dative' expresses location at a surface.\n\n## Vocabulary\n- **arbeite**: I work; 1st person singular of 'arbeiten' (to work)\n- **den ganzen Tag**: the whole day; all day long\n- **Schreibtisch**: writing desk; desk (lit. 'writing table')\n- **am Computer**: at the computer; 'am' = an + dem (contracted dative)\n- **am**: contracted form of 'an dem'; at the",
+            "ja": "## 文法\n**規則動詞の現在形（1人称単数）**: ドイツ語の規則動詞は'ich'の場合、語幹に*-e*を付ける。'arbeite' = 働く（語幹: arbeit- + e）。'an + 与格'は場所（表面）を表す。\n\n## 語彙\n- **arbeite**: 私は働く; 'arbeiten'（働く）の1人称単数\n- **den ganzen Tag**: 一日中; all day long\n- **Schreibtisch**: 机（lit. 書き物台）; desk\n- **am Computer**: コンピューターで; 'am' = an + dem（与格短縮）\n- **am**: 'an dem'の短縮形; at the",
+            "vi": "## Ngữ pháp\n**Hiện tại đơn động từ đều (ngôi thứ nhất số ít)**: Động từ đều tiếng Đức thêm *-e* cho 'ich'. 'Arbeite' = làm việc (gốc: arbeit- + e). 'An + tặng cách' diễn đạt vị trí tại một bề mặt.\n\n## Từ vựng\n- **arbeite**: tôi làm việc; ngôi 1 số ít của 'arbeiten'\n- **den ganzen Tag**: cả ngày; suốt ngày\n- **Schreibtisch**: bàn làm việc (lit. 'bàn viết'); desk\n- **am Computer**: ở máy tính; 'am' = an + dem (rút gọn)\n- **am**: dạng rút gọn của 'an dem'; tại"
           }
         },
         {
-          "text": "Mein Schreibtisch ist immer ordentlich und sauber."
+          "text": "Mein Schreibtisch ist immer ordentlich und sauber.",
+          "notes": {
+            "en": "## Grammar\n**Predicate adjectives**: In German, adjectives used after 'sein' (to be) are not declined — they keep their base form. 'Ordentlich und sauber' are predicate adjectives here.\n\n## Vocabulary\n- **mein**: my; possessive pronoun (1st person singular, masculine nominative)\n- **Schreibtisch**: desk; writing table\n- **immer**: always; at all times\n- **ordentlich**: tidy, neat, well-organized\n- **sauber**: clean; free of dirt",
+            "de": "## Grammatik\n**Prädikative Adjektive**: Adjektive nach 'sein' werden nicht dekliniert — sie behalten ihre Grundform. 'Ordentlich und sauber' sind hier prädikative Adjektive.\n\n## Wortschatz\n- **mein**: mein; Possessivpronomen (1. Person Singular, maskulin Nominativ)\n- **Schreibtisch**: Schreibtisch; writing table\n- **immer**: immer; zu jeder Zeit\n- **ordentlich**: ordentlich, aufgeräumt\n- **sauber**: sauber; frei von Schmutz",
+            "ja": "## 文法\n**叙述用法の形容詞**: ドイツ語では'sein'（〜である）の後に使う形容詞は格変化しない。'ordentlich und sauber'はここで叙述形容詞として使われている。\n\n## 語彙\n- **mein**: 私の; 所有代名詞（1人称単数、男性主格）\n- **Schreibtisch**: 机; writing table\n- **immer**: いつも; always\n- **ordentlich**: 整頓された; tidy, neat\n- **sauber**: 清潔な; clean",
+            "vi": "## Ngữ pháp\n**Tính từ vị ngữ**: Trong tiếng Đức, tính từ dùng sau 'sein' (là) không biến cách — giữ nguyên dạng gốc. 'Ordentlich und sauber' là tính từ vị ngữ ở đây.\n\n## Từ vựng\n- **mein**: của tôi; đại từ sở hữu (ngôi 1 số ít, giống đực, chủ cách)\n- **Schreibtisch**: bàn làm việc; writing table\n- **immer**: luôn luôn; always\n- **ordentlich**: ngăn nắp, gọn gàng; tidy\n- **sauber**: sạch sẽ; clean"
+          }
         },
         {
           "text": "Ich habe einen großen Monitor und eine gute Tastatur.",
           "notes": {
-            "de": "Regular verb conjugation (1st person singular)"
+            "de": "Regular verb conjugation (1st person singular)",
+            "en": "## Grammar\n**Accusative case articles**: After 'haben' (to have), the direct objects take the accusative case. Masculine: *einen* (not ein), feminine: *eine*. 'Großen' and 'gute' are accusative adjective endings.\n\n## Vocabulary\n- **habe**: I have; 1st person singular of 'haben' (to have)\n- **einen**: a/an (masculine accusative article)\n- **großen**: big, large (masculine accusative adjective ending -en)\n- **Monitor**: monitor; display screen\n- **Tastatur**: keyboard (die Tastatur, feminine)",
+            "ja": "## 文法\n**対格（目的格）の冠詞**: 'haben'（持つ）の後の直接目的語は対格になる。男性名詞：*einen*（einではなく）、女性名詞：*eine*。'großen'と'gute'は対格の形容詞語尾。\n\n## 語彙\n- **habe**: 私は持っている; 'haben'（持つ）の1人称単数\n- **einen**: 不定冠詞（男性対格）\n- **großen**: 大きい（男性対格、形容詞語尾-en）\n- **Monitor**: モニター; display screen\n- **Tastatur**: キーボード（女性名詞）",
+            "vi": "## Ngữ pháp\n**Mạo từ tân cách (Akkusativ)**: Sau 'haben' (có), tân ngữ trực tiếp dùng tân cách. Giống đực: *einen* (không phải ein), giống cái: *eine*. 'Großen' và 'gute' là đuôi tính từ tân cách.\n\n## Từ vựng\n- **habe**: tôi có; ngôi 1 số ít của 'haben'\n- **einen**: mạo từ bất định (giống đực, tân cách)\n- **großen**: lớn (đuôi tính từ tân cách giống đực -en)\n- **Monitor**: màn hình máy tính; monitor\n- **Tastatur**: bàn phím (danh từ giống cái)"
           }
         },
         {
           "text": "Wenn es laut ist, trage ich meine Kopfhörer.",
           "notes": {
-            "de": "Subordinate clause: 'wenn' sends verb to the end"
+            "de": "Subordinate clause: 'wenn' sends verb to the end",
+            "en": "## Grammar\n**Subordinate clause with 'wenn'**: In German, 'wenn' (when/if) introduces a subordinate clause where the verb moves to the **end**. The main clause that follows then uses verb-second word order: verb comes before the subject ('trage ich', not 'ich trage').\n\n## Vocabulary\n- **wenn**: when / if; introduces conditional or temporal subordinate clauses\n- **laut**: loud, noisy\n- **trage**: I wear/carry; 1st person singular of 'tragen'\n- **meine**: my (feminine/plural accusative); possessive pronoun\n- **Kopfhörer**: headphones (lit. 'head-listener', plural form)",
+            "ja": "## 文法\n**'wenn'による従属節**: ドイツ語の'wenn'（〜の時/もし）は従属節を導き、動詞は節末に移動する。続く主節では動詞が主語より前に来る（倒置: 'trage ich'）。\n\n## 語彙\n- **wenn**: 〜の時、もし; 条件・時間の従属節を導く\n- **laut**: うるさい、騒々しい; loud\n- **trage**: 私は着ける; 'tragen'の1人称単数\n- **meine**: 私の（女性/複数対格）; possessive\n- **Kopfhörer**: ヘッドフォン（複数形）; headphones",
+            "vi": "## Ngữ pháp\n**Mệnh đề phụ với 'wenn'**: Trong tiếng Đức, 'wenn' (khi/nếu) dẫn đầu mệnh đề phụ, động từ bị đẩy xuống **cuối** mệnh đề. Mệnh đề chính tiếp theo dùng trật tự động từ thứ hai: động từ đứng trước chủ ngữ ('trage ich', không phải 'ich trage').\n\n## Từ vựng\n- **wenn**: khi, nếu; dẫn đầu mệnh đề phụ điều kiện hoặc thời gian\n- **laut**: ồn, to; loud\n- **trage**: tôi đeo/mặc; ngôi 1 số ít của 'tragen'\n- **meine**: của tôi (tân cách giống cái/số nhiều)\n- **Kopfhörer**: tai nghe (dạng số nhiều)"
           }
         },
         {
-          "text": "Ein guter Arbeitsplatz ist sehr wichtig für mich."
+          "text": "Ein guter Arbeitsplatz ist sehr wichtig für mich.",
+          "notes": {
+            "en": "## Grammar\n**Nominative adjective ending**: When an adjective follows the indefinite article 'ein' and the noun is in nominative case, masculine adjectives take the **-er** ending ('guter'). This is called the mixed declension.\n\n## Vocabulary\n- **ein guter**: a good (masculine nominative, mixed declension)\n- **Arbeitsplatz**: workplace, workstation (lit. 'work-place')\n- **sehr**: very; intensifier adverb\n- **wichtig**: important; of great significance\n- **für mich**: for me; 'für' always takes accusative, 'mich' = me",
+            "de": "## Grammatik\n**Nominativ-Adjektivendung (gemischte Deklination)**: Nach dem unbestimmten Artikel 'ein' nimmt das Adjektiv im Nominativ Maskulinum die Endung **-er** an ('guter'). Das nennt man gemischte Deklination.\n\n## Wortschatz\n- **ein guter**: ein guter (maskulin Nominativ, gemischte Deklination)\n- **Arbeitsplatz**: Arbeitsplatz (lit. 'Arbeitsplatz')\n- **sehr**: sehr; Verstärkungsadverb\n- **wichtig**: wichtig; von großer Bedeutung\n- **für mich**: für mich; 'für' regiert immer Akkusativ",
+            "ja": "## 文法\n**主格の形容詞語尾（混合変化）**: 不定冠詞'ein'の後、男性名詞が主格の場合、形容詞は**-er**語尾をとる（'guter'）。これを混合変化という。\n\n## 語彙\n- **ein guter**: ある良い（男性主格、混合変化）\n- **Arbeitsplatz**: 職場、作業場所（lit. '仕事の場所'）\n- **sehr**: とても; 強調の副詞\n- **wichtig**: 重要な; great significance\n- **für mich**: 私にとって; 'für'は常に対格支配",
+            "vi": "## Ngữ pháp\n**Đuôi tính từ chủ cách (biến cách hỗn hợp)**: Sau mạo từ bất định 'ein', tính từ đi với danh từ giống đực ở chủ cách thêm đuôi **-er** ('guter'). Đây gọi là biến cách hỗn hợp.\n\n## Từ vựng\n- **ein guter**: một (cái) tốt (giống đực chủ cách, biến cách hỗn hợp)\n- **Arbeitsplatz**: nơi làm việc (lit. 'chỗ làm việc')\n- **sehr**: rất; trạng từ nhấn mạnh\n- **wichtig**: quan trọng; có ý nghĩa lớn\n- **für mich**: đối với tôi; 'für' luôn đi với tân cách"
+          }
         }
       ]
     },
@@ -75,31 +120,46 @@
         {
           "text": "私は一日中、机の前で仕事をしています。",
           "notes": {
-            "ja": "〜ています: ongoing state or habitual action"
+            "ja": "〜ています: ongoing state or habitual action",
+            "en": "## Grammar\n**〜ています (te-iru form)**: expresses an ongoing action or habitual state. '仕事をしています' = 'am working' or 'work (habitually)'. Formed by: verb て-form + います.\n\n## Vocabulary\n- **私は**: I (topic marker は); the topic of the sentence\n- **一日中**: all day long; throughout the day\n- **机の前で**: in front of the desk; 前 = front, で = location particle\n- **仕事をする**: to work; lit. 'to do work'\n- **〜ています**: ongoing or habitual action; te-iru form",
+            "de": "## Grammatik\n**〜ています (te-iru Form)**: drückt eine laufende oder gewohnheitsmäßige Handlung aus. '仕事をしています' = 'arbeite gerade' oder 'arbeite (regelmäßig)'. Bildung: Verb て-Form + います.\n\n## Wortschatz\n- **私は**: ich (Thema-Partikel は); das Satzthema\n- **一日中**: den ganzen Tag; throughout the day\n- **机の前で**: vor dem Schreibtisch; 前 = vorne, で = Orts-Partikel\n- **仕事をする**: arbeiten; wörtlich 'Arbeit tun'\n- **〜ています**: laufende oder gewohnheitsmäßige Handlung",
+            "vi": "## Ngữ pháp\n**〜ています (dạng te-iru)**: diễn đạt hành động đang diễn ra hoặc thói quen. '仕事をしています' = 'đang làm việc' hoặc 'làm việc (thường xuyên)'. Cấu tạo: dạng て của động từ + います.\n\n## Từ vựng\n- **私は**: tôi (trợ từ chủ đề は); chủ đề câu\n- **一日中**: cả ngày; suốt ngày\n- **机の前で**: ở trước bàn; 前 = phía trước, で = trợ từ địa điểm\n- **仕事をする**: làm việc; nghĩa đen 'thực hiện công việc'\n- **〜ています**: hành động đang diễn ra hoặc thói quen"
           }
         },
         {
           "text": "道具がすぐに見つかるように、いつも机を片付けています。",
           "notes": {
-            "ja": "〜ように: purpose/manner 'so that / in a way that'"
+            "ja": "〜ように: purpose/manner 'so that / in a way that'",
+            "en": "## Grammar\n**〜ように**: a purpose/manner clause meaning 'so that' or 'in order that'. It precedes the main clause and expresses the desired result. '見つかるように' = 'so that (they) can be found'.\n\n## Vocabulary\n- **道具**: tools, instruments; equipment used for a task\n- **すぐに**: immediately, right away; without delay\n- **見つかる**: to be found (intransitive); passive-like potential form of 見つける\n- **いつも**: always; at all times\n- **片付けています**: keep tidy; ongoing habit of tidying up (te-iru form of 片付ける)",
+            "de": "## Grammatik\n**〜ように**: ein Zweck-/Modus-Nebensatz mit der Bedeutung 'damit' oder 'so dass'. Er steht vor dem Hauptsatz und drückt das gewünschte Ergebnis aus. '見つかるように' = 'damit sie gefunden werden können'.\n\n## Wortschatz\n- **道具**: Werkzeuge, Instrumente; für eine Aufgabe verwendete Gegenstände\n- **すぐに**: sofort, gleich; without delay\n- **見つかる**: gefunden werden (intransitiv); passivartiges Potenzial von 見つける\n- **いつも**: immer; at all times\n- **片付けています**: aufräumen (Gewohnheit); te-iru Form von 片付ける",
+            "vi": "## Ngữ pháp\n**〜ように**: mệnh đề chỉ mục đích/cách thức, nghĩa là 'để cho' hoặc 'sao cho'. Đứng trước mệnh đề chính và diễn đạt kết quả mong muốn. '見つかるように' = 'để có thể tìm thấy'.\n\n## Từ vựng\n- **道具**: dụng cụ, công cụ; đồ vật dùng để thực hiện công việc\n- **すぐに**: ngay lập tức; without delay\n- **見つかる**: được tìm thấy (nội động từ); dạng bị động/khả năng của 見つける\n- **いつも**: luôn luôn; always\n- **片付けています**: đang dọn dẹp (thói quen); dạng te-iru của 片付ける"
           }
         },
         {
           "text": "モニターは大きくて、キーボードは使いやすいです。",
           "notes": {
-            "ja": "Review verb form / politeness level (ます/です)"
+            "ja": "Review verb form / politeness level (ます/です)",
+            "en": "## Grammar\n**〜くて (adjective + て)**: connects two い-adjectives in a list. '大きくて' = 'big and…'. The て-form of い-adjectives is formed by replacing the final -い with -くて.\n\n## Vocabulary\n- **モニター**: monitor, display screen\n- **大きくて**: big and… (て-form of い-adjective 大きい)\n- **キーボード**: keyboard\n- **使いやすい**: easy to use; 使い (stem of 使う) + やすい (easy to)\n- **〜やすい**: easy to do; suffix attached to verb stem expressing ease of action",
+            "de": "## Grammatik\n**〜くて (Adjektiv + て)**: verbindet zwei い-Adjektive in einer Aufzählung. '大きくて' = 'groß und…'. Die て-Form von い-Adjektiven wird gebildet, indem das abschließende -い durch -くて ersetzt wird.\n\n## Wortschatz\n- **モニター**: Monitor, Bildschirm; display screen\n- **大きくて**: groß und…; て-Form des い-Adjektivs 大きい\n- **キーボード**: Tastatur; keyboard\n- **使いやすい**: leicht zu bedienen; 使い (Stamm von 使う) + やすい (leicht zu)\n- **〜やすい**: leicht zu tun; Suffix, das Leichtigkeit ausdrückt",
+            "vi": "## Ngữ pháp\n**〜くて (tính từ + て)**: nối hai tính từ đuôi -い trong một danh sách. '大きくて' = 'lớn và…'. Dạng て của tính từ い được tạo bằng cách thay -い cuối thành -くて.\n\n## Từ vựng\n- **モニター**: màn hình máy tính; monitor\n- **大きくて**: lớn và…; dạng て của tính từ い 大きい\n- **キーボード**: bàn phím; keyboard\n- **使いやすい**: dễ sử dụng; 使い (gốc của 使う) + やすい (dễ)\n- **〜やすい**: dễ làm; hậu tố diễn đạt sự dễ dàng của hành động"
           }
         },
         {
           "text": "うるさい時は、集中するためにヘッドホンを使います。",
           "notes": {
-            "ja": "〜ために: purpose 'in order to / for the sake of'"
+            "ja": "〜ために: purpose 'in order to / for the sake of'",
+            "en": "## Grammar\n**〜ために (purpose)**: expresses purpose, meaning 'in order to'. Attached to the dictionary form of a verb: '集中するために' = 'in order to concentrate'. Unlike 〜ように, 〜ために requires a volitional (intentional) action.\n\n## Vocabulary\n- **うるさい時は**: when it is noisy; うるさい = noisy, 時 = time/when, は = topic\n- **集中する**: to concentrate, to focus\n- **ために**: in order to; purpose marker\n- **ヘッドホン**: headphones\n- **使います**: use; polite present tense of 使う",
+            "de": "## Grammatik\n**〜ために (Zweck)**: drückt den Zweck aus, bedeutet 'um zu'. Wird an die Wörterbuchform des Verbs angehängt: '集中するために' = 'um mich zu konzentrieren'. Im Gegensatz zu 〜ように erfordert 〜ために eine willentliche Handlung.\n\n## Wortschatz\n- **うるさい時は**: wenn es laut ist; うるさい = laut, 時 = Zeit/wenn, は = Thema\n- **集中する**: sich konzentrieren\n- **ために**: um zu; Zweckmarker\n- **ヘッドホン**: Kopfhörer; headphones\n- **使います**: benutzen; höfliche Gegenwartsform von 使う",
+            "vi": "## Ngữ pháp\n**〜ために (mục đích)**: diễn đạt mục đích, nghĩa là 'để'. Gắn vào dạng từ điển của động từ: '集中するために' = 'để tập trung'. Khác với 〜ように, 〜ために yêu cầu hành động có chủ ý.\n\n## Từ vựng\n- **うるさい時は**: khi ồn ào; うるさい = ồn, 時 = thời điểm/khi, は = trợ từ chủ đề\n- **集中する**: tập trung; to concentrate\n- **ために**: để, nhằm; dấu hiệu chỉ mục đích\n- **ヘッドホン**: tai nghe; headphones\n- **使います**: sử dụng; thì hiện tại lịch sự của 使う"
           }
         },
         {
           "text": "快適な環境（かんきょう）のおかげで、仕事がはかどります。",
           "notes": {
-            "ja": "Furigana reading shown in （）for N4 kanji"
+            "ja": "Furigana reading shown in （）for N4 kanji",
+            "en": "## Grammar\n**〜のおかげで**: means 'thanks to' or 'due to'. It expresses a positive reason or cause. Structure: noun + のおかげで + positive result. Example: '先生のおかげで合格しました' = 'Thanks to my teacher, I passed.'\n\n## Vocabulary\n- **快適な**: comfortable, pleasant (な-adjective)\n- **環境**: environment, surroundings (N4 kanji; reading: かんきょう)\n- **〜のおかげで**: thanks to; indicates a positive cause\n- **仕事がはかどる**: work progresses smoothly; はかどる = to make good progress\n- **はかどります**: polite present form of はかどる",
+            "de": "## Grammatik\n**〜のおかげで**: bedeutet 'dank' oder 'aufgrund von'. Drückt einen positiven Grund aus. Aufbau: Nomen + のおかげで + positives Ergebnis. Beispiel: '先生のおかげで合格しました' = 'Dank meines Lehrers habe ich bestanden.'\n\n## Wortschatz\n- **快適な**: angenehm, komfortabel (な-Adjektiv)\n- **環境**: Umgebung, Umwelt (N4-Kanji; Lesung: かんきょう)\n- **〜のおかげで**: dank; positiver Grund\n- **仕事がはかどる**: die Arbeit macht gute Fortschritte; はかどる = gut vorankommen\n- **はかどります**: höfliche Gegenwartsform von はかどる",
+            "vi": "## Ngữ pháp\n**〜のおかげで**: nghĩa là 'nhờ có' hoặc 'nhờ vào'. Diễn đạt nguyên nhân tích cực. Cấu trúc: danh từ + のおかげで + kết quả tốt. Ví dụ: '先生のおかげで合格しました' = 'Nhờ thầy giáo, tôi đã đậu.'\n\n## Từ vựng\n- **快適な**: thoải mái, dễ chịu (tính từ な)\n- **環境**: môi trường, hoàn cảnh (kanji N4; đọc: かんきょう)\n- **〜のおかげで**: nhờ có; chỉ nguyên nhân tích cực\n- **仕事がはかどる**: công việc tiến triển suôn sẻ; はかどる = tiến triển tốt\n- **はかどります**: dạng lịch sự của はかどる"
           }
         }
       ]
@@ -114,31 +174,46 @@
         {
           "text": "Tôi dành phần lớn thời gian trong ngày làm việc tại bàn trước máy tính.",
           "notes": {
-            "vi": "## Ngữ pháp\nCấu trúc **dành + [thời gian] + [hoạt động]** diễn tả việc sử dụng thời gian cho một mục đích cụ thể. Ví dụ: \"Tôi dành 2 tiếng để học bài.\" Cụm \"phần lớn\" là định ngữ chỉ mức độ, đứng trước danh từ \"thời gian\" để nhấn mạnh đây là phần nhiều nhất.\n\n## Từ vựng\n- **dành**: sử dụng (thời gian, tiền bạc) cho một mục đích; to spend/devote\n- **phần lớn**: phần chiếm tỉ lệ cao nhất, đa phần; most of, the majority of\n- **làm việc**: thực hiện công việc chuyên môn hoặc hàng ngày; to work\n- **bàn**: đồ dùng có mặt phẳng để làm việc hoặc ăn uống; desk, table\n- **máy tính**: thiết bị điện tử xử lý và lưu trữ thông tin; computer"
+            "vi": "## Ngữ pháp\nCấu trúc **dành + [thời gian] + [hoạt động]** diễn tả việc sử dụng thời gian cho một mục đích cụ thể. Ví dụ: \"Tôi dành 2 tiếng để học bài.\" Cụm \"phần lớn\" là định ngữ chỉ mức độ, đứng trước danh từ \"thời gian\" để nhấn mạnh đây là phần nhiều nhất.\n\n## Từ vựng\n- **dành**: sử dụng (thời gian, tiền bạc) cho một mục đích; to spend/devote\n- **phần lớn**: phần chiếm tỉ lệ cao nhất, đa phần; most of, the majority of\n- **làm việc**: thực hiện công việc chuyên môn hoặc hàng ngày; to work\n- **bàn**: đồ dùng có mặt phẳng để làm việc hoặc ăn uống; desk, table\n- **máy tính**: thiết bị điện tử xử lý và lưu trữ thông tin; computer",
+            "en": "## Grammar\n**'dành + time + activity'**: structure for expressing how time is spent, equivalent to 'spend time doing'. The word 'phần lớn' (most of) acts as a modifier before 'thời gian' (time).\n\n## Vocabulary\n- **dành**: to spend or devote (time/money) to a purpose\n- **phần lớn**: most of; the majority of\n- **làm việc**: to work; to perform one's job\n- **bàn**: desk, table; flat-surface furniture\n- **máy tính**: computer; electronic data-processing device",
+            "de": "## Grammatik\n**'dành + Zeit + Aktivität'**: Struktur zum Ausdrücken, wie Zeit verbracht wird, entspricht 'Zeit damit verbringen, etw. zu tun'. Das Wort 'phần lớn' (der größte Teil) modifiziert 'thời gian' (Zeit).\n\n## Wortschatz\n- **dành**: Zeit oder Geld für einen Zweck aufwenden; to spend/devote\n- **phần lớn**: der größte Teil; most of\n- **làm việc**: arbeiten; seine Arbeit verrichten\n- **bàn**: Schreibtisch, Tisch; flat-surface furniture\n- **máy tính**: Computer; electronic data-processing device",
+            "ja": "## 文法\n**'dành + 時間 + 活動'**: 時間の使い方を表す構文で、'〜して時間を過ごす'に相当。'phần lớn'（大部分）が'thời gian'（時間）を修飾。\n\n## 語彙\n- **dành**: 目的のために時間やお金を使う; to spend/devote\n- **phần lớn**: 大部分; most of\n- **làm việc**: 働く; to work\n- **bàn**: 机、テーブル; desk\n- **máy tính**: コンピューター; computer"
           }
         },
         {
           "text": "Tôi thường giữ không gian làm việc ngăn nắp để có thể tìm dụng cụ dễ dàng.",
           "notes": {
-            "vi": "## Ngữ pháp\nCấu trúc **để + [động từ/mệnh đề]** chỉ mục đích, tương đương \"in order to\" trong tiếng Anh. Ví dụ: \"Tôi học chăm chỉ để đạt điểm cao.\" Từ **thường** là trạng từ chỉ tần suất, đứng trước động từ chính để diễn đạt thói quen thường xuyên.\n\n## Từ vựng\n- **thường**: hay xảy ra, không phải luôn luôn nhưng phổ biến; usually, often\n- **không gian làm việc**: khu vực được dành riêng để làm việc; workspace\n- **ngăn nắp**: có trật tự, gọn gàng, không lộn xộn; tidy, organized\n- **dụng cụ**: đồ vật dùng để thực hiện một công việc; tools, instruments\n- **dễ dàng**: không gặp khó khăn, thuận tiện; easily, without difficulty"
+            "vi": "## Ngữ pháp\nCấu trúc **để + [động từ/mệnh đề]** chỉ mục đích, tương đương \"in order to\" trong tiếng Anh. Ví dụ: \"Tôi học chăm chỉ để đạt điểm cao.\" Từ **thường** là trạng từ chỉ tần suất, đứng trước động từ chính để diễn đạt thói quen thường xuyên.\n\n## Từ vựng\n- **thường**: hay xảy ra, không phải luôn luôn nhưng phổ biến; usually, often\n- **không gian làm việc**: khu vực được dành riêng để làm việc; workspace\n- **ngăn nắp**: có trật tự, gọn gàng, không lộn xộn; tidy, organized\n- **dụng cụ**: đồ vật dùng để thực hiện một công việc; tools, instruments\n- **dễ dàng**: không gặp khó khăn, thuận tiện; easily, without difficulty",
+            "en": "## Grammar\n**'để + verb/clause'**: purpose structure equivalent to 'in order to'. 'Để có thể tìm' = 'so that (I) can find'. 'Thường' is a frequency adverb meaning 'usually'.\n\n## Vocabulary\n- **thường**: usually, often; frequency adverb\n- **không gian làm việc**: workspace; area designated for work\n- **ngăn nắp**: tidy, neat, organized\n- **dụng cụ**: tools, instruments; items used to perform a task\n- **dễ dàng**: easily; without difficulty",
+            "de": "## Grammatik\n**'để + Verb/Satz'**: Zweckstruktur entspricht 'um zu'. 'Để có thể tìm' = 'damit ich finden kann'. 'Thường' ist ein Häufigkeitsadverb für 'normalerweise'.\n\n## Wortschatz\n- **thường**: normalerweise, oft; Häufigkeitsadverb\n- **không gian làm việc**: Arbeitsbereich; für die Arbeit vorgesehener Bereich\n- **ngăn nắp**: ordentlich, aufgeräumt\n- **dụng cụ**: Werkzeuge, Instrumente\n- **dễ dàng**: leicht, mühelos; without difficulty",
+            "ja": "## 文法\n**'để + 動詞/節'**: 目的を表す構文で'in order to'に相当。'Để có thể tìm' = '見つけられるように'。'Thường'は「たいてい」を意味する頻度副詞。\n\n## 語彙\n- **thường**: たいてい、よく; 頻度副詞\n- **không gian làm việc**: 作業スペース; workspace\n- **ngăn nắp**: 整理整頓された; tidy\n- **dụng cụ**: 道具、器具; tools\n- **dễ dàng**: 簡単に; easily"
           }
         },
         {
           "text": "Góc làm việc của tôi có một màn hình độ phân giải cao và bàn phím cơ để thoải mái hơn.",
           "notes": {
-            "vi": "## Ngữ pháp\nCấu trúc **[danh từ] của tôi có [danh từ khác]** dùng để mô tả sự sở hữu hoặc thành phần. \"Của tôi\" là cụm từ chỉ sở hữu, đứng ngay sau danh từ được sở hữu. Từ **để** ở cuối câu lại tiếp tục chỉ mục đích của việc trang bị các thiết bị đó.\n\n## Từ vựng\n- **góc làm việc**: khu vực riêng tư được bố trí để làm việc; workstation, work corner\n- **màn hình**: thiết bị hiển thị hình ảnh của máy tính; monitor, screen\n- **độ phân giải cao**: mức độ sắc nét và chi tiết của hình ảnh; high resolution\n- **bàn phím cơ**: loại bàn phím dùng công tắc cơ học, có cảm giác bấm rõ ràng; mechanical keyboard\n- **thoải mái**: dễ chịu, không gây khó chịu khi sử dụng lâu; comfortable, at ease"
+            "vi": "## Ngữ pháp\nCấu trúc **[danh từ] của tôi có [danh từ khác]** dùng để mô tả sự sở hữu hoặc thành phần. \"Của tôi\" là cụm từ chỉ sở hữu, đứng ngay sau danh từ được sở hữu. Từ **để** ở cuối câu lại tiếp tục chỉ mục đích của việc trang bị các thiết bị đó.\n\n## Từ vựng\n- **góc làm việc**: khu vực riêng tư được bố trí để làm việc; workstation, work corner\n- **màn hình**: thiết bị hiển thị hình ảnh của máy tính; monitor, screen\n- **độ phân giải cao**: mức độ sắc nét và chi tiết của hình ảnh; high resolution\n- **bàn phím cơ**: loại bàn phím dùng công tắc cơ học, có cảm giác bấm rõ ràng; mechanical keyboard\n- **thoải mái**: dễ chịu, không gây khó chịu khi sử dụng lâu; comfortable, at ease",
+            "en": "## Grammar\n**'[noun] của tôi có [noun]'**: possession structure, 'của tôi' = 'my/mine' placed after the noun it modifies. The final 'để' introduces a purpose clause: 'for more comfort'.\n\n## Vocabulary\n- **góc làm việc**: workstation, work corner; personal work area\n- **màn hình**: monitor, screen; display device\n- **độ phân giải cao**: high resolution; sharpness and detail level of an image\n- **bàn phím cơ**: mechanical keyboard; keyboard using physical switches\n- **thoải mái**: comfortable; physically at ease",
+            "de": "## Grammatik\n**'[Nomen] của tôi có [Nomen]'**: Besitzstruktur, 'của tôi' = 'mein/meine', steht nach dem besessenen Nomen. Das abschließende 'để' leitet einen Zwecksatz ein: 'für mehr Komfort'.\n\n## Wortschatz\n- **góc làm việc**: Arbeitsstation, Arbeitsecke; persönlicher Arbeitsbereich\n- **màn hình**: Monitor, Bildschirm; display device\n- **độ phân giải cao**: hohe Auflösung; Schärfe und Detailgrad eines Bildes\n- **bàn phím cơ**: mechanische Tastatur; Tastatur mit physischen Schaltern\n- **thoải mái**: komfortabel, bequem; physically at ease",
+            "ja": "## 文法\n**'[名詞] của tôi có [名詞]'**: 所有を表す構文。'của tôi'（私の）は修飾する名詞の後に置く。文末の'để'は目的節を導く：「より快適に」。\n\n## 語彙\n- **góc làm việc**: 作業ステーション、作業コーナー; personal work area\n- **màn hình**: モニター、画面; display device\n- **độ phân giải cao**: 高解像度; sharpness of image\n- **bàn phím cơ**: メカニカルキーボード; mechanical keyboard\n- **thoải mái**: 快適な; comfortable"
           }
         },
         {
           "text": "Nếu phòng quá ồn, tôi sẽ đeo tai nghe chống ồn để tập trung.",
           "notes": {
-            "vi": "## Ngữ pháp\nCấu trúc **Nếu + [điều kiện], [kết quả]** là câu điều kiện loại 1 dùng để diễn đạt tình huống có thể xảy ra và hệ quả của nó. Trợ từ **sẽ** trong mệnh đề kết quả nhấn mạnh đây là hành động sẽ được thực hiện khi điều kiện được thỏa mãn.\n\n## Từ vựng\n- **nếu**: từ nối dùng để đưa ra điều kiện giả định; if\n- **ồn**: có nhiều tiếng động gây khó chịu; noisy, loud\n- **đeo**: mặc/gắn vật gì lên cơ thể (tai nghe, vòng, kính...); to wear/put on (accessories)\n- **tai nghe chống ồn**: thiết bị âm thanh có khả năng loại bỏ tiếng ồn xung quanh; noise-canceling headphones\n- **tập trung**: dồn toàn bộ sự chú ý vào một việc; to focus, to concentrate"
+            "vi": "## Ngữ pháp\nCấu trúc **Nếu + [điều kiện], [kết quả]** là câu điều kiện loại 1 dùng để diễn đạt tình huống có thể xảy ra và hệ quả của nó. Trợ từ **sẽ** trong mệnh đề kết quả nhấn mạnh đây là hành động sẽ được thực hiện khi điều kiện được thỏa mãn.\n\n## Từ vựng\n- **nếu**: từ nối dùng để đưa ra điều kiện giả định; if\n- **ồn**: có nhiều tiếng động gây khó chịu; noisy, loud\n- **đeo**: mặc/gắn vật gì lên cơ thể (tai nghe, vòng, kính...); to wear/put on (accessories)\n- **tai nghe chống ồn**: thiết bị âm thanh có khả năng loại bỏ tiếng ồn xung quanh; noise-canceling headphones\n- **tập trung**: dồn toàn bộ sự chú ý vào một việc; to focus, to concentrate",
+            "en": "## Grammar\n**Type 1 conditional: 'Nếu + condition, sẽ + result'**: expresses a realistic condition and its likely outcome. 'Sẽ' (will) in the result clause signals future intent when the condition is met.\n\n## Vocabulary\n- **nếu**: if; introduces a conditional clause\n- **ồn**: noisy, loud; having disruptive sounds\n- **đeo**: to wear/put on (accessories like headphones, glasses)\n- **tai nghe chống ồn**: noise-canceling headphones; audio device that blocks ambient sound\n- **tập trung**: to focus, to concentrate; direct full attention to something",
+            "de": "## Grammatik\n**Konditionalsatz Typ 1: 'Nếu + Bedingung, sẽ + Ergebnis'**: drückt eine realistische Bedingung und ihr wahrscheinliches Ergebnis aus. 'Sẽ' (wird) im Ergebnissatz signalisiert die zukünftige Absicht, wenn die Bedingung erfüllt ist.\n\n## Wortschatz\n- **nếu**: wenn, falls; leitet einen Konditionalsatz ein\n- **ồn**: laut, lärmend; mit störenden Geräuschen\n- **đeo**: tragen (Accessoires wie Kopfhörer, Brille)\n- **tai nghe chống ồn**: Noise-Canceling-Kopfhörer; Gerät, das Umgebungsgeräusche blockiert\n- **tập trung**: sich konzentrieren; die volle Aufmerksamkeit auf etwas richten",
+            "ja": "## 文法\n**タイプ1条件文: 'Nếu + 条件, sẽ + 結果'**: 現実的な条件とその結果を表す。結果節の'sẽ'（〜だろう）は条件が満たされた時の未来の意図を示す。\n\n## 語彙\n- **nếu**: もし; 条件節を導く\n- **ồn**: うるさい; 騒々しい\n- **đeo**: 着ける（ヘッドフォン、眼鏡などのアクセサリー）\n- **tai nghe chống ồn**: ノイズキャンセリングヘッドフォン; 周囲の音を遮断する音響機器\n- **tập trung**: 集中する; 何かに全注意を向ける"
           }
         },
         {
           "text": "Có một môi trường thoải mái tạo ra sự khác biệt lớn cho năng suất của tôi.",
           "notes": {
-            "vi": "## Ngữ pháp\nCấu trúc **Có + [danh từ/cụm danh từ] + [động từ]** dùng danh ngữ làm chủ ngữ câu. \"Có một môi trường thoải mái\" đóng vai trò chủ ngữ, động từ \"tạo ra\" là vị ngữ. Đây là lối diễn đạt nhấn mạnh tầm quan trọng của một yếu tố nào đó.\n\n## Từ vựng\n- **môi trường**: hoàn cảnh, điều kiện xung quanh con người; environment, surroundings\n- **tạo ra**: làm xuất hiện điều gì đó; to create, to produce\n- **sự khác biệt**: điểm không giống nhau, điều làm thay đổi kết quả; difference\n- **lớn**: có quy mô, mức độ, tầm quan trọng cao; big, significant\n- **năng suất**: mức độ hiệu quả trong công việc, lượng công việc hoàn thành được; productivity"
+            "vi": "## Ngữ pháp\nCấu trúc **Có + [danh từ/cụm danh từ] + [động từ]** dùng danh ngữ làm chủ ngữ câu. \"Có một môi trường thoải mái\" đóng vai trò chủ ngữ, động từ \"tạo ra\" là vị ngữ. Đây là lối diễn đạt nhấn mạnh tầm quan trọng của một yếu tố nào đó.\n\n## Từ vựng\n- **môi trường**: hoàn cảnh, điều kiện xung quanh con người; environment, surroundings\n- **tạo ra**: làm xuất hiện điều gì đó; to create, to produce\n- **sự khác biệt**: điểm không giống nhau, điều làm thay đổi kết quả; difference\n- **lớn**: có quy mô, mức độ, tầm quan trọng cao; big, significant\n- **năng suất**: mức độ hiệu quả trong công việc, lượng công việc hoàn thành được; productivity",
+            "en": "## Grammar\n**'Có + noun phrase + verb'**: uses a noun phrase as the subject of the sentence. 'Có một môi trường thoải mái' acts as subject, 'tạo ra' is the predicate. This structure emphasizes the importance of a factor.\n\n## Vocabulary\n- **môi trường**: environment, surroundings; the conditions around a person\n- **tạo ra**: to create, to produce; to bring something into existence\n- **sự khác biệt**: difference; what distinguishes or changes the outcome\n- **lớn**: big, significant; of great scale or importance\n- **năng suất**: productivity; efficiency and output of work",
+            "de": "## Grammatik\n**'Có + Nominalphrase + Verb'**: verwendet eine Nominalphrase als Satzsubjekt. 'Có một môi trường thoải mái' fungiert als Subjekt, 'tạo ra' ist das Prädikat. Diese Struktur betont die Bedeutung eines Faktors.\n\n## Wortschatz\n- **môi trường**: Umgebung, Umwelt; die Bedingungen um eine Person herum\n- **tạo ra**: erschaffen, erzeugen; etwas entstehen lassen\n- **sự khác biệt**: Unterschied; was das Ergebnis verändert\n- **lớn**: groß, bedeutsam; von großem Ausmaß\n- **năng suất**: Produktivität; Arbeitseffizienz",
+            "ja": "## 文法\n**'Có + 名詞句 + 動詞'**: 名詞句を文の主語として使う構文。'Có một môi trường thoải mái'が主語、'tạo ra'が述語。ある要素の重要性を強調する表現。\n\n## 語彙\n- **môi trường**: 環境、周囲の状況; environment\n- **tạo ra**: 生み出す、作り出す; to create\n- **sự khác biệt**: 違い、差異; difference\n- **lớn**: 大きい、重大な; big, significant\n- **năng suất**: 生産性; productivity"
           }
         }
       ]

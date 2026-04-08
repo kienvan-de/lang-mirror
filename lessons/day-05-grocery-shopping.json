@@ -10,24 +10,48 @@
       "speed": 0.9,
       "sentences": [
         {
-          "text": "I go to the supermarket once a week to buy fresh ingredients."
+          "text": "I go to the supermarket once a week to buy fresh ingredients.",
+          "notes": {
+            "en": "## Grammar\n**Frequency expression 'once a week'**: placed after the verb or at the end of the clause. The infinitive 'to buy' expresses purpose. Present simple is used for habitual actions.\n\n## Vocabulary\n- **supermarket**: a large self-service store selling food and household goods\n- **once a week**: one time every seven days; a frequency expression\n- **fresh**: recently produced, not preserved or frozen\n- **ingredients**: the components used to prepare a dish\n- **to buy**: to purchase; to obtain in exchange for money",
+            "de": "## Grammatik\n**Häufigkeitsausdruck 'once a week'**: nach dem Verb oder am Satzende. Der Infinitiv 'to buy' drückt den Zweck aus. Präsens für gewohnheitsmäßige Handlungen.\n\n## Wortschatz\n- **supermarket**: ein großes Selbstbedienungsgeschäft für Lebensmittel\n- **once a week**: einmal pro Woche; Häufigkeitsausdruck\n- **fresh**: frisch; recently produced\n- **ingredients**: Zutaten; components for cooking\n- **to buy**: kaufen; to purchase",
+            "ja": "## 文法\n**頻度表現 'once a week'**: 動詞の後または節末に置く。不定詞'to buy'は目的を表す。習慣的な行動には現在形を使う。\n\n## 語彙\n- **supermarket**: スーパーマーケット; large self-service food store\n- **once a week**: 週に一度; frequency expression\n- **fresh**: 新鮮な; recently produced\n- **ingredients**: 食材、材料; components for cooking\n- **to buy**: 買う; to purchase",
+            "vi": "## Ngữ pháp\n**Biểu thức tần suất 'once a week'**: đặt sau động từ hoặc cuối mệnh đề. Infinitive 'to buy' diễn đạt mục đích. Hiện tại đơn dùng cho hành động thói quen.\n\n## Từ vựng\n- **supermarket**: siêu thị; cửa hàng tự phục vụ bán thực phẩm\n- **once a week**: một lần mỗi tuần; biểu thức tần suất\n- **fresh**: tươi; recently produced\n- **ingredients**: nguyên liệu; thành phần nấu ăn\n- **to buy**: mua; to purchase"
+          }
         },
         {
-          "text": "I always prepare a shopping list to avoid buying things I don't need."
+          "text": "I always prepare a shopping list to avoid buying things I don't need.",
+          "notes": {
+            "en": "## Grammar\n**'avoid + V-ing'**: 'avoid' is always followed by a gerund, never an infinitive. 'Things I don't need' is a relative clause (object relative) with the relative pronoun omitted: 'things [that] I don't need'.\n\n## Vocabulary\n- **always**: at all times; every single time (frequency adverb)\n- **prepare**: to make ready in advance; to get something ready\n- **shopping list**: a written record of items to purchase\n- **avoid**: to deliberately stay away from; to prevent happening\n- **don't need**: do not require; have no necessity for",
+            "de": "## Grammatik\n**'avoid + V-ing'**: 'avoid' wird immer von einem Gerundium gefolgt. 'Things I don't need' ist ein Relativsatz ohne Relativpronomen: 'things [that] I don't need'.\n\n## Wortschatz\n- **always**: immer; frequency adverb\n- **prepare**: vorbereiten; to make ready in advance\n- **shopping list**: Einkaufsliste; list of items to buy\n- **avoid**: vermeiden; to prevent happening\n- **don't need**: nicht brauchen; have no necessity for",
+            "ja": "## 文法\n**'avoid + V-ing'**: 'avoid'は常に動名詞が続く。'Things I don't need'は関係代名詞が省略された関係節: 'things [that] I don't need'。\n\n## 語彙\n- **always**: いつも; frequency adverb\n- **prepare**: 準備する; to make ready in advance\n- **shopping list**: 買い物リスト; list of items to buy\n- **avoid**: 避ける; to prevent happening\n- **don't need**: 必要ない; have no necessity for",
+            "vi": "## Ngữ pháp\n**'avoid + V-ing'**: 'avoid' luôn đi với gerund. 'Things I don't need' là mệnh đề quan hệ với đại từ quan hệ bị lược bỏ: 'things [that] I don't need'.\n\n## Từ vựng\n- **always**: luôn luôn; trạng từ tần suất\n- **prepare**: chuẩn bị; to make ready in advance\n- **shopping list**: danh sách mua sắm; list of items to buy\n- **avoid**: tránh; to prevent happening\n- **don't need**: không cần; have no necessity for"
+          }
         },
         {
-          "text": "I look for seasonal vegetables and high-quality meat or fish."
+          "text": "I look for seasonal vegetables and high-quality meat or fish.",
+          "notes": {
+            "en": "## Grammar\n**'look for' (phrasal verb)**: means to search for something. The compound adjective 'high-quality' is hyphenated when used before a noun. 'Or' connects two alternatives (meat or fish).\n\n## Vocabulary\n- **look for**: to search for; to try to find\n- **seasonal**: available or suitable for the current season; in-season\n- **vegetables**: edible plants or plant parts used as food\n- **high-quality**: of excellent standard; superior in grade\n- **meat**: the flesh of an animal used as food",
+            "de": "## Grammatik\n**'look for' (Phrasal Verb)**: bedeutet 'suchen nach'. Das zusammengesetzte Adjektiv 'high-quality' wird mit Bindestrich geschrieben, wenn es vor einem Nomen steht. 'Or' verbindet zwei Alternativen.\n\n## Wortschatz\n- **look for**: suchen nach; to try to find\n- **seasonal**: saisonal; in-season\n- **vegetables**: Gemüse; edible plants\n- **high-quality**: hochwertig; superior in grade\n- **meat**: Fleisch; animal flesh used as food",
+            "ja": "## 文法\n**'look for'（句動詞）**: 「〜を探す」の意味。複合形容詞'high-quality'は名詞の前でハイフンで繋ぐ。'Or'は二つの選択肢（肉または魚）をつなぐ。\n\n## 語彙\n- **look for**: 探す; to try to find\n- **seasonal**: 季節の、旬の; in-season\n- **vegetables**: 野菜; edible plants\n- **high-quality**: 高品質の; superior in grade\n- **meat**: 肉; animal flesh",
+            "vi": "## Ngữ pháp\n**'look for' (động từ cụm)**: nghĩa là tìm kiếm. Tính từ ghép 'high-quality' dùng gạch nối khi đứng trước danh từ. 'Or' nối hai lựa chọn (thịt hoặc cá).\n\n## Từ vựng\n- **look for**: tìm kiếm; to try to find\n- **seasonal**: theo mùa; in-season\n- **vegetables**: rau củ; edible plants\n- **high-quality**: chất lượng cao; superior in grade\n- **meat**: thịt; animal flesh used as food"
+          }
         },
         {
           "text": "If I find a good discount, I might buy extra items for the pantry.",
           "notes": {
-            "en": "Conditional: 'If + present simple, … will/can…'"
+            "en": "Conditional: 'If + present simple, … will/can…'",
+            "de": "## Grammatik\n**Typ-1-Konditionalsatz mit 'might'**: 'might' drückt eine unsichere Möglichkeit aus (schwächer als 'will'). 'If + Präsens, might + Infinitiv' = mögliche Handlung unter einer Bedingung. 'Extra' ist hier Adjektiv: 'extra items'.\n\n## Wortschatz\n- **discount**: Rabatt; a reduction in price\n- **might**: könnte; expresses possibility, weaker than 'will'\n- **extra**: zusätzlich; more than usual\n- **items**: Artikel, Gegenstände; individual things\n- **pantry**: Speisekammer; a small room or cabinet for storing food",
+            "ja": "## 文法\n**'might'を使ったタイプ1条件文**: 'might'は不確かな可能性を表す（'will'より弱い）。'If + 現在形, might + 不定詞' = 条件下での可能性のある行動。'Extra'は形容詞として使われている。\n\n## 語彙\n- **discount**: 割引; a reduction in price\n- **might**: かもしれない; possibility, weaker than 'will'\n- **extra**: 余分な、追加の; more than usual\n- **items**: 品物、アイテム; individual things\n- **pantry**: 食料庫; storage room for food",
+            "vi": "## Ngữ pháp\n**Câu điều kiện loại 1 với 'might'**: 'might' diễn đạt khả năng không chắc chắn (yếu hơn 'will'). 'If + hiện tại đơn, might + infinitive' = hành động có thể xảy ra dưới điều kiện. 'Extra' là tính từ ở đây.\n\n## Từ vựng\n- **discount**: giảm giá; a reduction in price\n- **might**: có thể; khả năng, yếu hơn 'will'\n- **extra**: thêm, bổ sung; more than usual\n- **items**: mặt hàng; individual things\n- **pantry**: tủ/kho đồ ăn; storage for food supplies"
           }
         },
         {
           "text": "Cooking with fresh food is much healthier than eating out every day.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing"
+            "en": "Present continuous: subject + am/is/are + verb-ing",
+            "de": "## Grammatik\n**Zwei Gerundien im Vergleich**: Beide 'Cooking with fresh food' und 'eating out' sind Gerundien als Satzglieder. 'Much healthier' = verstärkter Komparativ ('much' verstärkt die Vergleichsform).\n\n## Wortschatz\n- **cooking**: kochen (Gerundium von 'cook')\n- **fresh food**: frische Lebensmittel; recently produced food\n- **much healthier**: viel gesünder; intensified comparative\n- **eating out**: auswärts essen; dining at a restaurant\n- **every day**: jeden Tag; daily",
+            "ja": "## 文法\n**二つの動名詞の比較**: 'Cooking with fresh food'と'eating out'はどちらも動名詞句として機能。'Much healthier' = 強調された比較級（'much'が比較を強化）。\n\n## 語彙\n- **cooking**: 料理すること（'cook'の動名詞）\n- **fresh food**: 新鮮な食材; recently produced\n- **much healthier**: ずっと健康的; intensified comparative\n- **eating out**: 外食すること; dining at a restaurant\n- **every day**: 毎日; daily",
+            "vi": "## Ngữ pháp\n**Hai gerund trong so sánh**: Cả 'Cooking with fresh food' và 'eating out' đều là cụm gerund. 'Much healthier' = so sánh hơn được tăng cường ('much' nhấn mạnh sự chênh lệch).\n\n## Từ vựng\n- **cooking**: nấu ăn (gerund của 'cook')\n- **fresh food**: thực phẩm tươi; recently produced\n- **much healthier**: lành mạnh hơn nhiều; intensified comparative\n- **eating out**: ăn ngoài; dining at a restaurant\n- **every day**: mỗi ngày; daily"
           }
         }
       ]
@@ -42,26 +66,47 @@
         {
           "text": "Einmal pro Woche gehe ich in den Supermarkt.",
           "notes": {
-            "de": "Regular verb conjugation (1st person singular)"
+            "de": "Regular verb conjugation (1st person singular)",
+            "en": "## Grammar\n**Verb-second with fronted adverb**: 'Einmal pro Woche' (once a week) occupies position 1, pushing the verb 'gehe' to position 2 and the subject 'ich' to position 3. 'In den Supermarkt' uses accusative (movement into a place: in + accusative).\n\n## Vocabulary\n- **einmal pro Woche**: once a week; frequency expression\n- **gehe**: I go (1st person singular of 'gehen')\n- **in den Supermarkt**: to the supermarket (accusative: movement into)\n- **den**: the (masculine accusative article)\n- **Supermarkt**: supermarket; large food retail store",
+            "ja": "## 文法\n**前置副詞による動詞第2位**: 'Einmal pro Woche'（週に一度）が1位を占め、動詞'gehe'が2位、主語'ich'が3位に。'In den Supermarkt'は対格（場所への移動: in + 対格）。\n\n## 語彙\n- **einmal pro Woche**: 週に一度; frequency expression\n- **gehe**: 私は行く（'gehen'の1人称単数）\n- **in den Supermarkt**: スーパーへ（対格: 移動）\n- **den**: 定冠詞（男性対格）\n- **Supermarkt**: スーパーマーケット",
+            "vi": "## Ngữ pháp\n**Động từ thứ hai với trạng từ đứng đầu**: 'Einmal pro Woche' (mỗi tuần một lần) chiếm vị trí 1, đẩy động từ 'gehe' lên vị trí 2 và chủ ngữ 'ich' xuống vị trí 3. 'In den Supermarkt' dùng tân cách (di chuyển vào: in + tân cách).\n\n## Từ vựng\n- **einmal pro Woche**: một lần mỗi tuần; frequency expression\n- **gehe**: tôi đi (ngôi 1 số ít của 'gehen')\n- **in den Supermarkt**: vào siêu thị (tân cách: di chuyển)\n- **den**: mạo từ xác định (giống đực tân cách)\n- **Supermarkt**: siêu thị"
           }
         },
         {
           "text": "Ich schreibe eine Liste, dann kaufe ich nicht zu viel.",
           "notes": {
-            "de": "Word order: 'dann' (then) causes verb-second position"
+            "de": "Word order: 'dann' (then) causes verb-second position",
+            "en": "## Grammar\n**'dann' triggers verb-second**: 'dann' (then) at the start of the second clause sends 'kaufe' to position 2, 'ich' to position 3. 'Nicht zu viel' = 'not too much'; 'nicht' negates the adverb 'zu viel'.\n\n## Vocabulary\n- **schreibe**: I write (1st person singular of 'schreiben')\n- **eine Liste**: a list (feminine accusative: eine)\n- **dann**: then; next in sequence (triggers inversion)\n- **kaufe**: I buy (1st person singular of 'kaufen')\n- **nicht zu viel**: not too much; 'nicht' negates 'zu viel'",
+            "ja": "## 文法\n**'dann'による動詞第2位**: 第2節先頭の'dann'（それから）が'kaufe'を2位、'ich'を3位に移す。'Nicht zu viel' = 「多すぎない」; 'nicht'が副詞'zu viel'を否定。\n\n## 語彙\n- **schreibe**: 私は書く（'schreiben'の1人称単数）\n- **eine Liste**: リスト1つ（女性対格: eine）\n- **dann**: それから; triggers inversion\n- **kaufe**: 私は買う（'kaufen'の1人称単数）\n- **nicht zu viel**: 多すぎない; 'nicht' negates 'zu viel'",
+            "vi": "## Ngữ pháp\n**'dann' kích hoạt động từ thứ hai**: 'dann' (sau đó) ở đầu mệnh đề thứ hai đẩy 'kaufe' lên vị trí 2, 'ich' xuống vị trí 3. 'Nicht zu viel' = 'không quá nhiều'; 'nicht' phủ định trạng từ 'zu viel'.\n\n## Từ vựng\n- **schreibe**: tôi viết (ngôi 1 số ít của 'schreiben')\n- **eine Liste**: một danh sách (giống cái tân cách: eine)\n- **dann**: sau đó; kích hoạt đảo ngữ\n- **kaufe**: tôi mua (ngôi 1 số ít của 'kaufen')\n- **nicht zu viel**: không quá nhiều; 'nicht' phủ định 'zu viel'"
           }
         },
         {
-          "text": "Ich kaufe frisches Gemüse, Fleisch und Fisch."
+          "text": "Ich kaufe frisches Gemüse, Fleisch und Fisch.",
+          "notes": {
+            "en": "## Grammar\n**Accusative adjective endings (mixed declension)**: After no article (zero article), adjectives take 'strong' endings. 'Frisches Gemüse' = neuter accusative → strong ending -es. The list uses 'und' (and) to connect the final two items.\n\n## Vocabulary\n- **kaufe**: I buy (1st person singular of 'kaufen')\n- **frisches Gemüse**: fresh vegetables (neuter accusative, strong ending -es)\n- **Fleisch**: meat (neuter noun, no article needed in lists)\n- **und**: and; connects the last two items in a list\n- **Fisch**: fish (masculine noun)",
+            "de": "## Grammatik\n**Akkusativ-Adjektivendungen (starke Deklination)**: Ohne Artikel nehmen Adjektive 'starke' Endungen. 'Frisches Gemüse' = Neutrum Akkusativ → starke Endung -es.\n\n## Wortschatz\n- **kaufe**: ich kaufe (1. Person Singular von 'kaufen')\n- **frisches Gemüse**: frisches Gemüse (Neutrum Akkusativ, starke Endung -es)\n- **Fleisch**: Fleisch (Neutrum, kein Artikel in Listen)\n- **und**: und; verbindet die letzten zwei Listenelemente\n- **Fisch**: Fisch (Maskulinum)",
+            "ja": "## 文法\n**対格の形容詞語尾（強変化）**: 冠詞なしの場合、形容詞は「強い」語尾をとる。'Frisches Gemüse' = 中性対格 → 強変化語尾 -es。リストでは'und'（そして）が最後の二つをつなぐ。\n\n## 語彙\n- **kaufe**: 私は買う（'kaufen'の1人称単数）\n- **frisches Gemüse**: 新鮮な野菜（中性対格、強変化-es）\n- **Fleisch**: 肉（中性名詞）\n- **und**: そして; connects last two items\n- **Fisch**: 魚（男性名詞）",
+            "vi": "## Ngữ pháp\n**Đuôi tính từ tân cách (biến cách mạnh)**: Không có mạo từ, tính từ lấy đuôi 'mạnh'. 'Frisches Gemüse' = giống trung tân cách → đuôi mạnh -es. Danh sách dùng 'und' (và) nối hai mục cuối.\n\n## Từ vựng\n- **kaufe**: tôi mua (ngôi 1 số ít của 'kaufen')\n- **frisches Gemüse**: rau tươi (giống trung tân cách, đuôi mạnh -es)\n- **Fleisch**: thịt (danh từ giống trung)\n- **und**: và; nối hai mục cuối trong danh sách\n- **Fisch**: cá (danh từ giống đực)"
+          }
         },
         {
           "text": "Wenn das Obst billig ist, kaufe ich mehr.",
           "notes": {
-            "de": "Subordinate clause: 'wenn' sends verb to the end"
+            "de": "Subordinate clause: 'wenn' sends verb to the end",
+            "en": "## Grammar\n**'wenn' subordinate clause**: 'wenn' (when/if) sends 'ist' to the clause end. The main clause inverts: 'kaufe ich' (verb before subject). 'Mehr' is a comparative adverb meaning 'more'.\n\n## Vocabulary\n- **wenn**: when, if; subordinating conjunction\n- **das Obst**: the fruit (neuter nominative)\n- **billig**: cheap, inexpensive\n- **ist**: is (3rd person singular of 'sein')\n- **kaufe ich mehr**: I buy more (inverted after 'wenn'-clause)",
+            "ja": "## 文法\n**'wenn'従属節**: 'wenn'（〜の時/もし）が'ist'を節末に移す。主節は倒置: 'kaufe ich'（動詞が主語より前）。'Mehr'は「より多く」を意味する比較副詞。\n\n## 語彙\n- **wenn**: 〜の時、もし; 従属接続詞\n- **das Obst**: 果物（中性主格）\n- **billig**: 安い\n- **ist**: 〜である（'sein'の3人称単数）\n- **kaufe ich mehr**: 私はより多く買う（'wenn'節後の倒置）",
+            "vi": "## Ngữ pháp\n**Mệnh đề phụ với 'wenn'**: 'wenn' (khi/nếu) đẩy 'ist' xuống cuối mệnh đề. Mệnh đề chính đảo ngữ: 'kaufe ich' (động từ trước chủ ngữ). 'Mehr' là trạng từ so sánh nghĩa 'nhiều hơn'.\n\n## Từ vựng\n- **wenn**: khi, nếu; liên từ phụ\n- **das Obst**: trái cây (giống trung chủ cách)\n- **billig**: rẻ\n- **ist**: là (ngôi 3 số ít của 'sein')\n- **kaufe ich mehr**: tôi mua nhiều hơn (đảo ngữ sau mệnh đề 'wenn')"
           }
         },
         {
-          "text": "Gesundes Essen ist wichtig für meine Familie."
+          "text": "Gesundes Essen ist sehr wichtig für meine Familie.",
+          "notes": {
+            "en": "## Grammar\n**Nominative adjective ending (strong declension)**: 'Gesundes Essen' — no article before the neuter noun 'Essen', so the adjective takes the strong ending -es (neuter nominative). 'Für + accusative' expresses purpose or beneficiary.\n\n## Vocabulary\n- **gesundes Essen**: healthy food (neuter nominative, strong ending -es)\n- **sehr wichtig**: very important; 'sehr' intensifies 'wichtig'\n- **für**: for; preposition taking accusative\n- **meine Familie**: my family (feminine accusative: meine)\n- **Familie**: family (feminine noun)",
+            "de": "## Grammatik\n**Nominativ-Adjektivendung (starke Deklination)**: 'Gesundes Essen' — kein Artikel vor dem neutralen Nomen 'Essen', daher starke Endung -es (Neutrum Nominativ). 'Für + Akkusativ' drückt Zweck aus.\n\n## Wortschatz\n- **gesundes Essen**: gesundes Essen (Neutrum Nominativ, starke Endung -es)\n- **sehr wichtig**: sehr wichtig; 'sehr' verstärkt 'wichtig'\n- **für**: für; Präposition mit Akkusativ\n- **meine Familie**: meine Familie (Feminin Akkusativ)\n- **Familie**: Familie (Femininum)",
+            "ja": "## 文法\n**主格の形容詞語尾（強変化）**: 'Gesundes Essen' — 中性名詞'Essen'の前に冠詞なし、よって強変化語尾-es（中性主格）。'Für + 対格'は目的や受益者を表す。\n\n## 語彙\n- **gesundes Essen**: 健康的な食べ物（中性主格、強変化-es）\n- **sehr wichtig**: とても重要; 'sehr' intensifies 'wichtig'\n- **für**: 〜のために; accusative preposition\n- **meine Familie**: 私の家族（女性対格: meine）\n- **Familie**: 家族（女性名詞）",
+            "vi": "## Ngữ pháp\n**Đuôi tính từ chủ cách (biến cách mạnh)**: 'Gesundes Essen' — không có mạo từ trước danh từ giống trung 'Essen', nên tính từ lấy đuôi mạnh -es (giống trung chủ cách). 'Für + tân cách' diễn đạt mục đích hoặc người hưởng lợi.\n\n## Từ vựng\n- **gesundes Essen**: thức ăn lành mạnh (giống trung chủ cách, đuôi mạnh -es)\n- **sehr wichtig**: rất quan trọng; 'sehr' nhấn mạnh 'wichtig'\n- **für**: cho, vì; giới từ tân cách\n- **meine Familie**: gia đình tôi (giống cái tân cách: meine)\n- **Familie**: gia đình (danh từ giống cái)"
+          }
         }
       ]
     },
@@ -75,31 +120,46 @@
         {
           "text": "新鮮（しんせん）な材料（ざいりょう）を買うために、週に一度スーパーに行きます。",
           "notes": {
-            "ja": "〜ために: purpose 'in order to / for the sake of'"
+            "ja": "〜ために: purpose 'in order to / for the sake of'",
+            "en": "## Grammar\n**〜ために (purpose)**: attaches to the dictionary form of a verb. '買うために' = 'in order to buy'. '週に一度' = 'once a week'; に marks frequency (times per period).\n\n## Vocabulary\n- **新鮮な**: fresh (な-adjective; N4 kanji reading: しんせん)\n- **材料**: ingredients, materials (N4 kanji; reading: ざいりょう)\n- **買うために**: in order to buy; ために = purpose marker\n- **週に一度**: once a week; frequency expression\n- **スーパー**: supermarket (abbreviation of スーパーマーケット)",
+            "de": "## Grammatik\n**〜ために (Zweck)**: wird an die Wörterbuchform eines Verbs angehängt. '買うために' = 'um zu kaufen'. '週に一度' = 'einmal pro Woche'; に markiert die Häufigkeit.\n\n## Wortschatz\n- **新鮮な**: frisch (な-Adjektiv; N4-Kanji: しんせん)\n- **材料**: Zutaten (N4-Kanji; Lesung: ざいりょう)\n- **買うために**: um zu kaufen; Zweckmarker\n- **週に一度**: einmal pro Woche; Häufigkeitsausdruck\n- **スーパー**: Supermarkt (Abkürzung)",
+            "vi": "## Ngữ pháp\n**〜ために (mục đích)**: gắn vào dạng từ điển của động từ. '買うために' = 'để mua'. '週に一度' = 'một lần mỗi tuần'; に đánh dấu tần suất.\n\n## Từ vựng\n- **新鮮な**: tươi (tính từ な; kanji N4: しんせん)\n- **材料**: nguyên liệu (kanji N4; đọc: ざいりょう)\n- **買うために**: để mua; dấu hiệu mục đích\n- **週に一度**: một lần mỗi tuần; biểu thức tần suất\n- **スーパー**: siêu thị (viết tắt)"
           }
         },
         {
           "text": "無駄（むだ）な買い物をしないように、買い物リストを作ります。",
           "notes": {
-            "ja": "〜ように: purpose/manner 'so that / in a way that'"
+            "ja": "〜ように: purpose/manner 'so that / in a way that'",
+            "en": "## Grammar\n**〜ないように (negative purpose)**: '〜ないように' = 'so as not to / in order not to'. The negative te-iru/plain form + ように. '無駄な買い物をしないように' = 'so as not to make wasteful purchases'.\n\n## Vocabulary\n- **無駄な**: wasteful, unnecessary (な-adjective; N4 kanji reading: むだ)\n- **買い物をする**: to go shopping; to make purchases\n- **〜ないように**: so as not to; negative purpose\n- **買い物リスト**: shopping list; list of items to buy\n- **作ります**: make, create (polite present of 作る)",
+            "de": "## Grammatik\n**〜ないように (negative Absicht)**: '〜ないように' = 'damit nicht / um nicht zu'. Negative Form + ように. '無駄な買い物をしないように' = 'damit ich keine unnötigen Einkäufe mache'.\n\n## Wortschatz\n- **無駄な**: verschwenderisch (な-Adjektiv; N4-Kanji: むだ)\n- **買い物をする**: einkaufen; to make purchases\n- **〜ないように**: damit nicht; negative Absicht\n- **買い物リスト**: Einkaufsliste\n- **作ります**: machen (höfliche Gegenwart von 作る)",
+            "vi": "## Ngữ pháp\n**〜ないように (mục đích phủ định)**: '〜ないように' = 'để không / sao cho không'. Dạng phủ định + ように. '無駄な買い物をしないように' = 'để không mua sắm lãng phí'.\n\n## Từ vựng\n- **無駄な**: lãng phí, không cần thiết (tính từ な; kanji N4: むだ)\n- **買い物をする**: mua sắm; to make purchases\n- **〜ないように**: để không; mục đích phủ định\n- **買い物リスト**: danh sách mua sắm\n- **作ります**: làm, tạo (dạng lịch sự hiện tại của 作る)"
           }
         },
         {
           "text": "季節（きせつ）の野菜や、いい肉、魚を選びます。",
           "notes": {
-            "ja": "Furigana reading shown in （）for N4 kanji"
+            "ja": "Furigana reading shown in （）for N4 kanji",
+            "en": "## Grammar\n**〜や (non-exhaustive list)**: 'や' connects nouns in a list implying 'and others' — the list is not complete. Compare with 'と' which lists all items exhaustively. '季節の' = seasonal (の links the noun modifier).\n\n## Vocabulary\n- **季節の**: seasonal (N4 kanji; reading: きせつ); of the current season\n- **野菜**: vegetables; plant-based foods\n- **や**: and (non-exhaustive list connector); implies 'and others'\n- **肉**: meat; animal flesh\n- **選びます**: choose, select (polite present of 選ぶ)",
+            "de": "## Grammatik\n**〜や (nicht-erschöpfende Liste)**: 'や' verbindet Nomen in einer Liste und impliziert 'und andere' — die Liste ist nicht vollständig. Im Vergleich zu 'と', das alle Elemente vollständig auflistet.\n\n## Wortschatz\n- **季節の**: saisonal (N4-Kanji; Lesung: きせつ)\n- **野菜**: Gemüse; plant-based foods\n- **や**: und (nicht-erschöpfender Listenverbinder)\n- **肉**: Fleisch; animal flesh\n- **選びます**: auswählen (höfliche Gegenwart von 選ぶ)",
+            "vi": "## Ngữ pháp\n**〜や (danh sách không đầy đủ)**: 'や' nối danh từ trong danh sách hàm ý 'và những thứ khác' — danh sách không đầy đủ. So sánh với 'と' liệt kê đầy đủ tất cả.\n\n## Từ vựng\n- **季節の**: theo mùa (kanji N4; đọc: きせつ)\n- **野菜**: rau; plant-based foods\n- **や**: và (nối danh sách không đầy đủ)\n- **肉**: thịt; animal flesh\n- **選びます**: chọn (dạng lịch sự hiện tại của 選ぶ)"
           }
         },
         {
           "text": "安いものがあれば、たくさん買うかもしれません。",
           "notes": {
-            "ja": "〜かもしれません: possibility 'might / may'"
+            "ja": "〜かもしれません: possibility 'might / may'",
+            "en": "## Grammar\n**〜かもしれません (might/may)**: expresses uncertainty or possibility. Attaches to the plain form of verbs/adjectives. '買うかもしれません' = 'I might buy'. 'あれば' is the conditional (ば-form) of ある: 'if there are'.\n\n## Vocabulary\n- **安いもの**: cheap things; items at a low price (もの = thing)\n- **あれば**: if there are; ば-conditional of ある\n- **たくさん**: a lot, many; quantity adverb\n- **買う**: to buy; dictionary form\n- **〜かもしれません**: might, may; expresses possibility",
+            "de": "## Grammatik\n**〜かもしれません (könnte/vielleicht)**: drückt Unsicherheit oder Möglichkeit aus. Wird an die Wörterbuchform von Verben/Adjektiven angehängt. '買うかもしれません' = 'ich könnte kaufen'. 'あれば' ist der Konditional von ある: 'wenn es gibt'.\n\n## Wortschatz\n- **安いもの**: günstige Sachen; items at a low price\n- **あれば**: wenn es gibt; ば-Konditional von ある\n- **たくさん**: viel; quantity adverb\n- **買う**: kaufen; dictionary form\n- **〜かもしれません**: könnte; expresses possibility",
+            "vi": "## Ngữ pháp\n**〜かもしれません (có thể/có lẽ)**: diễn đạt sự không chắc chắn hoặc khả năng. Gắn vào dạng thường của động từ/tính từ. '買うかもしれません' = 'tôi có thể mua'. 'あれば' là dạng điều kiện ば của ある: 'nếu có'.\n\n## Từ vựng\n- **安いもの**: đồ rẻ; items at a low price\n- **あれば**: nếu có; dạng điều kiện ば của ある\n- **たくさん**: nhiều; trạng từ số lượng\n- **買う**: mua; dạng từ điển\n- **〜かもしれません**: có thể, có lẽ; diễn đạt khả năng"
           }
         },
         {
           "text": "毎日外食（がいしょく）するより、自分で料理する方が健康的（けんこうてき）です。",
           "notes": {
-            "ja": "Furigana reading shown in （）for N4 kanji"
+            "ja": "Furigana reading shown in （）for N4 kanji",
+            "en": "## Grammar\n**〜より〜方が (comparative)**: '〜より〜方が + adjective' = 'doing B is more ~ than doing A'. Here: 'cooking yourself is healthier than eating out every day'. Both options are expressed as verb phrases.\n\n## Vocabulary\n- **毎日**: every day; daily\n- **外食する**: to eat out, to dine at a restaurant (N4 kanji; reading: がいしょく)\n- **自分で**: by oneself; on one's own\n- **料理する**: to cook; to prepare food\n- **健康的**: healthy, health-conscious (な-adjective; N4 kanji: けんこうてき)",
+            "de": "## Grammatik\n**〜より〜方が (Komparativ)**: '〜より〜方が + Adjektiv' = 'B zu tun ist ~ als A zu tun'. Hier: 'selbst kochen ist gesünder als jeden Tag auswärts essen'.\n\n## Wortschatz\n- **毎日**: jeden Tag; daily\n- **外食する**: auswärts essen (N4-Kanji; Lesung: がいしょく)\n- **自分で**: selbst; on one's own\n- **料理する**: kochen; to prepare food\n- **健康的**: gesund (な-Adjektiv; N4-Kanji: けんこうてき)",
+            "vi": "## Ngữ pháp\n**〜より〜方が (so sánh hơn)**: '〜より〜方が + tính từ' = 'làm B thì ~ hơn làm A'. Ở đây: 'tự nấu ăn lành mạnh hơn ăn ngoài mỗi ngày'.\n\n## Từ vựng\n- **毎日**: mỗi ngày; daily\n- **外食する**: ăn ngoài (kanji N4; đọc: がいしょく)\n- **自分で**: tự mình; on one's own\n- **料理する**: nấu ăn; to prepare food\n- **健康的**: lành mạnh (tính từ な; kanji N4: けんこうてき)"
           }
         }
       ]
@@ -114,31 +174,46 @@
         {
           "text": "Tôi đi siêu thị một lần mỗi tuần để mua nguyên liệu tươi.",
           "notes": {
-            "vi": "## Ngữ pháp\nCấu trúc tần suất **[số lần] mỗi [đơn vị thời gian]** diễn đạt thói quen định kỳ. Ví dụ: \"hai lần mỗi ngày\", \"ba lần mỗi tháng\". Cụm **để + [mục đích]** ở cuối câu cho biết lý do thực hiện hành động đi siêu thị.\n\n## Từ vựng\n- **siêu thị**: cửa hàng bán lẻ quy mô lớn với nhiều loại hàng hóa; supermarket\n- **một lần mỗi tuần**: với tần suất bảy ngày một lần; once a week\n- **nguyên liệu**: thành phần dùng để chế biến thức ăn; ingredients\n- **tươi**: mới, chưa bị ôi hoặc hỏng; fresh\n- **mua**: trả tiền để có được hàng hóa; to buy, to purchase"
+            "vi": "## Ngữ pháp\nCấu trúc tần suất **[số lần] mỗi [đơn vị thời gian]** diễn đạt thói quen định kỳ. Ví dụ: \"hai lần mỗi ngày\", \"ba lần mỗi tháng\". Cụm **để + [mục đích]** ở cuối câu cho biết lý do thực hiện hành động đi siêu thị.\n\n## Từ vựng\n- **siêu thị**: cửa hàng bán lẻ quy mô lớn với nhiều loại hàng hóa; supermarket\n- **một lần mỗi tuần**: với tần suất bảy ngày một lần; once a week\n- **nguyên liệu**: thành phần dùng để chế biến thức ăn; ingredients\n- **tươi**: mới, chưa bị ôi hoặc hỏng; fresh\n- **mua**: trả tiền để có được hàng hóa; to buy, to purchase",
+            "en": "## Grammar\n**Frequency: '[number] lần mỗi [time unit]'**: expresses recurring habits. 'Một lần mỗi tuần' = once a week. 'Để + purpose' at the end gives the reason for going to the supermarket.\n\n## Vocabulary\n- **siêu thị**: supermarket; large retail store\n- **một lần mỗi tuần**: once a week; frequency expression\n- **nguyên liệu**: ingredients; components for cooking\n- **tươi**: fresh; not spoiled or preserved\n- **mua**: to buy, to purchase",
+            "de": "## Grammatik\n**Häufigkeit: '[Zahl] lần mỗi [Zeiteinheit]'**: drückt wiederkehrende Gewohnheiten aus. 'Một lần mỗi tuần' = einmal pro Woche. 'Để + Zweck' am Ende nennt den Grund.\n\n## Wortschatz\n- **siêu thị**: Supermarkt; large retail store\n- **một lần mỗi tuần**: einmal pro Woche\n- **nguyên liệu**: Zutaten; ingredients\n- **tươi**: frisch; not spoiled\n- **mua**: kaufen; to purchase",
+            "ja": "## 文法\n**頻度: '[数] lần mỗi [時間単位]'**: 繰り返す習慣を表す。'Một lần mỗi tuần' = 週に一度。文末の'để + 目的'がスーパーへ行く理由を示す。\n\n## 語彙\n- **siêu thị**: スーパーマーケット\n- **một lần mỗi tuần**: 週に一度; frequency expression\n- **nguyên liệu**: 食材; ingredients\n- **tươi**: 新鮮な; fresh\n- **mua**: 買う; to purchase"
           }
         },
         {
           "text": "Tôi luôn chuẩn bị danh sách mua sắm để tránh mua những thứ không cần thiết.",
           "notes": {
-            "vi": "## Ngữ pháp\nTrạng từ **luôn** (always) đứng trước động từ chính, nhấn mạnh thói quen không có ngoại lệ. Động từ **tránh + [động từ]** có nghĩa là không để điều gì đó xảy ra, tương đương \"avoid + V-ing\".\n\n## Từ vựng\n- **luôn**: mọi lúc, không có trường hợp ngoại lệ; always\n- **chuẩn bị**: làm sẵn trước khi cần dùng; to prepare\n- **danh sách mua sắm**: bảng ghi những món cần mua; shopping list\n- **tránh**: ngăn không để điều gì xảy ra; to avoid\n- **cần thiết**: bắt buộc phải có, không thể thiếu; necessary, needed"
+            "vi": "## Ngữ pháp\nTrạng từ **luôn** (always) đứng trước động từ chính, nhấn mạnh thói quen không có ngoại lệ. Động từ **tránh + [động từ]** có nghĩa là không để điều gì đó xảy ra, tương đương \"avoid + V-ing\".\n\n## Từ vựng\n- **luôn**: mọi lúc, không có trường hợp ngoại lệ; always\n- **chuẩn bị**: làm sẵn trước khi cần dùng; to prepare\n- **danh sách mua sắm**: bảng ghi những món cần mua; shopping list\n- **tránh**: ngăn không để điều gì xảy ra; to avoid\n- **cần thiết**: bắt buộc phải có, không thể thiếu; necessary, needed",
+            "en": "## Grammar\n**'luôn' (always)**: frequency adverb placed before the main verb, emphasizing an unbroken habit. 'Tránh + verb' = 'avoid doing'; equivalent to 'avoid + V-ing' in English.\n\n## Vocabulary\n- **luôn**: always; at all times without exception\n- **chuẩn bị**: to prepare; to make ready in advance\n- **danh sách mua sắm**: shopping list; record of items to buy\n- **tránh**: to avoid; to prevent something from happening\n- **cần thiết**: necessary; required, cannot do without",
+            "de": "## Grammatik\n**'luôn' (immer)**: Häufigkeitsadverb vor dem Hauptverb, betont eine ununterbrochene Gewohnheit. 'Tránh + Verb' = 'vermeiden zu tun'; entspricht 'avoid + V-ing'.\n\n## Wortschatz\n- **luôn**: immer; at all times\n- **chuẩn bị**: vorbereiten; to make ready\n- **danh sách mua sắm**: Einkaufsliste\n- **tránh**: vermeiden; to prevent\n- **cần thiết**: notwendig; required",
+            "ja": "## 文法\n**'luôn'（いつも）**: 主動詞の前に置く頻度副詞、例外のない習慣を強調。'Tránh + 動詞' = '〜することを避ける'; 英語の'avoid + V-ing'に相当。\n\n## 語彙\n- **luôn**: いつも; always\n- **chuẩn bị**: 準備する; to prepare\n- **danh sách mua sắm**: 買い物リスト\n- **tránh**: 避ける; to avoid\n- **cần thiết**: 必要な; necessary"
           }
         },
         {
           "text": "Tôi tìm mua rau củ theo mùa và thịt hoặc cá chất lượng cao.",
           "notes": {
-            "vi": "## Ngữ pháp\nCụm động từ **tìm mua** gồm hai động từ ghép: \"tìm\" (search) + \"mua\" (buy), ý nghĩa là tích cực tìm kiếm để mua được. Cụm **theo mùa** là trạng ngữ chỉ tiêu chí lựa chọn — rau củ phù hợp với mùa đang có.\n\n## Từ vựng\n- **rau củ**: các loại rau và củ quả dùng làm thức ăn; vegetables\n- **theo mùa**: phù hợp với mùa đang diễn ra, thu hoạch đúng thời vụ; seasonal\n- **thịt**: phần cơ bắp của động vật dùng làm thực phẩm; meat\n- **cá**: động vật thủy sinh dùng làm thực phẩm; fish\n- **chất lượng cao**: có giá trị, độ tốt vượt trội; high quality"
+            "vi": "## Ngữ pháp\nCụm động từ **tìm mua** gồm hai động từ ghép: \"tìm\" (search) + \"mua\" (buy), ý nghĩa là tích cực tìm kiếm để mua được. Cụm **theo mùa** là trạng ngữ chỉ tiêu chí lựa chọn — rau củ phù hợp với mùa đang có.\n\n## Từ vựng\n- **rau củ**: các loại rau và củ quả dùng làm thức ăn; vegetables\n- **theo mùa**: phù hợp với mùa đang diễn ra, thu hoạch đúng thời vụ; seasonal\n- **thịt**: phần cơ bắp của động vật dùng làm thực phẩm; meat\n- **cá**: động vật thủy sinh dùng làm thực phẩm; fish\n- **chất lượng cao**: có giá trị, độ tốt vượt trội; high quality",
+            "en": "## Grammar\n**'tìm mua' (compound verb)**: two verbs combined: tìm (search) + mua (buy) = to actively seek out and buy. 'Theo mùa' = seasonal (theo = according to/following). 'Hoặc' connects two alternatives.\n\n## Vocabulary\n- **rau củ**: vegetables; edible plants and roots\n- **theo mùa**: seasonal; in accordance with the current season\n- **thịt**: meat; animal flesh as food\n- **cá**: fish; aquatic animal as food\n- **chất lượng cao**: high quality; superior grade",
+            "de": "## Grammatik\n**'tìm mua' (zusammengesetztes Verb)**: zwei Verben kombiniert: tìm (suchen) + mua (kaufen) = aktiv suchen und kaufen. 'Theo mùa' = saisonal. 'Hoặc' verbindet Alternativen.\n\n## Wortschatz\n- **rau củ**: Gemüse; edible plants\n- **theo mùa**: saisonal; in-season\n- **thịt**: Fleisch; animal flesh\n- **cá**: Fisch; aquatic food\n- **chất lượng cao**: hochwertig; superior grade",
+            "ja": "## 文法\n**'tìm mua'（複合動詞）**: 二つの動詞を組み合わせ: tìm（探す）+ mua（買う）= 積極的に探して買う。'Theo mùa' = 旬の（theo = 〜に従って）。'Hoặc'が二つの選択肢をつなぐ。\n\n## 語彙\n- **rau củ**: 野菜; edible plants\n- **theo mùa**: 季節の; in-season\n- **thịt**: 肉; animal flesh\n- **cá**: 魚; aquatic food\n- **chất lượng cao**: 高品質; superior grade"
           }
         },
         {
           "text": "Nếu thấy giảm giá tốt, tôi có thể mua thêm đồ dự trữ.",
           "notes": {
-            "vi": "## Ngữ pháp\nCấu trúc **Nếu + [điều kiện], [kết quả]** là câu điều kiện. Trợ động từ **có thể** diễn đạt khả năng hoặc sự không chắc chắn, tương đương \"might/may\" trong tiếng Anh. Khác với **sẽ** (will), \"có thể\" mang nghĩa không nhất định.\n\n## Từ vựng\n- **giảm giá**: hạ mức giá xuống thấp hơn bình thường; discount, sale\n- **tốt**: ở đây nghĩa là đáng giá, hấp dẫn; good, attractive (about a deal)\n- **có thể**: diễn đạt khả năng xảy ra, không chắc chắn; can, might, may\n- **mua thêm**: mua nhiều hơn số lượng thông thường; to buy extra\n- **dự trữ**: hàng hóa cất giữ để dùng dần; pantry stock, reserves"
+            "vi": "## Ngữ pháp\nCấu trúc **Nếu + [điều kiện], [kết quả]** là câu điều kiện. Trợ động từ **có thể** diễn đạt khả năng hoặc sự không chắc chắn, tương đương \"might/may\" trong tiếng Anh. Khác với **sẽ** (will), \"có thể\" mang nghĩa không nhất định.\n\n## Từ vựng\n- **giảm giá**: hạ mức giá xuống thấp hơn bình thường; discount, sale\n- **tốt**: ở đây nghĩa là đáng giá, hấp dẫn; good, attractive (about a deal)\n- **có thể**: diễn đạt khả năng xảy ra, không chắc chắn; can, might, may\n- **mua thêm**: mua nhiều hơn số lượng thông thường; to buy extra\n- **dự trữ**: hàng hóa cất giữ để dùng dần; pantry stock, reserves",
+            "en": "## Grammar\n**'Nếu + condition, có thể + result'**: conditional structure. 'Có thể' expresses possibility/uncertainty (= might/may), weaker than 'sẽ' (will). Subject can be omitted when clear from context.\n\n## Vocabulary\n- **giảm giá**: discount, sale; a reduction in price\n- **tốt**: good, attractive (here: describing a good deal)\n- **có thể**: can, might, may; expresses possibility\n- **mua thêm**: to buy extra; to purchase more than usual\n- **dự trữ**: pantry stock, reserves; goods stored for later use",
+            "de": "## Grammatik\n**'Nếu + Bedingung, có thể + Ergebnis'**: Bedingungsstruktur. 'Có thể' drückt Möglichkeit aus (= könnte/vielleicht), schwächer als 'sẽ' (wird). Subjekt kann weggelassen werden.\n\n## Wortschatz\n- **giảm giá**: Rabatt, Sonderangebot; price reduction\n- **tốt**: gut, attraktiv (hier: ein gutes Angebot)\n- **có thể**: kann, könnte; expresses possibility\n- **mua thêm**: mehr kaufen; to buy extra\n- **dự trữ**: Vorrat; stored goods",
+            "ja": "## 文法\n**'Nếu + 条件, có thể + 結果'**: 条件構造。'Có thể'は可能性/不確かさを表す（= かもしれない）、'sẽ'（〜だろう）より弱い。文脈から明らかな時は主語を省略できる。\n\n## 語彙\n- **giảm giá**: 割引、セール; price reduction\n- **tốt**: 良い、お得な; good deal\n- **có thể**: 〜できる/かもしれない; possibility\n- **mua thêm**: 多めに買う; to buy extra\n- **dự trữ**: 備蓄; stored goods"
           }
         },
         {
           "text": "Nấu ăn với thực phẩm tươi sạch thì lành mạnh hơn nhiều so với việc đi ăn ngoài mỗi ngày.",
           "notes": {
-            "vi": "## Ngữ pháp\nCấu trúc so sánh **[A] thì [tính từ] hơn nhiều so với [B]** dùng để so sánh mức độ vượt trội rõ rệt. Từ **nhiều** sau tính từ so sánh nhấn mạnh sự chênh lệch lớn. Cụm \"so với\" tương đương \"compared to\" hoặc \"than\" trong so sánh.\n\n## Từ vựng\n- **nấu ăn**: chế biến thức ăn bằng nhiệt; to cook\n- **thực phẩm tươi sạch**: thức ăn mới, không chứa chất độc hại; fresh and clean food\n- **lành mạnh**: tốt cho sức khỏe, không gây hại; healthy\n- **so với**: đặt cạnh nhau để thấy sự khác biệt; compared to, versus\n- **đi ăn ngoài**: ăn tại nhà hàng hoặc quán ăn bên ngoài; to eat out"
+            "vi": "## Ngữ pháp\nCấu trúc so sánh **[A] thì [tính từ] hơn nhiều so với [B]** dùng để so sánh mức độ vượt trội rõ rệt. Từ **nhiều** sau tính từ so sánh nhấn mạnh sự chênh lệch lớn. Cụm \"so với\" tương đương \"compared to\" hoặc \"than\" trong so sánh.\n\n## Từ vựng\n- **nấu ăn**: chế biến thức ăn bằng nhiệt; to cook\n- **thực phẩm tươi sạch**: thức ăn mới, không chứa chất độc hại; fresh and clean food\n- **lành mạnh**: tốt cho sức khỏe, không gây hại; healthy\n- **so với**: đặt cạnh nhau để thấy sự khác biệt; compared to, versus\n- **đi ăn ngoài**: ăn tại nhà hàng hoặc quán ăn bên ngoài; to eat out",
+            "en": "## Grammar\n**'[A] thì [adj] hơn nhiều so với [B]'**: emphatic comparative. 'Nhiều' after the comparative adjective reinforces the degree of difference ('much more'). 'So với' = compared to / than.\n\n## Vocabulary\n- **nấu ăn**: to cook; to prepare food with heat\n- **thực phẩm tươi sạch**: fresh and clean food; unprocessed quality produce\n- **lành mạnh**: healthy; good for one's health\n- **so với**: compared to, versus; used in comparisons\n- **đi ăn ngoài**: to eat out; to dine at a restaurant",
+            "de": "## Grammatik\n**'[A] thì [Adj.] hơn nhiều so với [B]'**: betonter Komparativ. 'Nhiều' nach dem Komparativ-Adjektiv verstärkt den Unterschied ('viel mehr'). 'So với' = im Vergleich zu.\n\n## Wortschatz\n- **nấu ăn**: kochen; to prepare food\n- **thực phẩm tươi sạch**: frische saubere Lebensmittel; unprocessed produce\n- **lành mạnh**: gesund; good for health\n- **so với**: im Vergleich zu; compared to\n- **đi ăn ngoài**: auswärts essen; to eat at a restaurant",
+            "ja": "## 文法\n**'[A] thì [形容詞] hơn nhiều so với [B]'**: 強調比較。比較形容詞の後の'nhiều'が差の程度を強化（'ずっと〜'）。'So với' = 〜と比べて。\n\n## 語彙\n- **nấu ăn**: 料理する; to cook\n- **thực phẩm tươi sạch**: 新鮮で清潔な食材; fresh produce\n- **lành mạnh**: 健康的な; good for health\n- **so với**: 〜と比べて; compared to\n- **đi ăn ngoài**: 外食する; to eat out"
           }
         }
       ]

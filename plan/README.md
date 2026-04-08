@@ -27,6 +27,8 @@ Supports multi-language practice per topic (e.g., "Shopping" in Japanese, Spanis
 
 ## Story Files
 
+### Desktop Track (Bun + SQLite + filesystem)
+
 | File | Epic | Stories | Phase |
 |------|------|---------|-------|
 | [epic-1-setup.md](./epic-1-setup.md) | Project Setup & Infrastructure | 7 | **Phase 1** |
@@ -38,13 +40,23 @@ Supports multi-language practice per topic (e.g., "Shopping" in Japanese, Spanis
 | [epic-7-tracking.md](./epic-7-tracking.md) | Practice Tracking & Dashboard | 5 | **Phase 6** |
 | [epic-8-settings.md](./epic-8-settings.md) | Settings & Configuration | 6 | **Phase 7** |
 | [epic-9-import-export.md](./epic-9-import-export.md) | Import / Export | 5 | **Phase 2+7** |
-| **Total** | | **55 stories** | |
+| epic-10-*.md *(TBD)* | *(Epic 10 — TBD)* | TBD | **TBD** |
+| **Desktop Total** | | **55+ stories** | |
+
+### Cloudflare Track (Workers + D1 + R2)
+
+| File | Epic | Stories | Phase |
+|------|------|---------|-------|
+| [epic-11-cloudflare.md](./epic-11-cloudflare.md) | Cloudflare Deployment Target | 8 | **CF-1 → CF-4** |
+| **CF Total** | | **8 stories** | |
 
 ---
 
 ## Implementation Phases
 
 ```
+────────── DESKTOP TRACK ──────────
+
 Phase 1 — Working Shell
   Epic 1: Project setup, Bun server, Vite+React SPA, SQLite init, dev tooling
   Stories: US-1.1 → US-1.7
@@ -76,6 +88,27 @@ Phase 7 — Polish
   Epic 8: Settings (voice, speed/pitch, practice mode, cache management)
   Epic 9 (remainder): Export per-topic JSON
   Stories: US-8.1 → US-8.6, US-9.5
+
+Phase 8 — TBD (Epic 10)
+  Details TBD
+
+────────── CLOUDFLARE TRACK ──────────
+
+CF-1 — Scaffold & Database
+  Epic 11: Wrangler setup, D1 schema, CF resource provisioning
+  Stories: US-11.1, US-11.2
+
+CF-2 — Core API + Storage
+  Epic 11: Port routes (topics/versions/sentences), Azure TTS + R2 cache, R2 recordings
+  Stories: US-11.3, US-11.4, US-11.5
+
+CF-3 — Import & Deploy
+  Epic 11: Import route, GitHub Actions CI/CD pipeline
+  Stories: US-11.6, US-11.7
+
+CF-4 — Auth & Multi-user
+  Epic 11: Cloudflare Access or JWT auth, per-user data scoping
+  Stories: US-11.8
 ```
 
 ---

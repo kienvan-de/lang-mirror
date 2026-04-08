@@ -12,26 +12,47 @@
         {
           "text": "We are currently investigating why the API is returning a 500 error code.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing"
+            "en": "## Grammar\n**Present continuous** (*are investigating*): emphasizes the action is happening right now. **why + subject + verb** is an indirect question used as the object of *investigating*. **is returning**: another present continuous inside the embedded clause — the API's current behavior.\n\n## Vocabulary\n- **currently**: at this moment, right now\n- **investigating**: actively looking into a problem\n- **API**: Application Programming Interface — a way for software to communicate\n- **returning**: sending back a response (technical usage)\n- **500 error code**: HTTP status code indicating an internal server error",
+            "de": "## Grammatik\n**Verlaufsform** (*are investigating*): betont, dass die Handlung gerade jetzt stattfindet. **why + Subjekt + Verb** ist eine indirekte Frage als Objekt von *investigating*. **is returning**: weitere Verlaufsform im eingebetteten Satz.\n\n## Wortschatz\n- **currently**: derzeit, momentan\n- **investigating**: untersuchen, nachforschen\n- **API**: Programmierschnittstelle\n- **returning**: zurueckgeben (technisch)\n- **500 error code**: HTTP-Statuscode fuer internen Serverfehler",
+            "ja": "## 文法\n**現在進行形** (*are investigating*)：今まさに行われている行動を強調します。**why + 主語 + 動詞** は *investigating* の目的語となる間接疑問文です。**is returning**：埋め込み節内のもう一つの現在進行形。\n\n## 語彙\n- **currently**: 現在、今まさに\n- **investigating**: 調査している\n- **API**: アプリケーションプログラミングインターフェース\n- **returning**: 返している（技術的用法）\n- **500 error code**: 内部サーバーエラーを示すHTTPステータスコード",
+            "vi": "## Ngữ pháp\n**Thì tiếp diễn** (*are investigating*): nhấn mạnh hành động đang xảy ra ngay lúc này. **why + chủ ngữ + động từ** là câu hỏi gián tiếp làm tân ngữ của *investigating*. **is returning**: thì tiếp diễn khác trong mệnh đề nhúng.\n\n## Từ vựng\n- **currently**: hiện tại, ngay lúc này\n- **investigating**: điều tra, tìm hiểu\n- **API**: giao diện lập trình ứng dụng\n- **returning**: trả về (dùng trong kỹ thuật)\n- **500 error code**: mã lỗi HTTP chỉ lỗi máy chủ nội bộ"
           }
         },
         {
           "text": "It seems that the server is not receiving the correct parameters from the client.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing"
+            "en": "## Grammar\n**It seems that + clause**: impersonal expression of appearance or probability — softens a conclusion. **is not receiving**: present continuous negative — the server's ongoing failure to receive. **correct parameters**: adjective + noun; *correct* modifies *parameters*.\n\n## Vocabulary\n- **it seems that**: apparently, it appears that\n- **server**: a computer that provides services to other computers\n- **receiving**: getting, accepting (data)\n- **correct**: accurate, right\n- **parameters**: values passed into a function or request",
+            "de": "## Grammatik\n**It seems that + Satz**: unpersoenlicher Ausdruck der Wahrscheinlichkeit — mildert eine Schlussfolgerung ab. **is not receiving**: Verlaufsform negiert — das andauernde Versagen des Servers. **correct parameters**: Adjektiv + Nomen.\n\n## Wortschatz\n- **it seems that**: es scheint, dass; anscheinend\n- **server**: der Server\n- **receiving**: empfangen, erhalten\n- **correct**: korrekt, richtig\n- **parameters**: die Parameter (Eingabewerte)",
+            "ja": "## 文法\n**It seems that + 節**：外見や確率を表す非人称表現 — 結論を和らげます。**is not receiving**：現在進行形の否定 — サーバーが受け取り続けていない状態。**correct parameters**：形容詞 + 名詞。\n\n## 語彙\n- **it seems that**: 〜のようだ、〜らしい\n- **server**: サーバー\n- **receiving**: 受け取っている\n- **correct**: 正しい\n- **parameters**: パラメータ（関数やリクエストに渡す値）",
+            "vi": "## Ngữ pháp\n**It seems that + mệnh đề**: biểu đạt suy đoán hoặc xác suất — làm mềm kết luận. **is not receiving**: thì tiếp diễn phủ định — máy chủ liên tục không nhận được. **correct parameters**: tính từ + danh từ.\n\n## Từ vựng\n- **it seems that**: có vẻ như, dường như\n- **server**: máy chủ\n- **receiving**: nhận, tiếp nhận\n- **correct**: chính xác, đúng\n- **parameters**: tham số (giá trị truyền vào hàm hoặc yêu cầu)"
           }
         },
         {
-          "text": "I will check the logs to see exactly where the connection fails."
+          "text": "I will check the logs to see exactly where the connection fails.",
+          "notes": {
+            "en": "## Grammar\n**will + infinitive**: simple future for a decision or plan made at the moment of speaking. **to see**: infinitive of purpose — explains why I will check the logs. **where the connection fails**: indirect question (embedded clause) as object of *see* — note the word order is statement order, not question order.\n\n## Vocabulary\n- **check**: to examine, to inspect\n- **logs**: records of system or application events\n- **exactly**: precisely, with no ambiguity\n- **connection**: a link between two systems or components\n- **fails**: stops working, breaks down",
+            "de": "## Grammatik\n**will + Infinitiv**: einfache Zukunft fuer eine spontane Entscheidung. **to see**: Infinitiv des Zwecks. **where the connection fails**: indirekte Frage als Objekt von *see* — Aussagestellung, keine Fragestellung.\n\n## Wortschatz\n- **check**: ueberpruefen, kontrollieren\n- **logs**: die Logs, Protokolldateien\n- **exactly**: genau, praezise\n- **connection**: die Verbindung\n- **fails**: versagt, bricht zusammen",
+            "ja": "## 文法\n**will + 動詞の原形**：発話時に決めた計画や意図を表す単純未来。**to see**：目的の不定詞 — なぜログを確認するかを説明。**where the connection fails**：*see* の目的語となる間接疑問 — 疑問文ではなく平叙文の語順。\n\n## 語彙\n- **check**: 確認する、チェックする\n- **logs**: ログ（システムや操作の記録）\n- **exactly**: 正確に\n- **connection**: 接続\n- **fails**: 失敗する、切れる",
+            "vi": "## Ngữ pháp\n**will + động từ nguyên thể**: tương lai đơn cho quyết định được đưa ra ngay lúc nói. **to see**: bất định từ chỉ mục đích. **where the connection fails**: câu hỏi gián tiếp làm tân ngữ của *see* — dùng trật tự câu trần thuật, không phải câu hỏi.\n\n## Từ vựng\n- **check**: kiểm tra, xem xét\n- **logs**: nhật ký (bản ghi sự kiện hệ thống)\n- **exactly**: chính xác, đúng\n- **connection**: kết nối\n- **fails**: thất bại, ngừng hoạt động"
+          }
         },
         {
           "text": "If the configuration is wrong, we need to update the environment variables.",
           "notes": {
-            "en": "Conditional: 'If + present simple, … will/can…'"
+            "en": "## Grammar\n**Type 1 conditional**: *If + present simple, [present simple with modal meaning]* — *need to* expresses necessity. The main clause uses *need to update* rather than *will update*, emphasizing obligation rather than prediction. **environment variables**: compound noun used in software contexts.\n\n## Vocabulary\n- **configuration**: the settings and parameters that control how software behaves\n- **wrong**: incorrect, not as it should be\n- **need to**: must, have to (expressing necessity)\n- **update**: to change to a newer or correct value\n- **environment variables**: named values stored in the operating system used by applications",
+            "de": "## Grammatik\n**Typ-1-Konditionalsatz**: *If + Prasens, [Prasens mit Modalitaet]* — *need to* drueckt Notwendigkeit aus. Die Hauptklausel betont Verpflichtung. **environment variables**: zusammengesetztes Nomen.\n\n## Wortschatz\n- **configuration**: die Konfiguration, Einstellungen\n- **wrong**: falsch, nicht korrekt\n- **need to**: mussen, benoetigen\n- **update**: aktualisieren\n- **environment variables**: Umgebungsvariablen",
+            "ja": "## 文法\n**第1条件文**：*If + 現在形、[現在形+モーダル的意味]* — *need to* は必要性を表します。主節は予測より義務を強調。**environment variables**：ソフトウェア文脈の複合名詞。\n\n## 語彙\n- **configuration**: 設定、コンフィギュレーション\n- **wrong**: 間違っている\n- **need to**: 〜する必要がある\n- **update**: 更新する\n- **environment variables**: 環境変数",
+            "vi": "## Ngữ pháp\n**Câu điều kiện loại 1**: *If + hiện tại đơn, [hiện tại đơn có nghĩa modal]* — *need to* diễn đạt sự cần thiết. Mệnh đề chính nhấn mạnh nghĩa vụ hơn là dự đoán.\n\n## Từ vựng\n- **configuration**: cấu hình, thiết lập\n- **wrong**: sai, không đúng\n- **need to**: cần phải\n- **update**: cập nhật\n- **environment variables**: biến môi trường"
           }
         },
         {
-          "text": "We hope to fix this issue before the users notice any downtime."
+          "text": "We hope to fix this issue before the users notice any downtime.",
+          "notes": {
+            "en": "## Grammar\n**hope to + infinitive**: expresses a desired outcome — 'we want and expect to fix'. **before + clause**: temporal conjunction — sets the deadline for the action. **notice**: to become aware of. **any downtime**: *any* in a positive context after *notice* = 'even the slightest amount'.\n\n## Vocabulary\n- **hope to**: to want and expect to\n- **fix**: to repair, to resolve\n- **issue**: a problem or malfunction\n- **notice**: to observe, to become aware of\n- **downtime**: a period when a system is unavailable or not working",
+            "de": "## Grammatik\n**hope to + Infinitiv**: drueckt ein gewuenschtes Ergebnis aus. **before + Satz**: temporale Konjunktion — setzt die Frist. **notice**: bemerken, wahrnehmen. **any downtime**: *any* im positiven Kontext = 'auch nur die kleinste Menge'.\n\n## Wortschatz\n- **hope to**: hoffen zu, erwarten zu\n- **fix**: beheben, reparieren\n- **issue**: das Problem, die Stoerung\n- **notice**: bemerken\n- **downtime**: die Ausfallzeit",
+            "ja": "## 文法\n**hope to + 動詞の原形**：望ましい結果を表します。**before + 節**：時の接続詞 — 行動の期限を設定。**notice**：気づく。**any downtime**：肯定文中の *any* = 「わずかでも」。\n\n## 語彙\n- **hope to**: 〜することを望む\n- **fix**: 修正する、解決する\n- **issue**: 問題、不具合\n- **notice**: 気づく\n- **downtime**: ダウンタイム（システム停止時間）",
+            "vi": "## Ngữ pháp\n**hope to + động từ nguyên thể**: diễn đạt kết quả mong muốn. **before + mệnh đề**: liên từ thời gian — đặt ra thời hạn. **notice**: nhận ra, chú ý thấy. **any downtime**: *any* trong câu khẳng định = 'dù chỉ một chút'.\n\n## Từ vựng\n- **hope to**: hy vọng, mong muốn\n- **fix**: sửa, khắc phục\n- **issue**: vấn đề, sự cố\n- **notice**: nhận thấy, chú ý\n- **downtime**: thời gian chết, gián đoạn dịch vụ"
+          }
         }
       ]
     },
@@ -45,28 +66,46 @@
         {
           "text": "Die API funktioniert nicht, wir suchen jetzt den Fehler.",
           "notes": {
-            "de": "Negation: 'nicht' (verb/adj) vs 'kein' (noun)"
+            "en": "## Grammar\n**nicht** (negation of verbs/adjectives): *funktioniert nicht* = 'does not work'. In German, *nicht* negates verbs and adjectives, while *kein* negates nouns. **den Fehler**: masculine accusative (*der Fehler* -> *den Fehler*). Two independent clauses joined by a comma — German allows comma-joined main clauses.\n\n## Vocabulary\n- **funktioniert nicht**: does not work, is not functioning\n- **suchen**: to search for, to look for\n- **jetzt**: now, at this moment\n- **den Fehler**: the error, the bug (masc. accusative)",
+            "de": "## Grammatik\n**nicht** als Negation von Verben/Adjektiven: *funktioniert nicht* — Verb + *nicht*. **kein** wuerde hingegen ein Nomen negieren. **den Fehler**: maskulines Nomen im Akkusativ. Zwei Hauptsaetze durch Komma verbunden.\n\n## Wortschatz\n- **funktioniert nicht**: funktioniert nicht, arbeitet nicht\n- **suchen**: suchen, nach etwas suchen\n- **jetzt**: jetzt, im Moment\n- **den Fehler**: den Fehler, Bug (Akk.)",
+            "ja": "## 文法\n**nicht**（動詞・形容詞の否定）：*funktioniert nicht* = 「動かない」。ドイツ語では動詞・形容詞を *nicht* で、名詞を *kein* で否定します。**den Fehler**：男性名詞の対格。コンマでつながれた二つの独立した主節。\n\n## 語彙\n- **funktioniert nicht**: 動作しない、機能しない\n- **suchen**: 探す\n- **jetzt**: 今\n- **den Fehler**: エラー、バグ（男性名詞対格）",
+            "vi": "## Ngữ pháp\n**nicht** (phủ định động từ/tính từ): *funktioniert nicht* = 'không hoạt động'. Trong tiếng Đức, *nicht* phủ định động từ/tính từ, còn *kein* phủ định danh từ. **den Fehler**: tân ngữ cách giống đực. Hai mệnh đề chính nối bằng dấu phẩy.\n\n## Từ vựng\n- **funktioniert nicht**: không hoạt động\n- **suchen**: tìm kiếm\n- **jetzt**: bây giờ\n- **den Fehler**: lỗi, bug (tân ngữ cách)"
           }
         },
         {
           "text": "Der Server bekommt keine Informationen vom Client.",
           "notes": {
-            "de": "Negation: 'nicht' (verb/adj) vs 'kein' (noun)"
+            "en": "## Grammar\n**keine** (negation of a noun): *keine Informationen* — *kein* in its plural form negates the noun directly (= 'no information'). **vom Client**: contraction of *von dem* + dative — *von* always takes dative. **bekommt**: 3rd person singular of *bekommen* (to receive/get).\n\n## Vocabulary\n- **bekommt**: receives, gets (3rd person singular of *bekommen*)\n- **keine Informationen**: no information (kein + plural noun)\n- **vom**: from the (contraction of *von dem*, dative)\n- **Client**: client (loanword)",
+            "de": "## Grammatik\n**keine** als Negationsartikel fuer Nomen: *keine Informationen* — Plural von *kein*. **vom** = *von dem* (Dativkontraktion) — *von* regiert immer Dativ. **bekommt**: 3. Person Singular von *bekommen*.\n\n## Wortschatz\n- **bekommt**: empfaengt, erhaelt\n- **keine Informationen**: keine Daten, keinerlei Informationen\n- **vom**: von dem (Dativ)\n- **Client**: der Client (Lehnwort)",
+            "ja": "## 文法\n**keine**（名詞の否定冠詞）：*keine Informationen* — *kein* の複数形で名詞を直接否定（= 「情報がない」）。**vom Client**：*von dem* の縮約形 + 与格 — *von* は常に与格を支配。**bekommt**：*bekommen* の3人称単数。\n\n## 語彙\n- **bekommt**: 受け取る（*bekommen* の3人称単数）\n- **keine Informationen**: 情報がない（*kein* + 複数名詞）\n- **vom**: 〜から（*von dem* の縮約）\n- **Client**: クライアント（外来語）",
+            "vi": "## Ngữ pháp\n**keine** (mạo từ phủ định danh từ): *keine Informationen* — *kein* ở số nhiều phủ định danh từ trực tiếp (= 'không có thông tin'). **vom Client**: rút gọn của *von dem* + cách cho — *von* luôn dùng cách cho. **bekommt**: ngôi 3 số ít của *bekommen*.\n\n## Từ vựng\n- **bekommt**: nhận, tiếp nhận (ngôi 3 số ít của *bekommen*)\n- **keine Informationen**: không có thông tin (*kein* + danh từ số nhiều)\n- **vom**: từ (rút gọn của *von dem*, cách cho)\n- **Client**: client (từ mượn)"
           }
         },
         {
-          "text": "Ich lese die Logs und suche die falsche Verbindung."
+          "text": "Ich lese die Logs und suche die falsche Verbindung.",
+          "notes": {
+            "en": "## Grammar\n**Coordinating conjunction *und***: joins two main clauses; the subject *Ich* is dropped in the second clause (ellipsis). **die falsche Verbindung**: feminine accusative — *die Verbindung* is feminine, adjective *falsch* takes the weak ending *-e* after the definite article.\n\n## Vocabulary\n- **lese**: to read (1st person singular of *lesen*)\n- **die Logs**: the logs (loanword, plural)\n- **suche**: to search for (1st person singular of *suchen*)\n- **falsche Verbindung**: wrong/broken connection (fem. accusative)",
+            "de": "## Grammatik\n**Konjunktion *und***: verbindet zwei Hauptsaetze; *Ich* wird im zweiten Satz weggelassen. **die falsche Verbindung**: feminines Nomen im Akkusativ — schwache Adjektivendung *-e* nach bestimmtem Artikel.\n\n## Wortschatz\n- **lese**: 1. Person Singular von *lesen*\n- **die Logs**: die Protokolldateien (Pl.)\n- **suche**: 1. Person Singular von *suchen*\n- **falsche Verbindung**: fehlerhafte Verbindung (Akk., fem.)",
+            "ja": "## 文法\n**等位接続詞 *und***：二つの主節をつなぎ、二番目の節で主語 *Ich* が省略されます。**die falsche Verbindung**：女性名詞の対格 — 定冠詞の後の形容詞語尾は弱変化 *-e*。\n\n## 語彙\n- **lese**: 読む（*lesen* の1人称単数）\n- **die Logs**: ログ（外来語、複数）\n- **suche**: 探す（*suchen* の1人称単数）\n- **falsche Verbindung**: 誤った接続（女性名詞対格）",
+            "vi": "## Ngữ pháp\n**Liên từ đẳng lập *und*** nối hai mệnh đề chính; *Ich* được lược bỏ ở mệnh đề thứ hai. **die falsche Verbindung**: tân ngữ cách giống cái — tính từ *falsch* dùng đuôi yếu *-e* sau mạo từ xác định.\n\n## Từ vựng\n- **lese**: đọc (ngôi 1 số ít của *lesen*)\n- **die Logs**: nhật ký (từ mượn, số nhiều)\n- **suche**: tìm kiếm (ngôi 1 số ít của *suchen*)\n- **falsche Verbindung**: kết nối sai/lỗi (tân ngữ cách, giống cái)"
+          }
         },
         {
           "text": "Vielleicht ist die Konfiguration falsch, dann ändern wir sie.",
           "notes": {
-            "de": "Word order: 'dann' (then) causes verb-second position"
+            "en": "## Grammar\n**Verb-second (V2)**: *Vielleicht* (perhaps) fronted, so *ist* comes second. **dann** (then) fronted in the second main clause, causing *aendern* to come second and the subject *wir* to invert after the verb. **sie** is a pronoun referring back to *die Konfiguration* (feminine).\n\n## Vocabulary\n- **vielleicht**: perhaps, maybe\n- **Konfiguration**: configuration, settings\n- **falsch**: wrong, incorrect\n- **dann**: then, in that case\n- **aendern**: to change, to modify",
+            "de": "## Grammatik\n**Verb-Zweit-Stellung**: *Vielleicht* auf Position 1 -> *ist* auf Position 2. Im zweiten Hauptsatz steht *dann* auf Position 1 -> *aendern* auf Position 2, Subjekt *wir* folgt nach dem Verb (Inversion). **sie** als Pronomen fuer *die Konfiguration* (feminim).\n\n## Wortschatz\n- **vielleicht**: vielleicht, moeglicherweise\n- **Konfiguration**: die Konfiguration\n- **falsch**: falsch, nicht korrekt\n- **dann**: dann, in dem Fall\n- **aendern**: aendern, modifizieren",
+            "ja": "## 文法\n**定動詞第2位（V2）**：*Vielleicht*（おそらく）が第1位に来るため *ist* が第2位。二番目の主節では *dann*（そのとき）が第1位に来て *aendern* が第2位、主語 *wir* が動詞の後（倒置）。**sie** は *die Konfiguration*（女性名詞）を指す代名詞。\n\n## 語彙\n- **vielleicht**: おそらく、もしかしたら\n- **Konfiguration**: 設定、コンフィギュレーション\n- **falsch**: 間違っている\n- **dann**: そのとき、その場合\n- **aendern**: 変更する",
+            "vi": "## Ngữ pháp\n**V2**: *Vielleicht* đứng đầu -> *ist* đứng thứ hai. Trong mệnh đề chính thứ hai, *dann* đứng đầu -> *aendern* đứng thứ hai, chủ ngữ *wir* đảo sau động từ. **sie** là đại từ thay cho *die Konfiguration* (giống cái).\n\n## Từ vựng\n- **vielleicht**: có lẽ, có thể\n- **Konfiguration**: cấu hình\n- **falsch**: sai, không đúng\n- **dann**: khi đó, trong trường hợp đó\n- **aendern**: thay đổi, chỉnh sửa"
           }
         },
         {
           "text": "Wir reparieren das schnell, dann läuft das System wieder.",
           "notes": {
-            "de": "Word order: 'dann' (then) causes verb-second position"
+            "en": "## Grammar\n**dann** (then) causes V2 inversion in the second main clause: *dann laeuft das System* — verb *laeuft* is second, subject *das System* follows. **wieder**: adverb meaning 'again' — placed at the end. **reparieren**: regular verb, 1st person plural present.\n\n## Vocabulary\n- **reparieren**: to fix, to repair\n- **das**: it/that (accusative neuter pronoun, refers to the problem)\n- **schnell**: quickly, fast\n- **dann**: then\n- **laeuft wieder**: runs again, works again (*laufen* = to run/work)",
+            "de": "## Grammatik\n**dann** verursacht V2-Inversion im zweiten Hauptsatz: *dann laeuft das System* — Verb *laeuft* auf Position 2, Subjekt *das System* danach. **wieder**: Adverb 'wieder' am Satzende. **reparieren**: regelmaessiges Verb, 1. Person Plural Prasens.\n\n## Wortschatz\n- **reparieren**: reparieren, beheben\n- **das**: es/das (Akkusativpronomen, bezieht sich auf das Problem)\n- **schnell**: schnell, rasch\n- **dann**: dann\n- **laeuft wieder**: laeuft wieder, funktioniert wieder",
+            "ja": "## 文法\n**dann** が二番目の主節でV2倒置を引き起こします：*dann laeuft das System* — 動詞 *laeuft* が第2位、主語 *das System* がその後。**wieder**：「また・再び」という副詞、文末に置かれます。**reparieren**：規則動詞、1人称複数現在形。\n\n## 語彙\n- **reparieren**: 修理する、直す\n- **das**: それを（中性名詞対格代名詞）\n- **schnell**: 素早く\n- **dann**: そのとき\n- **laeuft wieder**: また動く、再び動作する",
+            "vi": "## Ngữ pháp\n**dann** gây ra đảo ngữ V2 trong mệnh đề chính thứ hai: *dann laeuft das System* — động từ *laeuft* đứng thứ hai, chủ ngữ *das System* đứng sau. **wieder**: trạng từ 'lại, một lần nữa' đặt cuối câu.\n\n## Từ vựng\n- **reparieren**: sửa, khắc phục\n- **das**: nó (đại từ trung tính tân ngữ cách)\n- **schnell**: nhanh chóng\n- **dann**: khi đó\n- **laeuft wieder**: hoạt động trở lại (*laufen* = chạy/hoạt động)"
           }
         }
       ]
@@ -81,31 +120,46 @@
         {
           "text": "今、どうしてAPIがエラーを返しているか調べています。",
           "notes": {
-            "ja": "〜ています: ongoing state or habitual action"
+            "en": "## Grammar\n**〜ているか + 調べる**: *〜ているか* embeds a yes/no question ('whether') or indirect question as the object of *調べる* (to investigate). **どうして** (why) introduces an indirect question. **調べています**: *調べる* + *〜ています* = currently investigating.\n\n## Vocabulary\n- **今 (いま)**: now\n- **どうして**: why\n- **エラーを返している (かえしている)**: is returning an error\n- **調べています (しらべています)**: am investigating (ongoing)",
+            "de": "## Grammatik\n**〜ているか + 調べる**: *〜ているか* bettet eine indirekte Frage als Objekt von *調べる* (untersuchen) ein. **どうして** (warum) leitet die indirekte Frage ein. **調べています**: *調べる* + *〜ています* = untersuche gerade.\n\n## Wortschatz\n- **今**: jetzt\n- **どうして**: warum\n- **エラーを返している**: gibt einen Fehler zurueck\n- **調べています**: untersuche (laufende Handlung)",
+            "ja": "## 文法\n**〜ているか + 調べる**：*〜ているか* が間接疑問文を *調べる* の目的語として埋め込みます。**どうして**（なぜ）が間接疑問を導きます。**調べています**：*調べる* + *〜ています* = 現在調査中。\n\n## 語彙\n- **今**: 今\n- **どうして**: どうして、なぜ\n- **エラーを返している**: エラーを返している\n- **調べています**: 調べています（進行中）",
+            "vi": "## Ngữ pháp\n**〜ているか + 調べる**: *〜ているか* nhúng câu hỏi gián tiếp làm tân ngữ của *調べる* (điều tra). **どうして** (tại sao) dẫn nhập câu hỏi gián tiếp. **調べています**: *調べる* + *〜ています* = đang điều tra.\n\n## Từ vựng\n- **今 (いま)**: bây giờ\n- **どうして**: tại sao\n- **エラーを返している (かえしている)**: đang trả về lỗi\n- **調べています (しらべています)**: đang điều tra (tiếp diễn)"
           }
         },
         {
           "text": "サーバーがクライアントから正しいデータを受け取っていないようです。",
           "notes": {
-            "ja": "〜ています: ongoing state or habitual action"
+            "en": "## Grammar\n**〜ていない**: negative ongoing state — *受け取っていない* = 'is not receiving / has not been receiving'. **〜ようです**: evidential expression — 'it seems / it appears (based on evidence)'. Softer and more objective than *〜そうです*.\n\n## Vocabulary\n- **サーバー**: server (loanword)\n- **クライアント**: client (loanword)\n- **から**: from (source particle)\n- **正しい (ただしい)**: correct, right\n- **受け取っていない (うけとっていない)**: is not receiving\n- **〜ようです**: it seems, it appears",
+            "de": "## Grammatik\n**〜ていない**: negativer andauernder Zustand — *受け取っていない* = 'empfaengt nicht'. **〜ようです**: evidenzbasierter Ausdruck — 'es scheint / es sieht aus als ob (laut Beobachtung)'.\n\n## Wortschatz\n- **サーバー**: Server\n- **クライアント**: Client\n- **から**: von (Quellenpartikel)\n- **正しい**: richtig, korrekt\n- **受け取っていない**: empfaengt nicht\n- **〜ようです**: es scheint so",
+            "ja": "## 文法\n**〜ていない**：否定の継続状態 — *受け取っていない* = 「受け取っていない（継続）」。**〜ようです**：証拠に基づく推量表現 — 「〜のようだ（観察に基づく）」。*〜そうです* より客観的。\n\n## 語彙\n- **サーバー**: サーバー\n- **クライアント**: クライアント\n- **から**: 〜から（起点の助詞）\n- **正しい**: 正しい\n- **受け取っていない**: 受け取っていない\n- **〜ようです**: 〜のようです（推量）",
+            "vi": "## Ngữ pháp\n**〜ていない**: trạng thái tiếp diễn phủ định — *受け取っていない* = 'không nhận được (liên tục)'. **〜ようです**: biểu đạt dựa trên bằng chứng — 'có vẻ như, dường như (dựa trên quan sát)'. Khách quan hơn *〜そうです*.\n\n## Từ vựng\n- **サーバー**: máy chủ (từ mượn)\n- **クライアント**: client (từ mượn)\n- **から**: từ (trợ từ nguồn gốc)\n- **正しい (ただしい)**: đúng, chính xác\n- **受け取っていない (うけとっていない)**: không nhận được\n- **〜ようです**: có vẻ như"
           }
         },
         {
           "text": "ログを確認して、どこでエラーが起きているか探します。",
           "notes": {
-            "ja": "〜ています: ongoing state or habitual action"
+            "en": "## Grammar\n**〜て form (te-form)**: *確認して* connects the two actions sequentially — 'I will check the logs and then search'. **どこで〜か**: embedded question ('where') as the object of *探します*. **エラーが起きている**: *起きる* (to occur) + *〜ている* = is occurring (ongoing).\n\n## Vocabulary\n- **ログを確認して (かくにんして)**: after checking the logs (te-form)\n- **どこで**: where (location particle *で* with question word)\n- **エラーが起きている (おきている)**: an error is occurring\n- **探します (さがします)**: will search for, will look for",
+            "de": "## Grammatik\n**Te-Form (〜て)**: *確認して* verbindet zwei Handlungen sequenziell. **どこで〜か**: eingebettete Frage ('wo') als Objekt von *探します*. **エラーが起きている**: *起きる* + *〜ている* = tritt gerade auf.\n\n## Wortschatz\n- **ログを確認して**: nachdem ich die Logs geprueft habe (Te-Form)\n- **どこで**: wo (Ortspartikel *で* + Fragewort)\n- **エラーが起きている**: ein Fehler tritt auf\n- **探します**: werde suchen",
+            "ja": "## 文法\n**て形**：*確認して* が二つの行動を順序立ててつなぎます。**どこで〜か**：*探します* の目的語となる埋め込み疑問（「どこで」）。**エラーが起きている**：*起きる* + *〜ている* = 発生中。\n\n## 語彙\n- **ログを確認して**: ログを確認してから（て形）\n- **どこで**: どこで（場所を示す疑問詞）\n- **エラーが起きている**: エラーが発生している\n- **探します**: 探します",
+            "vi": "## Ngữ pháp\n**Thể て (te-form)**: *確認して* nối hai hành động theo trình tự. **どこで〜か**: câu hỏi nhúng ('ở đâu') làm tân ngữ của *探します*. **エラーが起きている**: *起きる* + *〜ている* = đang xảy ra.\n\n## Từ vựng\n- **ログを確認して (かくにんして)**: sau khi kiểm tra log (thể て)\n- **どこで**: ở đâu (trợ từ vị trí + từ hỏi)\n- **エラーが起きている (おきている)**: lỗi đang xảy ra\n- **探します (さがします)**: sẽ tìm kiếm"
           }
         },
         {
           "text": "設定（せってい）が間違っていたら、環境変数（かんきょうへんすう）を更新します。",
           "notes": {
-            "ja": "Conditional form: たら (if/when completed), ば (hypothetical)"
+            "en": "## Grammar\n**〜ていたら (conditional)**: *間違っていたら* = 'if it turns out to be wrong' — *〜ていた* (past progressive state) + *〜たら* (conditional). This implies discovering a condition that has been in a wrong state. **を更新します**: *更新する* (to update) in polite present/future form.\n\n## Vocabulary\n- **設定 (せってい)**: settings, configuration\n- **間違っていたら (まちがっていたら)**: if it is wrong (conditional)\n- **環境変数 (かんきょうへんすう)**: environment variables\n- **更新します (こうしんします)**: will update",
+            "de": "## Grammatik\n**〜ていたら (Konditional)**: *間違っていたら* = 'wenn es sich herausstellt, dass es falsch ist' — *〜ていた* (vergangener Zustand) + *〜たら* (Konditional). Impliziert das Entdecken eines fehlerhaften Zustands. **を更新します**: *更新する* im hoeflichen Praesens/Futur.\n\n## Wortschatz\n- **設定**: Einstellungen, Konfiguration\n- **間違っていたら**: wenn es falsch ist\n- **環境変数**: Umgebungsvariablen\n- **更新します**: werde aktualisieren",
+            "ja": "## 文法\n**〜ていたら（条件形）**：*間違っていたら* =「もし間違っていたら」— *〜ていた*（過去継続状態）+ *〜たら*（条件）。誤った状態が続いていることが判明した場合を想定。**を更新します**：*更新する* の丁寧現在/未来形。\n\n## 語彙\n- **設定**: 設定、コンフィグ\n- **間違っていたら**: 間違っていたら（条件）\n- **環境変数**: 環境変数\n- **更新します**: 更新します",
+            "vi": "## Ngữ pháp\n**〜ていたら (điều kiện)**: *間違っていたら* = 'nếu hóa ra là sai' — *〜ていた* (trạng thái quá khứ tiếp diễn) + *〜たら* (điều kiện). Hàm ý phát hiện trạng thái đã sai. **を更新します**: *更新する* ở thể lịch sự hiện tại/tương lai.\n\n## Từ vựng\n- **設定 (せってい)**: cài đặt, cấu hình\n- **間違っていたら (まちがっていたら)**: nếu sai (điều kiện)\n- **環境変数 (かんきょうへんすう)**: biến môi trường\n- **更新します (こうしんします)**: sẽ cập nhật"
           }
         },
         {
           "text": "ユーザーが困る前に、この問題を解決したいです。",
           "notes": {
-            "ja": "Review verb form / politeness level (ます/です)"
+            "en": "## Grammar\n**〜前に (before)**: *ユーザーが困る前に* = 'before users are troubled/affected' — *困る* (plain form) + *前に* marks the deadline. **〜たいです**: desiderative form — 'I want to [resolve]'. Expresses the speaker's wish.\n\n## Vocabulary\n- **ユーザー**: user (loanword)\n- **困る (こまる)**: to be troubled, to be in difficulty\n- **前に (まえに)**: before\n- **問題 (もんだい)**: problem, issue\n- **解決したい (かいけつしたい)**: want to solve/resolve",
+            "de": "## Grammatik\n**〜前に**: *ユーザーが困る前に* = 'bevor Nutzer betroffen sind' — *困る* (Woejterbuchform) + *前に* markiert die Frist. **〜たいです**: Wunschform — 'Ich moechte [loesen]'.\n\n## Wortschatz\n- **ユーザー**: Nutzer (Lehnwort)\n- **困る**: in Schwierigkeiten geraten\n- **前に**: bevor, vor\n- **問題**: Problem\n- **解決したい**: moechte loesen",
+            "ja": "## 文法\n**〜前に**：*ユーザーが困る前に* =「ユーザーが困る前に」— *困る*（辞書形）+ *前に* が期限を示します。**〜たいです**：希望形 — 「〜したい」という話者の願望を表します。\n\n## 語彙\n- **ユーザー**: ユーザー（外来語）\n- **困る**: 困る、困難になる\n- **前に**: 〜の前に\n- **問題**: 問題\n- **解決したい**: 解決したい",
+            "vi": "## Ngữ pháp\n**〜前に**: *ユーザーが困る前に* = 'trước khi người dùng gặp khó khăn' — *困る* (thể từ điển) + *前に* đặt ra thời hạn. **〜たいです**: thể nguyện vọng — 'tôi muốn [giải quyết]'.\n\n## Từ vựng\n- **ユーザー**: người dùng (từ mượn)\n- **困る (こまる)**: gặp khó khăn, gặp rắc rối\n- **前に (まえに)**: trước khi\n- **問題 (もんだい)**: vấn đề\n- **解決したい (かいけつしたい)**: muốn giải quyết"
           }
         }
       ]
@@ -120,30 +174,45 @@
         {
           "text": "Chúng tôi hiện đang điều tra lý do tại sao API lại trả về mã lỗi",
           "notes": {
+            "en": "## Grammar\n**hiện đang + verb**: emphasizes an action happening right now — *hiện* (currently) + *đang* (ongoing aspect). **tại sao … lại + verb**: embedded indirect question — *lại* adds a nuance of unexpectedness or undesirability ('why on earth is it returning…').\n\n## Vocabulary\n- **hiện đang**: currently, right now (ongoing)\n- **điều tra**: to investigate\n- **lý do**: reason\n- **lại**: unexpectedness marker (also: again)\n- **mã lỗi**: error code",
+            "de": "## Grammatik\n**hiện đang + Verb**: betont eine gerade stattfindende Handlung. **tại sao … lại + Verb**: eingebettete indirekte Frage — *lại* fuegt eine Nuance der Unerwuenschtheit hinzu.\n\n## Wortschatz\n- **hiện đang**: derzeit, gerade (laufend)\n- **điều tra**: untersuchen\n- **lý do**: Grund\n- **lại**: unerwartet (auch: wieder)\n- **mã lỗi**: Fehlercode",
+            "ja": "## 文法\n**hiện đang + 動詞**：今まさに行われている行動を強調 — *hiện*（現在）+ *đang*（進行アスペクト）。**tại sao … lại + 動詞**：埋め込み間接疑問文 — *lại* が予期しない/望ましくないニュアンスを加えます。\n\n## 語彙\n- **hiện đang**: 今まさに（進行中）\n- **điều tra**: 調査する\n- **lý do**: 理由\n- **lại**: 意外性のマーカー（また、の意味もあり）\n- **mã lỗi**: エラーコード",
             "vi": "## Ngữ pháp\nCụm **hiện đang + [động từ]** nhấn mạnh hành động đang diễn ra ngay tại thời điểm hiện tại. Mệnh đề danh từ **tại sao API lại trả về mã lỗi** làm tân ngữ cho \"điều tra\". Từ **lại** trong \"lại trả về\" mang hàm ý bất ngờ hoặc không mong muốn.\n\n## Từ vựng\n- **hiện đang**: ngay lúc này, tại thời điểm nói; currently, right now\n- **điều tra**: tìm hiểu kỹ lưỡng nguyên nhân của sự việc; to investigate\n- **lý do**: nguyên nhân hoặc mục đích của một hành động; reason\n- **trả về**: gửi lại kết quả hoặc giá trị; to return (a value)\n- **mã lỗi**: con số hoặc ký hiệu cho biết loại lỗi xảy ra; error code"
           }
         },
         {
           "text": "Có vẻ như máy chủ không nhận được các tham số chính xác từ phía khách hàng.",
           "notes": {
+            "en": "## Grammar\n**Có vẻ như + clause**: 'it seems that / it appears that' — evidential hedge expressing a conclusion based on observation. **không nhận được**: negative potential — *không* (not) + *nhận được* (to successfully receive). *được* after a verb often marks successful completion.\n\n## Vocabulary\n- **có vẻ như**: it seems that, apparently\n- **máy chủ**: server\n- **tham số**: parameter\n- **chính xác**: correct, accurate\n- **khách hàng**: client (lit. customer; here: the client in a client-server model)",
+            "de": "## Grammatik\n**Có vẻ như + Satz**: 'es scheint, dass' — evidenzbasierter Ausdruck. **không nhận được**: Negatives Potenzial — *không* + *nhận được* (erfolgreich empfangen). *được* nach einem Verb markiert oft erfolgreichen Abschluss.\n\n## Wortschatz\n- **có vẻ như**: es scheint, dass\n- **máy chủ**: Server\n- **tham số**: Parameter\n- **chính xác**: korrekt, genau\n- **khách hàng**: Client (im Client-Server-Modell)",
+            "ja": "## 文法\n**Có vẻ như + 節**：「〜のようだ、〜らしい」— 観察に基づく推量表現。**không nhận được**：否定的可能性 — *không*（〜ない）+ *nhận được*（うまく受け取る）。動詞の後の *được* はしばしば成功した完了を示します。\n\n## 語彙\n- **có vẻ như**: 〜のようだ\n- **máy chủ**: サーバー\n- **tham số**: パラメータ\n- **chính xác**: 正確な\n- **khách hàng**: クライアント（クライアントサーバーモデル）",
             "vi": "## Ngữ pháp\nCụm **có vẻ như + [mệnh đề]** diễn đạt suy đoán dựa trên bằng chứng chưa chắc chắn, tương đương \"it seems that\" hay \"it appears that\". Cấu trúc phủ định **không nhận được** = \"not receive/get\".\n\n## Từ vựng\n- **có vẻ như**: dường như, có dấu hiệu cho thấy; it seems that, apparently\n- **máy chủ**: máy tính trung tâm cung cấp dịch vụ cho các máy khác; server\n- **tham số**: giá trị đầu vào truyền vào hàm hoặc yêu cầu; parameter\n- **chính xác**: đúng, không có sai sót; correct, accurate\n- **khách hàng**: ở đây chỉ phần mềm client gửi yêu cầu đến server; client"
           }
         },
         {
           "text": "Tôi sẽ kiểm tra nhật ký (logs) để xem chính xác kết nối bị lỗi ở đâu.",
           "notes": {
+            "en": "## Grammar\n**để xem + indirect question**: *để* (in order to) + *xem* (to see/check) + an embedded indirect question as object. **bị + verb**: passive/adversative construction — *bị lỗi* = 'to suffer an error / to fail' (negative connotation). **ở đâu**: 'where' as embedded question.\n\n## Vocabulary\n- **kiểm tra**: to check, to inspect\n- **nhật ký**: log, record\n- **để xem**: in order to see/check\n- **bị lỗi**: to fail, to have an error (adversative passive)\n- **ở đâu**: where",
+            "de": "## Grammatik\n**để xem + indirekte Frage**: *để* (um zu) + *xem* (sehen/pruefen) + eingebettete indirekte Frage. **bị + Verb**: passiv/adversatives Konstrukt — *bị lỗi* = 'einen Fehler erleiden' (negativer Unterton). **ở đâu**: 'wo' als eingebettete Frage.\n\n## Wortschatz\n- **kiểm tra**: ueberpruefen, kontrollieren\n- **nhật ký**: Log, Protokoll\n- **để xem**: um zu sehen\n- **bị lỗi**: fehlschlagen (adversatives Passiv)\n- **ở đâu**: wo",
+            "ja": "## 文法\n**để xem + 間接疑問**：*để*（〜するために）+ *xem*（見る/確認する）+ 目的語となる埋め込み間接疑問。**bị + 動詞**：受身/不利益の構文 — *bị lỗi* =「エラーが発生する/失敗する」（否定的含意）。**ở đâu**：「どこで」の埋め込み疑問。\n\n## 語彙\n- **kiểm tra**: 確認する、チェックする\n- **nhật ký**: ログ、記録\n- **để xem**: 〜を確認するために\n- **bị lỗi**: 失敗する、エラーが発生する（被害受身）\n- **ở đâu**: どこで",
             "vi": "## Ngữ pháp\nCấu trúc **để xem + [mệnh đề hỏi gián tiếp]** diễn đạt mục đích điều tra. Mệnh đề \"kết nối bị lỗi ở đâu\" là câu hỏi gián tiếp làm tân ngữ cho \"xem\". Từ **bị** trước động từ mang nghĩa thụ động tiêu cực (\"bị lỗi\" = bị ảnh hưởng bởi lỗi).\n\n## Từ vựng\n- **nhật ký**: bản ghi lại các sự kiện và hoạt động của hệ thống; log\n- **kết nối**: liên kết giữa các thành phần trong mạng; connection\n- **bị lỗi**: gặp phải trục trặc, hoạt động không đúng; to fail, to have an error\n- **chính xác**: đúng với thực tế, không mơ hồ; exactly, precisely\n- **ở đâu**: tại vị trí nào; where"
           }
         },
         {
           "text": "Nếu cấu hình sai, chúng ta cần cập nhật các biến môi trường.",
           "notes": {
+            "en": "## Grammar\n**Nếu + [subject + adjective]**: condensed conditional — the verb *là* (to be) is omitted (*cấu hình sai* = *cấu hình là sai*). This ellipsis is common in Vietnamese. **cần + verb**: expresses necessity — 'need to'.\n\n## Vocabulary\n- **cấu hình**: configuration\n- **sai**: wrong, incorrect\n- **cần**: need to, must\n- **cập nhật**: to update\n- **biến môi trường**: environment variable",
+            "de": "## Grammatik\n**Nếu + [Subjekt + Adjektiv]**: verkuerzter Konditional — das Verb *là* (sein) wird weggelassen. Diese Ellipse ist im Vietnamesischen gebraeuchlich. **cần + Verb**: drueckt Notwendigkeit aus.\n\n## Wortschatz\n- **cấu hình**: Konfiguration\n- **sai**: falsch, nicht korrekt\n- **cần**: mussen, benoetigen\n- **cập nhật**: aktualisieren\n- **biến môi trường**: Umgebungsvariable",
+            "ja": "## 文法\n**Nếu + [主語 + 形容詞]**：短縮条件文 — 動詞 *là*（〜である）が省略されています（*cấu hình sai* = *cấu hình là sai*）。ベトナム語では一般的な省略。**cần + 動詞**：必要性を表します。\n\n## 語彙\n- **cấu hình**: 設定、コンフィギュレーション\n- **sai**: 間違っている\n- **cần**: 〜する必要がある\n- **cập nhật**: 更新する\n- **biến môi trường**: 環境変数",
             "vi": "## Ngữ pháp\nCâu điều kiện rút gọn **Nếu + [chủ ngữ + tính từ]** lược bỏ động từ \"là\" (\"cấu hình sai\" = \"cấu hình là sai\"). Đây là cách nói ngắn gọn phổ biến trong tiếng Việt. Trợ từ **cần** diễn đạt sự cần thiết bắt buộc.\n\n## Từ vựng\n- **cấu hình**: thiết lập tham số để hệ thống hoạt động đúng; configuration\n- **sai**: không đúng, không khớp với yêu cầu; wrong, incorrect\n- **cần**: bắt buộc phải có hoặc thực hiện; to need to, must\n- **cập nhật**: thay đổi sang phiên bản hoặc giá trị mới hơn; to update\n- **biến môi trường**: giá trị cài đặt được lưu trong hệ điều hành; environment variable"
           }
         },
         {
           "text": "Chúng tôi hy vọng sẽ khắc phục vấn đề này trước khi người dùng nhận thấy bất kỳ thời gian chết (downtime) nào.",
           "notes": {
+            "en": "## Grammar\n**hy vọng sẽ + verb**: 'hope to / hope that [we] will' — combines hope with future marker *sẽ*. **trước khi + clause**: 'before [something happens]' — sets a deadline. **bất kỳ … nào**: 'any … at all' — universal quantifier used after *nhận thấy* (to notice).\n\n## Vocabulary\n- **hy vọng**: to hope\n- **khắc phục**: to fix, to resolve\n- **trước khi**: before\n- **nhận thấy**: to notice, to realize\n- **thời gian chết**: downtime",
+            "de": "## Grammatik\n**hy vọng sẽ + Verb**: 'hoffen zu / hoffen, dass [wir] werden' — kombiniert Hoffnung mit dem Zukunftsmarker *sẽ*. **trước khi + Satz**: 'bevor [etwas passiert]'. **bất kỳ … nào**: 'irgendein … auch immer'.\n\n## Wortschatz\n- **hy vọng**: hoffen\n- **khắc phục**: beheben, reparieren\n- **trước khi**: bevor\n- **nhận thấy**: bemerken, wahrnehmen\n- **thời gian chết**: Ausfallzeit (Downtime)",
+            "ja": "## 文法\n**hy vọng sẽ + 動詞**：「〜することを望む/〜することを期待する」— 希望と未来マーカー *sẽ* を組み合わせます。**trước khi + 節**：「〜する前に」— 期限を設定。**bất kỳ … nào**：「どんな〜でも」。\n\n## 語彙\n- **hy vọng**: 望む、期待する\n- **khắc phục**: 修正する、解決する\n- **trước khi**: 〜する前に\n- **nhận thấy**: 気づく\n- **thời gian chết**: ダウンタイム",
             "vi": "## Ngữ pháp\nCấu trúc **hy vọng sẽ + [động từ]** diễn đạt kỳ vọng về kết quả trong tương lai. Cụm **trước khi + [mệnh đề]** đặt ra thời hạn. Cụm **bất kỳ ... nào** mang nghĩa phủ định hoàn toàn khi đi cùng cấu trúc phủ định, nhưng ở đây mang nghĩa \"any\".\n\n## Từ vựng\n- **hy vọng**: mong điều gì xảy ra như mong muốn; to hope\n- **khắc phục**: giải quyết và chữa trị một vấn đề; to fix, to resolve\n- **người dùng**: người sử dụng sản phẩm hoặc dịch vụ; user\n- **nhận thấy**: phát hiện, ý thức được điều gì đó; to notice, to realize\n- **thời gian chết**: khoảng thời gian hệ thống ngừng hoạt động; downtime"
           }
         }

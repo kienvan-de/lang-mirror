@@ -12,28 +12,46 @@
         {
           "text": "We are planning to deploy the latest version of the application tonight.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing"
+            "en": "## Grammar\n**be planning to + infinitive**: present continuous used to express a future intention or arrangement — more deliberate than *be going to*. **the latest version**: superlative adjective (*latest* = most recent). **tonight**: time adverb placed at the end.\n\n## Vocabulary\n- **planning to**: intending to, with a specific plan in place\n- **deploy**: to release software to a live environment\n- **latest version**: the most recent release\n- **application**: a software program designed for end users\n- **tonight**: this evening",
+            "de": "## Grammatik\n**be planning to + Infinitiv**: Verlaufsform fuer eine zukuenftige Absicht oder Vereinbarung. **the latest version**: Superlativ (*latest* = neueste). **tonight**: Zeitadverb am Satzende.\n\n## Wortschatz\n- **planning to**: planen zu, beabsichtigen\n- **deploy**: ausrollen, in Betrieb nehmen\n- **latest version**: neueste Version\n- **application**: Anwendung, App\n- **tonight**: heute Nacht, heute Abend",
+            "ja": "## 文法\n**be planning to + 動詞の原形**：計画されている未来の意図を表す現在進行形 — *be going to* より意図的なニュアンス。**the latest version**：最上級形容詞（*latest* = 最新の）。**tonight**：文末の時間副詞。\n\n## 語彙\n- **planning to**: 〜することを計画している\n- **deploy**: デプロイする、本番環境にリリースする\n- **latest version**: 最新バージョン\n- **application**: アプリケーション\n- **tonight**: 今夜",
+            "vi": "## Ngữ pháp\n**be planning to + động từ nguyên thể**: thì tiếp diễn dùng cho ý định tương lai đã được lên kế hoạch — có chủ đích hơn *be going to*. **the latest version**: tính từ bậc cao nhất (*latest* = mới nhất). **tonight**: trạng từ thời gian đặt cuối câu.\n\n## Từ vựng\n- **planning to**: có kế hoạch, dự định\n- **deploy**: triển khai lên môi trường thực\n- **latest version**: phiên bản mới nhất\n- **application**: ứng dụng phần mềm\n- **tonight**: tối nay, đêm nay"
           }
         },
         {
-          "text": "All the automated tests passed successfully in the staging environment."
+          "text": "All the automated tests passed successfully in the staging environment.",
+          "notes": {
+            "en": "## Grammar\n**Simple past** (*passed*): completed action — all tests are done. **All the + noun**: universal quantifier with definite article. **successfully**: adverb modifying *passed*. **in the staging environment**: prepositional phrase of location.\n\n## Vocabulary\n- **automated tests**: tests run automatically by the system, without human input\n- **passed**: met the required criteria, succeeded\n- **successfully**: without failure, as intended\n- **staging environment**: a test environment that mirrors production",
+            "de": "## Grammatik\n**Simple Past** (*passed*): abgeschlossene Handlung. **All the + Nomen**: Universalquantifikator mit bestimmtem Artikel. **successfully**: Adverb zu *passed*. **in the staging environment**: Praepositionalphrase des Ortes.\n\n## Wortschatz\n- **automated tests**: automatisierte Tests\n- **passed**: bestanden, erfolgreich abgeschlossen\n- **successfully**: erfolgreich, ohne Fehler\n- **staging environment**: Staging-Umgebung (Testumgebung, die die Produktion spiegelt)",
+            "ja": "## 文法\n**過去形** (*passed*)：完了した行動。**All the + 名詞**：定冠詞付きの全称量化子。**successfully**：*passed* を修飾する副詞。**in the staging environment**：場所を表す前置詞句。\n\n## 語彙\n- **automated tests**: 自動化テスト\n- **passed**: 合格した、成功した\n- **successfully**: 成功裏に\n- **staging environment**: ステージング環境（本番環境を模したテスト環境）",
+            "vi": "## Ngữ pháp\n**Thì quá khứ đơn** (*passed*): hành động đã hoàn tất. **All the + danh từ**: lượng từ toàn thể với mạo từ xác định. **successfully**: trạng từ bổ nghĩa cho *passed*. **in the staging environment**: cụm giới từ chỉ nơi chốn.\n\n## Từ vựng\n- **automated tests**: kiểm tra tự động\n- **passed**: đã vượt qua, đạt yêu cầu\n- **successfully**: thành công, không có lỗi\n- **staging environment**: môi trường thử nghiệm (giống production)"
+          }
         },
         {
           "text": "I will monitor the system metrics closely after the release is live.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing"
+            "en": "## Grammar\n**will + infinitive**: future intention decided now. **after + clause**: temporal conjunction — *after the release is live* uses present simple to refer to a future state (time clauses don't use *will* in English). **closely**: adverb meaning carefully and attentively.\n\n## Vocabulary\n- **monitor**: to watch continuously, to observe\n- **system metrics**: measurable values that indicate system health and performance\n- **closely**: carefully, with close attention\n- **release**: a version of software made available to users\n- **is live**: is running in production, is publicly available",
+            "de": "## Grammatik\n**will + Infinitiv**: Zukunftsabsicht. **after + Satz**: temporale Konjunktion — *after the release is live* nutzt Prasens fuer einen zukuenftigen Zustand (Zeitnebensaetze verwenden kein *will*). **closely**: Adverb.\n\n## Wortschatz\n- **monitor**: ueberwachen, beobachten\n- **system metrics**: Systemkennzahlen\n- **closely**: sorgfaeltig, genau\n- **release**: die Veroeffentlichung, das Release\n- **is live**: ist in Betrieb, laeuft in der Produktion",
+            "ja": "## 文法\n**will + 動詞の原形**：今決めた未来の意図。**after + 節**：時の接続詞 — *after the release is live* では時を表す副詞節に *will* を使わず現在形を使います。**closely**：注意深く、という副詞。\n\n## 語彙\n- **monitor**: モニターする、監視する\n- **system metrics**: システムの指標\n- **closely**: 注意深く\n- **release**: リリース\n- **is live**: 本番稼働している",
+            "vi": "## Ngữ pháp\n**will + động từ nguyên thể**: ý định tương lai quyết định ngay lúc nói. **after + mệnh đề**: liên từ thời gian — *after the release is live* dùng hiện tại đơn cho trạng thái tương lai (mệnh đề thời gian không dùng *will*).\n\n## Từ vựng\n- **monitor**: theo dõi, giám sát liên tục\n- **system metrics**: chỉ số hệ thống\n- **closely**: cẩn thận, chặt chẽ\n- **release**: bản phát hành\n- **is live**: đang hoạt động trên production"
           }
         },
         {
           "text": "If we detect any critical bugs, we will rollback to the previous version.",
           "notes": {
-            "en": "Conditional: 'If + present simple, … will/can…'"
+            "en": "## Grammar\n**Type 1 conditional**: *If + present simple, will + infinitive* — real and possible future scenario. **any**: used in conditional clauses to mean 'some / even one'. **rollback**: technical verb meaning to revert to a previous state. **previous**: adjective meaning 'the one before this'.\n\n## Vocabulary\n- **detect**: to discover, to find\n- **critical bugs**: severe defects that cause major problems\n- **rollback**: to revert to an earlier version of the software\n- **previous version**: the version that came before the current one",
+            "de": "## Grammatik\n**Typ-1-Konditionalsatz**: *If + Prasens, will + Infinitiv*. **any**: in Konditionalsatzen: 'irgendein'. **rollback**: technisches Verb fuer 'zurueckrollen'. **previous**: Adjektiv 'vorherig'.\n\n## Wortschatz\n- **detect**: erkennen, entdecken\n- **critical bugs**: kritische Fehler\n- **rollback**: Rollback durchfuehren, zurueckkehren\n- **previous version**: vorherige Version",
+            "ja": "## 文法\n**第1条件文**：*If + 現在形, will + 動詞原形* — 現実的で可能な未来の状況。**any**：条件節で「いくつかの / 一つでも」の意味。**rollback**：前の状態に戻すという技術的動詞。\n\n## 語彙\n- **detect**: 検出する、発見する\n- **critical bugs**: 重大なバグ\n- **rollback**: ロールバックする、前のバージョンに戻す\n- **previous version**: 前のバージョン",
+            "vi": "## Ngữ pháp\n**Câu điều kiện loại 1**: *If + hiện tại đơn, will + động từ nguyên thể* — tình huống có thật và có thể xảy ra. **any**: trong mệnh đề điều kiện nghĩa là 'bất kỳ, dù chỉ một'. **rollback**: động từ kỹ thuật nghĩa là quay lại trạng thái trước.\n\n## Từ vựng\n- **detect**: phát hiện, tìm ra\n- **critical bugs**: lỗi nghiêm trọng\n- **rollback**: hoàn tác, quay về phiên bản trước\n- **previous version**: phiên bản trước đó"
           }
         },
         {
           "text": "Communication is essential to ensure a smooth transition for our customers.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing"
+            "en": "## Grammar\n**Subject + linking verb + adjective**: *Communication is essential* — *essential* is a predicate adjective. **to ensure**: infinitive of purpose explaining why communication is essential. **smooth transition**: compound noun phrase — *smooth* (adjective) + *transition* (noun).\n\n## Vocabulary\n- **communication**: the exchange of information between parties\n- **essential**: absolutely necessary, vital\n- **ensure**: to make certain, to guarantee\n- **smooth transition**: a changeover that happens without problems\n- **customers**: end users, clients",
+            "de": "## Grammatik\n**Subjekt + Kopulaverb + Adjektiv**: *Communication is essential* — *essential* als praedikatives Adjektiv. **to ensure**: Infinitiv des Zwecks. **smooth transition**: zusammengesetzter Nominalausdruck.\n\n## Wortschatz\n- **communication**: die Kommunikation\n- **essential**: unabdingbar, wesentlich\n- **ensure**: sicherstellen, gewaehrleisten\n- **smooth transition**: reibungsloser Uebergang\n- **customers**: Kunden",
+            "ja": "## 文法\n**主語 + 連結動詞 + 形容詞**：*Communication is essential* — *essential* が叙述形容詞。**to ensure**：目的の不定詞。**smooth transition**：複合名詞句。\n\n## 語彙\n- **communication**: コミュニケーション\n- **essential**: 不可欠な\n- **ensure**: 確実にする、保証する\n- **smooth transition**: スムーズな移行\n- **customers**: 顧客",
+            "vi": "## Ngữ pháp\n**Chủ ngữ + động từ nối + tính từ**: *Communication is essential* — *essential* là tính từ vị ngữ. **to ensure**: bất định từ chỉ mục đích. **smooth transition**: cụm danh từ phức hợp.\n\n## Từ vựng\n- **communication**: giao tiếp, trao đổi thông tin\n- **essential**: thiết yếu, không thể thiếu\n- **ensure**: đảm bảo, chắc chắn\n- **smooth transition**: quá trình chuyển đổi suôn sẻ\n- **customers**: khách hàng"
           }
         }
       ]
@@ -46,27 +64,48 @@
       "speed": 0.85,
       "sentences": [
         {
-          "text": "Wir bringen die neue Software heute Nacht online."
+          "text": "Wir bringen die neue Software heute Nacht online.",
+          "notes": {
+            "en": "## Grammar\n**German present tense for future**: *Wir bringen … online* — German uses present tense for planned future events (like English 'We are bringing… online'). **online bringen**: separable verb in meaning — though *online* is an adverb here, not a prefix. **heute Nacht**: time adverb placed near the end.\n\n## Vocabulary\n- **bringen**: to bring, to put (online = to go live)\n- **die neue Software**: the new software (feminine accusative)\n- **heute Nacht**: tonight\n- **online**: live, accessible on the internet",
+            "de": "## Grammatik\n**Prasens fuer Zukunft**: *Wir bringen … online* — das Deutsche verwendet das Prasens fuer geplante Zukunftshandlungen. **online bringen**: idiomatische Verbindung. **heute Nacht**: Zeitadverb.\n\n## Wortschatz\n- **bringen**: bringen, stellen (online bringen = in Betrieb nehmen)\n- **die neue Software**: die neue Software (Akk.)\n- **heute Nacht**: heute Nacht\n- **online**: online, verfuegbar",
+            "ja": "## 文法\n**未来を表す現在形**：*Wir bringen … online* — ドイツ語では計画された未来の行動に現在形を使います。**online bringen**：「オンラインにする」という慣用的な組み合わせ。**heute Nacht**：時間副詞。\n\n## 語彙\n- **bringen**: 持ってくる、稼働させる（online bringen = 公開する）\n- **die neue Software**: 新しいソフトウェア（女性名詞対格）\n- **heute Nacht**: 今夜\n- **online**: オンライン、稼働中",
+            "vi": "## Ngữ pháp\n**Hiện tại cho tương lai**: *Wir bringen … online* — tiếng Đức dùng thì hiện tại cho hành động tương lai đã lên kế hoạch. **online bringen**: cụm mang nghĩa 'đưa lên mạng, cho chạy thực'. **heute Nacht**: trạng từ thời gian.\n\n## Từ vựng\n- **bringen**: mang, đưa (online bringen = đưa vào hoạt động)\n- **die neue Software**: phần mềm mới (tân ngữ cách, giống cái)\n- **heute Nacht**: tối nay, đêm nay\n- **online**: trực tuyến, hoạt động"
+          }
         },
         {
           "text": "Alle Tests im Labor sind gut und fertig.",
           "notes": {
-            "de": "Contracted preposition: im=in dem, am=an dem, zum=zu dem"
+            "en": "## Grammar\n**im** = *in dem* (contraction): dative contraction of *in + dem*. **Labor** is neuter, so dative is *dem Labor* -> *im Labor*. **gut und fertig**: two predicate adjectives joined by *und* — 'good and done/complete'. **Alle Tests**: *alle* (all) + plural nominative noun.\n\n## Vocabulary\n- **alle**: all (used with plural nouns)\n- **Tests**: tests (loanword, plural)\n- **im Labor**: in the lab (dative contraction)\n- **gut**: good, fine\n- **fertig**: finished, complete, done",
+            "de": "## Grammatik\n**im** = Kontraktion von *in + dem* (Dativ): *im Labor* — *das Labor* (Neutrum) -> *dem Labor* -> *im Labor*. **gut und fertig**: zwei praedikative Adjektive. **Alle Tests**: *alle* + Plural Nominativ.\n\n## Wortschatz\n- **alle**: alle, saemtliche\n- **Tests**: Tests (Lehnwort, Plural)\n- **im Labor**: im Labor (Dativkontraktion)\n- **gut**: gut, einwandfrei\n- **fertig**: fertig, abgeschlossen",
+            "ja": "## 文法\n**im** = *in dem* の縮約形（与格）：*im Labor* — *das Labor*（中性名詞）の与格 *dem Labor* -> *im Labor*。**gut und fertig**：*und* でつながれた二つの叙述形容詞。**Alle Tests**：*alle* + 複数主格名詞。\n\n## 語彙\n- **alle**: すべての\n- **Tests**: テスト（外来語、複数）\n- **im Labor**: ラボで（与格縮約）\n- **gut**: 良い、問題ない\n- **fertig**: 完了した",
+            "vi": "## Ngữ pháp\n**im** = rút gọn của *in + dem* (cách cho): *im Labor* — *das Labor* (trung tính) cách cho *dem Labor* -> *im Labor*. **gut und fertig**: hai tính từ vị ngữ nối bởi *und*. **Alle Tests**: *alle* + danh từ số nhiều chủ cách.\n\n## Từ vựng\n- **alle**: tất cả\n- **Tests**: bài kiểm tra (từ mượn, số nhiều)\n- **im Labor**: trong phòng thí nghiệm (rút gọn cách cho)\n- **gut**: tốt\n- **fertig**: hoàn thành, xong"
           }
         },
         {
-          "text": "Nach dem Release kontrolliere ich das System sehr genau."
+          "text": "Nach dem Release kontrolliere ich das System sehr genau.",
+          "notes": {
+            "en": "## Grammar\n**Verb-second (V2)**: *Nach dem Release* is fronted, so the verb *kontrolliere* comes second, then the subject *ich* follows. **nach + dative**: *nach dem Release* — *nach* governs the dative. **sehr genau**: adverbial phrase intensifying the manner of monitoring.\n\n## Vocabulary\n- **nach dem Release**: after the release (*nach* + dative)\n- **kontrolliere**: to monitor, to check (1st person singular of *kontrollieren*)\n- **das System**: the system (neuter accusative)\n- **sehr genau**: very carefully, very precisely",
+            "de": "## Grammatik\n**Verb-Zweit-Stellung (V2)**: *Nach dem Release* auf Position 1 -> *kontrolliere* auf Position 2 -> *ich* als Subjekt dahinter. **nach + Dativ**: *nach dem Release*. **sehr genau**: adverbiale Erweiterung.\n\n## Wortschatz\n- **nach dem Release**: nach dem Release (*nach* + Dativ)\n- **kontrolliere**: 1. Person Singular von *kontrollieren*\n- **das System**: das System (Akk.)\n- **sehr genau**: sehr sorgfaeltig, sehr genau",
+            "ja": "## 文法\n**定動詞第2位（V2）**：*Nach dem Release* が第1位に来るため動詞 *kontrolliere* が第2位、主語 *ich* がその後に続きます。**nach + 与格**：*nach dem Release*。**sehr genau**：様態を強調する副詞句。\n\n## 語彙\n- **nach dem Release**: リリース後（*nach* + 与格）\n- **kontrolliere**: 監視する（*kontrollieren* の1人称単数）\n- **das System**: システム（中性名詞対格）\n- **sehr genau**: 非常に注意深く",
+            "vi": "## Ngữ pháp\n**V2**: *Nach dem Release* đứng đầu -> động từ *kontrolliere* đứng thứ hai -> chủ ngữ *ich* đứng sau. **nach + cách cho**: *nach dem Release*. **sehr genau**: cụm trạng từ nhấn mạnh cách thức.\n\n## Từ vựng\n- **nach dem Release**: sau khi phát hành (*nach* + cách cho)\n- **kontrolliere**: theo dõi, kiểm tra (ngôi 1 số ít của *kontrollieren*)\n- **das System**: hệ thống (trung tính tân ngữ cách)\n- **sehr genau**: rất cẩn thận, rất chính xác"
+          }
         },
         {
           "text": "Gibt es einen großen Fehler? Dann gehen wir zurück zur alten Version.",
           "notes": {
-            "de": "Word order: 'dann' (then) causes verb-second position"
+            "en": "## Grammar\n**Gibt es**: inverted yes/no question — *geben* (to give/there is) inverted. **einen großen Fehler**: masculine indefinite accusative (*ein* -> *einen*; *groß* -> *großen* with mixed declension). **dann** causes V2 inversion: *dann gehen wir* — verb *gehen* comes second. **zurückgehen**: separable verb, prefix *zurück-* splits to end in main clause.\n\n## Vocabulary\n- **gibt es**: is there / does there exist\n- **einen großen Fehler**: a major bug (masc. indefinite accusative)\n- **dann**: then, in that case\n- **gehen wir zurück**: we go back (separable: *zurückgehen*)\n- **zur alten Version**: to the old version (*zu + der* -> *zur*; dative)",
+            "de": "## Grammatik\n**Gibt es**: Inversionsstruktur fuer Existenzfragen (*es gibt* umgestellt). **einen großen Fehler**: maskulines Nomen, unbestimmt, Akkusativ (*ein* -> *einen*; gemischte Deklination *-en*). **dann** -> V2-Inversion: *dann gehen wir*. **zurueckgehen**: trennbares Verb.\n\n## Wortschatz\n- **gibt es**: gibt es, existiert\n- **einen großen Fehler**: einen großen Bug (m., indef., Akk.)\n- **dann**: dann, in dem Fall\n- **gehen zurueck**: gehen zurueck (trennbares Verb)\n- **zur alten Version**: zur alten Version (*zu + der* -> *zur*; Dativ)",
+            "ja": "## 文法\n**Gibt es**：存在を問う倒置疑問文（*es gibt* の倒置）。**einen großen Fehler**：男性名詞の不定冠詞対格（*ein* -> *einen*; 混合変化 *-en*）。**dann** -> V2倒置：*dann gehen wir*。**zurueckgehen**：分離動詞。\n\n## 語彙\n- **gibt es**: 〜はありますか（存在）\n- **einen großen Fehler**: 重大なバグ（男性名詞不定対格）\n- **dann**: そのとき\n- **gehen zurueck**: 戻る（分離動詞）\n- **zur alten Version**: 古いバージョンに（*zu + der* -> *zur*; 与格）",
+            "vi": "## Ngữ pháp\n**Gibt es**: câu hỏi đảo ngữ về sự tồn tại (*es gibt* đảo). **einen großen Fehler**: tân ngữ cách không xác định giống đực (*ein* -> *einen*; đuôi hỗn hợp *-en*). **dann** -> đảo ngữ V2: *dann gehen wir*. **zurueckgehen**: động từ tách được.\n\n## Từ vựng\n- **gibt es**: có không, tồn tại không\n- **einen großen Fehler**: một lỗi lớn (giống đực, không xác định, tân ngữ cách)\n- **dann**: khi đó\n- **gehen zurueck**: quay lại (động từ tách được)\n- **zur alten Version**: về phiên bản cũ (*zu + der* -> *zur*; cách cho)"
           }
         },
         {
           "text": "Wir müssen viel sprechen, damit alles gut funktioniert.",
           "notes": {
-            "de": "Purpose clause: 'damit' + subject + verb-at-end"
+            "en": "## Grammar\n**muessen + infinitive**: modal verb of necessity — 'we must / have to'. **damit + verb-final clause**: purpose subordinate clause — *damit* means 'so that'; in the subordinate clause the conjugated verb moves to the end (*funktioniert*).\n\n## Vocabulary\n- **muessen**: must, have to (modal verb)\n- **viel sprechen**: to communicate a lot\n- **damit**: so that (subordinating conjunction of purpose)\n- **alles**: everything\n- **gut funktioniert**: works well",
+            "de": "## Grammatik\n**muessen + Infinitiv**: Modalverb der Notwendigkeit. **damit + Verbendstellung**: Finalsatz — *damit* bedeutet 'damit / auf dass'; das konjugierte Verb steht im Nebensatz am Ende.\n\n## Wortschatz\n- **muessen**: muessen (Modalverb)\n- **viel sprechen**: viel kommunizieren, viel reden\n- **damit**: damit, auf dass\n- **alles**: alles\n- **gut funktioniert**: gut funktioniert, einwandfrei laeuft",
+            "ja": "## 文法\n**muessen + 動詞原形**：必要性を表す話法の助動詞 — 「〜しなければならない」。**damit + 動詞末尾節**：目的の従属節 — *damit* は「〜するように/〜のために」。従属節では活用動詞が文末に置かれます。\n\n## 語彙\n- **muessen**: 〜しなければならない（話法の助動詞）\n- **viel sprechen**: たくさん話す、十分にコミュニケーションをとる\n- **damit**: 〜するように（目的の従属接続詞）\n- **alles**: すべて\n- **gut funktioniert**: うまく機能する",
+            "vi": "## Ngữ pháp\n**muessen + động từ nguyên thể**: động từ tình thái chỉ sự cần thiết — 'phải'. **damit + mệnh đề động từ cuối**: mệnh đề mục đích phụ thuộc — *damit* nghĩa là 'để, sao cho'; trong mệnh đề phụ, động từ chia chuyển về cuối (*funktioniert*).\n\n## Từ vựng\n- **muessen**: phải (động từ tình thái)\n- **viel sprechen**: nói chuyện nhiều, giao tiếp nhiều\n- **damit**: để, sao cho (liên từ mục đích)\n- **alles**: tất cả mọi thứ\n- **gut funktioniert**: hoạt động tốt"
           }
         }
       ]
@@ -81,31 +120,46 @@
         {
           "text": "今夜、アプリケーションの最新（さいしん）バージョンをリリースします。",
           "notes": {
-            "ja": "Furigana reading shown in （）for N4 kanji"
+            "en": "## Grammar\n**〜をリリースします**: *リリースする* (to release) in polite non-past form — here used for a planned future action. **最新バージョン**: compound noun — *最新* (latest/newest) + *バージョン* (version). **今夜**: time word at the start, setting the temporal context.\n\n## Vocabulary\n- **今夜 (こんや)**: tonight\n- **アプリケーション**: application (loanword)\n- **最新 (さいしん)**: latest, most recent\n- **バージョン**: version (loanword)\n- **リリースします**: will release (polite form of *リリースする*)",
+            "de": "## Grammatik\n**〜をリリースします**: *リリースする* im hoeflichen Nichtvergangenheitsform — fuer eine geplante Zukunftshandlung. **最新バージョン**: zusammengesetztes Nomen. **今夜**: Zeitangabe am Satzanfang.\n\n## Wortschatz\n- **今夜**: heute Nacht\n- **アプリケーション**: Anwendung (Lehnwort)\n- **最新**: neueste, aktuellste\n- **バージョン**: Version (Lehnwort)\n- **リリースします**: wird veroeffentlichen",
+            "ja": "## 文法\n**〜をリリースします**：*リリースする* の丁寧非過去形 — 計画された未来の行動に使います。**最新バージョン**：複合名詞（最新 + バージョン）。**今夜**：時間語が文頭で文脈を設定。\n\n## 語彙\n- **今夜**: 今夜\n- **アプリケーション**: アプリケーション（外来語）\n- **最新**: 最新の\n- **バージョン**: バージョン（外来語）\n- **リリースします**: リリースします",
+            "vi": "## Ngữ pháp\n**〜をリリースします**: *リリースする* ở thể lịch sự không quá khứ — dùng cho hành động tương lai đã lên kế hoạch. **最新バージョン**: danh từ phức hợp. **今夜**: từ thời gian đầu câu đặt bối cảnh.\n\n## Từ vựng\n- **今夜 (こんや)**: tối nay\n- **アプリケーション**: ứng dụng (từ mượn)\n- **最新 (さいしん)**: mới nhất\n- **バージョン**: phiên bản (từ mượn)\n- **リリースします**: sẽ phát hành"
           }
         },
         {
           "text": "テスト環境（かんきょう）でのテストは、すべて成功（せいこう）しました。",
           "notes": {
-            "ja": "Furigana reading shown in （）for N4 kanji"
+            "en": "## Grammar\n**〜での**: *環境での* — the possessive/locative *の* combined with *で* (location marker) to form *での* = 'in [the environment]'. **は (topic marker)**: *テストは* sets the topic. **すべて**: adverb meaning 'all, entirely'. **成功しました**: *成功する* (to succeed) in polite past.\n\n## Vocabulary\n- **テスト環境 (かんきょう)**: test environment\n- **での**: in (locative + possessive combination)\n- **すべて**: all, entirely\n- **成功 (せいこう)**: success\n- **成功しました**: succeeded (polite past of *成功する*)",
+            "de": "## Grammatik\n**〜での**: *環境での* — *の* (possessiv/lokativ) + *で* (Ortspartikel) = *での* = 'in [der Umgebung]'. **は**: Themapartikel. **すべて**: Adverb 'alle / vollstaendig'. **成功しました**: *成功する* im hoeflichen Praeteritum.\n\n## Wortschatz\n- **テスト環境**: Testumgebung\n- **での**: in (lokativ-possessiv)\n- **すべて**: alle, vollstaendig\n- **成功**: Erfolg\n- **成功しました**: war erfolgreich (hoef. Vergangenheit)",
+            "ja": "## 文法\n**〜での**：*環境での* — 所有・場所の *の* + 場所の *で* が組み合わさり *での*（〜での = 〜における）となります。**は**：主題助詞。**すべて**：「全部・完全に」という副詞。**成功しました**：*成功する* の丁寧過去。\n\n## 語彙\n- **テスト環境**: テスト環境\n- **での**: 〜での（場所・所有の複合）\n- **すべて**: すべて、全て\n- **成功**: 成功\n- **成功しました**: 成功した（丁寧過去）",
+            "vi": "## Ngữ pháp\n**〜での**: *環境での* — kết hợp sở hữu *の* + trợ từ địa điểm *で* thành *での* = 'trong [môi trường]'. **は**: trợ từ chủ đề. **すべて**: trạng từ 'tất cả'. **成功しました**: *成功する* ở thể lịch sự quá khứ.\n\n## Từ vựng\n- **テスト環境 (かんきょう)**: môi trường kiểm tra\n- **での**: trong (kết hợp địa điểm + sở hữu)\n- **すべて**: tất cả, toàn bộ\n- **成功 (せいこう)**: thành công\n- **成功しました**: đã thành công (quá khứ lịch sự)"
           }
         },
         {
           "text": "リリースした後は、システムの状況（じょうきょう）を注意して見ます。",
           "notes": {
-            "ja": "Furigana reading shown in （）for N4 kanji"
+            "en": "## Grammar\n**〜した後は**: *リリースした後は* = 'after having released' — *〜した* (plain past) + *後* (after) + *は* (topic marker). **注意して見る**: te-form + *見る* = 'watch carefully' — *注意して* (paying attention, te-form of *注意する*) modifies *見ます*.\n\n## Vocabulary\n- **リリースした後 (あと)**: after releasing\n- **状況 (じょうきょう)**: situation, status, condition\n- **注意して (ちゅういして)**: paying careful attention (te-form)\n- **見ます (みます)**: will watch, will monitor",
+            "de": "## Grammatik\n**〜した後は**: *リリースした後は* = 'nachdem veroeffentlicht wurde' — *〜した* (einfache Vergangenheit) + *後* (nach) + *は* (Themapartikel). **注意して見る**: Te-Form + *見る* = 'sorgfaeltig beobachten'.\n\n## Wortschatz\n- **リリースした後**: nach dem Release\n- **状況**: Zustand, Situation\n- **注意して**: sorgfaeltig aufpassend (Te-Form)\n- **見ます**: werde beobachten, werde ueberwachen",
+            "ja": "## 文法\n**〜した後は**：*リリースした後は* =「リリースした後は」— *〜した*（普通体過去）+ *後*（後で）+ *は*（主題助詞）。**注意して見る**：て形 + *見る* =「注意して見る」— *注意して*（気をつけて、*注意する* のて形）が *見ます* を修飾。\n\n## 語彙\n- **リリースした後**: リリースした後\n- **状況**: 状況、状態\n- **注意して**: 注意して（て形）\n- **見ます**: 見ます、監視します",
+            "vi": "## Ngữ pháp\n**〜した後は**: *リリースした後は* = 'sau khi đã phát hành' — *〜した* (quá khứ thể thông thường) + *後* (sau) + *は* (trợ từ chủ đề). **注意して見る**: thể て + *見る* = 'xem cẩn thận'.\n\n## Từ vựng\n- **リリースした後 (あと)**: sau khi phát hành\n- **状況 (じょうきょう)**: tình trạng, trạng thái\n- **注意して (ちゅういして)**: chú ý cẩn thận (thể て)\n- **見ます (みます)**: sẽ theo dõi"
           }
         },
         {
           "text": "重大なバグが見つかったら、前のバージョンに戻（もど）します。",
           "notes": {
-            "ja": "Conditional form: たら (if/when completed), ば (hypothetical)"
+            "en": "## Grammar\n**〜たら (conditional)**: *見つかったら* = 'if/when a bug is found' — *見つかる* (to be found, passive/intransitive) in *〜たら* conditional. **〜に戻す**: *戻す* (to return something, transitive) + *に* (target direction). This is the transitive counterpart of *戻る* (to return, intransitive).\n\n## Vocabulary\n- **重大な (じゅうだいな)**: critical, serious\n- **バグ**: bug (loanword)\n- **見つかったら (みつかったら)**: if found (conditional of *見つかる*)\n- **前のバージョン (まえの)**: previous version\n- **戻します (もどします)**: will revert, will roll back",
+            "de": "## Grammatik\n**〜たら (Konditional)**: *見つかったら* = 'wenn ein Bug gefunden wird' — *見つかる* (intransitiv/passiv: gefunden werden) im *〜たら*-Konditional. **〜に戻す**: *戻す* (transitiv: zurueckgeben) + *に* (Zielrichtung).\n\n## Wortschatz\n- **重大な**: kritisch, schwerwiegend\n- **バグ**: Bug (Lehnwort)\n- **見つかったら**: wenn gefunden wird\n- **前のバージョン**: vorherige Version\n- **戻します**: werde zurueckkehren, werde rollbacken",
+            "ja": "## 文法\n**〜たら（条件形）**：*見つかったら* =「バグが見つかったら」— *見つかる*（自動詞/受身：見つかる）の *〜たら* 条件形。**〜に戻す**：*戻す*（他動詞）+ *に*（目標方向）。*戻る*（自動詞）の他動詞形。\n\n## 語彙\n- **重大な**: 重大な\n- **バグ**: バグ（外来語）\n- **見つかったら**: 見つかったら（条件）\n- **前のバージョン**: 前のバージョン\n- **戻します**: 戻します、ロールバックします",
+            "vi": "## Ngữ pháp\n**〜たら (điều kiện)**: *見つかったら* = 'nếu phát hiện bug' — *見つかる* (bị tìm thấy, nội động từ/thụ động) ở thể *〜たら*. **〜に戻す**: *戻す* (ngoại động từ: đưa trở lại) + *に* (hướng mục tiêu).\n\n## Từ vựng\n- **重大な (じゅうだいな)**: nghiêm trọng, quan trọng\n- **バグ**: bug (từ mượn)\n- **見つかったら (みつかったら)**: nếu phát hiện (điều kiện của *見つかる*)\n- **前のバージョン (まえの)**: phiên bản trước\n- **戻します (もどします)**: sẽ quay lại, sẽ rollback"
           }
         },
         {
           "text": "スムーズにリリースするために、連絡（れんらく）し合うことが大切です。",
           "notes": {
-            "ja": "〜ために: purpose 'in order to / for the sake of'"
+            "en": "## Grammar\n**〜するために (purpose)**: *スムーズにリリースするために* = 'in order to release smoothly'. **〜し合う**: reciprocal verb form — *連絡し合う* = 'to communicate with each other' (*連絡する* + *〜合う* = mutual action). **〜ことが大切です**: nominalized verb (*こと*) + *大切* (important) = 'it is important to do'.\n\n## Vocabulary\n- **スムーズに**: smoothly (loanword adverb)\n- **ために**: in order to, for the purpose of\n- **連絡し合う (れんらくしあう)**: to communicate with each other (reciprocal)\n- **こと**: nominalizer (turns verb into noun)\n- **大切 (たいせつ)**: important, essential",
+            "de": "## Grammatik\n**〜するために**: *スムーズにリリースするために* = 'um reibungslos zu veroeffentlichen'. **〜し合う**: reziprokes Verbmuster — *連絡し合う* = 'miteinander kommunizieren'. **〜ことが大切です**: nominalisiertes Verb (*こと*) + *大切* = 'es ist wichtig zu tun'.\n\n## Wortschatz\n- **スムーズに**: reibungslos (Lehnwortadverb)\n- **ために**: um zu (Zweck)\n- **連絡し合う**: miteinander kommunizieren (reziprok)\n- **こと**: Nominalisator\n- **大切**: wichtig",
+            "ja": "## 文法\n**〜するために（目的）**：*スムーズにリリースするために* =「スムーズにリリースするために」。**〜し合う**：相互の動詞形 — *連絡し合う* =「連絡し合う」（*連絡する* + *〜合う* = 相互動作）。**〜ことが大切です**：名詞化された動詞（*こと*）+ *大切*。\n\n## 語彙\n- **スムーズに**: スムーズに（外来語副詞）\n- **ために**: 〜のために（目的）\n- **連絡し合う**: 連絡し合う（相互動詞）\n- **こと**: 名詞化接尾辞\n- **大切**: 大切な、重要な",
+            "vi": "## Ngữ pháp\n**〜するために (mục đích)**: *スムーズにリリースするために* = 'để phát hành suôn sẻ'. **〜し合う**: dạng động từ tương hỗ — *連絡し合う* = 'liên lạc với nhau' (*連絡する* + *〜合う* = hành động tương hỗ). **〜ことが大切です**: danh hóa bằng *こと* + *大切* = 'quan trọng là phải làm'.\n\n## Từ vựng\n- **スムーズに**: một cách suôn sẻ (trạng từ từ mượn)\n- **ために**: để, nhằm mục đích\n- **連絡し合う (れんらくしあう)**: liên lạc với nhau (tương hỗ)\n- **こと**: danh hóa (biến động từ thành danh từ)\n- **大切 (たいせつ)**: quan trọng"
           }
         }
       ]
@@ -120,30 +174,45 @@
         {
           "text": "Chúng tôi đang dự định triển khai phiên bản mới nhất của ứng dụng vào đêm nay.",
           "notes": {
+            "en": "## Grammar\n**đang dự định + verb**: combines ongoing aspect (*đang*) with intention (*dự định*) — emphasizes an active plan in progress. **mới nhất**: superlative — *mới* (new) + *nhất* (most) = 'newest, latest'. **vào đêm nay**: 'into/at tonight' — *vào* marks a time point.\n\n## Vocabulary\n- **đang dự định**: currently planning (ongoing + intention)\n- **triển khai**: to deploy, to roll out\n- **phiên bản mới nhất**: latest version\n- **ứng dụng**: application, app\n- **đêm nay**: tonight",
+            "de": "## Grammatik\n**đang dự định + Verb**: kombiniert laufenden Aspekt (*đang*) mit Absicht (*dự định*). **mới nhất**: Superlativ — *mới* + *nhất* = 'neueste'. **vào đêm nay**: 'heute Nacht' — *vào* markiert einen Zeitpunkt.\n\n## Wortschatz\n- **đang dự định**: plant gerade (laufend + Absicht)\n- **triển khai**: ausrollen, in Betrieb nehmen\n- **phiên bản mới nhất**: neueste Version\n- **ứng dụng**: Anwendung\n- **đêm nay**: heute Nacht",
+            "ja": "## 文法\n**đang dự định + 動詞**：進行中のアスペクト（*đang*）と意図（*dự định*）を組み合わせ、積極的に進行中の計画を強調します。**mới nhất**：最上級 — *mới*（新しい）+ *nhất*（最も）。**vào đêm nay**：「今夜に」— *vào* が時点を示します。\n\n## 語彙\n- **đang dự định**: 現在計画中（進行中 + 意図）\n- **triển khai**: デプロイする、展開する\n- **phiên bản mới nhất**: 最新バージョン\n- **ứng dụng**: アプリケーション\n- **đêm nay**: 今夜",
             "vi": "## Ngữ pháp\nCụm **đang dự định + [động từ]** kết hợp tính tiếp diễn (đang) với kế hoạch (dự định), nhấn mạnh đây là kế hoạch đang được chuẩn bị tích cực. Cụm danh từ **phiên bản mới nhất** dùng tính từ bậc cao nhất (mới nhất = newest) để chỉ phiên bản gần đây nhất.\n\n## Từ vựng\n- **triển khai**: đưa vào hoạt động thực tế, áp dụng rộng rãi; to deploy, to roll out\n- **phiên bản**: lần xuất bản hoặc cập nhật cụ thể của phần mềm; version\n- **mới nhất**: ra đời gần đây nhất trong số các phiên bản; latest, newest\n- **ứng dụng**: phần mềm dành cho người dùng cuối; application, app\n- **đêm nay**: tối hôm nay; tonight"
           }
         },
         {
           "text": "Tất cả các bài kiểm tra tự động đã vượt qua thành công trong môi trường thử nghiệm (staging).",
           "notes": {
+            "en": "## Grammar\n**tất cả các + noun**: universal quantifier — 'all the [tests]'. *tất cả* (all/every) + *các* (plural classifier) + noun. **vượt qua thành công**: resultative compound — *vượt qua* (to pass) + *thành công* (successfully) as a manner adverb.\n\n## Vocabulary\n- **tất cả**: all, every\n- **bài kiểm tra tự động**: automated test\n- **vượt qua**: to pass, to clear\n- **thành công**: successfully\n- **môi trường thử nghiệm**: staging environment",
+            "de": "## Grammatik\n**tất cả các + Nomen**: Universalquantifikator. **vượt qua thành công**: resultatives Kompositum — *vượt qua* (bestehen) + *thành công* (erfolgreich) als Adverb der Art.\n\n## Wortschatz\n- **tất cả**: alle\n- **bài kiểm tra tự động**: automatisierter Test\n- **vượt qua**: bestehen, ueberwinden\n- **thành công**: erfolgreich\n- **môi trường thử nghiệm**: Staging-Umgebung",
+            "ja": "## 文法\n**tất cả các + 名詞**：全称量化子。**vượt qua thành công**：結果複合語 — *vượt qua*（合格する）+ *thành công*（うまく）が様態副詞として機能。\n\n## 語彙\n- **tất cả**: すべて\n- **bài kiểm tra tự động**: 自動化テスト\n- **vượt qua**: 通過する、合格する\n- **thành công**: 成功裏に\n- **môi trường thử nghiệm**: ステージング環境",
             "vi": "## Ngữ pháp\nCụm lượng từ **tất cả các + [danh từ]** nhấn mạnh toàn bộ không có ngoại lệ, tương đương \"all the\". Cụm **vượt qua thành công** là động từ kết quả: \"vượt qua\" (to pass) + \"thành công\" (successfully) chỉ hành động hoàn thành tốt đẹp.\n\n## Từ vựng\n- **bài kiểm tra tự động**: quy trình kiểm tra được máy tính thực hiện tự động; automated test\n- **vượt qua**: hoàn thành bài kiểm tra với kết quả đạt yêu cầu; to pass\n- **thành công**: đạt được kết quả như mong muốn; successfully\n- **môi trường thử nghiệm**: hệ thống giả lập production để kiểm tra; staging environment\n- **tất cả**: toàn bộ, không thiếu một; all, every"
           }
         },
         {
           "text": "Tôi sẽ theo dõi kỹ các chỉ số hệ thống sau khi bản phát hành đi vào hoạt động.",
           "notes": {
+            "en": "## Grammar\n**sau khi + clause**: 'after [something happens]' — sets the time reference. **đi vào hoạt động**: idiomatic phrase — *đi vào* (to enter into) + *hoạt động* (operation) = 'to go live, to become operational'. **kỹ**: adverb meaning 'carefully, thoroughly'.\n\n## Vocabulary\n- **theo dõi**: to monitor, to track\n- **kỹ**: carefully, closely, thoroughly\n- **chỉ số**: metric, indicator\n- **bản phát hành**: release\n- **đi vào hoạt động**: to go live, to become active",
+            "de": "## Grammatik\n**sau khi + Satz**: 'nachdem [etwas passiert]'. **đi vào hoạt động**: idiomatischer Ausdruck — *đi vào* + *hoạt động* = 'in Betrieb gehen'. **kỹ**: Adverb fuer 'sorgfaeltig'.\n\n## Wortschatz\n- **theo dõi**: ueberwachen, verfolgen\n- **kỹ**: sorgfaeltig, gruendlich\n- **chỉ số**: Kennzahl, Metrik\n- **bản phát hành**: Release, Veroeffentlichung\n- **đi vào hoạt động**: in Betrieb gehen, live gehen",
+            "ja": "## 文法\n**sau khi + 節**：「〜した後」— 時間参照を設定します。**đi vào hoạt động**：慣用句 — *đi vào*（〜に入る）+ *hoạt động*（稼働）=「本番稼働する」。**kỹ**：「注意深く、入念に」という副詞。\n\n## 語彙\n- **theo dõi**: 監視する、追跡する\n- **kỹ**: 注意深く、入念に\n- **chỉ số**: 指標、メトリクス\n- **bản phát hành**: リリース\n- **đi vào hoạt động**: 本番稼働する",
             "vi": "## Ngữ pháp\nCụm **sau khi + [mệnh đề]** chỉ hành động xảy ra tiếp theo sau một sự kiện khác hoàn tất. Cụm **đi vào hoạt động** là thành ngữ trong tiếng Việt kỹ thuật, nghĩa là bắt đầu chạy thực tế (tương đương \"go live\").\n\n## Từ vựng\n- **theo dõi**: quan sát liên tục để nắm bắt thông tin; to monitor\n- **kỹ**: cẩn thận, tỉ mỉ, không bỏ sót; closely, carefully\n- **chỉ số**: con số đo lường trạng thái hoặc hiệu suất; metric, indicator\n- **bản phát hành**: phiên bản phần mềm được đưa ra công khai; release\n- **đi vào hoạt động**: bắt đầu chạy chính thức; to go live, to become active"
           }
         },
         {
           "text": "Nếu phát hiện lỗi nghiêm trọng, chúng tôi sẽ hoàn tác (rollback) về phiên bản trước đó.",
           "notes": {
+            "en": "## Grammar\n**Nếu + verbless subject clause**: *Nếu phát hiện lỗi* omits the subject ('we') — subjectless conditionals are common when context is clear. **hoàn tác về**: directional compound — *hoàn tác* (undo/rollback) + *về* (back to). **trước đó**: 'the one before that' — *trước* (before) + *đó* (that).\n\n## Vocabulary\n- **phát hiện**: to detect, to discover\n- **lỗi nghiêm trọng**: critical bug, serious error\n- **hoàn tác**: to rollback, to undo\n- **về**: back to (directional)\n- **phiên bản trước đó**: previous version",
+            "de": "## Grammatik\n**Nếu + Satz ohne Subjekt**: *Nếu phát hiện lỗi* — das Subjekt ('wir') wird weggelassen, wenn der Kontext klar ist. **hoàn tác về**: direktionales Kompositum. **trước đó**: 'das vorherige'.\n\n## Wortschatz\n- **phát hiện**: entdecken, erkennen\n- **lỗi nghiêm trọng**: kritischer Fehler\n- **hoàn tác**: Rollback, rueckgaengig machen\n- **về**: zurueck zu\n- **phiên bản trước đó**: vorherige Version",
+            "ja": "## 文法\n**Nếu + 主語なし節**：*Nếu phát hiện lỗi* — 文脈が明らかな場合、主語（「私たち」）が省略されます。**hoàn tác về**：方向性複合語。**trước đó**：「その前のもの」。\n\n## 語彙\n- **phát hiện**: 発見する、検出する\n- **lỗi nghiêm trọng**: 重大なバグ\n- **hoàn tác**: ロールバックする、元に戻す\n- **về**: 〜に戻る\n- **phiên bản trước đó**: 前のバージョン",
             "vi": "## Ngữ pháp\nMệnh đề điều kiện rút gọn **Nếu + [động từ không có chủ ngữ]** lược bỏ chủ ngữ khi ngữ cảnh đã rõ (chủ ngữ ngầm là \"chúng tôi\"). Cụm **hoàn tác về** kết hợp động từ kỹ thuật với giới từ chỉ đích đến.\n\n## Từ vựng\n- **phát hiện**: tìm ra điều trước đây chưa biết; to detect, to discover\n- **lỗi nghiêm trọng**: lỗi gây ảnh hưởng lớn đến hệ thống; critical bug\n- **nghiêm trọng**: có mức độ nguy hiểm hoặc ảnh hưởng cao; critical, serious\n- **hoàn tác**: đảo ngược thay đổi, quay về trạng thái trước; to rollback, to undo\n- **phiên bản trước đó**: bản cũ hơn phiên bản hiện tại; previous version"
           }
         },
         {
           "text": "Giao tiếp là điều thiết yếu để đảm bảo quá trình chuyển đổi diễn ra suôn sẻ cho khách hàng.",
           "notes": {
+            "en": "## Grammar\n**[X] là điều thiết yếu để + purpose**: 'X is essential in order to…' — *là* (to be) + *điều thiết yếu* (essential thing) + *để* (in order to). **diễn ra suôn sẻ**: resultative verb phrase — *diễn ra* (to take place) + *suôn sẻ* (smoothly) as a result/manner complement.\n\n## Vocabulary\n- **giao tiếp**: communication\n- **thiết yếu**: essential, indispensable\n- **đảm bảo**: to ensure, to guarantee\n- **quá trình chuyển đổi**: transition process\n- **suôn sẻ**: smooth, without obstacles",
+            "de": "## Grammatik\n**[X] là điều thiết yếu để + Zweck**: '[X] ist unabdingbar, um…'. **diễn ra suôn sẻ**: resultatives Verbalgefuege — *diễn ra* + *suôn sẻ* als Ergebnis/Artbestimmung.\n\n## Wortschatz\n- **giao tiếp**: Kommunikation\n- **thiết yếu**: unabdingbar, wesentlich\n- **đảm bảo**: sicherstellen\n- **quá trình chuyển đổi**: Uebergangsprozess\n- **suôn sẻ**: reibungslos",
+            "ja": "## 文法\n**[X] là điều thiết yếu để + 目的**：「Xは〜するために不可欠である」。**diễn ra suôn sẻ**：結果的動詞句 — *diễn ra*（行われる）+ *suôn sẻ*（スムーズに）が結果/様態を補足。\n\n## 語彙\n- **giao tiếp**: コミュニケーション\n- **thiết yếu**: 不可欠な\n- **đảm bảo**: 確保する、保証する\n- **quá trình chuyển đổi**: 移行プロセス\n- **suôn sẻ**: スムーズに",
             "vi": "## Ngữ pháp\nCấu trúc **[X] là điều thiết yếu để + [mục đích]** dùng để nhấn mạnh tầm quan trọng bắt buộc của X. Cụm **diễn ra suôn sẻ** là cụm động từ + tính từ bổ ngữ chỉ kết quả: quá trình diễn ra với kết quả thuận lợi.\n\n## Từ vựng\n- **giao tiếp**: trao đổi thông tin giữa các bên; communication\n- **thiết yếu**: cực kỳ quan trọng, không thể thiếu; essential\n- **đảm bảo**: cam kết hoặc làm cho điều gì chắc chắn xảy ra; to ensure, to guarantee\n- **quá trình chuyển đổi**: giai đoạn thay đổi từ trạng thái này sang trạng thái khác; transition process\n- **suôn sẻ**: trôi chảy, không gặp trở ngại; smooth, without issues"
           }
         }

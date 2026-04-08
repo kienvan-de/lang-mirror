@@ -12,28 +12,46 @@
         {
           "text": "This part of the code is very old and difficult to maintain.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing"
+            "en": "## Grammar\n**Linking verb + predicate adjectives**: *is old* and *difficult to maintain* — two predicate adjectives joined by *and*. **difficult to + infinitive**: adjective + infinitive pattern expressing difficulty of performing the action (*to maintain*).\n\n## Vocabulary\n- **part**: a section or component of a larger whole\n- **old**: having existed for a long time; outdated\n- **difficult to maintain**: hard to keep working and up-to-date\n- **maintain**: to keep in good working condition over time",
+            "de": "## Grammatik\n**Kopulaverb + praedikative Adjektive**: *is old* und *difficult to maintain* — zwei Adjektive durch *and* verbunden. **difficult to + Infinitiv**: Adjektiv + Infinitiv drueckt die Schwierigkeit der Handlung aus.\n\n## Wortschatz\n- **part**: der Teil, der Abschnitt\n- **old**: alt, veraltet\n- **difficult to maintain**: schwer zu warten\n- **maintain**: warten, pflegen, instand halten",
+            "ja": "## 文法\n**連結動詞 + 叙述形容詞**：*is old* と *difficult to maintain* — *and* でつながれた二つの叙述形容詞。**difficult to + 不定詞**：形容詞 + 不定詞でその行動（*to maintain*）の難しさを表します。\n\n## 語彙\n- **part**: 部分、箇所\n- **old**: 古い、時代遅れの\n- **difficult to maintain**: メンテナンスが難しい\n- **maintain**: 維持する、保守する",
+            "vi": "## Ngữ pháp\n**Động từ nối + tính từ vị ngữ**: *is old* và *difficult to maintain* — hai tính từ vị ngữ nối bởi *and*. **difficult to + động từ nguyên thể**: tính từ + bất định từ diễn đạt sự khó khăn khi thực hiện hành động.\n\n## Từ vựng\n- **part**: phần, bộ phận\n- **old**: cũ, lỗi thời\n- **difficult to maintain**: khó bảo trì\n- **maintain**: bảo trì, duy trì"
           }
         },
         {
           "text": "I am going to refactor these functions to make them more efficient.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing"
+            "en": "## Grammar\n**be going to + infinitive**: expresses a planned intention. **to make them more efficient**: infinitive of purpose — explains why refactoring is being done. **make + object + adjective**: causative construction (*make them efficient*).\n\n## Vocabulary\n- **refactor**: to restructure existing code without changing its behavior\n- **functions**: named blocks of code that perform specific tasks\n- **efficient**: achieving results with minimal wasted resources\n- **more efficient**: comparative — improved performance",
+            "de": "## Grammatik\n**be going to + Infinitiv**: druckt eine geplante Absicht aus. **to make them more efficient**: Infinitiv des Zwecks. **make + Objekt + Adjektiv**: kausative Konstruktion.\n\n## Wortschatz\n- **refactor**: refaktorieren (Code umstrukturieren ohne Verhaltensaenderung)\n- **functions**: Funktionen\n- **efficient**: effizient\n- **more efficient**: effizienter (Komparativ)",
+            "ja": "## 文法\n**be going to + 動詞原形**：計画された意図を表します。**to make them more efficient**：目的の不定詞。**make + 目的語 + 形容詞**：使役構文。\n\n## 語彙\n- **refactor**: リファクタリングする（動作を変えずにコードを再構成する）\n- **functions**: 関数\n- **efficient**: 効率的な\n- **more efficient**: より効率的（比較級）",
+            "vi": "## Ngữ pháp\n**be going to + động từ nguyên thể**: diễn đạt ý định đã lên kế hoạch. **to make them more efficient**: bất định từ chỉ mục đích. **make + tân ngữ + tính từ**: cấu trúc sai khiến.\n\n## Từ vựng\n- **refactor**: tái cấu trúc code mà không thay đổi chức năng\n- **functions**: các hàm\n- **efficient**: hiệu quả\n- **more efficient**: hiệu quả hơn (so sánh hơn)"
           }
         },
         {
-          "text": "First, I will write unit tests to ensure that the logic remains the same."
+          "text": "First, I will write unit tests to ensure that the logic remains the same.",
+          "notes": {
+            "en": "## Grammar\n**Sentence adverb *First***: signals the initial step in a sequence. **to ensure that + clause**: infinitive of purpose with a *that*-clause as its complement. **remains**: present simple in the *that*-clause — expresses a desired ongoing state.\n\n## Vocabulary\n- **unit tests**: automated tests that verify small, isolated pieces of code\n- **ensure**: to make certain, to guarantee\n- **logic**: the computational rules and flow of a program\n- **remains the same**: does not change, stays identical",
+            "de": "## Grammatik\n**Satzadverb *First***: zeigt den ersten Schritt in einer Reihenfolge an. **to ensure that + Satz**: Infinitiv des Zwecks mit einem *that*-Satz. **remains**: Prasens im *that*-Satz — gewuenschter andauernder Zustand.\n\n## Wortschatz\n- **unit tests**: Unit-Tests (automatisierte Tests kleiner Codeeinheiten)\n- **ensure**: sicherstellen\n- **logic**: die Logik, der Programmablauf\n- **remains the same**: bleibt gleich",
+            "ja": "## 文法\n**文副詞 *First***：一連のステップの最初を示します。**to ensure that + 節**：補文節付きの目的の不定詞。**remains**：*that* 節内の現在形 — 望ましい継続状態を表します。\n\n## 語彙\n- **unit tests**: ユニットテスト（小さなコード単位を検証する自動テスト）\n- **ensure**: 確実にする\n- **logic**: ロジック、プログラムの論理\n- **remains the same**: 同じままである",
+            "vi": "## Ngữ pháp\n**Trạng từ câu *First***: báo hiệu bước đầu tiên trong chuỗi hành động. **to ensure that + mệnh đề**: bất định từ chỉ mục đích với mệnh đề *that* bổ sung. **remains**: hiện tại đơn trong mệnh đề *that* — diễn đạt trạng thái tiếp tục mong muốn.\n\n## Từ vựng\n- **unit tests**: kiểm tra đơn vị (test tự động cho từng phần nhỏ của code)\n- **ensure**: đảm bảo\n- **logic**: logic, quy trình xử lý\n- **remains the same**: vẫn giữ nguyên"
+          }
         },
         {
           "text": "By cleaning up the technical debt, we can implement new features faster.",
           "notes": {
-            "en": "Gerund phrase: 'By + verb-ing' expresses means/method"
+            "en": "## Grammar\n**by + gerund**: *by cleaning up* — expresses the means or method. **technical debt**: metaphorical compound noun — shortcuts taken in code that need to be fixed later. **can + infinitive**: modal of ability/possibility. **faster**: comparative adverb.\n\n## Vocabulary\n- **cleaning up**: removing unnecessary or poor-quality code\n- **technical debt**: accumulated shortcuts and quick fixes that slow future development\n- **implement**: to build and put into use\n- **features**: specific functionalities in software\n- **faster**: more quickly (comparative)",
+            "de": "## Grammatik\n**by + Gerundium**: *by cleaning up* — druckt das Mittel aus. **technical debt**: metaphorisches Kompositum. **can + Infinitiv**: Modalverb der Moeglichkeit. **faster**: Komparativ des Adverbs.\n\n## Wortschatz\n- **cleaning up**: bereinigen, aufraeumen\n- **technical debt**: technische Schulden\n- **implement**: implementieren, umsetzen\n- **features**: Funktionen, Features\n- **faster**: schneller (Komparativ)",
+            "ja": "## 文法\n**by + 動名詞**：*by cleaning up* — 手段・方法を表します。**technical debt**：比喩的な複合名詞。**can + 動詞原形**：能力・可能性のモーダル。**faster**：副詞の比較級。\n\n## 語彙\n- **cleaning up**: クリーンアップする\n- **technical debt**: 技術的負債\n- **implement**: 実装する\n- **features**: 機能\n- **faster**: より速く（比較級）",
+            "vi": "## Ngữ pháp\n**by + danh động từ**: *by cleaning up* — diễn đạt phương tiện hoặc phương pháp. **technical debt**: danh từ phức hợp ẩn dụ. **can + động từ nguyên thể**: modal chỉ khả năng. **faster**: trạng từ so sánh hơn.\n\n## Từ vựng\n- **cleaning up**: dọn dẹp, loại bỏ code không cần thiết\n- **technical debt**: nợ kỹ thuật\n- **implement**: triển khai, xây dựng\n- **features**: tính năng\n- **faster**: nhanh hơn (so sánh hơn)"
           }
         },
         {
           "text": "Refactoring takes time, but it is necessary for long-term stability.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing"
+            "en": "## Grammar\n**Gerund as subject**: *Refactoring* acts as the subject of *takes*. **takes time**: fixed expression — 'requires time'. **necessary for + noun**: predicate adjective + preposition. **long-term**: compound adjective modifying *stability*.\n\n## Vocabulary\n- **refactoring**: the process of restructuring code without changing its external behavior\n- **takes time**: requires time, is not quick\n- **necessary**: required, essential\n- **long-term stability**: the ability to function reliably over a long period",
+            "de": "## Grammatik\n**Gerundium als Subjekt**: *Refactoring* als Subjekt von *takes*. **takes time**: feste Wendung. **necessary for + Nomen**: praedikatives Adjektiv + Praposition. **long-term**: zusammengesetztes Adjektiv.\n\n## Wortschatz\n- **refactoring**: das Refaktorieren\n- **takes time**: braucht Zeit\n- **necessary**: notwendig, erforderlich\n- **long-term stability**: langfristige Stabilitaet",
+            "ja": "## 文法\n**動名詞が主語**：*Refactoring* が *takes* の主語。**takes time**：固定表現（時間がかかる）。**necessary for + 名詞**：叙述形容詞 + 前置詞。**long-term**：*stability* を修飾する複合形容詞。\n\n## 語彙\n- **refactoring**: リファクタリング\n- **takes time**: 時間がかかる\n- **necessary**: 必要な\n- **long-term stability**: 長期的な安定性",
+            "vi": "## Ngữ pháp\n**Danh động từ làm chủ ngữ**: *Refactoring* là chủ ngữ của *takes*. **takes time**: cụm cố định 'mất thời gian'. **necessary for + danh từ**: tính từ vị ngữ + giới từ. **long-term**: tính từ phức hợp bổ nghĩa cho *stability*.\n\n## Từ vựng\n- **refactoring**: tái cấu trúc code\n- **takes time**: tốn thời gian\n- **necessary**: cần thiết\n- **long-term stability**: sự ổn định lâu dài"
           }
         }
       ]
@@ -48,23 +66,47 @@
         {
           "text": "Dieser Code ist sehr alt und nicht gut.",
           "notes": {
-            "de": "Negation: 'nicht' (verb/adj) vs 'kein' (noun)"
+            "en": "## Grammar\n**nicht** negates the adjective *gut* — 'not good'. In German, *nicht* negates adjectives and verbs, while *kein* negates nouns. **Dieser Code**: demonstrative pronoun *dieser* (masculine nominative) used as a determiner — 'this code'.\n\n## Vocabulary\n- **dieser**: this (masc. nominative demonstrative)\n- **sehr alt**: very old\n- **nicht gut**: not good, poor quality",
+            "de": "## Grammatik\n**nicht** negiert das Adjektiv *gut*. **Dieser Code**: Demonstrativpronomen *dieser* (mask. Nominativ) als Determinativ.\n\n## Wortschatz\n- **dieser**: dieser (mask. Nom. Demonstrativpronomen)\n- **sehr alt**: sehr alt\n- **nicht gut**: nicht gut, minderwertig",
+            "ja": "## 文法\n**nicht** で形容詞 *gut* を否定 —「良くない」。**Dieser Code**：指示代名詞 *dieser*（男性名詞主格）が限定詞として使われます。\n\n## 語彙\n- **dieser**: このの（男性名詞主格指示代名詞）\n- **sehr alt**: とても古い\n- **nicht gut**: 良くない",
+            "vi": "## Ngữ pháp\n**nicht** phủ định tính từ *gut* — 'không tốt'. **Dieser Code**: đại từ chỉ định *dieser* (giống đực, chủ cách) dùng như từ hạn định.\n\n## Từ vựng\n- **dieser**: này (đại từ chỉ định giống đực chủ cách)\n- **sehr alt**: rất cũ\n- **nicht gut**: không tốt, kém chất lượng"
           }
         },
         {
-          "text": "Ich mache den Code jetzt besser und schneller."
+          "text": "Ich mache den Code jetzt besser und schneller.",
+          "notes": {
+            "en": "## Grammar\n**machen + accusative + adjective**: causative construction — *den Code besser machen* = 'to make the code better'. **den Code**: masculine accusative. **besser und schneller**: two comparative adjectives used predicatively after *machen*.\n\n## Vocabulary\n- **mache**: to make (1st person singular of *machen*)\n- **den Code**: the code (masc. accusative)\n- **jetzt**: now\n- **besser**: better (comparative of *gut*)\n- **schneller**: faster (comparative of *schnell*)",
+            "de": "## Grammatik\n**machen + Akkusativ + Adjektiv**: kausative Konstruktion. **den Code**: mask. Akkusativ. **besser und schneller**: zwei Komparativformen als Praedikativum.\n\n## Wortschatz\n- **mache**: 1. Person Singular von *machen*\n- **den Code**: den Code (Akk.)\n- **jetzt**: jetzt\n- **besser**: besser (Komparativ von *gut*)\n- **schneller**: schneller (Komparativ von *schnell*)",
+            "ja": "## 文法\n**machen + 対格 + 形容詞**：使役構文 — *den Code besser machen* =「コードをよくする」。**den Code**：男性名詞対格。**besser und schneller**：*machen* の後に置かれた二つの比較級形容詞。\n\n## 語彙\n- **mache**: 作る、する（*machen* の1人称単数）\n- **den Code**: コードを（男性名詞対格）\n- **jetzt**: 今\n- **besser**: より良い（*gut* の比較級）\n- **schneller**: より速い（*schnell* の比較級）",
+            "vi": "## Ngữ pháp\n**machen + tân ngữ cách + tính từ**: cấu trúc sai khiến — *den Code besser machen* = 'làm cho code tốt hơn'. **den Code**: tân ngữ cách giống đực. **besser und schneller**: hai tính từ so sánh hơn dùng làm vị ngữ sau *machen*.\n\n## Từ vựng\n- **mache**: làm (ngôi 1 số ít của *machen*)\n- **den Code**: code (tân ngữ cách)\n- **jetzt**: bây giờ\n- **besser**: tốt hơn (so sánh hơn của *gut*)\n- **schneller**: nhanh hơn (so sánh hơn của *schnell*)"
+          }
         },
         {
           "text": "Zuerst schreibe ich Tests, dann bleibt die Logik gleich.",
           "notes": {
-            "de": "Word order: 'dann' (then) causes verb-second position"
+            "en": "## Grammar\n**Verb-second (V2)**: *Zuerst* (first) fronted -> *schreibe* second. **dann** (then) fronted in the second clause -> *bleibt* second, subject *die Logik* follows (inversion). **gleich**: predicate adjective meaning 'the same, unchanged'.\n\n## Vocabulary\n- **zuerst**: first, first of all\n- **dann**: then, after that\n- **bleibt**: remains, stays (3rd person singular of *bleiben*)\n- **die Logik**: the logic\n- **gleich**: the same, unchanged",
+            "de": "## Grammatik\n**V2**: *Zuerst* auf Pos. 1 -> *schreibe* auf Pos. 2. **dann** -> V2-Inversion im zweiten Hauptsatz: *bleibt* auf Pos. 2. **gleich**: praedikatives Adjektiv fuer 'unveraendert'.\n\n## Wortschatz\n- **zuerst**: zuerst, als Erstes\n- **dann**: dann, danach\n- **bleibt**: bleibt, verbleibt (*bleiben*, 3. Pers. Sg.)\n- **die Logik**: die Logik\n- **gleich**: gleich, unveraendert",
+            "ja": "## 文法\n**V2語順**：*Zuerst*（まず）が第1位 -> *schreibe* が第2位。**dann**（そのとき）が二番目の主節の第1位 -> *bleibt* が第2位、主語 *die Logik* が後（倒置）。**gleich**：「同じ、変わらない」という叙述形容詞。\n\n## 語彙\n- **zuerst**: まず、最初に\n- **dann**: そのとき、それから\n- **bleibt**: 残る、変わらない（*bleiben* の3人称単数）\n- **die Logik**: ロジック\n- **gleich**: 同じ、変わらない",
+            "vi": "## Ngữ pháp\n**V2**: *Zuerst* đứng đầu -> *schreibe* đứng thứ hai. **dann** đứng đầu mệnh đề thứ hai -> đảo ngữ V2: *bleibt* đứng thứ hai, chủ ngữ *die Logik* đứng sau. **gleich**: tính từ vị ngữ nghĩa 'giống nhau, không đổi'.\n\n## Từ vựng\n- **zuerst**: trước tiên\n- **dann**: khi đó, sau đó\n- **bleibt**: vẫn còn, không đổi (*bleiben* ngôi 3 số ít)\n- **die Logik**: logic\n- **gleich**: giống nhau, không thay đổi"
           }
         },
         {
-          "text": "Sauberer Code hilft uns, neue Funktionen zu bauen."
+          "text": "Sauberer Code hilft uns, neue Funktionen zu bauen.",
+          "notes": {
+            "en": "## Grammar\n**helfen + dative + zu-infinitive**: *hilft uns … zu bauen* — *helfen* takes a dative object (*uns*) and a *zu*-infinitive clause. **sauberer Code**: masculine nominative with strong adjective ending *-er* (no article before it).\n\n## Vocabulary\n- **sauber**: clean, tidy, neat\n- **sauberer Code**: clean code (masc. nom. strong declension)\n- **hilft**: helps (3rd person singular of *helfen*)\n- **uns**: us (dative)\n- **zu bauen**: to build (zu-infinitive)",
+            "de": "## Grammatik\n**helfen + Dativ + zu-Infinitiv**: *hilft uns … zu bauen* — *helfen* nimmt ein Dativobjekt (*uns*) und einen *zu*-Infinitivsatz. **sauberer Code**: mask. Nominativ, starke Adjektivdeklination *-er* (ohne Artikel).\n\n## Wortschatz\n- **sauber**: sauber, ordentlich\n- **sauberer Code**: sauberer Code (mask. Nom., starke Dekl.)\n- **hilft**: hilft (*helfen*, 3. Pers. Sg.)\n- **uns**: uns (Dativ)\n- **zu bauen**: zu bauen (zu-Infinitiv)",
+            "ja": "## 文法\n**helfen + 与格 + zu不定詞**：*hilft uns … zu bauen* — *helfen* は与格目的語（*uns*）と *zu*-不定詞節を取ります。**sauberer Code**：男性名詞主格、冠詞なしの強変化形容詞語尾 *-er*。\n\n## 語彙\n- **sauber**: きれいな、整頓された\n- **sauberer Code**: クリーンなコード（男性名詞主格強変化）\n- **hilft**: 助ける（*helfen* の3人称単数）\n- **uns**: 私たちに（与格）\n- **zu bauen**: 作ること（zu不定詞）",
+            "vi": "## Ngữ pháp\n**helfen + cách cho + zu-bất định từ**: *hilft uns … zu bauen* — *helfen* lấy tân ngữ cách cho (*uns*) và mệnh đề *zu*-bất định từ. **sauberer Code**: chủ cách giống đực, đuôi tính từ mạnh *-er* (không có mạo từ trước).\n\n## Từ vựng\n- **sauber**: sạch sẽ, gọn gàng\n- **sauberer Code**: code sạch (chủ cách giống đực, biến cách mạnh)\n- **hilft**: giúp (*helfen* ngôi 3 số ít)\n- **uns**: chúng tôi (cách cho)\n- **zu bauen**: để xây dựng (zu-bất định từ)"
+          }
         },
         {
-          "text": "Das dauert lange, aber das System wird stabiler."
+          "text": "Das dauert lange, aber das System wird stabiler.",
+          "notes": {
+            "en": "## Grammar\n**Das**: neuter pronoun as subject — 'it / that'. **dauert**: 3rd person singular of *dauern* (to take time, to last). **aber**: coordinating conjunction 'but'. **wird stabiler**: *werden* (to become) + comparative adjective *stabiler* — expresses a change of state.\n\n## Vocabulary\n- **dauert**: takes (time), lasts (*dauern*, 3rd pers. sg.)\n- **lange**: a long time\n- **aber**: but\n- **wird**: becomes (future/change of state)\n- **stabiler**: more stable (comparative of *stabil*)",
+            "de": "## Grammatik\n**das** als neutrales Pronomen = 'das / es'. **dauert**: 3. Person Singular von *dauern*. **aber**: koordinierende Konjunktion. **wird stabiler**: *werden* + Komparativadjektiv — drueckt einen Zustandswechsel aus.\n\n## Wortschatz\n- **dauert**: dauert, nimmt Zeit in Anspruch\n- **lange**: lange Zeit\n- **aber**: aber\n- **wird**: wird (Zustandsveraenderung)\n- **stabiler**: stabiler (Komparativ von *stabil*)",
+            "ja": "## 文法\n**das**：中性代名詞「それ」。**dauert**：*dauern*（時間がかかる）の3人称単数。**aber**：等位接続詞「しかし」。**wird stabiler**：*werden*（〜になる）+ 比較級形容詞 — 状態変化を表します。\n\n## 語彙\n- **dauert**: 時間がかかる（*dauern* の3人称単数）\n- **lange**: 長い時間\n- **aber**: しかし\n- **wird**: 〜になる\n- **stabiler**: より安定した（*stabil* の比較級）",
+            "vi": "## Ngữ pháp\n**das**: đại từ trung tính 'điều đó, nó'. **dauert**: ngôi 3 số ít của *dauern* (mất thời gian). **aber**: liên từ đẳng lập 'nhưng'. **wird stabiler**: *werden* (trở nên) + tính từ so sánh hơn — diễn đạt sự thay đổi trạng thái.\n\n## Từ vựng\n- **dauert**: mất thời gian (*dauern* ngôi 3 số ít)\n- **lange**: một thời gian dài\n- **aber**: nhưng\n- **wird**: trở nên\n- **stabiler**: ổn định hơn (so sánh hơn của *stabil*)"
+          }
         }
       ]
     },
@@ -78,31 +120,46 @@
         {
           "text": "このコードはとても古くて、メンテナンスが大変（たいへん）です。",
           "notes": {
-            "ja": "Furigana reading shown in （）for N4 kanji"
+            "en": "## Grammar\n**〜くて (te-form of i-adjective)**: *古くて* — the te-form of *古い* (old) connects two adjectives/clauses: 'it is old and [also] maintenance is difficult'. **〜が大変です**: *大変* as a predicate — 'is difficult / is a lot of work'.\n\n## Vocabulary\n- **このコード**: this code\n- **古くて (ふるくて)**: old and… (te-form of *古い*)\n- **メンテナンス**: maintenance (loanword)\n- **大変 (たいへん)**: difficult, a lot of trouble",
+            "de": "## Grammatik\n**〜くて (Te-Form des i-Adjektivs)**: *古くて* — verbindet zwei Adjektive/Saetze: 'Es ist alt und Wartung ist schwierig'. **〜が大変です**: *大変* als Praedikat.\n\n## Wortschatz\n- **このコード**: dieser Code\n- **古くて**: alt und... (Te-Form von *古い*)\n- **メンテナンス**: Wartung (Lehnwort)\n- **大変**: schwierig, muehsam",
+            "ja": "## 文法\n**〜くて（い形容詞のて形）**：*古くて* — *古い* のて形で、二つの形容詞・節をつなぎます（「古くて、メンテナンスも大変」）。**〜が大変です**：*大変* が述語。\n\n## 語彙\n- **このコード**: このコード\n- **古くて**: 古くて（*古い* のて形）\n- **メンテナンス**: メンテナンス（外来語）\n- **大変**: 大変な、困難な",
+            "vi": "## Ngữ pháp\n**〜くて (thể て của tính từ -i)**: *古くて* — thể て của *古い* (cũ) nối hai tính từ/mệnh đề: 'cũ và bảo trì cũng khó'. **〜が大変です**: *大変* làm vị ngữ.\n\n## Từ vựng\n- **このコード**: code này\n- **古くて (ふるくて)**: cũ và... (thể て của *古い*)\n- **メンテナンス**: bảo trì (từ mượn)\n- **大変 (たいへん)**: khó khăn, vất vả"
           }
         },
         {
           "text": "もっと効率（こうりつ）を良くするために、リファクタリングをします。",
           "notes": {
-            "ja": "〜ために: purpose 'in order to / for the sake of'"
+            "en": "## Grammar\n**〜を良くする**: *効率を良くする* = 'to make efficiency better' — *良くする* is the causative of *良い* (good): *良く* (adverb) + *する* (to do/make). **〜ために**: purpose — 'in order to improve efficiency'.\n\n## Vocabulary\n- **もっと**: more, even more\n- **効率 (こうりつ)**: efficiency\n- **良くする (よくする)**: to improve, to make better\n- **ために**: in order to\n- **リファクタリング**: refactoring (loanword)",
+            "de": "## Grammatik\n**〜を良くする**: *効率を良くする* = 'Effizienz verbessern' — *良くする* als kausatives Konstrukt. **〜ために**: Zweck.\n\n## Wortschatz\n- **もっと**: mehr, noch mehr\n- **効率**: Effizienz\n- **良くする**: verbessern\n- **ために**: um zu (Zweck)\n- **リファクタリング**: Refaktorierung (Lehnwort)",
+            "ja": "## 文法\n**〜を良くする**：*効率を良くする* =「効率を良くする」— *良くする* は *良い* の使役的用法（*良く* 副詞 + *する*）。**〜ために**：目的。\n\n## 語彙\n- **もっと**: もっと、さらに\n- **効率**: 効率\n- **良くする**: 良くする、改善する\n- **ために**: 〜のために（目的）\n- **リファクタリング**: リファクタリング（外来語）",
+            "vi": "## Ngữ pháp\n**〜を良くする**: *効率を良くする* = 'cải thiện hiệu quả' — *良くする* là cấu trúc sai khiến của *良い* (tốt). **〜ために**: mục đích.\n\n## Từ vựng\n- **もっと**: nhiều hơn, hơn nữa\n- **効率 (こうりつ)**: hiệu quả\n- **良くする (よくする)**: cải thiện, làm tốt hơn\n- **ために**: để, nhằm mục đích\n- **リファクタリング**: tái cấu trúc code (từ mượn)"
           }
         },
         {
           "text": "まず、動きが変わらないように、テストコードを書きます。",
           "notes": {
-            "ja": "〜ように: purpose/manner 'so that / in a way that'"
+            "en": "## Grammar\n**まず**: sentence adverb meaning 'first of all'. **〜ないように (negative purpose)**: *変わらないように* = 'so that [it] does not change' — *〜ない* (negative) + *〜ように* (so that). Used to prevent an outcome.\n\n## Vocabulary\n- **まず**: first of all, to begin with\n- **動き (うごき)**: movement, behavior, operation\n- **変わらないように (かわらないように)**: so that it does not change\n- **テストコード**: test code\n- **書きます (かきます)**: will write",
+            "de": "## Grammatik\n**まず**: Satzadverb 'zuerst, zunachst'. **〜ないように (negatives Ziel)**: *変わらないように* = 'damit es sich nicht aendert' — *〜ない* + *〜ように*. Verhindert ein Ergebnis.\n\n## Wortschatz\n- **まず**: zuerst, zunachst\n- **動き**: Bewegung, Verhalten\n- **変わらないように**: damit es sich nicht aendert\n- **テストコード**: Testcode\n- **書きます**: werde schreiben",
+            "ja": "## 文法\n**まず**：文副詞「まず最初に」。**〜ないように（否定目的）**：*変わらないように* =「変わらないように」— *〜ない*（否定）+ *〜ように*。結果を防ぐために使います。\n\n## 語彙\n- **まず**: まず、最初に\n- **動き**: 動き、振る舞い\n- **変わらないように**: 変わらないように\n- **テストコード**: テストコード\n- **書きます**: 書きます",
+            "vi": "## Ngữ pháp\n**まず**: trạng từ câu 'trước tiên'. **〜ないように (mục đích phủ định)**: *変わらないように* = 'để không thay đổi' — *〜ない* (phủ định) + *〜ように*. Dùng để ngăn chặn kết quả.\n\n## Từ vựng\n- **まず**: trước tiên, đầu tiên\n- **動き (うごき)**: chuyển động, hành vi, cách hoạt động\n- **変わらないように (かわらないように)**: để không thay đổi\n- **テストコード**: code kiểm tra\n- **書きます (かきます)**: sẽ viết"
           }
         },
         {
           "text": "コードをきれいにすれば、新しい機能を早く作ることができます。",
           "notes": {
-            "ja": "Conditional form: たら (if/when completed), ば (hypothetical)"
+            "en": "## Grammar\n**〜ば conditional**: *きれいにすれば* = 'if [we] make [the code] clean' — *きれいにする* (to make clean) in the *〜ば* form. **〜ことができます**: potential expression — *作ること* (nominalized) + *ができます* = 'can [do], is able to'.\n\n## Vocabulary\n- **きれいにすれば (きれいにすれば)**: if made clean (conditional of *きれいにする*)\n- **新しい機能 (あたらしいきのう)**: new features\n- **早く (はやく)**: quickly, fast\n- **〜ことができます**: can do, is able to (potential)",
+            "de": "## Grammatik\n**〜ば-Konditional**: *きれいにすれば* = 'wenn [wir es] sauber machen' — *きれいにする* im *〜ば*-Konditional. **〜ことができます**: Potenzialausdruck — *作ること* + *ができます*.\n\n## Wortschatz\n- **きれいにすれば**: wenn man es sauber macht\n- **新しい機能**: neue Funktionen\n- **早く**: schnell\n- **〜ことができます**: kann (Potenzial)",
+            "ja": "## 文法\n**〜ば条件形**：*きれいにすれば* =「コードをきれいにすれば」— *きれいにする* の *〜ば* 形。**〜ことができます**：可能の表現 — *作ること*（名詞化）+ *ができます*。\n\n## 語彙\n- **きれいにすれば**: きれいにすれば（条件）\n- **新しい機能**: 新しい機能\n- **早く**: 早く、すばやく\n- **〜ことができます**: 〜できます（可能）",
+            "vi": "## Ngữ pháp\n**〜ば điều kiện**: *きれいにすれば* = 'nếu làm sạch code' — *きれいにする* ở thể *〜ば*. **〜ことができます**: biểu đạt khả năng — *作ること* (danh hóa) + *ができます* = 'có thể làm'.\n\n## Từ vựng\n- **きれいにすれば (きれいにすれば)**: nếu làm sạch (điều kiện của *きれいにする*)\n- **新しい機能 (あたらしいきのう)**: tính năng mới\n- **早く (はやく)**: nhanh chóng\n- **〜ことができます**: có thể làm (khả năng)"
           }
         },
         {
           "text": "時間がかかりますが、将来（しょうらい）のために必要（ひつよう）なことです。",
           "notes": {
-            "ja": "〜ために: purpose 'in order to / for the sake of'"
+            "en": "## Grammar\n**時間がかかります**: fixed expression — 'it takes time' (*時間* = time, *かかる* = to take/cost). **〜が、**: contrastive conjunction using the *が* particle — 'but'. **〜のために**: purpose — 'for the sake of [the future]'. **〜なことです**: nominalized adjective *必要な* + *こと* + *です*.\n\n## Vocabulary\n- **時間がかかります (じかんがかかります)**: takes time\n- **将来 (しょうらい)**: the future\n- **のために**: for the sake of\n- **必要な (ひつような)**: necessary\n- **なことです**: is a necessary thing (nominalizer)",
+            "de": "## Grammatik\n**時間がかかります**: feste Wendung 'Es braucht Zeit'. **〜が**: kontrastive Partikel 'aber'. **〜のために**: Zweck. **〜なことです**: nominalisiertes Adjektiv *必要な* + *こと* + *です*.\n\n## Wortschatz\n- **時間がかかります**: braucht Zeit\n- **将来**: die Zukunft\n- **のために**: fuer (Zweck)\n- **必要な**: notwendig\n- **なことです**: ist eine notwendige Sache",
+            "ja": "## 文法\n**時間がかかります**：固定表現「時間がかかる」。**〜が**：逆接の接続助詞「しかし」。**〜のために**：目的「〜のために」。**〜なことです**：形容詞 *必要な* + *こと* + *です* の名詞化。\n\n## 語彙\n- **時間がかかります**: 時間がかかります\n- **将来**: 将来、未来\n- **のために**: 〜のために\n- **必要な**: 必要な\n- **なことです**: 〜なことです（名詞化）",
+            "vi": "## Ngữ pháp\n**時間がかかります**: cụm cố định 'mất thời gian'. **〜が**: trợ từ tương phản 'nhưng'. **〜のために**: mục đích 'vì, cho'. **〜なことです**: tính từ *必要な* + *こと* + *です* — danh hóa.\n\n## Từ vựng\n- **時間がかかります (じかんがかかります)**: mất thời gian\n- **将来 (しょうらい)**: tương lai\n- **のために**: vì, cho (mục đích)\n- **必要な (ひつような)**: cần thiết\n- **なことです**: là điều cần thiết (danh hóa)"
           }
         }
       ]
@@ -117,30 +174,45 @@
         {
           "text": "Phần mã này rất cũ và khó bảo trì.",
           "notes": {
+            "en": "## Grammar\n**[Noun] + rất + [adj] và [adj]**: two descriptive properties linked by *và* (and). **khó + verb**: adjective *khó* (difficult) directly precedes an infinitive — Vietnamese omits 'to' (*khó bảo trì* = 'difficult to maintain').\n\n## Vocabulary\n- **phần**: part, section\n- **mã**: code\n- **cũ**: old, outdated\n- **khó**: difficult\n- **bảo trì**: to maintain",
+            "de": "## Grammatik\n**[Nomen] + rất + [Adj] và [Adj]**: zwei beschreibende Eigenschaften durch *và* verbunden. **khó + Verb**: Adjektiv *khó* vor dem Infinitiv.\n\n## Wortschatz\n- **phần**: Teil, Abschnitt\n- **mã**: Code\n- **cũ**: alt, veraltet\n- **khó**: schwierig\n- **bảo trì**: warten, pflegen",
+            "ja": "## 文法\n**[名詞] + rất + [形容詞] và [形容詞]**：*và*（と）でつながれた二つの記述的特性。**khó + 動詞**：形容詞 *khó*（難しい）が直接不定詞の前に来ます。\n\n## 語彙\n- **phần**: 部分\n- **mã**: コード\n- **cũ**: 古い\n- **khó**: 難しい\n- **bảo trì**: 保守する",
             "vi": "## Ngữ pháp\nCấu trúc **[danh từ] + rất + [tính từ] và [tính từ]** nối hai đặc điểm mô tả bằng liên từ \"và\". Tính từ **khó** ở đây đứng trước động từ nguyên thể \"bảo trì\" mà không cần thêm từ nối, khác với tiếng Anh (\"difficult to maintain\").\n\n## Từ vựng\n- **phần**: một bộ phận, đoạn, hay khu vực trong tổng thể; part, section\n- **mã**: các lệnh lập trình; code\n- **cũ**: tồn tại từ lâu, không còn mới; old, outdated\n- **khó**: đòi hỏi nhiều công sức; difficult, hard\n- **bảo trì**: duy trì và sửa chữa để hệ thống hoạt động tốt; to maintain"
           }
         },
         {
           "text": "Tôi sẽ tái cấu trúc (refactor) các hàm này để chúng trở nên hiệu quả hơn.",
           "notes": {
+            "en": "## Grammar\n**trở nên + adjective + hơn**: 'to become more [adjective]' — *trở nên* (to become) + comparative. **để + clause**: purpose — 'so that they become more efficient'. **các**: plural marker for noun phrases.\n\n## Vocabulary\n- **tái cấu trúc**: to refactor\n- **hàm**: function\n- **trở nên**: to become\n- **hiệu quả**: efficient, effective\n- **hơn**: more (comparative marker)",
+            "de": "## Grammatik\n**trở nên + Adjektiv + hơn**: 'zu [Adjektiv] werden' — Komparativkonstruktion. **để + Satz**: Zweck. **các**: Pluralmarker.\n\n## Wortschatz\n- **tái cấu trúc**: refaktorieren\n- **hàm**: Funktion\n- **trở nên**: werden\n- **hiệu quả**: effizient\n- **hơn**: mehr (Komparativmarker)",
+            "ja": "## 文法\n**trở nên + 形容詞 + hơn**：「より〜になる」— *trở nên*（〜になる）+ 比較級。**để + 節**：目的。**các**：名詞句の複数マーカー。\n\n## 語彙\n- **tái cấu trúc**: リファクタリングする\n- **hàm**: 関数\n- **trở nên**: 〜になる\n- **hiệu quả**: 効率的な\n- **hơn**: より（比較マーカー）",
             "vi": "## Ngữ pháp\nCụm **trở nên + [tính từ] hơn** diễn đạt sự thay đổi sang trạng thái tốt hơn, tương đương \"become more + adjective\". Đây là mẫu câu hữu ích để diễn đạt cải tiến: \"trở nên nhanh hơn\", \"trở nên rõ ràng hơn\".\n\n## Từ vựng\n- **tái cấu trúc**: tổ chức lại mã nguồn mà không thay đổi chức năng; to refactor\n- **hàm**: đơn vị code thực hiện một nhiệm vụ cụ thể; function\n- **trở nên**: biến đổi sang trạng thái mới; to become\n- **hiệu quả**: đạt được kết quả tốt với ít nguồn lực; efficient, effective\n- **hơn**: mức độ cao hơn trong so sánh; more (comparative)"
           }
         },
         {
           "text": "Đầu tiên, tôi sẽ viết các bài kiểm tra đơn vị (unit tests) để đảm bảo logic vẫn giữ nguyên.",
           "notes": {
+            "en": "## Grammar\n**Đầu tiên**: sentence adverb 'first of all'. **vẫn + verb**: 'still' — emphasizes that the state continues unchanged. **giữ nguyên**: resultative compound — *giữ* (to keep) + *nguyên* (original/intact) = 'to remain unchanged'.\n\n## Vocabulary\n- **đầu tiên**: first of all\n- **bài kiểm tra đơn vị**: unit test\n- **đảm bảo**: to ensure\n- **logic**: logic\n- **vẫn giữ nguyên**: still remain the same",
+            "de": "## Grammatik\n**Đầu tiên**: Satzadverb 'zuerst'. **vẫn + Verb**: 'noch immer' — betont unveraenderten Zustand. **giữ nguyên**: resultatives Kompositum.\n\n## Wortschatz\n- **đầu tiên**: zuerst\n- **bài kiểm tra đơn vị**: Unit-Test\n- **đảm bảo**: sicherstellen\n- **logic**: Logik\n- **vẫn giữ nguyên**: unveraendert bleiben",
+            "ja": "## 文法\n**Đầu tiên**：文副詞「まず最初に」。**vẫn + 動詞**：「まだ」— 変わらない状態が続くことを強調。**giữ nguyên**：結果複合語（*giữ* 保つ + *nguyên* 元のまま）。\n\n## 語彙\n- **đầu tiên**: まず、最初に\n- **bài kiểm tra đơn vị**: ユニットテスト\n- **đảm bảo**: 確実にする\n- **logic**: ロジック\n- **vẫn giữ nguyên**: 変わらないままである",
             "vi": "## Ngữ pháp\nCụm **vẫn + [động từ]** nhấn mạnh sự tiếp tục không thay đổi, tương đương \"still\" hoặc \"remain\". Cụm **giữ nguyên** (giữ = keep; nguyên = original/intact) chỉ trạng thái không bị thay đổi sau khi tác động.\n\n## Từ vựng\n- **bài kiểm tra đơn vị**: bài test kiểm tra từng phần nhỏ của code; unit test\n- **đảm bảo**: làm chắc chắn điều gì đó xảy ra đúng như dự kiến; to ensure\n- **logic**: quy trình xử lý và tính toán của chương trình; logic\n- **vẫn**: tiếp tục không thay đổi; still, remain\n- **giữ nguyên**: không thay đổi, giữ như cũ; to remain the same, unchanged"
           }
         },
         {
           "text": "Bằng cách dọn dẹp nợ kỹ thuật, chúng ta có thể triển khai các tính năng mới nhanh hơn.",
           "notes": {
+            "en": "## Grammar\n**Bằng cách + verb**: fronted adverbial of means — 'by [doing]'. **chúng ta**: inclusive 'we' (includes the listener), unlike *chúng tôi* (exclusive 'we'). **có thể + verb**: modal of possibility — 'can, be able to'.\n\n## Vocabulary\n- **bằng cách**: by (doing), through the method of\n- **dọn dẹp**: to clean up\n- **nợ kỹ thuật**: technical debt\n- **chúng ta**: we (inclusive)\n- **triển khai**: to deploy, to implement",
+            "de": "## Grammatik\n**Bằng cách + Verb**: vorangestelltes Adverbial des Mittels. **chúng ta**: inklusives 'wir' (schliesst Gespraechspartner ein). **có thể + Verb**: Modaler Ausdruck der Moeglichkeit.\n\n## Wortschatz\n- **bằng cách**: indem man (Methode)\n- **dọn dẹp**: bereinigen\n- **nợ kỹ thuật**: technische Schulden\n- **chúng ta**: wir (inklusiv)\n- **triển khai**: ausrollen, implementieren",
+            "ja": "## 文法\n**Bằng cách + 動詞**：前置される手段の副詞句。**chúng ta**：包括的な「私たち」（聞き手を含む）— *chúng tôi*（聞き手を除く）と異なります。**có thể + 動詞**：可能性のモーダル。\n\n## 語彙\n- **bằng cách**: 〜することによって\n- **dọn dẹp**: クリーンアップする\n- **nợ kỹ thuật**: 技術的負債\n- **chúng ta**: 私たち（包括的）\n- **triển khai**: 展開する、実装する",
             "vi": "## Ngữ pháp\nCụm **Bằng cách + [động từ]** đứng đầu câu làm trạng ngữ chỉ phương pháp, tương đương \"By + V-ing\". Chủ ngữ **chúng ta** (we, inclusive — bao gồm cả người nghe) khác với **chúng tôi** (we, exclusive — không bao gồm người nghe).\n\n## Từ vựng\n- **bằng cách**: thông qua phương pháp hay hành động cụ thể; by (doing)\n- **dọn dẹp**: loại bỏ những thứ không cần thiết, làm gọn gàng; to clean up\n- **nợ kỹ thuật**: phần code tạm thời, kém chất lượng cần sửa sau; technical debt\n- **tính năng**: chức năng hoặc khả năng mới của phần mềm; feature\n- **nhanh hơn**: với tốc độ cao hơn; faster"
           }
         },
         {
           "text": "Tái cấu trúc tốn thời gian, nhưng nó cần thiết cho sự ổn định lâu dài.",
           "notes": {
+            "en": "## Grammar\n**Bare infinitive as subject**: *Tái cấu trúc* (Refactoring) acts as subject without any nominalizer. **tốn + noun**: 'to cost/take [time/money]'. **cần thiết cho + noun**: 'necessary for'. **sự + noun**: abstract noun formation — *sự ổn định* = stability.\n\n## Vocabulary\n- **tốn**: to cost, to take up (time, resources)\n- **cần thiết**: necessary\n- **sự ổn định**: stability (*sự* + noun nominalizer)\n- **lâu dài**: long-term\n- **nhưng**: but",
+            "de": "## Grammatik\n**Infinitiv als Subjekt**: *Tái cấu trúc* als Subjekt ohne Nominalisierungspartikel. **tốn + Nomen**: 'kostet/braucht'. **cần thiết cho + Nomen**: 'notwendig fuer'. **sự + Nomen**: Abstraktheit.\n\n## Wortschatz\n- **tốn**: kostet, benoetigt\n- **cần thiết**: notwendig\n- **sự ổn định**: Stabilitaet\n- **lâu dài**: langfristig\n- **nhưng**: aber",
+            "ja": "## 文法\n**裸の不定詞が主語**：*Tái cấu trúc*（リファクタリング）が名詞化なしで主語になります。**tốn + 名詞**：「かかる/要する」。**cần thiết cho + 名詞**：「〜に必要な」。**sự + 名詞**：抽象名詞形成。\n\n## 語彙\n- **tốn**: かかる（時間・リソースを要する）\n- **cần thiết**: 必要な\n- **sự ổn định**: 安定性\n- **lâu dài**: 長期的な\n- **nhưng**: しかし",
             "vi": "## Ngữ pháp\nDanh từ hóa **Tái cấu trúc** làm chủ ngữ câu mà không cần thêm \"việc\". Cụm **cần thiết cho + [danh từ]** = \"necessary for\". Tính từ phức **lâu dài** (lâu = long; dài = extended) chỉ tính chất kéo dài trong thời gian.\n\n## Từ vựng\n- **tốn**: mất, đòi hỏi (thời gian, tiền bạc, công sức); to cost, to take up\n- **cần thiết**: không thể thiếu, bắt buộc phải có; necessary, essential\n- **sự ổn định**: trạng thái vận hành đều đặn, không bị gián đoạn; stability\n- **lâu dài**: kéo dài trong thời gian dài, bền vững; long-term\n- **nhưng**: liên từ nối hai ý tương phản; but, however"
           }
         }

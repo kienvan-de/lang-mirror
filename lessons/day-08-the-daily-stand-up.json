@@ -12,28 +12,46 @@
         {
           "text": "Today, I am going to update the team on my progress with the authentication module.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing"
+            "en": "## Grammar\n**be going to + infinitive**: expresses a planned near-future action (*I am going to update*). This differs from *will*, which is more spontaneous. **update someone on something**: phrasal structure meaning to give the latest information about a topic.\n\n## Vocabulary\n- **update**: to give the latest information to someone\n- **progress**: the degree of advancement toward a goal\n- **authentication module**: the software component that verifies user identity",
+            "de": "## Grammatik\n**be going to + Infinitiv**: drückt eine geplante Zukunftshandlung aus (*I am going to update*). Im Deutschen entspricht das oft dem Prasens mit Zeitangabe oder *ich werde … machen*. **update someone on something**: jemandem den neuesten Stand mitteilen.\n\n## Wortschatz\n- **update**: den neuesten Stand mitteilen\n- **progress**: der Fortschritt\n- **authentication module**: das Authentifizierungsmodul (Softwarekomponente zur Identitatsverifizierung)",
+            "ja": "## 文法\n**be going to + 動詞の原形**：計画された近い将来の行動を表します（*I am going to update*）。自発的な意思を表す *will* とは異なり、あらかじめ計画されている場合に使います。**update someone on something**：最新情報を誰かに伝える表現。\n\n## 語彙\n- **update**: 最新情報を伝える\n- **progress**: 進捗、進み具合\n- **authentication module**: 認証モジュール（ユーザーの身元を確認するソフトウェア部品）",
+            "vi": "## Ngữ pháp\n**be going to + động từ nguyên thể**: diễn đạt hành động tương lai đã lên kế hoạch (*I am going to update*). Khác với *will* (quyết định tức thời), *be going to* chỉ kế hoạch đã chuẩn bị trước. **update someone on something**: cung cấp thông tin mới nhất cho ai đó về một chủ đề.\n\n## Từ vựng\n- **update**: thông báo thông tin mới nhất cho ai đó\n- **progress**: tiến độ, mức độ hoàn thành\n- **authentication module**: mô-đun xác thực (thành phần phần mềm kiểm tra danh tính)"
           }
         },
         {
           "text": "I have finished the basic login logic, but I am still working on the password reset feature.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing"
+            "en": "## Grammar\n**Present perfect** (*I have finished*): reports a completed action with current relevance. **still + present continuous** (*I am still working*): emphasizes that an ongoing action has not yet ended. **but** connects two contrasting clauses — one completed, one in progress.\n\n## Vocabulary\n- **have finished**: present perfect of *finish* — completed action\n- **login logic**: the code that handles the sign-in process\n- **password reset**: the process of changing a forgotten or invalid password\n- **feature**: a distinct function or capability in software",
+            "de": "## Grammatik\n**Present perfect** (*I have finished*): Abgeschlossene Handlung mit Gegenwartsbezug — entspricht im Deutschen dem Perfekt (*Ich habe … fertiggestellt*). **still + Verlaufsform** (*I am still working*): betont, dass eine laufende Handlung noch nicht beendet ist. **but** verbindet zwei kontrastierende Teilsatze.\n\n## Wortschatz\n- **have finished**: abgeschlossen haben (Perfekt)\n- **login logic**: der Anmeldecode, die Login-Logik\n- **password reset**: das Zurucksetzen des Passworts\n- **feature**: die Funktion, das Feature (Softwaremerkmal)",
+            "ja": "## 文法\n**現在完了形** (*I have finished*)：過去に完了し現在にも関連する行動を表します。**still + 現在進行形** (*I am still working*)：進行中の行動がまだ終わっていないことを強調。**but** は対立する二つの節（完了 vs. 進行中）をつなぎます。\n\n## 語彙\n- **have finished**: 〜し終えた（現在完了）\n- **login logic**: ログイン処理のコード\n- **password reset**: パスワードのリセット\n- **feature**: 機能（ソフトウェアの特定の機能）",
+            "vi": "## Ngữ pháp\n**Thì hiện tại hoàn thành** (*I have finished*): báo cáo hành động đã hoàn tất có liên quan đến hiện tại. **still + thì tiếp diễn** (*I am still working*): nhấn mạnh hành động đang diễn ra chưa kết thúc. **but** nối hai mệnh đề tương phản — một đã hoàn thành, một đang tiến hành.\n\n## Từ vựng\n- **have finished**: đã hoàn thành (hiện tại hoàn thành)\n- **login logic**: mã xử lý quá trình đăng nhập\n- **password reset**: đặt lại mật khẩu\n- **feature**: tính năng trong phần mềm"
           }
         },
         {
-          "text": "I encountered a small issue with the database connection yesterday afternoon."
+          "text": "I encountered a small issue with the database connection yesterday afternoon.",
+          "notes": {
+            "en": "## Grammar\n**Simple past** (*I encountered*): used for a completed action at a specific time in the past (*yesterday afternoon*). **a small issue with**: noun phrase where *with* introduces what the issue concerns. The time expression *yesterday afternoon* is typically placed at the end of the sentence.\n\n## Vocabulary\n- **encountered**: past tense of *encounter* — to come across, to run into\n- **issue**: a problem or difficulty\n- **database connection**: the link between application code and a database\n- **yesterday afternoon**: the afternoon of the previous day",
+            "de": "## Grammatik\n**Simple past** (*encountered*): Wird fur abgeschlossene Handlungen in der Vergangenheit mit Zeitangabe verwendet. Auf Deutsch wurde man hier das Prateritum (*hatte*) oder das Perfekt verwenden. Die Zeitangabe *yesterday afternoon* steht am Satzende.\n\n## Wortschatz\n- **encountered**: begregnete, traf auf (to come across)\n- **issue**: das Problem, die Schwierigkeit\n- **database connection**: die Datenbankverbindung\n- **yesterday afternoon**: gestern Nachmittag",
+            "ja": "## 文法\n**過去形** (*encountered*)：特定の過去の時点（*yesterday afternoon*）に完了した行動に使います。**an issue with**：*with* が問題の対象を示します。時間表現 *yesterday afternoon* は通常文末に置かれます。\n\n## 語彙\n- **encountered**: 〜に遭遇した（過去形）\n- **issue**: 問題、不具合\n- **database connection**: データベース接続\n- **yesterday afternoon**: 昨日の午後",
+            "vi": "## Ngữ pháp\n**Thì quá khứ đơn** (*encountered*): dùng cho hành động đã hoàn tất tại một thời điểm cụ thể trong quá khứ (*yesterday afternoon*). **an issue with**: cụm danh từ, *with* dẫn nhập điều mà vấn đề liên quan đến. Trạng ngữ thời gian thường đặt cuối câu.\n\n## Từ vựng\n- **encountered**: gặp phải, đối mặt với (quá khứ của encounter)\n- **issue**: vấn đề, sự cố\n- **database connection**: kết nối cơ sở dữ liệu\n- **yesterday afternoon**: chiều hôm qua"
+          }
         },
         {
           "text": "I plan to resolve this bug today so that I can start testing tomorrow morning.",
           "notes": {
-            "en": "Purpose clause: 'so that + subject + can/will…'"
+            "en": "## Grammar\n**plan to + infinitive**: expresses intention (*I plan to resolve*). **so that + subject + can/will**: purpose clause showing the reason for the action. Here *so that I can start testing* = in order to be able to begin testing.\n\n## Vocabulary\n- **plan to**: to intend to, to have the intention of\n- **resolve**: to fix, to find and implement a solution\n- **bug**: a defect or error in software\n- **testing**: the process of verifying that software works correctly",
+            "de": "## Grammatik\n**plan to + Infinitiv**: druckt Absicht aus (*I plan to resolve*). Auf Deutsch: *Ich habe vor, … zu beheben*. **so that + Subjekt + can/will**: Finalsatz (Zwecksatz), der den Grund fur die Handlung angibt. Deutsches Aquivalent: *damit ich … anfangen kann*.\n\n## Wortschatz\n- **plan to**: vorhaben, beabsichtigen\n- **resolve**: beheben, losen\n- **bug**: der Fehler (Programmierfehler, Bug)\n- **testing**: das Testen, die Qualitatsicherung",
+            "ja": "## 文法\n**plan to + 動詞の原形**：意図を表します（*I plan to resolve* = 解決するつもり）。日本語では *〜するつもりです* が対応します。**so that + 主語 + can/will**：目的節 — 「〜できるように」という意味。\n\n## 語彙\n- **plan to**: 〜するつもりである、計画している\n- **resolve**: 解決する、修正する\n- **bug**: バグ（プログラムの誤り）\n- **testing**: テスト、検証作業",
+            "vi": "## Ngữ pháp\n**plan to + động từ nguyên thể**: diễn đạt ý định (*I plan to resolve* = tôi dự định giải quyết). **so that + chủ ngữ + can/will**: mệnh đề mục đích — cho biết lý do của hành động. *So that I can start testing* = để tôi có thể bắt đầu kiểm thử.\n\n## Từ vựng\n- **plan to**: dự định, có kế hoạch\n- **resolve**: giải quyết, sửa chữa\n- **bug**: lỗi trong phần mềm\n- **testing**: kiểm thử, quá trình xác minh phần mềm hoạt động đúng"
           }
         },
         {
           "text": "Overall, the project is moving forward and I don't have any major blockers.",
           "notes": {
-            "en": "Present continuous: subject + am/is/are + verb-ing"
+            "en": "## Grammar\n**Overall** as a sentence adverb: introduces a summary statement. **is moving forward**: present continuous expressing ongoing progress. **don't have any**: negative quantifier — *any* is used in negatives and questions (*not … any = no*). **major blockers** is a compound noun from software development jargon.\n\n## Vocabulary\n- **overall**: in general, taking everything into account\n- **moving forward**: making progress, advancing\n- **major**: large, significant, important\n- **blocker**: an impediment that prevents progress on a task",
+            "de": "## Grammatik\n**Overall** als Satzadverb: leitet eine Zusammenfassung ein. **is moving forward**: Verlaufsform fur anhaltenden Fortschritt. **don't have any**: Verneinung mit *any* (= *kein/keine*) — in negativen Satzen wird *any* anstelle von *some* verwendet.\n\n## Wortschatz\n- **overall**: insgesamt, alles in allem\n- **moving forward**: voranschreiten, Fortschritte machen\n- **major**: groß, bedeutend, schwerwiegend\n- **blocker**: das Hindernis, der Blocker (Softwarebegriff fur ein Hindernis im Arbeitsfluss)",
+            "ja": "## 文法\n**Overall** (文副詞)：要約を導く文副詞。**is moving forward**：進行中の進捗を表す現在進行形。**don't have any**：否定の数量詞 — 否定文・疑問文では *some* の代わりに *any* を使います（*not … any* = なし）。**major blockers** はソフトウェア開発用語の複合名詞。\n\n## 語彙\n- **overall**: 全体的に、総じて\n- **moving forward**: 前進している、進捗がある\n- **major**: 重大な、大きな\n- **blocker**: ブロッカー（作業の妨げとなる問題）",
+            "vi": "## Ngữ pháp\n**Overall** là trạng từ câu (sentence adverb): dẫn nhập nhận xét tổng quát. **is moving forward**: thì tiếp diễn diễn đạt tiến trình đang diễn ra liên tục. **don't have any**: phủ định với *any* — trong câu phủ định, *any* thay cho *some* (*not … any* = không có).\n\n## Từ vựng\n- **overall**: nhìn chung, tổng thể\n- **moving forward**: đang tiến triển, đang tiến về phía trước\n- **major**: lớn, quan trọng, đáng kể\n- **blocker**: vướng mắc, trở ngại ngăn cản tiến độ"
           }
         }
       ]
@@ -46,21 +64,48 @@
       "speed": 0.85,
       "sentences": [
         {
-          "text": "Heute sage ich dem Team: Mein Projekt läuft gut."
+          "text": "Heute sage ich dem Team: Mein Projekt läuft gut.",
+          "notes": {
+            "en": "## Grammar\n**Verb-second (V2) word order**: *Heute* (today) is fronted, so the verb *sage* comes immediately after. **Dative object**: *dem Team* is in the dative case — *sagen* takes a dative indirect object (*to tell someone*). **Mein Projekt** — nominative possessive adjective *mein* + noun.\n\n## Vocabulary\n- **sage**: to say, to tell (1st person singular present of *sagen*)\n- **dem Team**: to the team (dative)\n- **Projekt**: project\n- **läuft gut**: is going well (lit. 'runs well')",
+            "de": "## Grammatik\n**Verb-Zweit-Stellung (V2)**: Das Adverb *Heute* steht auf Position 1, das konjugierte Verb *sage* folgt direkt. **Dativobjekt**: *dem Team* — *sagen* nimmt ein Dativobjekt. **Mein Projekt lauft gut** — Hauptsatz als direkte Rede.\n\n## Wortschatz\n- **sage**: 1. Person Singular Prasens von *sagen*\n- **dem Team**: dem Team (Dativ)\n- **lauft gut**: funktioniert gut, verlauft gut",
+            "ja": "## 文法\n**定動詞第2位（V2語順）**：副詞 *Heute*（今日）が第1位に来るため、動詞 *sage* が直後に置かれます。**間接目的語（与格）**：*dem Team* は与格 — *sagen*（言う）は与格の間接目的語を取ります。**Mein Projekt lauft gut** — 直接話法の主文。\n\n## 語彙\n- **sage**: 言う（*sagen* の1人称単数現在）\n- **dem Team**: チームに（与格）\n- **lauft gut**: うまくいっている",
+            "vi": "## Ngữ pháp\n**Quy tắc động từ đứng thứ hai (V2)**: *Heute* (hôm nay) được đẩy lên đầu câu, khiến động từ chia *sage* phải đứng ngay sau. **Tân ngữ gián tiếp (dative)**: *dem Team* ở cách cho (*dem* = *das* số ít dative). *sagen* lấy tân ngữ gián tiếp cách cho.\n\n## Từ vựng\n- **sage**: nói (ngôi thứ nhất số ít hiện tại của *sagen*)\n- **dem Team**: cho nhóm (cách cho)\n- **lauft gut**: đang diễn ra tốt, tiến triển tốt"
+          }
         },
         {
-          "text": "Ich schreibe den Code für das Login, aber das Passwort-System fehlt noch."
+          "text": "Ich schreibe den Code für das Login, aber das Passwort-System fehlt noch.",
+          "notes": {
+            "en": "## Grammar\n**German present tense** (*Ich schreibe*) covers both simple present and present progressive. **Akkusativ**: *den Code* — masculine noun in the accusative case (*der Code* -> *den Code*). **aber** (but) connects two contrasting clauses. **fehlt noch** = is still missing (lit. 'lacks still').\n\n## Vocabulary\n- **schreibe**: to write, to code (1st person singular of *schreiben*)\n- **den Code**: the code (accusative)\n- **Passwort-System**: password system\n- **fehlt noch**: is still missing, still lacks",
+            "de": "## Grammatik\n**Akkusativ**: *den Code* — maskulines Nomen im Akkusativ (*der* -> *den*). **aber** als koordinierende Konjunktion: verbindet zwei Hauptsatze ohne Stellungsanderung. **fehlt noch** = ist noch nicht vorhanden.\n\n## Wortschatz\n- **schreibe**: 1. Person Singular von *schreiben* (schreibe Code = programmiere)\n- **den Code**: den Quellcode (Akk.)\n- **Passwort-System**: das Passwortsystem\n- **fehlt noch**: fehlt immer noch, ist noch nicht fertig",
+            "ja": "## 文法\n**対格（Akkusativ）**：*den Code* — 男性名詞の対格（*der Code* -> *den Code*）。**aber**（しかし）：等位接続詞で語順変化なし。**fehlt noch** = まだない、まだ不足している（lit. 「まだ欠けている」）。\n\n## 語彙\n- **schreibe**: 書く、コーディングする（*schreiben* の1人称単数）\n- **den Code**: コードを（対格）\n- **Passwort-System**: パスワードシステム\n- **fehlt noch**: まだ欠けている、まだ完成していない",
+            "vi": "## Ngữ pháp\n**Tân ngữ cách (Akkusativ)**: *den Code* — danh từ giống đực ở cách tân ngữ (*der* -> *den*). **aber** (nhưng): liên từ đẳng lập, không thay đổi trật tự từ. **fehlt noch** = vẫn còn thiếu, chưa có.\n\n## Từ vựng\n- **schreibe**: viết, lập trình (ngôi 1 số ít của *schreiben*)\n- **den Code**: đoạn mã (cách tân ngữ)\n- **Passwort-System**: hệ thống mật khẩu\n- **fehlt noch**: vẫn còn thiếu, chưa hoàn chỉnh"
+          }
         },
         {
-          "text": "Gestern hatte ich ein Problem mit der Datenbank."
+          "text": "Gestern hatte ich ein Problem mit der Datenbank.",
+          "notes": {
+            "en": "## Grammar\n**Prateritum (simple past)**: *hatte* (had) — the simple past of *haben*. In spoken German the Perfekt is usually preferred, but *haben* and *sein* often use the Prateritum even in conversation. **Verb-second**: *Gestern* is fronted, so verb *hatte* comes second. **mit der Datenbank**: dative prepositional phrase (*mit* always takes dative).\n\n## Vocabulary\n- **gestern**: yesterday\n- **hatte**: had (Prateritum of *haben*)\n- **Problem**: problem, issue\n- **mit der Datenbank**: with the database (*die Datenbank* -> *der Datenbank* in dative)",
+            "de": "## Grammatik\n**Prateritum von *haben***: *hatte* — wird auch im gesprochenen Deutsch verwendet (anders als bei anderen Verben, wo das Perfekt ublich ist). **Verb-Zweit**: *Gestern* auf Position 1, *hatte* auf Position 2. **mit + Dativ**: *mit der Datenbank* — Praposition *mit* regiert immer den Dativ.\n\n## Wortschatz\n- **gestern**: am vorherigen Tag\n- **hatte**: Prateritum von *haben*\n- **Problem**: das Problem\n- **mit der Datenbank**: mit der Datenbank (Dat.)",
+            "ja": "## 文法\n**過去形（Prateritum）の *haben***：*hatte*（持っていた）— *haben* の過去形。会話では通常 Perfekt が使われますが、*haben* と *sein* は会話でも Prateritum が一般的。**定動詞第2位**：*Gestern* が第1位、*hatte* が第2位。**mit + 与格**：*mit der Datenbank* — 前置詞 *mit* は常に与格を支配。\n\n## 語彙\n- **gestern**: 昨日\n- **hatte**: 持っていた（*haben* の過去形）\n- **Problem**: 問題\n- **mit der Datenbank**: データベースで（与格）",
+            "vi": "## Ngữ pháp\n**Thì quá khứ (Prateritum) của *haben***: *hatte* (đã có) — quá khứ đơn của *haben*. Trong tiếng Đức hội thoại, thường dùng Perfekt, nhưng *haben* và *sein* vẫn hay dùng Prateritum. **V2**: *Gestern* đứng đầu, *hatte* đứng thứ hai. **mit + dative**: *mit der Datenbank* — giới từ *mit* luôn dùng cách cho.\n\n## Từ vựng\n- **gestern**: hôm qua\n- **hatte**: đã có (Prateritum của *haben*)\n- **Problem**: vấn đề, sự cố\n- **mit der Datenbank**: với cơ sở dữ liệu (cách cho)"
+          }
         },
         {
-          "text": "Ich repariere den Fehler heute und teste alles morgen."
+          "text": "Ich repariere den Fehler heute und teste alles morgen.",
+          "notes": {
+            "en": "## Grammar\n**Coordinating conjunction *und*** joins two main clauses with the same subject; the subject *Ich* is dropped in the second clause (ellipsis). **Akkusativ**: *den Fehler* (masc. acc.) and *alles* (neutral pronoun, acc.). Time adverbs *heute* (today) and *morgen* (tomorrow) specify when each action occurs.\n\n## Vocabulary\n- **repariere**: to fix, to repair (1st person singular of *reparieren*)\n- **den Fehler**: the error, the bug (accusative)\n- **teste**: to test (1st person singular of *testen*)\n- **alles**: everything\n- **morgen**: tomorrow",
+            "de": "## Grammatik\n**Koordinierende Konjunktion *und***: verbindet zwei Hauptsatze; *Ich* wird im zweiten Satz weggelassen (Ellipse). **Akkusativ**: *den Fehler* (m., Akk.) und *alles* (neutrales Pronomen, Akk.). Zeitadverbien *heute* und *morgen* prazisieren den Zeitpunkt.\n\n## Wortschatz\n- **repariere**: 1. Person Singular von *reparieren* (beheben, reparieren)\n- **den Fehler**: den Bug, den Fehler (Akk.)\n- **teste**: 1. Person Singular von *testen*\n- **alles**: alles, sämtliches\n- **morgen**: am nachsten Tag",
+            "ja": "## 文法\n**等位接続詞 *und***：同じ主語の二つの主節をつなぎ、二番目の節で主語 *Ich* が省略（省略法）されます。**対格（Akkusativ）**：*den Fehler*（男性・対格）、*alles*（中性代名詞・対格）。時間副詞 *heute*（今日）と *morgen*（明日）がいつの行動かを示します。\n\n## 語彙\n- **repariere**: 修正する（*reparieren* の1人称単数）\n- **den Fehler**: エラー、バグ（対格）\n- **teste**: テストする（*testen* の1人称単数）\n- **alles**: すべて\n- **morgen**: 明日",
+            "vi": "## Ngữ pháp\n**Liên từ đẳng lập *und*** nối hai mệnh đề chính cùng chủ ngữ; *Ich* được lược bỏ ở mệnh đề thứ hai (tỉnh lược). **Tân ngữ cách (Akkusativ)**: *den Fehler* (giống đực, tân ngữ cách) và *alles* (đại từ trung tính, tân ngữ cách). Trạng từ thời gian *heute* và *morgen* chỉ định thời điểm.\n\n## Từ vựng\n- **repariere**: sửa, khắc phục (ngôi 1 số ít của *reparieren*)\n- **den Fehler**: lỗi, bug (tân ngữ cách)\n- **teste**: kiểm thử (ngôi 1 số ít của *testen*)\n- **alles**: tất cả mọi thứ\n- **morgen**: ngày mai"
+          }
         },
         {
           "text": "Alles ist okay und ich habe keine großen Probleme.",
           "notes": {
-            "de": "Regular verb conjugation (1st person singular)"
+            "en": "## Grammar\n**kein** (not any / no): negates a noun — *keine Probleme* (no problems). *kein* declines like the indefinite article: here *keine* (plural). **großen**: adjective with weak declension ending *-en* after *keine* (plural).\n\n## Vocabulary\n- **alles**: everything, all\n- **okay**: fine, alright (loanword)\n- **keine**: no, not any (negative article, plural)\n- **großen Probleme**: major problems (*groß* + plural noun)",
+            "de": "## Grammatik\n**Negationsartikel *kein***: *keine Probleme* — *kein* wird wie der unbestimmte Artikel dekliniert (hier Plural: *keine*). **Adjektivendung**: *großen* — schwache Deklination nach *keine* im Akkusativ Plural (-en).\n\n## Wortschatz\n- **alles**: alles, sämtliches\n- **okay**: in Ordnung (Lehnwort)\n- **keine**: kein/keine/kein (Negativartikel, Plural)\n- **großen Probleme**: große Schwierigkeiten (Akk. Pl.)",
+            "ja": "## 文法\n**否定冠詞 *kein***：名詞を否定します — *keine Probleme*（問題がない）。*kein* は不定冠詞と同じように格変化し、ここでは複数形 *keine*。**形容詞語尾**：*großen* — *keine*（複数）の後の弱変化語尾は対格複数で *-en*。\n\n## 語彙\n- **alles**: すべて、全て\n- **okay**: 大丈夫（外来語）\n- **keine**: ない（否定冠詞・複数形）\n- **großen Probleme**: 大きな問題（対格複数）",
+            "vi": "## Ngữ pháp\n**Mạo từ phủ định *kein***: phủ định danh từ — *keine Probleme* (không có vấn đề gì). *kein* chia như mạo từ không xác định: ở đây *keine* (số nhiều). **Đuôi tính từ**: *großen* — sau *keine* (số nhiều tân ngữ cách), tính từ dùng đuôi yếu *-en*.\n\n## Từ vựng\n- **alles**: tất cả mọi thứ\n- **okay**: ổn, được (từ mượn)\n- **keine**: không có (mạo từ phủ định, số nhiều)\n- **großen Probleme**: vấn đề lớn (số nhiều tân ngữ cách)"
           }
         }
       ]
@@ -75,31 +120,46 @@
         {
           "text": "今日は、チームに進捗（しんちょく）を報告（ほうこく）します。",
           "notes": {
-            "ja": "Furigana reading shown in （）for N4 kanji"
+            "en": "## Grammar\n**Topic marker は**: *今日は* (kyō wa) sets the topic — 'as for today'. **に (target/direction)**: *チームに* — the particle *に* marks the recipient of *報告する* (to report). **〜します**: polite non-past tense, used here for a planned near-future action.\n\n## Vocabulary\n- **今日 (きょう)**: today\n- **チーム**: team (loanword)\n- **進捗 (しんちょく)**: progress (in work/project context)\n- **報告する (ほうこくする)**: to report, to give an update",
+            "de": "## Grammatik\n**Themenpartikel は**: *今日は* setzt das Thema — 'Was heute angeht'. **に (Richtung/Empfanger)**: *チームに* — Partikel *に* markiert den Empfanger von *報告する* (berichten). **〜します**: hofliche Nichtvergangenheitsform fur eine geplante Handlung.\n\n## Wortschatz\n- **今日 (きょう)**: heute\n- **チーム**: Team (Lehnwort)\n- **進捗 (しんちょく)**: Fortschritt (im Arbeitskontext)\n- **報告する (ほうこくする)**: berichten, melden",
+            "ja": "## 文法\n**主題助詞 は**：*今日は* — トピックを設定します（「今日については」）。**に（方向・受け手）**：*チームに* — *報告する* の受け手を示す助詞 *に*。**〜します**：丁寧語の非過去形、ここでは予定・近い未来の行動を表します。\n\n## 語彙\n- **今日**: 今日、本日\n- **チーム**: チーム（外来語）\n- **進捗**: 進捗状況、進み具合\n- **報告する**: 報告する、知らせる",
+            "vi": "## Ngữ pháp\n**Trợ từ chủ đề は**: *今日は* đặt chủ đề câu — 'Về hôm nay'. **に (hướng/người nhận)**: *チームに* — trợ từ *に* đánh dấu người nhận của *報告する* (báo cáo). **〜します**: thể lịch sự không quá khứ, dùng cho hành động dự định trong tương lai gần.\n\n## Từ vựng\n- **今日 (きょう)**: hôm nay\n- **チーム**: nhóm, đội (từ mượn)\n- **進捗 (しんちょく)**: tiến độ, tiến triển công việc\n- **報告する (ほうこくする)**: báo cáo, thông báo"
           }
         },
         {
           "text": "ログインの機能（きのう）はできましたが、パスワードの変更はまだ作っています。",
           "notes": {
-            "ja": "〜ています: ongoing state or habitual action"
+            "en": "## Grammar\n**〜ができました**: *できる* (to be able to / to be complete) in the polite past — 'has been completed'. **〜が** marks the subject of the completed thing. **まだ + 〜ています**: *まだ* (still, not yet) + present progressive → 'am still making/working on'.\n\n## Vocabulary\n- **ログイン**: login (loanword)\n- **機能 (きのう)**: function, feature\n- **できました**: has been completed; managed to do (polite past of *できる*)\n- **変更 (へんこう)**: change, modification\n- **まだ作っています**: am still building/working on",
+            "de": "## Grammatik\n**〜ができました**: *できる* (konnen/fertig sein) in der hoflichen Vergangenheitsform — 'ist fertig geworden'. **〜が** markiert das Subjekt des abgeschlossenen Vorgangs. **まだ + 〜ています**: *まだ* (noch) + Verlaufsform -> 'arbeite noch daran'.\n\n## Wortschatz\n- **ログイン**: Login (Lehnwort)\n- **機能 (きのう)**: Funktion, Feature\n- **できました**: ist fertig (hof. Vergangenheit von *できる*)\n- **変更 (へんこう)**: Anderung, Modifikation\n- **まだ作っています**: arbeite noch daran",
+            "ja": "## 文法\n**〜ができました**：*できる*（できる・完了できる）の丁寧過去形 — 「完成した」という意味。**〜が** が完成したものの主語を示します。**まだ + 〜ています**：*まだ*（まだ）+ 進行形 -> 「まだ作っている最中」。\n\n## 語彙\n- **ログイン**: ログイン（外来語）\n- **機能**: 機能、フィーチャー\n- **できました**: できた（*できる* の丁寧過去）\n- **変更**: 変更、修正\n- **まだ作っています**: まだ制作・作業中",
+            "vi": "## Ngữ pháp\n**〜ができました**: *できる* (có thể / hoàn thành) ở thể lịch sự quá khứ — 'đã hoàn thành'. **〜が** đánh dấu chủ ngữ của điều đã hoàn thành. **まだ + 〜ています**: *まだ* (vẫn còn) + thể tiếp diễn -> 'vẫn đang làm'.\n\n## Từ vựng\n- **ログイン**: đăng nhập (từ mượn)\n- **機能 (きのう)**: chức năng, tính năng\n- **できました**: đã hoàn thành (thể lịch sự quá khứ của *できる*)\n- **変更 (へんこう)**: thay đổi, chỉnh sửa\n- **まだ作っています**: vẫn đang xây dựng/làm"
           }
         },
         {
           "text": "昨日の午後、データベースの接続（せつぞく）に問題がありました。",
           "notes": {
-            "ja": "Furigana reading shown in （）for N4 kanji"
+            "en": "## Grammar\n**〜がありました**: *ある* (to exist/have) in the polite past — used for inanimate things. *問題がありました* = 'there was a problem'. **〜の午後**: genitive-like possessive using *の* — *昨日の午後* = 'yesterday's afternoon' = 'yesterday afternoon'.\n\n## Vocabulary\n- **昨日 (きのう)**: yesterday\n- **午後 (ごご)**: afternoon\n- **データベース**: database (loanword)\n- **接続 (せつぞく)**: connection\n- **問題がありました**: there was a problem",
+            "de": "## Grammatik\n**〜がありました**: *ある* (existieren/haben) in der hoflichen Vergangenheitsform — fur unbelebte Dinge. *問題がありました* = 'Es gab ein Problem'. **〜の午後**: possessives *の* — *昨日の午後* = 'der gestrige Nachmittag'.\n\n## Wortschatz\n- **昨日 (きのう)**: gestern\n- **午後 (ごご)**: Nachmittag\n- **データベース**: Datenbank (Lehnwort)\n- **接続 (せつぞく)**: Verbindung, Anschluss\n- **問題がありました**: es gab ein Problem",
+            "ja": "## 文法\n**〜がありました**：*ある*（存在する）の丁寧過去形 — 無生物に使います。*問題がありました* = 「問題があった」。**〜の午後**：所有・修飾の *の* — *昨日の午後* = 「昨日の午後」。\n\n## 語彙\n- **昨日**: 昨日\n- **午後**: 午後\n- **データベース**: データベース（外来語）\n- **接続**: 接続、つながり\n- **問題がありました**: 問題があった（丁寧過去）",
+            "vi": "## Ngữ pháp\n**〜がありました**: *ある* (tồn tại/có) ở thể lịch sự quá khứ — dùng cho vật vô tri. *問題がありました* = 'đã có vấn đề'. **〜の午後**: sở hữu cách bằng *の* — *昨日の午後* = 'chiều hôm qua'.\n\n## Từ vựng\n- **昨日 (きのう)**: hôm qua\n- **午後 (ごご)**: buổi chiều\n- **データベース**: cơ sở dữ liệu (từ mượn)\n- **接続 (せつぞく)**: kết nối\n- **問題がありました**: đã có vấn đề"
           }
         },
         {
           "text": "今日中にバグを直して、明日の朝からテストをするつもりです。",
           "notes": {
-            "ja": "〜つもりです: intention 'I plan to / I intend to'"
+            "en": "## Grammar\n**〜中に (じゅうに / ちゅうに)**: *今日中に* = 'within today / by end of today' — suffix meaning 'throughout/by the end of'. **〜て form (te-form)**: *直して* connects to the next action sequentially. **〜つもりです**: expresses intention or plan — 'I intend to / I plan to'.\n\n## Vocabulary\n- **今日中に (きょうじゅうに)**: by the end of today, within today\n- **バグ**: bug (software defect, loanword)\n- **直して (なおして)**: having fixed; te-form of *直す* (to fix)\n- **明日の朝 (あしたのあさ)**: tomorrow morning\n- **〜つもりです**: intend to, plan to",
+            "de": "## Grammatik\n**〜中に (じゅうに)**: *今日中に* = 'noch heute / bis zum Ende des Tages' — Suffix fur 'innerhalb von / bis Ende'. **Te-Form**: *直して* verbindet sequenzielle Handlungen. **〜つもりです**: druckt Absicht aus — 'Ich habe vor / Ich plane'.\n\n## Wortschatz\n- **今日中に**: noch heute, bis Tagesende\n- **バグ**: Bug (Programmierfehler, Lehnwort)\n- **直して**: nachdem ich repariert habe (Te-Form von *直す*)\n- **明日の朝**: morgen fruh\n- **〜つもりです**: vorhaben, beabsichtigen",
+            "ja": "## 文法\n**〜中に（じゅうに）**：*今日中に* = 「今日のうちに」 — 「〜の間に/〜までに」を表す接尾辞。**て形**：*直して* が次の行動へと順序立ててつなぎます。**〜つもりです**：意図・計画を表します — 「〜するつもり」。\n\n## 語彙\n- **今日中に**: 今日中に、今日のうちに\n- **バグ**: バグ（ソフトウェアの不具合、外来語）\n- **直して**: 直して（*直す* のて形）\n- **明日の朝**: 明日の朝\n- **〜つもりです**: 〜するつもり、計画している",
+            "vi": "## Ngữ pháp\n**〜中に (じゅうに)**: *今日中に* = 'trong hôm nay / trước cuối ngày' — hậu tố nghĩa là 'trong vòng / trước khi kết thúc'. **Thể て (te-form)**: *直して* nối hai hành động theo trình tự. **〜つもりです**: diễn đạt ý định, kế hoạch — 'tôi dự định / tôi có kế hoạch'.\n\n## Từ vựng\n- **今日中に (きょうじゅうに)**: trong hôm nay, trước cuối ngày\n- **バグ**: bug (lỗi phần mềm, từ mượn)\n- **直して (なおして)**: đã sửa xong; thể て của *直す* (sửa)\n- **明日の朝 (あしたのあさ)**: sáng ngày mai\n- **〜つもりです**: dự định, có ý định"
           }
         },
         {
           "text": "今のところ、仕事は順調（じゅんちょう）で、困っていることはありません。",
           "notes": {
-            "ja": "〜ています: ongoing state or habitual action"
+            "en": "## Grammar\n**今のところ**: set phrase meaning 'as of now / for the time being'. **〜で (conjunctive form of *だ*)**: *順調で* — the *-de* form of a na-adjective (*順調だ*) links to the next clause. **困っていること**: *困っている* (am struggling/troubled) nominalized by *こと* → 'things that are troubling me'.\n\n## Vocabulary\n- **今のところ**: as of now, so far\n- **仕事 (しごと)**: work, job\n- **順調 (じゅんちょう)**: going smoothly, on track\n- **困っていること**: things that are problematic / causing trouble\n- **ありません**: there is not (negative of *あります*)",
+            "de": "## Grammatik\n**今のところ**: feststehender Ausdruck fur 'bisher / im Moment'. **〜で (konjunktive Form von *だ*)**: *順調で* — verbindet die na-Adjektiv-Aussage mit dem nachsten Satz. **困っていること**: *困っている* (schwierig sein) + Nominalisierung *こと* -> 'Dinge, die mir Probleme bereiten'.\n\n## Wortschatz\n- **今のところ**: bisher, vorlaufig\n- **仕事**: Arbeit, Tatigkeit\n- **順調**: reibungslos, plangemab\n- **困っていること**: Probleme, Schwierigkeiten\n- **ありません**: gibt es nicht",
+            "ja": "## 文法\n**今のところ**：「現時点では/今のところ」という定型表現。**〜で（*だ* の連用形）**：*順調で* — な形容詞（*順調だ*）の連用形で、次の節につなげます。**困っていること**：*困っている*（困っている）を *こと* で名詞化 -> 「困っていること」。\n\n## 語彙\n- **今のところ**: 今のところ、今は\n- **仕事**: 仕事、業務\n- **順調**: 順調に進んでいる\n- **困っていること**: 困っていること、問題となっていること\n- **ありません**: ありません（*あります* の否定）",
+            "vi": "## Ngữ pháp\n**今のところ**: cụm cố định nghĩa 'cho đến bây giờ / hiện tại'. **〜で (thể liên kết của *だ*)**: *順調で* — thể *-de* của tính từ na (*順調だ*) nối sang mệnh đề tiếp theo. **困っていること**: *困っている* (đang gặp khó khăn) + danh hóa bằng *こと* -> 'những điều đang gây khó khăn'.\n\n## Từ vựng\n- **今のところ**: tính đến bây giờ, hiện tại\n- **仕事 (しごと)**: công việc\n- **順調 (じゅんちょう)**: suôn sẻ, đúng kế hoạch\n- **困っていること**: điều gây khó khăn, vấn đề\n- **ありません**: không có (phủ định của *あります*)"
           }
         }
       ]
@@ -114,30 +174,45 @@
         {
           "text": "Hôm nay, tôi sẽ cập nhật cho nhóm về tiến độ của mình với mô-đun xác thực.",
           "notes": {
+            "en": "## Grammar\n**sẽ** (future marker): placed before the main verb to indicate near-future actions. **cập nhật cho [person] về [topic]**: compound verbal structure — 'update someone on something'. Vietnamese uses serial verb-like constructions with directional/benefactive *cho*.\n\n## Vocabulary\n- **sẽ**: will (future particle)\n- **cập nhật**: to update, to give latest information\n- **nhóm**: team, group\n- **tiến độ**: progress, rate of advancement\n- **mô-đun xác thực**: authentication module",
+            "de": "## Grammatik\n**sẽ** (Zukunftspartikel): steht vor dem Hauptverb und markiert Zukunft. **cập nhật cho [Person] về [Thema]**: zusammengesetzte Verbkonstruktion — 'jemanden uber etwas informieren'. Vietnamesisch nutzt serielle Verbkonstruktionen mit dem Richtungsverb *cho*.\n\n## Wortschatz\n- **sẽ**: wird (Zukunftspartikel)\n- **cập nhật**: aktualisieren, auf den neuesten Stand bringen\n- **nhóm**: Team, Gruppe\n- **tiến độ**: Fortschritt\n- **mô-đun xác thực**: Authentifizierungsmodul",
+            "ja": "## 文法\n**sẽ**（未来マーカー）：主動詞の前に置いて近い将来を示します。**cập nhật cho [人] về [話題]**：「誰かに何かについて最新情報を伝える」複合動詞構造。ベトナム語では方向性・受益者を表す *cho* を用いた連続動詞構造を使います。\n\n## 語彙\n- **sẽ**: 〜する予定（未来マーカー）\n- **cập nhật**: 更新する、最新情報を伝える\n- **nhóm**: チーム、グループ\n- **tiến độ**: 進捗\n- **mô-đun xác thực**: 認証モジュール",
             "vi": "## Ngữ pháp\nTrợ từ **sẽ** đứng trước động từ để chỉ hành động trong tương lai gần. Cấu trúc **cập nhật cho + [người] + về + [chủ đề]** là cụm động từ kép thông dụng trong ngữ cảnh làm việc nhóm, tương đương \"update someone on something\".\n\n## Từ vựng\n- **cập nhật**: thông báo thông tin mới nhất về tình trạng; to update\n- **nhóm**: tập hợp người làm việc cùng nhau; team, group\n- **tiến độ**: mức độ hoàn thành công việc so với kế hoạch; progress\n- **mô-đun**: phần riêng biệt trong một hệ thống phần mềm; module\n- **xác thực**: quá trình kiểm tra danh tính người dùng; authentication"
           }
         },
         {
           "text": "Tôi đã hoàn thành logic đăng nhập cơ bản, nhưng vẫn đang làm tính năng đặt lại mật khẩu.",
           "notes": {
+            "en": "## Grammar\n**đã** (past completion marker): placed before a verb to indicate a completed action. **vẫn đang**: *vẫn* (still) + *đang* (ongoing aspect marker) — 'still in the process of'. Together they emphasize that an unfinished action continues.\n\n## Vocabulary\n- **đã**: past tense marker (completed action)\n- **hoàn thành**: to complete, to finish\n- **logic đăng nhập**: login logic\n- **vẫn đang**: still (ongoing)\n- **tính năng đặt lại mật khẩu**: password reset feature",
+            "de": "## Grammatik\n**đã** (Vergangenheitspartikel): steht vor einem Verb und markiert eine abgeschlossene Handlung. **vẫn đang**: *vẫn* (noch) + *đang* (Verlaufsaspekt) — 'noch dabei sein, etwas zu tun'.\n\n## Wortschatz\n- **đã**: Vergangenheitsmarker (abgeschlossene Handlung)\n- **hoàn thành**: abschließen, fertigstellen\n- **logic đăng nhập**: Login-Logik\n- **vẫn đang**: noch dabei (laufend)\n- **tính năng đặt lại mật khẩu**: Passwort-Zurucksetzen-Funktion",
+            "ja": "## 文法\n**đã**（過去完了マーカー）：動詞の前に置いて完了した行動を示します。**vẫn đang**：*vẫn*（まだ）+ *đang*（進行アスペクトマーカー）— 「まだ〜している最中」。まだ終わっていない行動が継続していることを強調。\n\n## 語彙\n- **đã**: 過去マーカー（完了した行動）\n- **hoàn thành**: 完成する、終える\n- **logic đăng nhập**: ログインロジック\n- **vẫn đang**: まだ〜している（進行中）\n- **tính năng đặt lại mật khẩu**: パスワードリセット機能",
             "vi": "## Ngữ pháp\nTrợ từ **đã** chỉ hành động đã hoàn tất trong quá khứ (\"đã hoàn thành\"), còn cụm **vẫn đang** kết hợp \"vẫn\" (still) + \"đang\" (ongoing) để nhấn mạnh hành động chưa hoàn thành vẫn đang tiếp tục.\n\n## Từ vựng\n- **hoàn thành**: làm xong, kết thúc một nhiệm vụ; to complete, to finish\n- **logic đăng nhập**: phần xử lý quá trình người dùng vào hệ thống; login logic\n- **cơ bản**: ở mức nền tảng, chưa đầy đủ tính năng; basic, fundamental\n- **tính năng**: chức năng cụ thể trong phần mềm; feature, functionality\n- **mật khẩu**: chuỗi ký tự bí mật dùng để xác thực; password"
           }
         },
         {
           "text": "Tôi đã gặp một vấn đề nhỏ với kết nối cơ sở dữ liệu vào chiều hôm qua.",
           "notes": {
+            "en": "## Grammar\n**vào chiều hôm qua**: time adverbial placed at the end of the sentence — *vào* (at/in) + *chiều* (afternoon) + *hôm qua* (yesterday). In Vietnamese, time expressions are flexible in position. **gặp**: to encounter, to meet — used for both planned and unplanned meetings.\n\n## Vocabulary\n- **đã gặp**: encountered (past completed)\n- **vấn đề**: problem, issue\n- **kết nối**: connection\n- **cơ sở dữ liệu**: database (lit. data foundation)\n- **chiều hôm qua**: yesterday afternoon",
+            "de": "## Grammatik\n**vào chiều hôm qua**: Zeitadverbial am Satzende — *vào* (an/in) + *chiều* (Nachmittag) + *hôm qua* (gestern). Im Vietnamesischen sind Zeitangaben positionell flexibel. **gặp**: begegnen, treffen — fur geplante und ungeplante Begegnungen.\n\n## Wortschatz\n- **đã gặp**: bin/ist begegnet (abgeschlossene Vergangenheit)\n- **vấn đề**: Problem\n- **kết nối**: Verbindung\n- **cơ sở dữ liệu**: Datenbank (wortl. Datenfundament)\n- **chiều hôm qua**: gestern Nachmittag",
+            "ja": "## 文法\n**vào chiều hôm qua**：文末の時間副詞 — *vào*（〜に/〜で）+ *chiều*（午後）+ *hôm qua*（昨日）。ベトナム語では時間表現の位置は柔軟です。**gặp**：出会う、遭遇する — 計画的・偶発的どちらにも使えます。\n\n## 語彙\n- **đã gặp**: 遭遇した（過去完了）\n- **vấn đề**: 問題\n- **kết nối**: 接続\n- **cơ sở dữ liệu**: データベース（直訳：データの基盤）\n- **chiều hôm qua**: 昨日の午後",
             "vi": "## Ngữ pháp\nCụm trạng ngữ thời gian **vào chiều hôm qua** đặt ở cuối câu xác định thời điểm xảy ra sự việc. Trong tiếng Việt, trạng ngữ thời gian linh hoạt — có thể đặt đầu hoặc cuối câu mà không thay đổi nghĩa.\n\n## Từ vựng\n- **gặp**: đối mặt với, tình cờ gặp phải; to encounter, to meet\n- **vấn đề**: điều gây khó khăn cần giải quyết; problem, issue\n- **kết nối**: liên kết giữa các thành phần trong hệ thống; connection\n- **cơ sở dữ liệu**: hệ thống lưu trữ và quản lý dữ liệu có cấu trúc; database\n- **hôm qua**: ngày trước ngày hôm nay; yesterday"
           }
         },
         {
           "text": "Tôi dự định giải quyết lỗi này trong hôm nay để có thể bắt đầu kiểm thử vào sáng mai.",
           "notes": {
+            "en": "## Grammar\n**dự định + verb**: 'to plan to / to intend to'. **để có thể + verb**: combines purpose (*để* = in order to) with ability (*có thể* = can/be able to) — 'so that [I] can'. **trong hôm nay**: 'within today' — *trong* (within/in) emphasizes the deadline.\n\n## Vocabulary\n- **dự định**: to plan, to intend\n- **giải quyết**: to resolve, to solve\n- **lỗi**: error, bug\n- **để có thể**: so that [one] can; in order to be able to\n- **kiểm thử**: to test (software)",
+            "de": "## Grammatik\n**dự định + Verb**: 'vorhaben / beabsichtigen'. **để có thể + Verb**: Zweck (*để* = um … zu) + Moglichkeit (*có thể* = konnen) — 'damit ich ... konnen'. **trong hôm nay**: 'noch heute' — *trong* betont die Frist.\n\n## Wortschatz\n- **dự định**: vorhaben, beabsichtigen\n- **giải quyết**: losen, beheben\n- **lỗi**: Fehler, Bug\n- **để có thể**: damit man kann\n- **kiểm thử**: testen (Software)",
+            "ja": "## 文法\n**dự định + 動詞**：「〜するつもりである、計画している」。**để có thể + 動詞**：目的（*để* = 〜するために）+ 可能性（*có thể* = できる）の組み合わせ — 「〜できるように」。**trong hôm nay**：「今日中に」 — *trong* が期限を強調。\n\n## 語彙\n- **dự định**: 計画する、意図する\n- **giải quyết**: 解決する\n- **lỗi**: エラー、バグ\n- **để có thể**: 〜できるように\n- **kiểm thử**: テストする（ソフトウェア）",
             "vi": "## Ngữ pháp\nCấu trúc **để có thể + [động từ]** kết hợp mục đích (để) với khả năng (có thể), diễn tả điều kiện cần thiết để hành động tiếp theo có thể thực hiện được. Cụm **trong hôm nay** nhấn mạnh thời hạn hoàn thành là trong ngày.\n\n## Từ vựng\n- **dự định**: có kế hoạch, có ý định làm gì; to plan, to intend\n- **giải quyết**: xử lý và kết thúc một vấn đề; to resolve, to solve\n- **kiểm thử**: chạy thử để phát hiện lỗi trong phần mềm; to test\n- **bắt đầu**: khởi động, khởi đầu một hành động; to start, to begin\n- **sáng mai**: buổi sáng của ngày hôm sau; tomorrow morning"
           }
         },
         {
           "text": "Nhìn chung, dự án đang tiến triển và tôi không có vướng mắc lớn nào.",
           "notes": {
+            "en": "## Grammar\n**Nhìn chung** (overall): sentence adverb summarizing the situation. **không có + noun + nào**: strong negation — *nào* at the end reinforces the absence, like 'not a single'. **đang + verb**: ongoing aspect marker, showing the project is currently in progress.\n\n## Vocabulary\n- **nhìn chung**: overall, in general\n- **dự án**: project\n- **đang tiến triển**: is progressing, is moving forward\n- **vướng mắc**: blocker, obstacle, unresolved issue\n- **lớn**: major, large, significant",
+            "de": "## Grammatik\n**Nhìn chung** (insgesamt): Satzadverb, das eine Zusammenfassung einleitet. **không có + Substantiv + nào**: starke Verneinung — *nào* am Ende verstarkt die Aussage: 'kein einziger'. **đang + Verb**: laufender Aspektmarker.\n\n## Wortschatz\n- **nhìn chung**: insgesamt, im Großen und Ganzen\n- **dự án**: Projekt\n- **đang tiến triển**: macht Fortschritte\n- **vướng mắc**: Hindernis, Blocker\n- **lớn**: groß, bedeutend",
+            "ja": "## 文法\n**Nhìn chung**（全体的に）：状況をまとめる文副詞。**không có + 名詞 + nào**：強い否定 — 文末の *nào* が否定を強化（「一つも〜ない」）。**đang + 動詞**：進行中のアスペクトマーカー — プロジェクトが現在進行中であることを示します。\n\n## 語彙\n- **nhìn chung**: 全体的に、総じて\n- **dự án**: プロジェクト\n- **đang tiến triển**: 進捗している、前進している\n- **vướng mắc**: ブロッカー、障害\n- **lớn**: 大きな、重大な",
             "vi": "## Ngữ pháp\nCụm trạng ngữ **Nhìn chung** (overall) tổng kết tình hình. Cấu trúc phủ định **không có + [danh từ] + nào** diễn đạt sự vắng mặt hoàn toàn, tương đương \"don't have any\". Từ \"nào\" ở cuối tăng cường tính phủ định.\n\n## Từ vựng\n- **dự án**: kế hoạch hoặc công trình lớn có thời hạn cụ thể; project\n- **tiến triển**: phát triển theo hướng tích cực, tiến về phía trước; to progress, to move forward\n- **vướng mắc**: điều cản trở, khó khăn chưa được giải quyết; blocker, obstacle, issue\n- **lớn**: có tầm ảnh hưởng đáng kể; major, significant\n- **nhìn chung**: đánh giá tổng thể; overall, in general"
           }
         }

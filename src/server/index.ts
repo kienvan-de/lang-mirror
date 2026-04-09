@@ -1,5 +1,5 @@
 import { ensureDataDirs } from "./lib/data-dir";
-import { runMigrations } from "./db/migrations";
+import { runMigrations_desktop } from "./db/migrations";
 import { db } from "./db/client";
 import { router } from "./router";
 import { initVoices } from "./services/voices.service";
@@ -9,7 +9,7 @@ import { join } from "path";
 ensureDataDirs();
 
 // 2. Run DB migrations
-runMigrations();
+runMigrations_desktop();
 
 // 3. Load voices (bundled fallback + background network refresh)
 initVoices();

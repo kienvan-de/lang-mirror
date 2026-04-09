@@ -40,7 +40,7 @@ Supports multi-language practice per topic (e.g., "Shopping" in Japanese, Spanis
 | [epic-7-tracking.md](./epic-7-tracking.md) | Practice Tracking & Dashboard | 5 | **Phase 6** |
 | [epic-8-settings.md](./epic-8-settings.md) | Settings & Configuration | 6 | **Phase 7** |
 | [epic-9-import-export.md](./epic-9-import-export.md) | Import / Export | 5 | **Phase 2+7** |
-| epic-10-*.md *(TBD)* | *(Epic 10 — TBD)* | TBD | **TBD** |
+| [epic-10-shared-core.md](./epic-10-shared-core.md) | Shared Core Refactor + Hono for Worker | 7 | **Refactor** |
 | **Desktop Total** | | **55+ stories** | |
 
 ### Cloudflare Track (Workers + D1 + R2)

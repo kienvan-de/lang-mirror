@@ -113,7 +113,8 @@ function validateSentences(
       } else {
         notes = {};
         for (const [lang, val] of Object.entries(s["notes"] as Record<string, unknown>)) {
-          const v = validateString(val, `${field}[${i}].notes.${lang}`, { maxLen: 2000 }, errors);
+          // Notes values are markdown strings — allow up to 4000 chars
+          const v = validateString(val, `${field}[${i}].notes.${lang}`, { maxLen: 4000 }, errors);
           if (v !== undefined) notes[lang] = v;
         }
       }

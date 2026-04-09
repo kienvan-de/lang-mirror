@@ -1,46 +1,37 @@
 import { json, error } from "../lib/response";
-import { db } from "../db/client";
+import { dbAdapter } from "../lib/context";
 import { DATA_DIR } from "../lib/data-dir";
+import { SettingsService } from "../../core/services/settings.service";
+import { NotFoundError, ValidationError } from "../../core/errors";
 
-interface SettingRow { key: string; value: string; updated_at: string }
+function svc() { return new SettingsService(dbAdapter); }
 
 export async function handle(req: Request, url: URL): Promise<Response> {
   const path = url.pathname;
   const method = req.method;
 
-  // GET /api/settings — all settings as key→value map
-  if (method === "GET" && path === "/api/settings") {
-    const rows = db.prepare("SELECT key, value FROM settings").all() as SettingRow[];
-    const map: Record<string, string> = {};
-    for (const r of rows) map[r.key] = r.value;
-    return json(map);
-  }
+  if (method === "GET" && path === "/api/settings") return json(await svc().getAll());
 
-  // GET /api/settings/data-path — return data directory path
   if (method === "GET" && path === "/api/settings/data-path") {
     return json({ path: DATA_DIR });
   }
 
-  // GET /api/settings/:key
   const keyMatch = path.match(/^\/api\/settings\/(.+)$/);
   if (keyMatch) {
     const key = decodeURIComponent(keyMatch[1]!);
+
     if (method === "GET") {
-      const row = db.prepare("SELECT value FROM settings WHERE key = ?").get(key) as { value: string } | undefined;
-      if (!row) return error(`Setting '${key}' not found`, 404);
-      return json({ key, value: row.value });
+      try { return json(await svc().get(key)); }
+      catch (e) { if (e instanceof NotFoundError) return error(e.message, 404); throw e; }
     }
+
     if (method === "PUT") {
       let body: { value?: string };
       try { body = await req.json() as typeof body; }
       catch { return error("Invalid JSON body", 400); }
       if (body.value === undefined) return error("value is required", 400);
-      db.prepare(`
-        INSERT INTO settings (key, value) VALUES (?, ?)
-        ON CONFLICT(key) DO UPDATE SET value = excluded.value,
-          updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
-      `).run(key, String(body.value));
-      return json({ key, value: String(body.value) });
+      try { return json(await svc().set(key, String(body.value))); }
+      catch (e) { if (e instanceof ValidationError) return error(e.message, 400); throw e; }
     }
   }
 

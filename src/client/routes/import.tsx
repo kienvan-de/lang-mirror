@@ -293,8 +293,18 @@ export function ImportPage() {
                 <pre className="text-xs bg-gray-50 dark:bg-gray-800 rounded-lg p-3 overflow-x-auto text-gray-700 dark:text-gray-300">{`{
   "title": "Shopping in Tokyo",
   "language": "ja",
+  "voice_name": "ja-JP-NanamiNeural",
+  "speed": 0.9,
   "sentences": [
-    { "text": "いらっしゃいませ", "translation": "Welcome" },
+    {
+      "text": "いらっしゃいませ",
+      "notes": {
+        "en": "## Grammar\\n...",
+        "de": "## Grammatik\\n...",
+        "ja": "## 文法\\n...",
+        "vi": "## Ngữ pháp\\n..."
+      }
+    },
     { "text": "これはいくらですか？" }
   ]
 }`}</pre>
@@ -302,15 +312,32 @@ export function ImportPage() {
               <div>
                 <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">{t("import.formatB")}</p>
                 <pre className="text-xs bg-gray-50 dark:bg-gray-800 rounded-lg p-3 overflow-x-auto text-gray-700 dark:text-gray-300">{`{
-  "title": "Shopping",
+  "title": "My Lesson",
+  "description": "Optional description",
   "versions": [
     {
-      "language": "ja",
-      "sentences": [{ "text": "いらっしゃいませ" }]
+      "language": "en",
+      "title": "My Lesson",
+      "voice_name": "en-US-JennyNeural",
+      "speed": 0.9,
+      "sentences": [
+        {
+          "text": "Hello, how are you?",
+          "notes": {
+            "en": "## Grammar\\n...",
+            "vi": "## Ngữ pháp\\n..."
+          }
+        }
+      ]
     },
     {
-      "language": "es",
-      "sentences": [{ "text": "Bienvenido" }]
+      "language": "vi",
+      "title": "Bài học của tôi",
+      "voice_name": "vi-VN-HoaiMyNeural",
+      "speed": 1.0,
+      "sentences": [
+        { "text": "Xin chào, bạn có khỏe không?" }
+      ]
     }
   ]
 }`}</pre>

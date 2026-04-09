@@ -10,7 +10,7 @@ import {
   EyeIcon, DocumentTextIcon,
 } from "@heroicons/react/24/outline";
 import { usePracticeStore, type PracticeMode } from "../../stores/practice.store";
-import { useTTS, defaultVoiceForLang } from "../../hooks/useTTS";
+import { useTTS } from "../../hooks/useTTS";
 import { useRecorder } from "../../hooks/useRecorder";
 import { useKeyboardShortcuts } from "../../hooks/useKeyboardShortcuts";
 import { WaveformVisualizer } from "../../components/practice/WaveformVisualizer";
@@ -184,9 +184,9 @@ export function PracticePage() {
     showTranslation, showNotes, fontSize, showShortcutHelp, hasRecording,
   } = store;
   const sentence = sentences[currentIndex];
-  const voice = version?.voice_name ?? defaultVoiceForLang(langCode);
+  // voice/speed/pitch are now resolved server-side via GET /api/tts/:sentenceId
+  // kept here only for the auto-record duration multiplier (recordingMultiplier uses speed context)
   const speed = version?.speed ?? parseFloat(settings?.["tts.global.speed"] ?? "1.0");
-  const pitch = version?.pitch ?? parseInt(settings?.["tts.global.pitch"] ?? "0", 10);
 
   const stopCountdown = useCallback(() => {
     if (countdownRef.current) { clearInterval(countdownRef.current); countdownRef.current = null; }
@@ -218,7 +218,7 @@ export function PracticePage() {
 
     let ttsDur: number;
     try {
-      ttsDur = await tts.play({ text: sentence.text, voice, speed, pitch });
+      ttsDur = await tts.play({ sentenceId: sentence.id });
     } catch { store.setPhase("idle"); return; }
 
     const recordDur = Math.max(3, ttsDur * 1.5);
@@ -244,7 +244,7 @@ export function PracticePage() {
 
     recorder.stop();
     store.setPhase("uploading");
-  }, [sentence, voice, speed, pitch, tts, recorder, store, stopCountdown]);
+  }, [sentence, speed, tts, recorder, store, stopCountdown]);
 
   useEffect(() => {
     if (!recorder.recordingBlob || !sentence) return;
@@ -290,11 +290,11 @@ export function PracticePage() {
     } else {
       if (!sentence) return;
       store.setPhase("playing");
-      tts.play({ text: sentence.text, voice, speed, pitch })
+      tts.play({ sentenceId: sentence.id })
         .then((dur) => { store.setTTSDuration(dur); store.setPhase("idle"); })
         .catch(() => store.setPhase("idle"));
     }
-  }, [practiceMode, sentence, voice, speed, pitch, tts, store, runAutoMode]);
+  }, [practiceMode, sentence, tts, store, runAutoMode]);
 
   const handleRecord = useCallback(async () => {
     if (phase === "recording") {

@@ -8,44 +8,86 @@
 
 ## Import File Formats
 
-The app auto-detects which format is used based on the root keys:
+The app auto-detects which format is used based on the root keys.
+
+> **Note**: The `translation` field was removed in a refactor (see `git log`). The `notes` field
+> evolved from a plain string to a `Record<uiLang, markdown>` object keyed by UI language code
+> (`"en"`, `"de"`, `"ja"`, `"vi"`). Both old and new shapes are accepted during import.
 
 ### Format A: Per-language (single version)
 ```json
 {
   "title": "Shopping in Tokyo",
   "language": "ja",
+  "voice_name": "ja-JP-NanamiNeural",
+  "speed": 0.9,
   "sentences": [
-    { "text": "いらっしゃいませ", "translation": "Welcome", "notes": "Polite greeting" },
-    { "text": "これはいくらですか？", "translation": "How much is this?" }
+    {
+      "text": "いらっしゃいませ",
+      "notes": {
+        "en": "## Grammar\n**Polite greeting form** ...\n\n## Vocabulary\n- **いらっしゃいませ**: Welcome",
+        "de": "## Grammatik\n...",
+        "ja": "## 文法\n...",
+        "vi": "## Ngữ pháp\n..."
+      }
+    },
+    { "text": "これはいくらですか？" }
   ]
 }
 ```
 Detection: root has `"language"` field (string).
 
-### Format B: Per-topic (multiple versions)
+### Format B: Per-topic (multiple versions) — matches `lessons/*.json`
 ```json
 {
-  "title": "Shopping",
-  "description": "Common shopping phrases",
+  "title": "Day 13: Documentation and Specs",
+  "description": "Polyglot Mastery — Week 2: Software Development Communication",
   "versions": [
     {
-      "language": "ja",
-      "voice_name": "ja-JP-NanamiNeural",
+      "language": "en",
+      "title": "Documentation and Specs",
+      "description": "Week 4: Collaboration & Growth",
+      "voice_name": "en-US-JennyNeural",
+      "speed": 0.9,
       "sentences": [
-        { "text": "いらっしゃいませ", "translation": "Welcome" }
+        {
+          "text": "I am writing the documentation for the new API endpoints today.",
+          "notes": {
+            "en": "## Grammar\n**Present continuous tense** ...",
+            "de": "## Grammatik\n...",
+            "ja": "## 文法\n...",
+            "vi": "## Ngữ pháp\n..."
+          }
+        }
       ]
     },
     {
-      "language": "es",
+      "language": "de",
+      "title": "Dokumentation und Spezifikationen",
+      "voice_name": "de-DE-KatjaNeural",
+      "speed": 0.85,
       "sentences": [
-        { "text": "Bienvenido", "translation": "Welcome" }
+        { "text": "Ich schreibe heute die Dokumentation für die API.", "notes": { "en": "...", "de": "...", "ja": "...", "vi": "..." } }
       ]
     }
   ]
 }
 ```
 Detection: root has `"versions"` array.
+
+### Sentence `notes` field
+`notes` is a **`Record<uiLang, markdown>`** — an object mapping UI language codes to markdown strings:
+
+```json
+"notes": {
+  "en": "## Grammar\n...\n\n## Vocabulary\n- **word**: definition",
+  "de": "## Grammatik\n...\n\n## Wortschatz\n- **Wort**: Bedeutung",
+  "ja": "## 文法\n...\n\n## 語彙\n- **語**: 意味",
+  "vi": "## Ngữ pháp\n...\n\n## Từ vựng\n- **từ**: nghĩa"
+}
+```
+
+The app displays only the note matching the current UI language. `notes` is optional — sentences without notes are valid.
 
 ---
 

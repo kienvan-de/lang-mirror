@@ -8,12 +8,18 @@
     "dev:client": "vite",
     "build": "vite build",
     "start": "bun src/server/index.ts",
-    "typecheck": "tsc --noEmit && tsc -p tsconfig.server.json --noEmit"
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.server.json --noEmit",
+    "cf:dev": "bun run cf:migrate && concurrently \"bun run dev:client\" \"wrangler dev --local\"",
+    "cf:deploy": "vite build && wrangler deploy",
+    "cf:migrate": "wrangler d1 migrations apply lang-mirror-db --local",
+    "cf:migrate:remote": "wrangler d1 migrations apply lang-mirror-db --remote",
+    "cf:migrate:list": "wrangler d1 migrations list lang-mirror-db --local"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "@tanstack/react-query": "^5",
     "@tanstack/react-router": "^1",
+    "hono": "^4.12.12",
     "i18next": "^26.0.3",
     "i18next-browser-languagedetector": "^8.2.1",
     "js-yaml": "^4",
@@ -25,17 +31,20 @@
     "zustand": "^4"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260409.1",
     "@tailwindcss/typography": "^0.5.19",
     "@types/bun": "latest",
     "@types/js-yaml": "^4",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/ws": "^8.18.1",
     "@vitejs/plugin-react": "^4",
     "autoprefixer": "^10",
     "concurrently": "^8",
     "postcss": "^8",
     "tailwindcss": "^3",
     "typescript": "^5",
-    "vite": "^5"
+    "vite": "^5",
+    "wrangler": "^4.81.0"
   }
 }

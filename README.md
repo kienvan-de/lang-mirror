@@ -121,26 +121,54 @@ curl -X POST http://localhost:7842/api/import \
 **Per-language (single version):**
 ```json
 {
-  "title": "My Lesson",
+  "title": "Shopping in Tokyo",
   "language": "ja",
+  "voice_name": "ja-JP-NanamiNeural",
+  "speed": 0.9,
   "sentences": [
-    { "text": "こんにちは", "notes": { "en": "## Grammar\n..." } }
+    {
+      "text": "いらっしゃいませ",
+      "notes": {
+        "en": "## Grammar\n**Polite greeting** ...\n\n## Vocabulary\n- **いらっしゃいませ**: Welcome",
+        "de": "## Grammatik\n...",
+        "ja": "## 文法\n...",
+        "vi": "## Ngữ pháp\n..."
+      }
+    }
   ]
 }
 ```
 
-**Per-topic (multiple versions):**
+**Per-topic (multiple versions) — matches `lessons/*.json`:**
 ```json
 {
-  "title": "My Lesson",
+  "title": "Day 13: Documentation and Specs",
+  "description": "Polyglot Mastery — Week 2",
   "versions": [
-    { "language": "ja", "sentences": [...] },
-    { "language": "de", "sentences": [...] }
+    {
+      "language": "en",
+      "title": "Documentation and Specs",
+      "voice_name": "en-US-JennyNeural",
+      "speed": 0.9,
+      "sentences": [
+        {
+          "text": "I am writing the documentation today.",
+          "notes": {
+            "en": "## Grammar\n...",
+            "de": "## Grammatik\n...",
+            "ja": "## 文法\n...",
+            "vi": "## Ngữ pháp\n..."
+          }
+        }
+      ]
+    }
   ]
 }
 ```
 
-YAML format (`.yaml` / `.yml`) is also supported.
+The `notes` field is a `Record<uiLang, markdown>` — one markdown string per UI language (`en`, `de`, `ja`, `vi`). It is optional; sentences without notes are valid.
+
+> **Note**: YAML format is supported on the desktop version. The Cloudflare version accepts JSON only.
 
 ---
 

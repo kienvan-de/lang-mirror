@@ -1,0 +1,43 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+
+  "name": "lang-mirror",
+  "main": "src/worker/index.ts",
+  "compatibility_date": "2025-04-01",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // Local dev port — matches the Vite proxy target so `bun run cf:dev` works
+  "dev": {
+    "port": 7842
+  },
+
+  // Output dir for `vite build` — used by `wrangler pages deploy`
+  "pages_build_output_dir": "dist",
+
+  // Cloudflare D1 — SQLite-compatible database
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "lang-mirror-db",
+      // Fill this in after: wrangler d1 create lang-mirror-db
+      "database_id": "placeholder-fill-after-wrangler-d1-create",
+      // Wrangler migration system — run before worker starts
+      "migrations_dir": "migrations"
+    }
+  ],
+
+  // Cloudflare R2 — object storage (TTS cache + recordings)
+  "r2_buckets": [
+    {
+      "binding": "TTS_CACHE",
+      "bucket_name": "lang-mirror-tts"
+    },
+    {
+      "binding": "RECORDINGS",
+      "bucket_name": "lang-mirror-recordings"
+    }
+  ]
+
+  // No secrets needed — uses Microsoft Edge TTS service directly (free)
+  // To add secrets later: wrangler secret put MY_SECRET
+}

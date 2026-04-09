@@ -18,12 +18,20 @@ export function defaultVoiceForLang(langCode: string): string {
   return DEFAULT_VOICES[base] ?? "en-US-JennyNeural";
 }
 
-export interface TTSOptions {
+/** Play by sentence ID — server resolves text/voice/speed from DB (preferred) */
+export interface TTSOptionsBySentenceId {
+  sentenceId: string;
+}
+
+/** Play by explicit params — legacy / fallback */
+export interface TTSOptionsByParams {
   text: string;
   voice: string;
   speed?: number;
   pitch?: number;
 }
+
+export type TTSOptions = TTSOptionsBySentenceId | TTSOptionsByParams;
 
 export interface UseTTSReturn {
   play: (opts: TTSOptions) => Promise<number>; // resolves with duration in seconds
@@ -32,6 +40,19 @@ export interface UseTTSReturn {
   isPlaying: boolean;
   duration: number | null;
   error: string | null;
+}
+
+function buildTTSUrl(opts: TTSOptions): string {
+  if ("sentenceId" in opts) {
+    return `/api/tts/${opts.sentenceId}`;
+  }
+  const params = new URLSearchParams({
+    text: opts.text,
+    voice: opts.voice,
+    speed: String(opts.speed ?? 1.0),
+    pitch: String(opts.pitch ?? 0),
+  });
+  return `/api/tts?${params.toString()}`;
 }
 
 export function useTTS(): UseTTSReturn {
@@ -56,14 +77,7 @@ export function useTTS(): UseTTSReturn {
     setError(null);
     setIsLoading(true);
 
-    const params = new URLSearchParams({
-      text: opts.text,
-      voice: opts.voice,
-      speed: String(opts.speed ?? 1.0),
-      pitch: String(opts.pitch ?? 0),
-    });
-
-    const url = `/api/tts?${params.toString()}`;
+    const url = buildTTSUrl(opts);
 
     return new Promise<number>((resolve, reject) => {
       const audio = new Audio(url);

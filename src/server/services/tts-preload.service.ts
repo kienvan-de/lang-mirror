@@ -1,6 +1,6 @@
 import { db } from "../db/client";
 import { generateTTS } from "./tts.service";
-import { preloadProgress } from "../routes/tts";
+import { preloadProgress } from "../lib/preload-progress";
 
 interface SentenceRow {
   id: string;

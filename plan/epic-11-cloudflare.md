@@ -33,7 +33,7 @@ lang-mirror/
 | `bun:sqlite` file at `~/.lang-mirror/db.sqlite` | **Cloudflare D1** (SQLite-compatible, HTTP-based) |
 | `~/.lang-mirror/cache/tts/*.mp3` (filesystem) | **Cloudflare R2** bucket `lang-mirror-tts` |
 | `~/.lang-mirror/recordings/**/*.webm` (filesystem) | **Cloudflare R2** bucket `lang-mirror-recordings` |
-| `node-edge-tts` (Node.js library) | **Azure Cognitive Services TTS REST API** |
+| `node-edge-tts` (Node.js library) | **CF-native Edge TTS client** (same Microsoft Edge TTS service, free) |
 | `Bun.serve()` HTTP server | **Cloudflare Worker** `fetch` handler |
 | `dist/` served by Bun | **Cloudflare Pages** (Vite SPA) |
 
@@ -91,8 +91,7 @@ const data = await obj?.arrayBuffer();
   bucket_name = "lang-mirror-recordings"
 
   [vars]
-  AZURE_TTS_REGION = "eastus"
-  # AZURE_TTS_KEY = set via wrangler secret put AZURE_TTS_KEY
+  # No TTS API keys needed — uses Microsoft Edge TTS service directly (free)
   ```
 - Create `src/worker/index.ts` — minimal stub:
   ```typescript
@@ -102,8 +101,6 @@ const data = await obj?.arrayBuffer();
     DB: D1Database;
     TTS_CACHE: R2Bucket;
     RECORDINGS: R2Bucket;
-    AZURE_TTS_KEY: string;
-    AZURE_TTS_REGION: string;
   }
 
   export default {
@@ -233,86 +230,163 @@ const data = await obj?.arrayBuffer();
 
 ---
 
-## US-11.4 — Azure TTS Integration & R2 Cache
+## US-11.4 — CF-Native Edge TTS Client & R2 Cache
 
 **Phase:** CF-2
 **As a** user,
-**I want** TTS audio to be generated and cached in R2,
-**So that** I can hear sentences spoken aloud in the cloud version.
+**I want** TTS audio to be generated using the same Microsoft Edge TTS service as the desktop version and cached in R2,
+**So that** I hear the same voices in the cloud version with zero additional cost and no third-party API accounts.
 
-### Why Azure instead of node-edge-tts
-`node-edge-tts` is a Node.js library using low-level `net` sockets and Node streams — not compatible with the CF Workers runtime. Azure Cognitive Services TTS exposes a standard **HTTPS REST API** that works perfectly from any `fetch`-capable runtime.
+### Why a custom CF-native client instead of a library
+
+`node-edge-tts` uses Node.js `net` sockets — incompatible with CF Workers. `@edge-tts/universal` falls back to `new WebSocket(url)` on CF Workers (no custom headers → Microsoft rejects). However, **CF Workers can open outbound WebSocket connections with full custom headers** via the `fetch()` upgrade pattern (confirmed in CF docs):
+
+```typescript
+const resp = await fetch(wssUrl, {
+  headers: {
+    Upgrade: "websocket",
+    Origin: "chrome-extension://jdiccldimpdaibmpdkjnbmckianbfold",
+    Cookie: `muid=${muid};`,
+    // ... all required headers
+  },
+});
+const ws = resp.webSocket; // CF-specific property
+ws.accept();
+```
+
+This means we can implement a thin (~150 line) CF-native Edge TTS client that:
+- Uses the same free Microsoft Edge TTS service as the desktop
+- Needs **no Azure account, no API key, no cost**
+- Produces the same voices (`en-US-JennyNeural`, `ja-JP-NanamiNeural`, etc.)
+- Works entirely within CF Workers runtime
 
 ### Tasks
-- Set up Azure TTS:
-  - Create Azure Cognitive Services resource (free tier: 500k chars/month)
-  - Store API key: `wrangler secret put AZURE_TTS_KEY`
-  - Document region in `wrangler.toml` vars: `AZURE_TTS_REGION = "eastus"`
-- Create `src/worker/services/tts.service.ts`:
+- Create `src/worker/services/edge-tts.ts` — CF-native Edge TTS client:
   ```typescript
-  export async function generateTTS(opts: TTSOptions, env: Env): Promise<TTSResult> {
-    const key = getCacheKey(opts.text, opts.voice, opts.speed ?? 1.0, opts.pitch ?? 0);
+  import { TRUSTED_CLIENT_TOKEN, WSS_URL, WSS_HEADERS, SEC_MS_GEC_VERSION } from "./edge-tts-constants";
 
-    // 1. Check R2 cache
-    const cached = await env.TTS_CACHE.get(key);
-    if (cached) {
-      return { audio: await cached.arrayBuffer(), cacheHit: true, cacheKey: key };
-    }
-
-    // 2. Generate via Azure TTS REST API
-    const ssml = buildSSML(opts);
-    const tokenRes = await fetch(
-      `https://${env.AZURE_TTS_REGION}.api.cognitive.microsoft.com/sts/v1.0/issueToken`,
-      { method: "POST", headers: { "Ocp-Apim-Subscription-Key": env.AZURE_TTS_KEY } }
+  // ── Sec-MS-GEC token computation ─────────────────────────────────────────
+  // Uses globalThis.crypto.subtle (available natively in CF Workers)
+  async function computeSecMsGec(): Promise<string> {
+    const WIN_EPOCH = 11644473600n;
+    const S_TO_100NS = 10_000_000n;
+    let ticks = BigInt(Math.floor(Date.now() / 1000)) + WIN_EPOCH;
+    ticks -= ticks % 300n;
+    ticks *= S_TO_100NS;
+    const input = `${ticks}${TRUSTED_CLIENT_TOKEN}`;
+    const buf = await globalThis.crypto.subtle.digest(
+      "SHA-256",
+      new TextEncoder().encode(input)
     );
-    const token = await tokenRes.text();
+    return Array.from(new Uint8Array(buf))
+      .map(b => b.toString(16).padStart(2, "0"))
+      .join("")
+      .toUpperCase();
+  }
 
-    const ttsRes = await fetch(
-      `https://${env.AZURE_TTS_REGION}.tts.speech.microsoft.com/cognitiveservices/v1`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/ssml+xml",
-          "X-Microsoft-OutputFormat": "audio-24khz-48kbitrate-mono-mp3",
-          "User-Agent": "lang-mirror",
-        },
-        body: ssml,
-      }
-    );
+  function generateMuid(): string {
+    const bytes = new Uint8Array(16);
+    globalThis.crypto.getRandomValues(bytes);
+    return Array.from(bytes).map(b => b.toString(16).padStart(2, "0")).join("").toUpperCase();
+  }
 
-    if (!ttsRes.ok) throw new Error(`Azure TTS error: ${ttsRes.status}`);
-    const audio = await ttsRes.arrayBuffer();
+  // ── SSML builder ─────────────────────────────────────────────────────────
+  function buildSSML(text: string, voice: string, rate: string, pitch: string): string {
+    return `<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='en-US'>` +
+      `<voice name='${voice}'>` +
+      `<prosody rate='${rate}' pitch='${pitch}'>${text}</prosody>` +
+      `</voice></speak>`;
+  }
 
-    // 3. Store in R2 cache
-    await env.TTS_CACHE.put(key, audio, {
-      httpMetadata: { contentType: "audio/mpeg" },
+  function speedToRate(speed: number): string {
+    // 1.0 → "+0%", 1.5 → "+50%", 0.75 → "-25%"
+    const pct = Math.round((speed - 1) * 100);
+    return pct >= 0 ? `+${pct}%` : `${pct}%`;
+  }
+
+  function pitchToSSML(semitones: number): string {
+    return semitones >= 0 ? `+${semitones}Hz` : `${semitones}Hz`;
+  }
+
+  // ── Main synthesis function ───────────────────────────────────────────────
+  export async function synthesize(
+    text: string,
+    voice: string,
+    speed = 1.0,
+    pitch = 0
+  ): Promise<ArrayBuffer> {
+    const secMsGec = await computeSecMsGec();
+    const connId = crypto.randomUUID().replace(/-/g, "").toUpperCase();
+    const url = `${WSS_URL}&Sec-MS-GEC=${secMsGec}&Sec-MS-GEC-Version=${SEC_MS_GEC_VERSION}&ConnectionId=${connId}`;
+
+    // Open WebSocket with custom headers via CF fetch() pattern
+    const resp = await fetch(url, {
+      headers: {
+        ...WSS_HEADERS,
+        Cookie: `muid=${generateMuid()};`,
+        Upgrade: "websocket",
+      },
     });
 
-    return { audio, cacheHit: false, cacheKey: key };
+    const ws = resp.webSocket;
+    if (!ws) throw new Error("Edge TTS: WebSocket upgrade failed");
+    ws.accept();
+
+    // Send synthesis config
+    ws.send(
+      `Path: speech.config\r\nContent-Type: application/json\r\n\r\n` +
+      JSON.stringify({ context: { synthesis: { audio: { metadataoptions: { sentenceBoundaryEnabled: false, wordBoundaryEnabled: false }, outputFormat: "audio-24khz-48kbitrate-mono-mp3" } } } })
+    );
+
+    // Send SSML
+    const ssml = buildSSML(text, voice, speedToRate(speed), pitchToSSML(pitch));
+    ws.send(`Path: ssml\r\nContent-Type: application/ssml+xml\r\n\r\n${ssml}`);
+
+    // Collect audio chunks
+    const chunks: Uint8Array[] = [];
+    await new Promise<void>((resolve, reject) => {
+      ws.addEventListener("message", (event: MessageEvent) => {
+        if (typeof event.data === "string") {
+          if (event.data.includes("Path:turn.end")) resolve();
+        } else {
+          // Binary: strip header bytes up to "Path:audio\r\n\r\n"
+          const data = new Uint8Array(event.data as ArrayBuffer);
+          const separator = findAudioStart(data);
+          if (separator !== -1) chunks.push(data.slice(separator));
+        }
+      });
+      ws.addEventListener("error", reject);
+      ws.addEventListener("close", resolve);
+    });
+
+    return concat(chunks).buffer;
   }
   ```
-- `buildSSML(opts)`: generate SSML XML string with voice, rate, pitch
-  - Map `speed` (float) → SSML `rate`: `1.2` → `"fast"` or `"+20%"`
-  - Map `pitch` (semitones) → SSML `pitch`: `+2` → `"+2st"`
+- Create `src/worker/services/edge-tts-constants.ts`:
+  - Copy `TRUSTED_CLIENT_TOKEN`, `WSS_URL`, `WSS_HEADERS`, `SEC_MS_GEC_VERSION` from `edge-tts-universal` source (public constants, no license issues)
+- Create `src/worker/services/tts.service.ts`:
+  - Wrap `synthesize()` with R2 cache check/write (same pattern as desktop)
+  - Cache key: `SHA256(text|voice|speed|pitch)` using `globalThis.crypto.subtle`
+  - R2 put with `httpMetadata: { contentType: "audio/mpeg" }`
 - Create `src/worker/routes/tts.ts`:
   - `GET /api/tts?text=...&voice=...&speed=...&pitch=...`
-  - Same validation as desktop version
-  - Return `audio/mpeg` response with `X-Cache: HIT|MISS` header
-  - `DELETE /api/tts/cache` → list and delete all objects in `TTS_CACHE` R2 bucket
-  - `GET /api/tts/cache/stats` → count and size of R2 objects
+  - Same query param validation as `src/server/routes/tts.ts`
+  - Returns `audio/mpeg` with `X-Cache: HIT | MISS` header
+  - `DELETE /api/tts/cache` → clear all R2 objects + null DB cache keys
+  - `GET /api/tts/cache/stats` → R2 object count + total size
 - Create `src/worker/services/voices.service.ts`:
-  - Use same bundled fallback `voices-fallback.json` as desktop
-  - No background refresh (CF Workers are stateless — serve from bundle only)
-  - `GET /api/tts/voices` → return bundled list (optionally filtered by `?lang=`)
+  - Serve bundled `voices-fallback.json` (same file as desktop, no network call needed)
+  - `GET /api/tts/voices?lang=ja` → filtered list
 
 ### Acceptance Criteria
 - [ ] `GET /api/tts?text=hello&voice=en-US-JennyNeural` → returns `audio/mpeg`
 - [ ] Second identical request → `X-Cache: HIT` (served from R2)
-- [ ] R2 object stored with correct `contentType: "audio/mpeg"`
+- [ ] Audio plays correctly in the browser `<audio>` element
+- [ ] Japanese, German, Vietnamese voices all work
+- [ ] Speed and pitch parameters affect output
 - [ ] `DELETE /api/tts/cache` clears R2 bucket and nulls DB cache keys
-- [ ] `GET /api/tts/voices` returns voice list
-- [ ] SSML correctly encodes voice, rate, pitch parameters
+- [ ] `GET /api/tts/voices` returns the bundled voice list
+- [ ] No API keys or external accounts required
 
 ---
 
@@ -532,7 +606,7 @@ The desktop version is single-user by design — no auth needed. The CF version 
 | US-11.1 — Wrangler Scaffold | CF-1 | Small (2–4h) | — |
 | US-11.2 — D1 Database Layer | CF-1 | Medium (1 day) | 11.1 |
 | US-11.3 — Topics/Versions/Sentences Routes | CF-2 | Medium (1 day) | 11.2 |
-| US-11.4 — Azure TTS + R2 Cache | CF-2 | Medium (1 day) | 11.2 |
+| US-11.4 — CF-Native Edge TTS + R2 Cache | CF-2 | Medium (1 day) | 11.2 |
 | US-11.5 — R2 Recording Storage | CF-2 | Small (half day) | 11.2 |
 | US-11.6 — Import Route | CF-3 | Small (half day) | 11.3 |
 | US-11.7 — Deployment Pipeline | CF-3 | Small (2–4h) | 11.1–11.6 |
@@ -543,7 +617,7 @@ The desktop version is single-user by design — no auth needed. The CF version 
 
 | # | Risk | Mitigation |
 |---|------|-----------|
-| 1 | **Azure TTS cost** (MEDIUM) | Free tier: 500k chars/month. Cache aggressively in R2 — most sentences are short (<100 chars). |
+| 1 | **Microsoft Edge TTS service changes** (MEDIUM) | The Edge TTS service is reverse-engineered and undocumented — Microsoft can change auth requirements at any time (happened in Dec 2025). Cache aggressively in R2 to minimise live calls. Monitor `edge-tts-universal` repo for protocol updates. |
 | 2 | **D1 latency** (LOW) | D1 adds ~1–5ms vs in-process SQLite. Acceptable for web; imperceptible to users. |
 | 3 | **CF Worker CPU limit** (LOW) | 10ms CPU time on free tier. TTS generation is a single `fetch()` call — no CPU-heavy work. |
 | 4 | **R2 egress cost** (LOW) | R2 has no egress fees (unlike S3). TTS audio and recordings are free to serve. |

@@ -55,6 +55,7 @@ jobs:
           ssh-keyscan -H ${{ secrets.OCI_HOST }} >> ~/.ssh/known_hosts
 
       # ── 7. Sync files to OCI (rsync) ─────────────────────────────────────
+      # NOTE: OCI_USER is 'opc' for Oracle Linux, 'ubuntu' for Ubuntu
       - name: Sync files to OCI
         run: |
           rsync -avz --delete \

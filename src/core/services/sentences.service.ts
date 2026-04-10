@@ -4,7 +4,7 @@ import { NotFoundError, ValidationError, ForbiddenError } from "../errors";
 import { requireAuth, canAccess } from "../auth/context";
 
 async function assertSentenceAccess(db: IDatabase, sentenceId: string): Promise<void> {
-  const row = await db.queryFirst<{ owner_id: string | null }>(`
+  const row = await db.queryFirst<{ owner_id: string }>(`
     SELECT t.owner_id FROM sentences s
     JOIN topic_language_versions v ON v.id = s.version_id
     JOIN topics t ON t.id = v.topic_id

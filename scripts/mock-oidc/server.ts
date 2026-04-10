@@ -41,6 +41,14 @@ const MOCK_USERS: Record<string, {
     picture:        null,
     role_hint:      "user",
   },
+  user2: {
+    sub:            "mock-user-002",
+    email:          "user2@mock.local",
+    email_verified: true,
+    name:           "Mock User 2",
+    picture:        null,
+    role_hint:      "user",
+  },
 };
 
 // ── In-memory code store (code → { username, nonce }) ────────────────────────

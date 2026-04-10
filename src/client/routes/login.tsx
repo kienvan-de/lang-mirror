@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
+import { ArrowRightEndOnRectangleIcon, ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "../hooks/useAuth";
 import { api } from "../lib/api";
 
@@ -70,7 +71,8 @@ export function LoginPage() {
 
         {/* Error */}
         {errorMsg && (
-          <div className="mb-4 px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl text-sm text-red-700 dark:text-red-300">
+          <div className="mb-4 px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl text-sm text-red-700 dark:text-red-300 flex items-start gap-2">
+            <ExclamationCircleIcon className="w-4 h-4 flex-shrink-0 mt-0.5" />
             {errorMsg}
           </div>
         )}
@@ -95,9 +97,9 @@ export function LoginPage() {
                 className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm"
               >
                 {loggingIn === p.id ? (
-                  <span className="w-4 h-4 rounded-full border-2 border-gray-300 border-t-gray-600 animate-spin" />
+                  <span className="w-4 h-4 rounded-full border-2 border-gray-300 border-t-gray-600 animate-spin flex-shrink-0" />
                 ) : (
-                  <span className="text-base">🔑</span>
+                  <ArrowRightEndOnRectangleIcon className="w-4 h-4 flex-shrink-0 text-gray-400" />
                 )}
                 {loggingIn === p.id ? "Redirecting..." : `Continue with ${p.display_name}`}
               </button>

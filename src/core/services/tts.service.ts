@@ -2,6 +2,8 @@ import type { IDatabase } from "../ports/db.port";
 import type { IObjectStorage } from "../ports/storage.port";
 import type { ITTSProvider } from "../ports/tts.port";
 import type { SentenceRow, VersionRow } from "../db/types";
+import { getAuthContext } from "../auth/context";
+import { SYSTEM_USER_ID } from "../db/schema";
 import { NotFoundError } from "../errors";
 
 const DEFAULT_VOICES: Record<string, string> = {
@@ -70,20 +72,37 @@ export class TTSService {
     );
     if (!version) throw new NotFoundError("Version not found");
 
-    // Resolve voice: version override → global setting → language default
-    const globalVoice = await this.db.queryFirst<{ value: string }>(
-      "SELECT value FROM settings WHERE key = ?", `tts.voices.${version.language_code}`
-    );
-    const voice = version.voice_name ?? globalVoice?.value ?? defaultVoiceForLang(version.language_code);
+    // Resolve owner: use authenticated user's settings if available, fall back to system defaults
+    const ctx = getAuthContext();
+    const ownerId = ctx.isAnonymous ? SYSTEM_USER_ID : ctx.id;
 
-    const globalSpeed = await this.db.queryFirst<{ value: string }>(
-      "SELECT value FROM settings WHERE key = 'tts.global.speed'"
+    // Resolve voice: version override → user setting → system default → language default
+    const userVoice = ctx.isAnonymous ? null : await this.db.queryFirst<{ value: string }>(
+      "SELECT value FROM settings WHERE key = ? AND owner_id = ?",
+      `tts.voices.${version.language_code}`, ownerId
     );
-    const globalPitch = await this.db.queryFirst<{ value: string }>(
-      "SELECT value FROM settings WHERE key = 'tts.global.pitch'"
+    const systemVoice = userVoice ? null : await this.db.queryFirst<{ value: string }>(
+      "SELECT value FROM settings WHERE key = ? AND owner_id = ?",
+      `tts.voices.${version.language_code}`, SYSTEM_USER_ID
     );
-    const speed = version.speed ?? parseFloat(globalSpeed?.value ?? "1.0");
-    const pitch = version.pitch ?? parseInt(globalPitch?.value ?? "0", 10);
+    const voice = version.voice_name ?? userVoice?.value ?? systemVoice?.value ?? defaultVoiceForLang(version.language_code);
+
+    const speedRow = await this.db.queryFirst<{ value: string }>(
+      `SELECT COALESCE(u.value, s.value) as value
+       FROM settings s
+       LEFT JOIN settings u ON u.key = s.key AND u.owner_id = ?
+       WHERE s.key = 'tts.global.speed' AND s.owner_id = ?`,
+      ownerId, SYSTEM_USER_ID
+    );
+    const pitchRow = await this.db.queryFirst<{ value: string }>(
+      `SELECT COALESCE(u.value, s.value) as value
+       FROM settings s
+       LEFT JOIN settings u ON u.key = s.key AND u.owner_id = ?
+       WHERE s.key = 'tts.global.pitch' AND s.owner_id = ?`,
+      ownerId, SYSTEM_USER_ID
+    );
+    const speed = version.speed ?? parseFloat(speedRow?.value ?? "1.0");
+    const pitch = version.pitch ?? parseInt(pitchRow?.value ?? "0", 10);
 
     return this.synthesize(sentence.text, voice, speed, pitch);
   }

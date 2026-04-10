@@ -1,6 +1,7 @@
 import type { IDatabase } from "../ports/db.port";
 import type { TopicRow, VersionRow, SentenceRow } from "../db/types";
-import { NotFoundError } from "../errors";
+import { requireAuth, isAdmin } from "../auth/context";
+import { NotFoundError, ForbiddenError } from "../errors";
 
 export interface ExportedSentence {
   text: string;
@@ -74,19 +75,27 @@ export class ExportService {
   }
 
   async exportTopic(topicId: string): Promise<{ payload: ExportedTopic; filename: string }> {
+    const auth = requireAuth();
+
     const topic = await this.db.queryFirst<TopicRow>(
       "SELECT * FROM topics WHERE id = ?", topicId
     );
     if (!topic) throw new NotFoundError(`Topic '${topicId}' not found`);
 
+    // Any authenticated user can export any topic (read access is shared)
     const payload = await this.buildPayload(topic);
     return { payload, filename: `${slugify(topic.title)}.json` };
   }
 
   async exportAll(): Promise<Record<string, ExportedTopic>> {
-    const topics = await this.db.queryAll<TopicRow>(
-      "SELECT * FROM topics ORDER BY updated_at DESC"
-    );
+    const auth = requireAuth();
+
+    // Admin exports all topics; regular users export only their own
+    const topics = isAdmin()
+      ? await this.db.queryAll<TopicRow>("SELECT * FROM topics ORDER BY updated_at DESC")
+      : await this.db.queryAll<TopicRow>(
+          "SELECT * FROM topics WHERE owner_id = ? ORDER BY updated_at DESC", auth.id
+        );
 
     const bundle: Record<string, ExportedTopic> = {};
     for (const topic of topics) {

@@ -219,11 +219,8 @@ export const api = {
 
   getProviders: () => apiFetch<Array<{ id: string; provider: string; display_name: string }>>("/auth/providers"),
 
-  initiateLogin: async (providerId: string): Promise<{ redirectUrl: string }> => {
-    const res = await fetch(`/api/auth/login/${providerId}`, { method: "POST" });
-    if (!res.ok) throw new Error("Failed to initiate login");
-    return res.json() as Promise<{ redirectUrl: string }>;
-  },
+  // Login is a direct browser navigation to /api/auth/login/:providerId (GET → 302)
+  // No fetch call needed — use window.location.href = `/api/auth/login/${providerId}`
 
   logout: () => apiFetch<{ ok: boolean }>("/auth/logout", { method: "POST" }),
 

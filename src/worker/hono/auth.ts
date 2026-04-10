@@ -20,11 +20,11 @@ authRouter.get("/providers", async (c) => {
   return c.json(await oidc.listProviders());
 });
 
-// POST /api/auth/login/:providerId — kick off OIDC flow
-authRouter.post("/login/:providerId", async (c) => {
+// GET /api/auth/login/:providerId — kick off OIDC flow (browser navigates directly)
+authRouter.get("/login/:providerId", async (c) => {
   const { oidc } = buildContext(c.env);
-  const result = await oidc.initiateLogin(c.req.param("providerId"));
-  return c.json(result);
+  const { redirectUrl } = await oidc.initiateLogin(c.req.param("providerId"));
+  return c.redirect(redirectUrl, 302);
 });
 
 // GET /api/auth/callback/:providerId — OIDC redirect callback

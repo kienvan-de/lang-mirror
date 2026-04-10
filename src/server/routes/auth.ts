@@ -25,9 +25,9 @@ export async function handle(req: Request, url: URL): Promise<Response> {
     return json({ ok: true });
   }
 
-  // Catch-all for any other /api/auth/* — return 200 with mock user
-  if (method === "POST" && path.startsWith("/api/auth/login")) {
-    return json({ redirectUrl: "/" });
+  // GET /api/auth/login/:providerId — mock, redirect straight to home (always logged in)
+  if (method === "GET" && path.startsWith("/api/auth/login")) {
+    return new Response(null, { status: 302, headers: { Location: "/" } });
   }
 
   return json({ error: "not found" }, 404);

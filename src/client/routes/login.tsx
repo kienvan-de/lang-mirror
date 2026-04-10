@@ -41,16 +41,11 @@ export function LoginPage() {
       .finally(() => setLoadingProviders(false));
   }, []);
 
-  const handleLogin = async (providerId: string) => {
-    try {
-      setLoggingIn(providerId);
-      setErrorMsg(null);
-      const { redirectUrl } = await api.initiateLogin(providerId);
-      window.location.href = redirectUrl;
-    } catch (e) {
-      setErrorMsg((e as Error).message);
-      setLoggingIn(null);
-    }
+  const handleLogin = (providerId: string) => {
+    setLoggingIn(providerId);
+    setErrorMsg(null);
+    // Navigate directly — server responds with 302 to OIDC provider
+    window.location.href = `/api/auth/login/${providerId}`;
   };
 
   if (authLoading) {

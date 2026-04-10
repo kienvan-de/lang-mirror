@@ -21,8 +21,8 @@ so local dev stays frictionless.
 
 ### 2. Roles
 - Two roles: `"user"` and `"admin"`.
-- First user to complete OIDC login becomes `"admin"` (bootstrap).
-- Admins can promote other users via the users management API.
+- All new users start with `"user"` role — no automatic bootstrap.
+- Admins must be promoted manually via `PUT /api/users/:id/role` (direct DB edit or admin tool).
 - Desktop mock user always has `"admin"` role.
 
 ### 3. Owner columns
@@ -399,7 +399,7 @@ All use `globalThis.crypto` — works in Bun, CF Workers, and browsers.
 - [ ] `listProviders()` returns only enabled providers, omitting `client_secret`
 - [ ] `initiateLogin()` returns a valid OAuth2 authorization URL with PKCE params
 - [ ] `handleCallback()` exchanges code, upserts user, creates session
-- [ ] First-ever user gets `role = "admin"` automatically
+- [ ] All new users get `role = "user"` — no automatic admin bootstrap
 - [ ] `getSession()` returns null for expired/missing sessions
 - [ ] `addProvider()` throws `ForbiddenError` if caller is not admin
 
@@ -770,4 +770,4 @@ US-12.9  UI: login page + protection + user badge
 | 3 | **OIDC provider config stored in DB** | `client_secret` is sensitive — consider encrypting at rest or using Worker `secrets` instead of DB for production. |
 | 4 | **id_token validation** | Full JWT signature verification requires the provider's JWKS. For simplicity, use `userinfo_url` call instead (additional round-trip but no JWKS fetch). Document this trade-off. |
 | 5 | **Rolling session TTL in KV** | CF KV `put` with `expirationTtl` resets the clock — this is correct for rolling TTL. Desktop `MemoryCacheAdapter` must also reset TTL on `renewSession()`. |
-| 6 | **First-admin bootstrap** | Race condition if two users register simultaneously. Use `INSERT INTO users ... WHERE (SELECT COUNT(*) FROM users) = 0` in a transaction. |
+| 6 | ~~**First-admin bootstrap**~~ | Removed — all users start as `"user"`. Promote to admin manually via DB or `PUT /api/users/:id/role` from an existing admin. |

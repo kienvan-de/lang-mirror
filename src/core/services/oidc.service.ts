@@ -140,16 +140,10 @@ export class OidcService {
       picture?: string;
     };
 
-    // 4. Upsert user
-    const isFirstUser = await this.db.queryFirst<{ count: number }>(
-      "SELECT COUNT(*) as count FROM users"
-    ).then(r => (r?.count ?? 0) === 0);
-
-    const role = isFirstUser ? "admin" : "user";
-
+    // 4. Upsert user — always "user" role, promote to "admin" manually via UsersService
     await this.db.run(
       `INSERT INTO users (oidc_provider_id, user_id, email, email_verified, name, avatar_url, role)
-       VALUES (?, ?, ?, ?, ?, ?, ?)
+       VALUES (?, ?, ?, ?, ?, ?, 'user')
        ON CONFLICT(oidc_provider_id, user_id) DO UPDATE SET
          email          = excluded.email,
          email_verified = excluded.email_verified,
@@ -161,8 +155,7 @@ export class OidcService {
       userInfo.email ?? null,
       userInfo.email_verified ? 1 : 0,
       userInfo.name ?? null,
-      userInfo.picture ?? null,
-      role
+      userInfo.picture ?? null
     );
 
     const user = await this.db.queryFirst<UserRow>(

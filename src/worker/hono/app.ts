@@ -34,11 +34,12 @@ export function createApp() {
     c.json({ status: "ok", target: "cloudflare", ts: new Date().toISOString() })
   );
 
-  // ── Auth routes (no auth middleware — handles login/callback/logout) ─────────
-  app.route("/api/auth", authRouter);
-
-  // ── Session middleware — sets auth context for all other /api/* routes ───────
+  // ── Session middleware — sets auth context for ALL /api/* routes ────────────
+  // Must be registered before any routes (Hono applies middleware in order)
   app.use("/api/*", authMiddleware);
+
+  // ── Auth routes (login/callback/logout — auth context available but optional)
+  app.route("/api/auth", authRouter);
 
   // ── API routes ───────────────────────────────────────────────────────────────
   app.route("/api/topics",     topicsRouter);

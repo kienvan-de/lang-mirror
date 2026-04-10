@@ -190,10 +190,11 @@ export class VersionsService {
     notes?: Record<string, string>;
     position?: number;
   }): Promise<SentenceWithNotes> {
-    const version = await this.db.queryFirst(
-      "SELECT id FROM topic_language_versions WHERE id = ?", versionId
+    const version = await this.db.queryFirst<{ id: string; topic_id: string }>(
+      "SELECT id, topic_id FROM topic_language_versions WHERE id = ?", versionId
     );
     if (!version) throw new NotFoundError(`Version '${versionId}' not found`);
+    await assertTopicAccess(this.db, version.topic_id);
 
     const text = data.text?.trim();
     if (!text) throw new ValidationError("text is required", "text");
@@ -224,6 +225,12 @@ export class VersionsService {
   }
 
   async reorderSentences(versionId: string, ids: string[]): Promise<SentenceWithNotes[]> {
+    const version = await this.db.queryFirst<{ topic_id: string }>(
+      "SELECT topic_id FROM topic_language_versions WHERE id = ?", versionId
+    );
+    if (!version) throw new NotFoundError(`Version '${versionId}' not found`);
+    await assertTopicAccess(this.db, version.topic_id);
+
     const existing = await this.db.queryAll<{ id: string }>(
       "SELECT id FROM sentences WHERE version_id = ?", versionId
     );

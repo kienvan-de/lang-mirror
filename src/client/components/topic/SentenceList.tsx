@@ -13,9 +13,11 @@ interface Props {
   allVersions: Version[];
   /** The language_code of the currently-active version */
   activeLangCode: string;
+  /** Whether the current user can edit this topic (owner or admin) */
+  canEdit?: boolean;
 }
 
-export function SentenceList({ sentences, versionId, topicId, allVersions, activeLangCode }: Props) {
+export function SentenceList({ sentences, versionId, topicId, allVersions, activeLangCode, canEdit = false }: Props) {
   const { t } = useTranslation();
   const qc = useQueryClient();
   const [newText, setNewText] = useState("");
@@ -91,13 +93,14 @@ export function SentenceList({ sentences, versionId, topicId, allVersions, activ
               onReorderDown={() => moveDown(index)}
               isFirst={index === 0}
               isLast={index === sentences.length - 1}
+              canEdit={canEdit}
             />
           ))}
         </div>
       )}
 
-      {/* Add sentence form */}
-      <form
+      {/* Add sentence form (owner/admin only) */}
+      {canEdit && <form
         onSubmit={handleAddSubmit}
         className="mt-3 rounded-xl border border-dashed border-gray-300 dark:border-gray-700 p-4 space-y-2 bg-gray-50/50 dark:bg-gray-800/30"
       >
@@ -120,7 +123,7 @@ export function SentenceList({ sentences, versionId, topicId, allVersions, activ
             {addMutation.isPending ? t("sentenceList.adding") : t("sentenceList.add")}
           </button>
         </div>
-      </form>
+      </form>}
     </div>
   );
 }

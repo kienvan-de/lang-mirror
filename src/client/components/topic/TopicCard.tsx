@@ -6,6 +6,7 @@ import { ArrowRightIcon, TrashIcon } from "@heroicons/react/24/outline";
 import type { Topic } from "../../lib/api";
 import { api } from "../../lib/api";
 import { langFlag } from "../../lib/lang";
+import { useAuth } from "../../hooks/useAuth";
 
 interface Props {
   topic: Topic;
@@ -14,6 +15,8 @@ interface Props {
 export function TopicCard({ topic }: Props) {
   const { t, i18n } = useTranslation();
   const qc = useQueryClient();
+  const { user } = useAuth();
+  const canDelete = !!user && (topic.owner_id === user.id || user.role === "admin");
   const [confirmDelete, setConfirmDelete] = useState(false);
 
   const deleteMutation = useMutation({
@@ -86,8 +89,8 @@ export function TopicCard({ topic }: Props) {
       {/* Footer */}
       <div className="mt-auto flex items-center justify-end gap-2">
         <div className="flex items-center gap-1.5">
-          {/* Delete button / confirm */}
-          {confirmDelete ? (
+          {/* Delete button / confirm (owner/admin only) */}
+          {canDelete && (confirmDelete ? (
             <span className="flex items-center gap-1">
               <span className="text-xs text-red-500 dark:text-red-400">{t("topicCard.deleteConfirm")}</span>
               <button
@@ -112,7 +115,7 @@ export function TopicCard({ topic }: Props) {
             >
               <TrashIcon className="w-3.5 h-3.5" />
             </button>
-          )}
+          ))}
           <Link
             to="/topics/$topicId"
             params={{ topicId: topic.id }}

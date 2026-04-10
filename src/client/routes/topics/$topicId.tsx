@@ -45,6 +45,8 @@ export function TopicDetailPage() {
     queryFn: () => api.getTopic(topicId),
   });
 
+  const canEdit = !!topic && !!user && (topic.owner_id === user.id || user.role === "admin");
+
   const { data: allTags } = useQuery({
     queryKey: ["tags"],
     queryFn: api.getTags,
@@ -183,12 +185,12 @@ export function TopicDetailPage() {
             />
           ) : (
             <h1
-              className="text-2xl font-bold text-gray-900 dark:text-gray-100 cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors group inline-flex items-center gap-2"
-              onClick={startEditTitle}
-              title={t("topics.clickToEdit")}
+              className={`text-2xl font-bold text-gray-900 dark:text-gray-100 inline-flex items-center gap-2 ${canEdit ? "cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors group" : ""}`}
+              onClick={canEdit ? startEditTitle : undefined}
+              title={canEdit ? t("topics.clickToEdit") : undefined}
             >
               {displayTitle}
-              <PencilIcon className="w-4 h-4 opacity-0 group-hover:opacity-40 transition-opacity" />
+              {canEdit && <PencilIcon className="w-4 h-4 opacity-0 group-hover:opacity-40 transition-opacity" />}
             </h1>
           )}
           {displayDescription && (
@@ -208,7 +210,7 @@ export function TopicDetailPage() {
           )}
 
           {/* Edit Tags */}
-          {(topic.owner_id === user?.id || user?.role === "admin") && (
+          {canEdit && (
             <div className="mt-2">
               {editingTags ? (
                 <div className="p-3 rounded-xl border border-blue-300 dark:border-blue-700 bg-blue-50/50 dark:bg-blue-900/10 space-y-2">
@@ -333,8 +335,8 @@ export function TopicDetailPage() {
                     title={t("topics.progressToday", { practiced: v.practicedToday, total: v.totalSentences })}
                   />
                 )}
-                {/* Delete version button (hidden in reorder mode) */}
-                {!reorderMode && (
+                {/* Delete version button (owner/admin only, hidden in reorder mode) */}
+                {canEdit && !reorderMode && (
                   <span
                     onClick={(e) => {
                       e.stopPropagation();
@@ -369,8 +371,8 @@ export function TopicDetailPage() {
           );
         })}
 
-        {/* Reorder toggle button */}
-        {versions.length >= 2 && (
+        {/* Reorder toggle button (owner/admin only) */}
+        {canEdit && versions.length >= 2 && (
           <button
             onClick={() => setReorderMode((v) => !v)}
             className={`flex items-center gap-1 px-2.5 py-2.5 text-xs border-b-2 border-transparent transition-colors whitespace-nowrap ${
@@ -384,14 +386,16 @@ export function TopicDetailPage() {
           </button>
         )}
 
-        {/* Add language tab */}
-        <button
-          onClick={() => setShowAddLang(true)}
-          className="inline-flex items-center gap-1 px-3 py-2.5 text-sm text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 border-b-2 border-transparent hover:border-blue-400 transition-colors whitespace-nowrap"
-          title={t("topics.addLanguage")}
-        >
-          <PlusIcon className="w-4 h-4" /> {t("topics.addLanguage")}
-        </button>
+        {/* Add language tab (owner/admin only) */}
+        {canEdit && (
+          <button
+            onClick={() => setShowAddLang(true)}
+            className="inline-flex items-center gap-1 px-3 py-2.5 text-sm text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 border-b-2 border-transparent hover:border-blue-400 transition-colors whitespace-nowrap"
+            title={t("topics.addLanguage")}
+          >
+            <PlusIcon className="w-4 h-4" /> {t("topics.addLanguage")}
+          </button>
+        )}
       </div>
 
       {/* Sentence list for active version */}
@@ -399,12 +403,14 @@ export function TopicDetailPage() {
         {versions.length === 0 ? (
           <div className="py-10 text-center">
             <p className="text-gray-400 dark:text-gray-600 text-sm mb-3">{t("topics.noVersions")}</p>
-            <button
-              onClick={() => setShowAddLang(true)}
-              className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-sm font-semibold text-white transition-colors"
-            >
-              {t("topics.addLanguageBtn")}
-            </button>
+            {canEdit && (
+              <button
+                onClick={() => setShowAddLang(true)}
+                className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-sm font-semibold text-white transition-colors"
+              >
+                {t("topics.addLanguageBtn")}
+              </button>
+            )}
           </div>
         ) : activeVersion ? (
           <>
@@ -465,22 +471,24 @@ export function TopicDetailPage() {
                     <p className="text-xs text-gray-500 dark:text-gray-400">{activeVersion.description}</p>
                   )}
                 </div>
-                <button
-                  onClick={startEditVersionMeta}
-                  className="opacity-0 group-hover/vmeta:opacity-60 hover:!opacity-100 text-gray-400 hover:text-blue-500 transition-all flex-shrink-0 mt-0.5"
-                  title={t("topics.editVersionTitle")}
-                >
-                  <PencilIcon className="w-3.5 h-3.5" />
-                </button>
+                {canEdit && (
+                  <button
+                    onClick={startEditVersionMeta}
+                    className="opacity-0 group-hover/vmeta:opacity-60 hover:!opacity-100 text-gray-400 hover:text-blue-500 transition-all flex-shrink-0 mt-0.5"
+                    title={t("topics.editVersionTitle")}
+                  >
+                    <PencilIcon className="w-3.5 h-3.5" />
+                  </button>
+                )}
               </div>
-            ) : (
+            ) : canEdit ? (
               <button
                 onClick={startEditVersionMeta}
                 className="mb-3 text-xs text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 flex items-center gap-1 transition-colors"
               >
                 <PencilIcon className="w-3 h-3" /> {t("topics.addVersionTitle")}
               </button>
-            )}
+            ) : null}
             {/* Today's progress bar */}
             {(activeVersion.totalSentences ?? 0) > 0 && (
               <div className="mb-3 flex items-center gap-2">
@@ -507,6 +515,7 @@ export function TopicDetailPage() {
               topicId={topicId}
               allVersions={versions}
               activeLangCode={activeVersion.language_code}
+              canEdit={canEdit}
             />
           </>
         ) : null}

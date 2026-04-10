@@ -13,6 +13,7 @@ import { NotesDialog } from "./NotesDialog";
 import { langFlag, langLabel } from "../../lib/lang";
 
 interface Props {
+  canEdit?: boolean;
   sentence: Sentence;
   topicId: string;
   versionId: string;
@@ -24,7 +25,7 @@ interface Props {
   isLast: boolean;
 }
 
-export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onReorderUp, onReorderDown, isFirst, isLast }: Props) {
+export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onReorderUp, onReorderDown, isFirst, isLast, canEdit = false }: Props) {
   const { t, i18n } = useTranslation();
   const uiLang = i18n.language.split("-")[0]!;
   const qc = useQueryClient();
@@ -199,63 +200,65 @@ export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onR
           )}
         </div>
 
-        {/* Actions (visible on hover) */}
-        <div className="flex-shrink-0 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-          {/* Reorder */}
-          <button
-            onClick={onReorderUp}
-            disabled={isFirst}
-            className="p-1 rounded text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-20 transition-colors"
-            title={t("common.moveUp")}
-          >
-            <ChevronDoubleUpIcon className="w-3.5 h-3.5" />
-          </button>
-          <button
-            onClick={onReorderDown}
-            disabled={isLast}
-            className="p-1 rounded text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-20 transition-colors"
-            title={t("common.moveDown")}
-          >
-            <ChevronDoubleDownIcon className="w-3.5 h-3.5" />
-          </button>
-
-          {/* Edit */}
-          <button
-            onClick={() => setEditing(true)}
-            className="p-1 rounded text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            title={t("common.edit")}
-          >
-            <PencilIcon className="w-3.5 h-3.5" />
-          </button>
-
-          {/* Delete */}
-          {showDeleteConfirm ? (
-            <span className="flex items-center gap-1">
-              <span className="text-xs text-red-500">{t("sentenceRow.deleteConfirm")}</span>
-              <button
-                onClick={() => deleteMutation.mutate()}
-                disabled={deleteMutation.isPending}
-                className="text-xs px-2 py-0.5 rounded bg-red-500 hover:bg-red-600 text-white font-medium transition-colors"
-              >
-                {t("common.yes")}
-              </button>
-              <button
-                onClick={() => setShowDeleteConfirm(false)}
-                className="text-xs px-2 py-0.5 rounded border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              >
-                {t("common.no")}
-              </button>
-            </span>
-          ) : (
+        {/* Actions (visible on hover, owner/admin only) */}
+        {canEdit && (
+          <div className="flex-shrink-0 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+            {/* Reorder */}
             <button
-              onClick={() => setShowDeleteConfirm(true)}
-              className="p-1 rounded text-gray-400 hover:text-red-500 transition-colors"
-              title={t("common.delete")}
+              onClick={onReorderUp}
+              disabled={isFirst}
+              className="p-1 rounded text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-20 transition-colors"
+              title={t("common.moveUp")}
             >
-              <TrashIcon className="w-3.5 h-3.5" />
+              <ChevronDoubleUpIcon className="w-3.5 h-3.5" />
             </button>
-          )}
-        </div>
+            <button
+              onClick={onReorderDown}
+              disabled={isLast}
+              className="p-1 rounded text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-20 transition-colors"
+              title={t("common.moveDown")}
+            >
+              <ChevronDoubleDownIcon className="w-3.5 h-3.5" />
+            </button>
+
+            {/* Edit */}
+            <button
+              onClick={() => setEditing(true)}
+              className="p-1 rounded text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              title={t("common.edit")}
+            >
+              <PencilIcon className="w-3.5 h-3.5" />
+            </button>
+
+            {/* Delete */}
+            {showDeleteConfirm ? (
+              <span className="flex items-center gap-1">
+                <span className="text-xs text-red-500">{t("sentenceRow.deleteConfirm")}</span>
+                <button
+                  onClick={() => deleteMutation.mutate()}
+                  disabled={deleteMutation.isPending}
+                  className="text-xs px-2 py-0.5 rounded bg-red-500 hover:bg-red-600 text-white font-medium transition-colors"
+                >
+                  {t("common.yes")}
+                </button>
+                <button
+                  onClick={() => setShowDeleteConfirm(false)}
+                  className="text-xs px-2 py-0.5 rounded border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                >
+                  {t("common.no")}
+                </button>
+              </span>
+            ) : (
+              <button
+                onClick={() => setShowDeleteConfirm(true)}
+                className="p-1 rounded text-gray-400 hover:text-red-500 transition-colors"
+                title={t("common.delete")}
+              >
+                <TrashIcon className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Notes modal */}

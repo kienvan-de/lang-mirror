@@ -4,6 +4,7 @@ import { Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import {
   ExclamationTriangleIcon, XCircleIcon, CheckCircleIcon, XMarkIcon, ArrowUpTrayIcon,
+  DocumentTextIcon, MapPinIcon, TagIcon, PencilSquareIcon,
 } from "@heroicons/react/24/outline";
 import { api } from "../lib/api";
 import { langFlag, langLabel } from "../lib/lang";
@@ -62,21 +63,6 @@ function StepIndicator({ current }: { current: Step }) {
   );
 }
 
-// ── Language badge ────────────────────────────────────────────────────────────
-
-function LangBadge({ language, sentenceCount }: { language: string; sentenceCount: number }) {
-  const { t } = useTranslation();
-  return (
-    <div className="flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-800 rounded-lg">
-      <span className="text-base">{langFlag(language)}</span>
-      <span className="text-sm font-semibold text-gray-800 dark:text-gray-200">{langLabel(language)}</span>
-      <span className="text-xs text-gray-500 dark:text-gray-400">
-        {t("dashboard.sentences", { count: sentenceCount })}
-      </span>
-    </div>
-  );
-}
-
 // ── Main Page ─────────────────────────────────────────────────────────────────
 
 export function ImportPage() {
@@ -105,6 +91,11 @@ export function ImportPage() {
   const { data: topics } = useQuery({
     queryKey: ["topics"],
     queryFn: api.getTopics,
+  });
+
+  const { data: allTags } = useQuery({
+    queryKey: ["tags"],
+    queryFn: api.getTags,
   });
 
   const filteredTopics = (topics ?? []).filter((t) =>
@@ -252,7 +243,7 @@ export function ImportPage() {
                 </div>
                 {file && !previewing && (
                   <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-lg text-xs text-gray-600 dark:text-gray-400">
-                    <span>📄</span>
+                    <DocumentTextIcon className="w-3.5 h-3.5 flex-shrink-0" />
                     <span className="font-mono">{file.name}</span>
                   </div>
                 )}
@@ -371,18 +362,38 @@ export function ImportPage() {
                 <XMarkIcon className="w-3 h-3" /> {t("common.change")}
               </button>
             </div>
-            <div className="flex flex-wrap gap-2">
-              {preview.versions.map((v) => (
-                <LangBadge key={v.language} language={v.language} sentenceCount={v.sentenceCount} />
-              ))}
-            </div>
-            {preview.tags && preview.tags.length > 0 && (
-              <div className="flex flex-wrap gap-1.5 mt-2">
-                {preview.tags.map(tag => (
-                  <span key={tag} className="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
-                    {tag}
-                  </span>
-                ))}
+            {/* Tag badges (from detected tags in file) */}
+            {preview.tags && preview.tags.length > 0 ? (
+              <div className="flex flex-wrap gap-1.5 mt-1">
+                {preview.tags.map(tagName => {
+                  const tag = allTags?.find(t => t.name === tagName);
+                  return tag ? (
+                    <span key={tagName} className="px-2.5 py-0.5 rounded-full text-xs font-semibold border"
+                      style={{ backgroundColor: tag.color + "20", borderColor: tag.color, color: tag.color }}>
+                      {tag.name}
+                    </span>
+                  ) : (
+                    <span key={tagName} className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700">
+                      {tagName}
+                    </span>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="flex flex-wrap gap-1.5 mt-1">
+                {preview.versions.map((v) => {
+                  const tag = allTags?.find(t => t.name === v.language.split("-")[0]!.toLowerCase());
+                  return tag ? (
+                    <span key={v.language} className="px-2.5 py-0.5 rounded-full text-xs font-semibold border"
+                      style={{ backgroundColor: tag.color + "20", borderColor: tag.color, color: tag.color }}>
+                      {tag.name}
+                    </span>
+                  ) : (
+                    <span key={v.language} className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700">
+                      {v.language}
+                    </span>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -502,11 +513,11 @@ export function ImportPage() {
             <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">{t("import.importSummary")}</p>
             <div className="space-y-1.5">
               <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                <span className="opacity-60">📄</span>
+                <DocumentTextIcon className="w-4 h-4 opacity-60 flex-shrink-0" />
                 <span>{t("import.fileLabel")} <span className="font-medium text-gray-800 dark:text-gray-200">{file?.name}</span></span>
               </div>
               <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                <span className="opacity-60">📌</span>
+                <MapPinIcon className="w-4 h-4 opacity-60 flex-shrink-0" />
                 <span>
                   {t("import.topicLabel")}{" "}
                   <span className="font-medium text-gray-800 dark:text-gray-200">
@@ -517,19 +528,35 @@ export function ImportPage() {
                 </span>
               </div>
               <div className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
-                <span className="opacity-60 mt-0.5">🌐</span>
+                <TagIcon className="w-4 h-4 opacity-60 flex-shrink-0 mt-0.5" />
                 <div className="flex flex-wrap gap-1.5">
-                  {preview.versions.map((v) => (
-                    <LangBadge key={v.language} language={v.language} sentenceCount={v.sentenceCount} />
-                  ))}
+                  {[...new Set([
+                    ...(preview.tags ?? []),
+                    ...preview.versions.map(v => v.language.split("-")[0]!.toLowerCase()),
+                  ])].map(tagName => {
+                    const tag = allTags?.find(t => t.name === tagName);
+                    return tag ? (
+                      <span key={tagName} className="px-2.5 py-0.5 rounded-full text-xs font-semibold border"
+                        style={{ backgroundColor: tag.color + "20", borderColor: tag.color, color: tag.color }}>
+                        {tag.name}
+                      </span>
+                    ) : (
+                      <span key={tagName} className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700">
+                        {tagName}
+                      </span>
+                    );
+                  })}
                 </div>
               </div>
               <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                <span className="opacity-60">✏️</span>
+                <PencilSquareIcon className="w-4 h-4 opacity-60 flex-shrink-0" />
                 <span>
                   {t("import.totalLabel")}{" "}
                   <span className="font-medium text-gray-800 dark:text-gray-200">
-                    {t("dashboard.sentences", { count: preview.versions.reduce((s, v) => s + v.sentenceCount, 0) })}
+                    {(() => {
+                      const total = preview.versions.reduce((s, v) => s + v.sentenceCount, 0);
+                      return `${total} ${t("dashboard.sentences", { count: total })}`;
+                    })()}
                   </span>
                 </span>
               </div>

@@ -16,6 +16,7 @@ import {
   NotFoundError, ConflictError, ValidationError,
   UnauthorizedError, ForbiddenError,
 } from "../../core/errors";
+import { getAuthContext } from "../../core/auth/context";
 import type { Env } from "../types";
 
 export function createApp() {
@@ -29,21 +30,30 @@ export function createApp() {
     credentials: true,
   }));
 
-  // ── Health (no auth) ────────────────────────────────────────────────────────
+  // ── Health (public) ─────────────────────────────────────────────────────────
   app.get("/api/health", (c) =>
     c.json({ status: "ok", target: "cloudflare", ts: new Date().toISOString() })
   );
 
-  // ── Session middleware — sets auth context for ALL /api/* routes ────────────
-  // Must be registered before any routes (Hono applies middleware in order)
-  app.use("/api/*", authMiddleware);
-
-  // ── Auth routes (login/callback/logout — auth context available but optional)
+  // ── Public routes — OIDC flow, no session required ──────────────────────────
   app.route("/api/auth", authRouter);
 
-  // ── API routes ───────────────────────────────────────────────────────────────
+  // ── Protected routes — session required ─────────────────────────────────────
+  // 1. Resolve session → set auth context (always calls next)
+  app.use("/api/*", authMiddleware);
+
+  // 2. Guard — reject anonymous requests before they reach any route handler
+  app.use("/api/*", async (c, next) => {
+    const ctx = getAuthContext();
+    if (ctx.isAnonymous) {
+      return c.json({ error: "Authentication required" }, 401);
+    }
+    return next();
+  });
+
+  // ── Protected API routes ─────────────────────────────────────────────────────
   app.route("/api/topics",     topicsRouter);
-  app.route("/api",            versionsRouter);   // handles /api/topics/:id/versions and /api/versions/:id
+  app.route("/api",            versionsRouter);
   app.route("/api/sentences",  sentencesRouter);
   app.route("/api/tts",        ttsRouter);
   app.route("/api/recordings", recordingsRouter);

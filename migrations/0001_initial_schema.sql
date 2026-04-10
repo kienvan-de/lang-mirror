@@ -99,6 +99,8 @@ CREATE INDEX IF NOT EXISTS idx_attempts_attempted_at ON practice_attempts(attemp
 
 CREATE INDEX IF NOT EXISTS idx_settings_owner       ON settings(owner_id);
 
+CREATE UNIQUE INDEX IF NOT EXISTS idx_settings_system_key ON settings(key) WHERE owner_id IS NULL;
+
 -- Default system settings
 INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('practice.mode', NULL, 'auto');
 INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('tts.global.speed', NULL, '1.0');
@@ -107,4 +109,3 @@ INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('practice.recordin
 INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('practice.drillPause', NULL, '1');
 INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('practice.autoPlayback', NULL, 'true');
 INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('display.fontSize', NULL, 'lg');
-INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('app.baseUrl', NULL, '');

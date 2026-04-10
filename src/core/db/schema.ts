@@ -104,6 +104,10 @@ export const DDL_STATEMENTS: string[] = [
   `CREATE INDEX IF NOT EXISTS idx_attempts_owner       ON practice_attempts(owner_id)`,
   `CREATE INDEX IF NOT EXISTS idx_attempts_attempted_at ON practice_attempts(attempted_at)`,
   `CREATE INDEX IF NOT EXISTS idx_settings_owner       ON settings(owner_id)`,
+
+  // Enforce one system-default row per key (owner_id IS NULL).
+  // SQLite PRIMARY KEY allows multiple NULLs — this index prevents duplicates.
+  `CREATE UNIQUE INDEX IF NOT EXISTS idx_settings_system_key ON settings(key) WHERE owner_id IS NULL`,
 ];
 
 export const DEFAULT_SETTINGS: [string, string][] = [
@@ -114,8 +118,7 @@ export const DEFAULT_SETTINGS: [string, string][] = [
   ["practice.drillPause",          "1"],
   ["practice.autoPlayback",        "true"],
   ["display.fontSize",             "lg"],
-  // Base URL of the frontend — used for post-auth redirects.
-  // Override in local CF dev: set to http://localhost:5173
-  // In production this should be the public domain e.g. https://yourdomain.com
-  ["app.baseUrl",                  ""],
+  // Note: app.baseUrl is intentionally NOT seeded here.
+  // It is an optional override — when absent, redirects are relative (production default).
+  // Set explicitly for local CF dev via: bun run cf:seed:mock
 ];

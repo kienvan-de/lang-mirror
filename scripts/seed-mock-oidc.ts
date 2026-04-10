@@ -41,9 +41,11 @@ INSERT OR REPLACE INTO settings (key, owner_id, value)
 VALUES ('app.baseUrl', NULL, 'http://localhost:5173');
 `.trim();
 
+const WRANGLER = "./node_modules/.bin/wrangler";
+
 function exec(command: string, sql: string) {
   execSync(
-    `wrangler d1 execute lang-mirror-db --local --command "${sql.replace(/"/g, '\\"').replace(/\n/g, " ")}"`,
+    `${WRANGLER} d1 execute lang-mirror-db --local --command "${sql.replace(/"/g, '\\"').replace(/\n/g, " ")}"`,
     { stdio: "inherit" }
   );
 }

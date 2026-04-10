@@ -297,6 +297,7 @@
     "sectionVoices": "音声",
     "sectionPractice": "練習",
     "sectionDisplay": "表示",
+    "sectionTags": "タグ",
     "sectionData": "データ管理",
     "saved": "保存しました ✓",
     "globalSpeed": "グローバルTTS速度",
@@ -338,7 +339,10 @@
     "copiedPath": "コピーしました ✓",
     "searchVoices": "音声を検索…",
     "loadingVoices": "音声を読み込み中…",
-    "noVoicesFound": "音声が見つかりません"
+    "noVoicesFound": "音声が見つかりません",
+    "addTag": "タグを追加",
+    "tagNamePlaceholder": "タグ名…",
+    "tagNameRequired": "タグ名は必須です"
   },
   "error": {
     "pageError": "ページエラー"

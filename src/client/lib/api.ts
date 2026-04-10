@@ -163,7 +163,7 @@ export const api = {
     const cd = res.headers.get("Content-Disposition") ?? "";
     const match = cd.match(/filename="([^"]+)"/);
     a.href = url;
-    a.download = match?.[1] ?? "lang-mirror-export.zip";
+    a.download = match?.[1] ?? "Lang Mirror export.zip";
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 5000);
   },

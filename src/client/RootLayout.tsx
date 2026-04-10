@@ -64,7 +64,7 @@ export function RootLayout() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
       <nav className="border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 px-6 py-3 flex items-center gap-6 sticky top-0 z-40 shadow-sm">
         <Link to="/" className="font-bold text-lg tracking-tight select-none text-gray-900 dark:text-gray-100">
-          🪞 lang-mirror
+          🪞 Lang Mirror
         </Link>
 
         <div className="flex gap-1 flex-1">

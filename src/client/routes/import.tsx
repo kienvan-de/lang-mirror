@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import {
-  ExclamationTriangleIcon, XCircleIcon, CheckCircleIcon, XMarkIcon,
+  ExclamationTriangleIcon, XCircleIcon, CheckCircleIcon, XMarkIcon, ArrowUpTrayIcon,
 } from "@heroicons/react/24/outline";
 import { api } from "../lib/api";
 import { langFlag, langLabel } from "../lib/lang";
@@ -241,7 +241,7 @@ export function ImportPage() {
               </>
             ) : (
               <>
-                <span className="text-4xl">📂</span>
+                <ArrowUpTrayIcon className="w-10 h-10 text-gray-400 dark:text-gray-500" />
                 <div className="text-center">
                   <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
                     {t("import.dropZone")}

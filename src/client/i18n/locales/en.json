@@ -297,6 +297,7 @@
     "sectionVoices": "Voices",
     "sectionPractice": "Practice",
     "sectionDisplay": "Display",
+    "sectionTags": "Tags",
     "sectionData": "Data Management",
     "saved": "Saved ✓",
     "globalSpeed": "Global TTS Speed",
@@ -337,7 +338,10 @@
     "copiedPath": "Copied ✓",
     "searchVoices": "Search voices…",
     "loadingVoices": "Loading voices…",
-    "noVoicesFound": "No voices found"
+    "noVoicesFound": "No voices found",
+    "addTag": "Add Tag",
+    "tagNamePlaceholder": "Tag name…",
+    "tagNameRequired": "Tag name is required"
   },
   "error": {
     "pageError": "Page error"

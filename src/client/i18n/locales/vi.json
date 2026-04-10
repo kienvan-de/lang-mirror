@@ -297,6 +297,7 @@
     "sectionVoices": "Giọng đọc",
     "sectionPractice": "Luyện tập",
     "sectionDisplay": "Hiển thị",
+    "sectionTags": "Nhãn",
     "sectionData": "Quản lý dữ liệu",
     "saved": "Đã lưu ✓",
     "globalSpeed": "Tốc độ TTS toàn cục",
@@ -337,7 +338,10 @@
     "copiedPath": "Đã sao chép ✓",
     "searchVoices": "Tìm giọng đọc…",
     "loadingVoices": "Đang tải giọng đọc…",
-    "noVoicesFound": "Không tìm thấy giọng đọc"
+    "noVoicesFound": "Không tìm thấy giọng đọc",
+    "addTag": "Thêm nhãn",
+    "tagNamePlaceholder": "Tên nhãn…",
+    "tagNameRequired": "Tên nhãn là bắt buộc"
   },
   "error": {
     "pageError": "Lỗi trang"

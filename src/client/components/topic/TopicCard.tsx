@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { ArrowRightIcon, TrashIcon } from "@heroicons/react/24/outline";
 import type { Topic } from "../../lib/api";
 import { api } from "../../lib/api";
-import { langFlag, langLabel } from "../../lib/lang";
+import { langFlag } from "../../lib/lang";
 
 interface Props {
   topic: Topic;
@@ -44,24 +44,20 @@ export function TopicCard({ topic }: Props) {
         </p>
       )}
 
-      {/* Language badges */}
+      {/* Tags */}
       <div className="flex flex-wrap gap-1.5 mb-3 min-h-[1.75rem]">
-        {versions.length > 0 ? (
-          versions.slice(0, 4).map((v) => (
+        {(topic.tags ?? []).length > 0 ? (
+          (topic.tags ?? []).map((tag) => (
             <span
-              key={v.id}
-              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800"
+              key={tag.id}
+              className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold border"
+              style={{ backgroundColor: tag.color + "20", borderColor: tag.color, color: tag.color }}
             >
-              {langFlag(v.language_code)} {langLabel(v.language_code)}
+              {tag.name}
             </span>
           ))
         ) : (
           <span className="text-xs text-gray-400 dark:text-gray-600 italic">{t("topicCard.noLanguages")}</span>
-        )}
-        {(topic.version_count ?? versions.length) > 4 && (
-          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-500">
-            {t("topicCard.moreLanguages", { count: (topic.version_count ?? versions.length) - 4 })}
-          </span>
         )}
       </div>
 
@@ -88,10 +84,7 @@ export function TopicCard({ topic }: Props) {
       )}
 
       {/* Footer */}
-      <div className="mt-auto flex items-center justify-between gap-2">
-        <span className="text-xs text-gray-400 dark:text-gray-500">
-          {t("topicCard.languageCount", { count: topic.version_count ?? versions.length })}
-        </span>
+      <div className="mt-auto flex items-center justify-end gap-2">
         <div className="flex items-center gap-1.5">
           {/* Delete button / confirm */}
           {confirmDelete ? (

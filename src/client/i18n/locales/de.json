@@ -298,6 +298,7 @@
     "sectionVoices": "Stimmen",
     "sectionPractice": "Übung",
     "sectionDisplay": "Anzeige",
+    "sectionTags": "Tags",
     "sectionData": "Datenverwaltung",
     "saved": "Gespeichert ✓",
     "globalSpeed": "Globale TTS-Geschwindigkeit",
@@ -339,7 +340,10 @@
     "copiedPath": "Kopiert ✓",
     "searchVoices": "Stimmen suchen…",
     "loadingVoices": "Stimmen werden geladen…",
-    "noVoicesFound": "Keine Stimmen gefunden"
+    "noVoicesFound": "Keine Stimmen gefunden",
+    "addTag": "Tag hinzufügen",
+    "tagNamePlaceholder": "Tag-Name…",
+    "tagNameRequired": "Tag-Name ist erforderlich"
   },
   "error": {
     "pageError": "Seitenfehler"

@@ -11,12 +11,12 @@ import { importRouter }    from "./import";
 import { exportRouter }    from "./export";
 import { authRouter }      from "./auth";
 import { usersRouter }     from "./users";
-import { authMiddleware }  from "./middleware/auth";
+import { authMiddleware } from "./middleware/auth";
+import { authGuard }      from "./middleware/guard";
 import {
   NotFoundError, ConflictError, ValidationError,
   UnauthorizedError, ForbiddenError,
 } from "../../core/errors";
-import { getAuthContext } from "../../core/auth/context";
 import type { Env } from "../types";
 
 export function createApp() {
@@ -39,17 +39,10 @@ export function createApp() {
   app.route("/api/auth", authRouter);
 
   // ── Protected routes — session required ─────────────────────────────────────
-  // 1. Resolve session → set auth context (always calls next)
+  // 1. Resolve session cookie → set auth context
   app.use("/api/*", authMiddleware);
-
-  // 2. Guard — reject anonymous requests before they reach any route handler
-  app.use("/api/*", async (c, next) => {
-    const ctx = getAuthContext();
-    if (ctx.isAnonymous) {
-      return c.json({ error: "Authentication required" }, 401);
-    }
-    return next();
-  });
+  // 2. Reject anonymous before reaching any route handler
+  app.use("/api/*", authGuard);
 
   // ── Protected API routes ─────────────────────────────────────────────────────
   app.route("/api/topics",     topicsRouter);

@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { buildContext } from "../lib/context";
+import { adminGuard } from "./middleware/admin";
 import type { Env } from "../types";
 
 export const settingsRouter = new Hono<{ Bindings: Env }>();
@@ -9,7 +10,7 @@ settingsRouter.get("/", async (c) => {
   return c.json(await settings.getAll());
 });
 
-settingsRouter.get("/data-path", (c) =>
+settingsRouter.get("/data-path", adminGuard, (c) =>
   c.json({ path: "cloudflare:r2", note: "Data is stored in Cloudflare R2" })
 );
 

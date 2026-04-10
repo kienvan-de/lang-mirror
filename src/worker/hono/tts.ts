@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { buildContext } from "../lib/context";
 import { getVoices } from "../services/voices.service";
+import { adminGuard } from "./middleware/admin";
 import type { Env } from "../types";
 
 export const ttsRouter = new Hono<{ Bindings: Env }>();
@@ -12,13 +13,13 @@ ttsRouter.get("/voices", (c) => {
 });
 
 // GET /api/tts/cache/stats
-ttsRouter.get("/cache/stats", async (c) => {
+ttsRouter.get("/cache/stats", adminGuard, async (c) => {
   const { ttsService } = buildContext(c.env);
   return c.json(await ttsService.getCacheStats());
 });
 
 // DELETE /api/tts/cache
-ttsRouter.delete("/cache", async (c) => {
+ttsRouter.delete("/cache", adminGuard, async (c) => {
   const { ttsService } = buildContext(c.env);
   return c.json(await ttsService.clearCache());
 });

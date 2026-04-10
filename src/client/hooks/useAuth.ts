@@ -7,7 +7,7 @@ export interface AuthUser {
   email: string;
   name: string;
   avatarUrl: string | null;
-  role: "user" | "admin";
+  role: "user" | "admin" | "readonly";
 }
 
 export function useAuth() {

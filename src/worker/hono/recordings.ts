@@ -1,11 +1,12 @@
 import { Hono } from "hono";
 import { buildContext } from "../lib/context";
+import { adminGuard } from "./middleware/admin";
 import type { Env } from "../types";
 
 export const recordingsRouter = new Hono<{ Bindings: Env }>();
 
-// DELETE /api/recordings — delete all
-recordingsRouter.delete("/", async (c) => {
+// DELETE /api/recordings — delete all (admin only)
+recordingsRouter.delete("/", adminGuard, async (c) => {
   const { recordings } = buildContext(c.env);
   return c.json(await recordings.deleteAll());
 });

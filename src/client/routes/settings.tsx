@@ -5,6 +5,7 @@ import { ExclamationTriangleIcon, PlayIcon } from "@heroicons/react/24/outline";
 import { api, type Voice } from "../lib/api";
 import { langFlag, langName } from "../lib/lang";
 import { defaultVoiceForLang } from "../hooks/useTTS";
+import { useAuth } from "../hooks/useAuth";
 
 // ── Reusable save feedback hook ───────────────────────────────────────────────
 
@@ -124,6 +125,8 @@ export function SettingsPage() {
   const { t } = useTranslation();
   const qc = useQueryClient();
   const { savedKey, showSaved } = useSaveFeedback();
+  const { user } = useAuth();
+  const isAdmin = user?.role === "admin";
 
   const { data: settings, isLoading } = useQuery({
     queryKey: ["settings"],
@@ -173,6 +176,7 @@ export function SettingsPage() {
     queryKey: ["cache", "stats"],
     queryFn: () => api.getCacheStats(),
     staleTime: 10_000,
+    enabled: isAdmin,
   });
 
   const clearCacheMutation = useMutation({
@@ -187,14 +191,14 @@ export function SettingsPage() {
 
   const [exporting, setExporting] = useState(false);
   const [copiedPath, setCopiedPath] = useState(false);
-  const { data: dataPath } = useQuery({ queryKey: ["dataPath"], queryFn: api.getDataPath });
+  const { data: dataPath } = useQuery({ queryKey: ["dataPath"], queryFn: api.getDataPath, enabled: isAdmin });
 
   const sections = [
     { id: "playback", label: t("settings.sectionPlayback") },
     { id: "voices", label: t("settings.sectionVoices") },
     { id: "practice", label: t("settings.sectionPractice") },
     { id: "display", label: t("settings.sectionDisplay") },
-    { id: "data", label: t("settings.sectionData") },
+    ...(isAdmin ? [{ id: "data", label: t("settings.sectionData") }] : []),
   ];
 
   if (isLoading) {
@@ -437,8 +441,8 @@ export function SettingsPage() {
             </div>
           </Section>
 
-          {/* ── Data Management ───────────────────────────────────────── */}
-          <Section id="data" title={t("settings.sectionData")}>
+          {/* ── Data Management (admin only) ──────────────────────────── */}
+          {isAdmin && <Section id="data" title={t("settings.sectionData")}>
             <div className="space-y-5">
               {/* Cache stats */}
               <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
@@ -548,7 +552,7 @@ export function SettingsPage() {
                 </button>
               </div>
             </div>
-          </Section>
+          </Section>}
 
         </div>
       </div>

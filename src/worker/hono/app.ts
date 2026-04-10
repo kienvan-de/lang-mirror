@@ -35,13 +35,13 @@ export function createApp() {
     c.json({ status: "ok", target: "cloudflare", ts: new Date().toISOString() })
   );
 
-  // ── Public routes — OIDC flow, no session required ──────────────────────────
+  // ── Resolve session cookie for all /api/* routes ────────────────────────────
+  app.use("/api/*", authMiddleware);
+
+  // ── Public routes — OIDC flow, no auth guard required ───────────────────────
   app.route("/api/auth", authRouter);
 
-  // ── Protected routes — session required ─────────────────────────────────────
-  // 1. Resolve session cookie → set auth context
-  app.use("/api/*", authMiddleware);
-  // 2. Reject anonymous before reaching any route handler
+  // ── Reject anonymous before reaching any protected route handler ─────────────
   app.use("/api/*", authGuard);
 
   // ── Protected API routes ─────────────────────────────────────────────────────

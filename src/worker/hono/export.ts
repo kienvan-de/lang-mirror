@@ -1,11 +1,12 @@
 import { Hono } from "hono";
 import { buildContext } from "../lib/context";
+import { adminGuard } from "./middleware/admin";
 import type { Env } from "../types";
 
 export const exportRouter = new Hono<{ Bindings: Env }>();
 
-// GET /api/export/all
-exportRouter.get("/all", async (c) => {
+// GET /api/export/all (admin only)
+exportRouter.get("/all", adminGuard, async (c) => {
   const { exporter } = buildContext(c.env);
   const bundle = await exporter.exportAll();
   return new Response(JSON.stringify(bundle, null, 2), {

@@ -11,8 +11,9 @@
     "typecheck": "tsc --noEmit && tsc -p tsconfig.server.json --noEmit",
     "cf:dev": "bun run cf:migrate && concurrently \"bun run dev:client\" \"wrangler dev --local\"",
     "cf:deploy": "vite build && wrangler deploy",
-    "cf:migrate": "wrangler d1 migrations apply lang-mirror-db --local",
-    "cf:migrate:remote": "wrangler d1 migrations apply lang-mirror-db --remote",
+    "cf:schema:gen": "bun scripts/generate-schema.ts",
+    "cf:migrate": "bun run cf:schema:gen && wrangler d1 migrations apply lang-mirror-db --local",
+    "cf:migrate:remote": "bun run cf:schema:gen && wrangler d1 migrations apply lang-mirror-db --remote",
     "cf:migrate:list": "wrangler d1 migrations list lang-mirror-db --local",
 
     "clean:dev": "rm -f ~/.lang-mirror/db.sqlite ~/.lang-mirror/db.sqlite-shm ~/.lang-mirror/db.sqlite-wal && echo '✓ Desktop DB cleared'",

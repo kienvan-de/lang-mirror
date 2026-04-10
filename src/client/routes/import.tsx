@@ -35,10 +35,10 @@ function StepIndicator({ current }: { current: Step }) {
     { n: 3 as Step, label: t("import.step3") },
   ];
   return (
-    <div className="flex items-center gap-0 mb-8">
+    <div className="flex items-center mb-8">
       {steps.map((s, i) => (
-        <div key={s.n} className="flex items-center">
-          <div className="flex flex-col items-center gap-1">
+        <div key={s.n} className="flex items-center flex-1 last:flex-none">
+          <div className="flex flex-col items-center gap-1 flex-shrink-0">
             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${
               current === s.n
                 ? "bg-blue-600 text-white"
@@ -48,12 +48,12 @@ function StepIndicator({ current }: { current: Step }) {
             }`}>
               {current > s.n ? "✓" : s.n}
             </div>
-            <span className={`text-xs whitespace-nowrap ${
+            <span className={`text-[11px] sm:text-xs text-center leading-tight ${
               current === s.n ? "text-blue-600 dark:text-blue-400 font-semibold" : "text-gray-400 dark:text-gray-600"
             }`}>{s.label}</span>
           </div>
           {i < steps.length - 1 && (
-            <div className={`h-0.5 w-16 mx-1 mb-5 transition-colors ${
+            <div className={`h-0.5 flex-1 mx-2 mb-5 transition-colors ${
               current > s.n ? "bg-green-400" : "bg-gray-200 dark:bg-gray-700"
             }`} />
           )}
@@ -201,7 +201,7 @@ export function ImportPage() {
   const conflicts = getConflicts();
 
   return (
-    <div className="max-w-2xl mx-auto px-6 py-8">
+    <div className="max-w-2xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{t("import.title")}</h1>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">

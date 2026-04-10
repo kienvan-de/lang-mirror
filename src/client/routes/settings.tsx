@@ -228,7 +228,7 @@ export function SettingsPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{t("settings.title")}</h1>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{t("settings.subtitle")}</p>
@@ -685,7 +685,7 @@ function VoicePicker({
 
   return (
     <div className="space-y-2">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <div className="flex items-center gap-2">
           <span className="text-lg">{langFlag(langCode)}</span>
           <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{langName(langCode)}</span>
@@ -693,12 +693,12 @@ function VoicePicker({
         <div className="flex items-center gap-2">
           <button
             onClick={() => playPreview(sampleForLang(langCode), selectedVoice, speed, pitch)}
-            className="px-2.5 py-1 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-xs font-medium text-gray-600 dark:text-gray-400 transition-colors"
+            className="px-2.5 py-1 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-xs font-medium text-gray-600 dark:text-gray-400 transition-colors flex-shrink-0"
             title={`Preview "${sampleForLang(langCode)}"`}
           >▶ {t("settings.preview")}</button>
           <button
             onClick={() => setOpen((v) => !v)}
-            className="px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm text-gray-700 dark:text-gray-300 hover:border-blue-400 transition-colors flex items-center gap-2 min-w-[180px] justify-between"
+            className="flex-1 sm:flex-none sm:min-w-[180px] px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm text-gray-700 dark:text-gray-300 hover:border-blue-400 transition-colors flex items-center gap-2 justify-between min-w-0"
           >
             <span className="truncate">{selectedDisplay}</span>
             <span className="text-gray-400 flex-shrink-0">{open ? "▲" : "▼"}</span>

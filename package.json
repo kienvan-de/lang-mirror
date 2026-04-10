@@ -9,7 +9,7 @@
     "build": "vite build",
     "start": "bun src/server/index.ts",
     "typecheck": "tsc --noEmit && tsc -p tsconfig.server.json --noEmit",
-    "mock-oidc": "lsof -ti :7843 | xargs kill -9 2>/dev/null; bun scripts/mock-oidc/server.ts",
+    "mock-oidc": "lsof -ti :7843 2>/dev/null | xargs kill -9 2>/dev/null; bun scripts/mock-oidc/server.ts",
     "cf:seed:mock": "bun scripts/seed-mock-oidc.ts",
     "cf:dev": "bun run cf:migrate && concurrently \"bun run dev:client\" \"wrangler dev --local\" \"bun run mock-oidc\"",
     "cf:deploy": "vite build && wrangler deploy",
@@ -21,7 +21,7 @@
     "clean:dev": "rm -f ~/.lang-mirror/db.sqlite ~/.lang-mirror/db.sqlite-shm ~/.lang-mirror/db.sqlite-wal && echo '✓ Desktop DB cleared'",
     "clean:dev:all": "rm -rf ~/.lang-mirror/db.sqlite ~/.lang-mirror/db.sqlite-shm ~/.lang-mirror/db.sqlite-wal ~/.lang-mirror/cache ~/.lang-mirror/recordings && echo '✓ Desktop DB + cache + recordings cleared'",
 
-    "clean:cf": "lsof -ti :7842,:7843 | xargs kill -9 2>/dev/null; rm -rf .wrangler/state && echo '✓ CF local state cleared (D1 + R2 + KV + ports)'",
+    "clean:cf": "lsof -ti :7842 2>/dev/null | xargs kill -9 2>/dev/null; lsof -ti :7843 2>/dev/null | xargs kill -9 2>/dev/null; rm -rf .wrangler/state && echo '✓ CF local state cleared (D1 + R2 + KV + ports)'",
 
     "clean:all": "bun run clean:dev:all && bun run clean:cf"
   },

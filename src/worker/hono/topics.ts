@@ -2,6 +2,9 @@ import { Hono } from "hono";
 import { buildContext } from "../lib/context";
 import type { Env } from "../types";
 
+// ── /api/topics ───────────────────────────────────────────────────────────────
+// Mounted at /api/topics in app.ts
+
 export const topicsRouter = new Hono<{ Bindings: Env }>();
 
 topicsRouter.get("/", async (c) => {
@@ -30,4 +33,23 @@ topicsRouter.delete("/:id", async (c) => {
   const { topics } = buildContext(c.env);
   await topics.delete(c.req.param("id"));
   return c.json({ deleted: true });
+});
+
+// ── /api/topics/:topicId/versions ─────────────────────────────────────────────
+
+topicsRouter.get("/:topicId/versions", async (c) => {
+  const { versions } = buildContext(c.env);
+  return c.json(await versions.listByTopic(c.req.param("topicId")));
+});
+
+topicsRouter.post("/:topicId/versions", async (c) => {
+  const body = await c.req.json();
+  const { versions } = buildContext(c.env);
+  return c.json(await versions.create(c.req.param("topicId"), body), 201);
+});
+
+topicsRouter.post("/:topicId/versions/reorder", async (c) => {
+  const { ids } = await c.req.json<{ ids: string[] }>();
+  const { versions } = buildContext(c.env);
+  return c.json(await versions.reorder(c.req.param("topicId"), ids));
 });

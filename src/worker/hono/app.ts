@@ -45,8 +45,8 @@ export function createApp() {
   app.use("/api/*", authGuard);
 
   // ── Protected API routes ─────────────────────────────────────────────────────
-  app.route("/api/topics",     topicsRouter);
-  app.route("/api",            versionsRouter);
+  app.route("/api/topics",    topicsRouter);   // /api/topics + /api/topics/:id/versions
+  app.route("/api/versions",  versionsRouter); // /api/versions/:id + sentences
   app.route("/api/sentences",  sentencesRouter);
   app.route("/api/tts",        ttsRouter);
   app.route("/api/recordings", recordingsRouter);

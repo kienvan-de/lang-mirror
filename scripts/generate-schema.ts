@@ -8,7 +8,7 @@
  * The generated SQL is used by: wrangler d1 migrations apply
  */
 
-import { DDL_STATEMENTS, DEFAULT_SETTINGS, SYSTEM_USER_ID } from "../src/core/db/schema";
+import { DDL_STATEMENTS, DEFAULT_SETTINGS, DEFAULT_TAGS, SYSTEM_USER_ID } from "../src/core/db/schema";
 import { writeFileSync } from "fs";
 import { join } from "path";
 
@@ -43,8 +43,18 @@ for (const [key, value] of DEFAULT_SETTINGS) {
 }
 lines.push("");
 
+// Default tags seed
+lines.push("-- Default tags (seeded under system user)");
+for (const tag of DEFAULT_TAGS) {
+  lines.push(
+    `INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('${tag.type}', '${tag.name}', '${tag.color}', '${SYSTEM_USER_ID}');`
+  );
+}
+lines.push("");
+
 const sql = lines.join("\n");
 writeFileSync(OUTPUT, sql, "utf-8");
 console.log(`✓ Generated ${OUTPUT}`);
 console.log(`  ${DDL_STATEMENTS.length} DDL statements`);
 console.log(`  ${DEFAULT_SETTINGS.length} default settings`);
+console.log(`  ${DEFAULT_TAGS.length} default tags`);

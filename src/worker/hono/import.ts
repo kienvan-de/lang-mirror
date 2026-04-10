@@ -32,9 +32,9 @@ importRouter.post("/preview", async (c) => {
 
   const data = result.data;
   if (data.format === "single") {
-    return c.json({ ok: true, parseError: null, errors: [], format: "single", title: data.title, description: data.description ?? null, versions: [{ language: data.language, sentenceCount: data.sentences.length }] });
+    return c.json({ ok: true, parseError: null, errors: [], format: "single", title: data.title, description: data.description ?? null, tags: data.tags ?? [], versions: [{ language: data.language, sentenceCount: data.sentences.length }] });
   } else {
-    return c.json({ ok: true, parseError: null, errors: [], format: "topic", title: data.title, description: data.description ?? null, versions: data.versions.map(v => ({ language: v.language, sentenceCount: v.sentences.length })) });
+    return c.json({ ok: true, parseError: null, errors: [], format: "topic", title: data.title, description: data.description ?? null, tags: data.tags ?? [], versions: data.versions.map(v => ({ language: v.language, sentenceCount: v.sentences.length })) });
   }
 });
 

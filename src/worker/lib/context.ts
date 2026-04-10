@@ -16,6 +16,7 @@ import { ImportService }     from "../../core/services/import.service";
 import { ExportService }     from "../../core/services/export.service";
 import { OidcService }       from "../../core/services/oidc.service";
 import { UsersService }      from "../../core/services/users.service";
+import { TagsService }       from "../../core/services/tags.service";
 import type { Env } from "../types";
 
 export function buildContext(env: Env) {
@@ -37,5 +38,6 @@ export function buildContext(env: Env) {
     exporter:   new ExportService(db),
     oidc:       new OidcService(db, cache),
     users:      new UsersService(db),
+    tags:       new TagsService(db),
   };
 }

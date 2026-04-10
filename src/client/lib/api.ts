@@ -1,4 +1,13 @@
 // Shared types
+export interface Tag {
+  id: string;
+  type: string;
+  name: string;
+  color: string;
+  created_by: string;
+  created_at: string;
+}
+
 export interface Topic {
   id: string;
   title: string;
@@ -7,6 +16,7 @@ export interface Topic {
   updated_at: string;
   version_count?: number;
   versions?: Version[];
+  tags?: Tag[];
 }
 
 export interface Version {
@@ -69,12 +79,23 @@ export const api = {
   // Topics
   getTopics: () => apiFetch<Topic[]>("/topics"),
   getTopic: (id: string) => apiFetch<Topic>(`/topics/${id}`),
-  createTopic: (body: { title: string; description?: string }) =>
+  createTopic: (body: { title: string; description?: string; tagIds?: string[] }) =>
     apiFetch<Topic>("/topics", { method: "POST", body: JSON.stringify(body) }),
-  updateTopic: (id: string, body: { title?: string; description?: string }) =>
+  updateTopic: (id: string, body: { title?: string; description?: string; tagIds?: string[] }) =>
     apiFetch<Topic>(`/topics/${id}`, { method: "PUT", body: JSON.stringify(body) }),
   deleteTopic: (id: string) =>
     apiFetch<{ deleted: boolean }>(`/topics/${id}`, { method: "DELETE" }),
+  setTopicTags: (topicId: string, tagIds: string[]) =>
+    apiFetch<Tag[]>(`/topics/${topicId}/tags`, { method: "PUT", body: JSON.stringify({ tagIds }) }),
+
+  // Tags
+  getTags: () => apiFetch<Tag[]>("/tags"),
+  createTag: (body: { type?: string; name: string; color?: string }) =>
+    apiFetch<Tag>("/tags", { method: "POST", body: JSON.stringify(body) }),
+  updateTag: (id: string, body: { name?: string; color?: string; type?: string }) =>
+    apiFetch<Tag>(`/tags/${id}`, { method: "PUT", body: JSON.stringify(body) }),
+  deleteTag: (id: string) =>
+    apiFetch<{ deleted: boolean }>(`/tags/${id}`, { method: "DELETE" }),
 
   // Versions
   createVersion: (topicId: string, body: { language_code: string; title?: string; description?: string; voice_name?: string; speed?: number; pitch?: number }) =>

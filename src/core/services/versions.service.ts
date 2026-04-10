@@ -68,10 +68,24 @@ export class VersionsService {
       position
     );
 
-    return (await this.db.queryFirst<VersionRow>(
+    const version = (await this.db.queryFirst<VersionRow>(
       "SELECT * FROM topic_language_versions WHERE topic_id = ? AND language_code = ?",
       topicId, lang
     ))!;
+
+    // Auto-apply language tag based on the language code
+    const baseCode = lang.split("-")[0]!.toLowerCase();
+    const langTag = await this.db.queryFirst<{ id: string }>(
+      "SELECT id FROM tags WHERE type = 'language' AND name = ?", baseCode
+    );
+    if (langTag) {
+      await this.db.run(
+        "INSERT OR IGNORE INTO topic_tags (topic_id, tag_id) VALUES (?, ?)",
+        topicId, langTag.id
+      );
+    }
+
+    return version;
   }
 
   async get(id: string): Promise<VersionRow & { sentences: SentenceWithNotes[] }> {

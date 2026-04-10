@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { api } from "../../lib/api";
@@ -14,12 +14,18 @@ export function CreateTopicModal({ onClose }: Props) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [titleError, setTitleError] = useState("");
+  const [selectedTagIds, setSelectedTagIds] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => { inputRef.current?.focus(); }, []);
 
+  const { data: availableTags } = useQuery({
+    queryKey: ["tags"],
+    queryFn: api.getTags,
+  });
+
   const mutation = useMutation({
-    mutationFn: () => api.createTopic({ title: title.trim(), description: description.trim() || undefined }),
+    mutationFn: () => api.createTopic({ title: title.trim(), description: description.trim() || undefined, tagIds: selectedTagIds }),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["topics"] });
       onClose();
@@ -90,6 +96,34 @@ export function CreateTopicModal({ onClose }: Props) {
               className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none transition-colors"
             />
           </div>
+
+          {/* Tags */}
+          {(availableTags ?? []).length > 0 && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Tags <span className="text-gray-400 text-xs font-normal">(optional)</span>
+              </label>
+              <div className="flex flex-wrap gap-1.5">
+                {(availableTags ?? []).map(tag => {
+                  const active = selectedTagIds.includes(tag.id);
+                  return (
+                    <button
+                      key={tag.id}
+                      type="button"
+                      onClick={() => setSelectedTagIds(prev =>
+                        active ? prev.filter(id => id !== tag.id) : [...prev, tag.id]
+                      )}
+                      className="px-2.5 py-1 rounded-full text-xs font-semibold border transition-all"
+                      style={active
+                        ? { backgroundColor: tag.color, borderColor: tag.color, color: "#fff" }
+                        : { backgroundColor: tag.color + "15", borderColor: tag.color, color: tag.color }
+                      }
+                    >{tag.name}</button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           <div className="flex gap-3 pt-1">
             <button

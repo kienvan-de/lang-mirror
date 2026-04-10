@@ -53,3 +53,12 @@ topicsRouter.post("/:topicId/versions/reorder", async (c) => {
   const { versions } = buildContext(c.env);
   return c.json(await versions.reorder(c.req.param("topicId"), ids));
 });
+
+// ── /api/topics/:topicId/tags ─────────────────────────────────────────────────
+
+// PUT /api/topics/:topicId/tags — replace all tags on a topic (owner only)
+topicsRouter.put("/:topicId/tags", async (c) => {
+  const { tagIds } = await c.req.json<{ tagIds: string[] }>();
+  const { topics } = buildContext(c.env);
+  return c.json(await topics.setTags(c.req.param("topicId"), tagIds ?? []));
+});

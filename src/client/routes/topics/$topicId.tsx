@@ -8,16 +8,18 @@ import {
   XMarkIcon, Cog6ToothIcon,
   ArrowsUpDownIcon, CheckIcon, PlusIcon,
 } from "@heroicons/react/24/outline";
-import { api, type Version } from "../../lib/api";
+import { api, type Version, type Tag } from "../../lib/api";
 import { langFlag, langLabel } from "../../lib/lang";
 import { SentenceList } from "../../components/topic/SentenceList";
 import { AddLanguageModal } from "../../components/topic/AddLanguageModal";
 import { VersionSettingsModal } from "../../components/topic/VersionSettingsModal";
+import { useAuth } from "../../hooks/useAuth";
 
 export function TopicDetailPage() {
   const { t, i18n } = useTranslation();
   const { topicId } = useParams({ strict: false }) as { topicId: string };
   const qc = useQueryClient();
+  const { user } = useAuth();
 
   const [activeVersionId, setActiveVersionId] = useState<string | null>(null);
   const [showAddLang, setShowAddLang] = useState(false);
@@ -34,9 +36,18 @@ export function TopicDetailPage() {
   const [versionTitleDraft, setVersionTitleDraft] = useState("");
   const [versionDescDraft, setVersionDescDraft] = useState("");
 
+  // Tag editing
+  const [editingTags, setEditingTags] = useState(false);
+  const [tagDraft, setTagDraft] = useState<string[]>([]);
+
   const { data: topic, isLoading, isError } = useQuery({
     queryKey: ["topic", topicId],
     queryFn: () => api.getTopic(topicId),
+  });
+
+  const { data: allTags } = useQuery({
+    queryKey: ["tags"],
+    queryFn: api.getTags,
   });
 
   const updateTitleMutation = useMutation({
@@ -53,6 +64,11 @@ export function TopicDetailPage() {
   const deleteVersionMutation = useMutation({
     mutationFn: (id: string) => api.deleteVersion(id),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["topic", topicId] }),
+  });
+
+  const setTagsMutation = useMutation({
+    mutationFn: (tagIds: string[]) => api.setTopicTags(topic!.id, tagIds),
+    onSuccess: () => { setEditingTags(false); qc.invalidateQueries({ queryKey: ["topic", topicId] }); },
   });
 
   const reorderVersionsMutation = useMutation({
@@ -177,6 +193,72 @@ export function TopicDetailPage() {
           )}
           {displayDescription && (
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{displayDescription}</p>
+          )}
+
+          {/* Tags display */}
+          {(topic.tags ?? []).length > 0 && !editingTags && (
+            <div className="flex flex-wrap gap-1.5 mt-2">
+              {(topic.tags ?? []).map(tag => (
+                <span key={tag.id} className="px-2.5 py-0.5 rounded-full text-xs font-semibold border"
+                  style={{ backgroundColor: tag.color + "20", borderColor: tag.color, color: tag.color }}>
+                  {tag.name}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* Edit Tags */}
+          {(topic.owner_id === user?.id || user?.role === "admin") && (
+            <div className="mt-2">
+              {editingTags ? (
+                <div className="p-3 rounded-xl border border-blue-300 dark:border-blue-700 bg-blue-50/50 dark:bg-blue-900/10 space-y-2">
+                  <div className="flex flex-wrap gap-1.5">
+                    {(allTags ?? []).map(tag => {
+                      const active = tagDraft.includes(tag.id);
+                      return (
+                        <button
+                          key={tag.id}
+                          type="button"
+                          onClick={() => setTagDraft(prev =>
+                            active ? prev.filter(id => id !== tag.id) : [...prev, tag.id]
+                          )}
+                          className="px-2.5 py-1 rounded-full text-xs font-semibold border transition-all"
+                          style={active
+                            ? { backgroundColor: tag.color, borderColor: tag.color, color: "#fff" }
+                            : { backgroundColor: tag.color + "15", borderColor: tag.color, color: tag.color }
+                          }
+                        >{tag.name}</button>
+                      );
+                    })}
+                  </div>
+                  <div className="flex justify-end gap-2">
+                    <button
+                      onClick={() => setEditingTags(false)}
+                      className="text-xs px-3 py-1 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                    >
+                      {t("common.cancel")}
+                    </button>
+                    <button
+                      onClick={() => setTagsMutation.mutate(tagDraft)}
+                      disabled={setTagsMutation.isPending}
+                      className="text-xs px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors disabled:opacity-60"
+                    >
+                      {t("common.save")}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <button
+                  onClick={() => {
+                    setTagDraft((topic.tags ?? []).map(tag => tag.id));
+                    setEditingTags(true);
+                  }}
+                  className="text-xs text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 flex items-center gap-1 transition-colors mt-1"
+                >
+                  <PencilIcon className="w-3 h-3" /> {t("topics.editTags", { defaultValue: "Edit tags" })}
+                </button>
+              )}
+            </div>
           )}
         </div>
 

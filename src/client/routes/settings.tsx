@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { ExclamationTriangleIcon, PlayIcon } from "@heroicons/react/24/outline";
-import { api, type Voice } from "../lib/api";
+import { api, type Voice, type Tag } from "../lib/api";
 import { langFlag, langName } from "../lib/lang";
 import { defaultVoiceForLang } from "../hooks/useTTS";
 import { useAuth } from "../hooks/useAuth";
@@ -172,6 +172,21 @@ export function SettingsPage() {
     (topics ?? []).flatMap((t) => (t.versions ?? []).map((v) => v.language_code.split("-")[0]!.toLowerCase()))
   )).sort();
 
+  const { data: tags, refetch: refetchTags } = useQuery({
+    queryKey: ["tags"],
+    queryFn: api.getTags,
+    enabled: isAdmin,
+  });
+
+  const createTagMutation = useMutation({ mutationFn: api.createTag, onSuccess: () => { refetchTags(); } });
+  const updateTagMutation = useMutation({ mutationFn: ({ id, ...body }: { id: string; name?: string; color?: string; type?: string }) => api.updateTag(id, body), onSuccess: () => refetchTags() });
+  const deleteTagMutation = useMutation({ mutationFn: api.deleteTag, onSuccess: () => refetchTags() });
+
+  const [newTagName, setNewTagName] = useState("");
+  const [newTagType, setNewTagType] = useState("custom");
+  const [newTagColor, setNewTagColor] = useState("#6366f1");
+  const [tagError, setTagError] = useState("");
+
   const { data: cacheStats, refetch: refetchCache } = useQuery({
     queryKey: ["cache", "stats"],
     queryFn: () => api.getCacheStats(),
@@ -198,6 +213,7 @@ export function SettingsPage() {
     { id: "voices", label: t("settings.sectionVoices") },
     { id: "practice", label: t("settings.sectionPractice") },
     { id: "display", label: t("settings.sectionDisplay") },
+    ...(isAdmin ? [{ id: "tags", label: t("settings.sectionTags") }] : []),
     ...(isAdmin ? [{ id: "data", label: t("settings.sectionData") }] : []),
   ];
 
@@ -440,6 +456,77 @@ export function SettingsPage() {
               </div>
             </div>
           </Section>
+
+          {/* ── Tags (admin only) ────────────────────────────────────── */}
+          {isAdmin && <Section id="tags" title={t("settings.sectionTags")}>
+            <div className="space-y-5">
+              {/* Existing tags grouped by type */}
+              {["level", "language", "custom"].map(type => {
+                const typeTags = (tags ?? []).filter(tag => tag.type === type);
+                if (typeTags.length === 0) return null;
+                return (
+                  <div key={type}>
+                    <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-2">{type}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {typeTags.map(tag => (
+                        <div key={tag.id} className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-sm font-medium border"
+                          style={{ backgroundColor: tag.color + "20", borderColor: tag.color, color: tag.color }}>
+                          <span>{tag.name}</span>
+                          <button
+                            onClick={() => { if (confirm(`Delete tag "${tag.name}"?`)) deleteTagMutation.mutate(tag.id); }}
+                            className="ml-1 opacity-60 hover:opacity-100 transition-opacity text-xs"
+                            title="Delete"
+                          >×</button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+
+              {/* Create new tag form */}
+              <div className="border-t border-gray-100 dark:border-gray-800 pt-4">
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">{t("settings.addTag")}</p>
+                <div className="flex items-start gap-2 flex-wrap">
+                  <input
+                    type="text"
+                    value={newTagName}
+                    onChange={e => { setNewTagName(e.target.value); setTagError(""); }}
+                    placeholder={t("settings.tagNamePlaceholder")}
+                    className="px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 w-36"
+                  />
+                  <select
+                    value={newTagType}
+                    onChange={e => setNewTagType(e.target.value)}
+                    className="px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    <option value="level">level</option>
+                    <option value="language">language</option>
+                    <option value="custom">custom</option>
+                  </select>
+                  <div className="flex items-center gap-1.5">
+                    <input
+                      type="color"
+                      value={newTagColor}
+                      onChange={e => setNewTagColor(e.target.value)}
+                      className="w-8 h-8 rounded cursor-pointer border border-gray-300 dark:border-gray-600"
+                    />
+                    <span className="text-xs font-mono text-gray-500">{newTagColor}</span>
+                  </div>
+                  <button
+                    onClick={async () => {
+                      if (!newTagName.trim()) { setTagError(t("settings.tagNameRequired")); return; }
+                      await createTagMutation.mutateAsync({ name: newTagName.trim(), type: newTagType, color: newTagColor });
+                      setNewTagName(""); setNewTagType("custom"); setNewTagColor("#6366f1");
+                    }}
+                    disabled={createTagMutation.isPending}
+                    className="px-4 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-sm font-semibold text-white transition-colors disabled:opacity-60"
+                  >{createTagMutation.isPending ? t("common.saving") : t("settings.addTag")}</button>
+                </div>
+                {tagError && <p className="text-xs text-red-500 mt-1">{tagError}</p>}
+              </div>
+            </div>
+          </Section>}
 
           {/* ── Data Management (admin only) ──────────────────────────── */}
           {isAdmin && <Section id="data" title={t("settings.sectionData")}>

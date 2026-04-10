@@ -82,6 +82,22 @@ CREATE TABLE IF NOT EXISTS settings (
     PRIMARY KEY (key, owner_id)
   );
 
+CREATE TABLE IF NOT EXISTS tags (
+    id         TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
+    type       TEXT NOT NULL DEFAULT 'custom',
+    name       TEXT NOT NULL,
+    color      TEXT NOT NULL DEFAULT '#6366f1',
+    created_by TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
+    UNIQUE(type, name)
+  );
+
+CREATE TABLE IF NOT EXISTS topic_tags (
+    topic_id TEXT NOT NULL REFERENCES topics(id) ON DELETE CASCADE,
+    tag_id   TEXT NOT NULL REFERENCES tags(id) ON DELETE CASCADE,
+    PRIMARY KEY (topic_id, tag_id)
+  );
+
 CREATE UNIQUE INDEX IF NOT EXISTS idx_users_oidc ON users(oidc_provider_id, user_id) WHERE oidc_provider_id IS NOT NULL;
 
 CREATE INDEX IF NOT EXISTS idx_topics_owner         ON topics(owner_id);
@@ -98,6 +114,12 @@ CREATE INDEX IF NOT EXISTS idx_attempts_attempted_at ON practice_attempts(attemp
 
 CREATE INDEX IF NOT EXISTS idx_settings_owner       ON settings(owner_id);
 
+CREATE INDEX IF NOT EXISTS idx_topic_tags_topic ON topic_tags(topic_id);
+
+CREATE INDEX IF NOT EXISTS idx_topic_tags_tag   ON topic_tags(tag_id);
+
+CREATE INDEX IF NOT EXISTS idx_tags_type        ON tags(type);
+
 -- System user (owns default settings, cannot log in)
 INSERT OR IGNORE INTO users (id, oidc_provider_id, user_id, name, role) VALUES ('system', NULL, 'system', 'System', 'readonly');
 
@@ -109,3 +131,26 @@ INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('practice.recordin
 INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('practice.drillPause', 'system', '1');
 INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('practice.autoPlayback', 'system', 'true');
 INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('display.fontSize', 'system', 'lg');
+
+-- Default tags (seeded under system user)
+INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('level', 'A1', '#22c55e', 'system');
+INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('level', 'A2', '#84cc16', 'system');
+INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('level', 'B1', '#eab308', 'system');
+INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('level', 'B2', '#f97316', 'system');
+INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('level', 'C1', '#ef4444', 'system');
+INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('level', 'C2', '#7f1d1d', 'system');
+INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('level', 'N5', '#22c55e', 'system');
+INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('level', 'N4', '#84cc16', 'system');
+INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('level', 'N3', '#eab308', 'system');
+INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('level', 'N2', '#f97316', 'system');
+INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('level', 'N1', '#ef4444', 'system');
+INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('language', 'en', '#3b82f6', 'system');
+INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('language', 'ja', '#ec4899', 'system');
+INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('language', 'vi', '#f59e0b', 'system');
+INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('language', 'de', '#6366f1', 'system');
+INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('language', 'fr', '#8b5cf6', 'system');
+INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('language', 'es', '#f97316', 'system');
+INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('language', 'zh', '#ef4444', 'system');
+INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('language', 'ko', '#06b6d4', 'system');
+INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('language', 'pt', '#10b981', 'system');
+INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('language', 'ru', '#64748b', 'system');

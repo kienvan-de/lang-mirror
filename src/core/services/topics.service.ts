@@ -1,10 +1,36 @@
 import type { IDatabase } from "../ports/db.port";
-import type { TopicRow, TopicListItem, EnrichedTopic, EnrichedVersion, EnrichedSentence, VersionMeta } from "../db/types";
+import type { TopicRow, TopicListItem, EnrichedTopic, EnrichedVersion, EnrichedSentence, VersionMeta, TagRow } from "../db/types";
 import { requireAuth, canAccess, isAdmin } from "../auth/context";
 import { NotFoundError, ValidationError, ForbiddenError } from "../errors";
 
 export class TopicsService {
   constructor(private db: IDatabase) {}
+
+  private async loadTags(topicId: string): Promise<TagRow[]> {
+    return this.db.queryAll<TagRow>(`
+      SELECT t.* FROM tags t
+      JOIN topic_tags tt ON tt.tag_id = t.id
+      WHERE tt.topic_id = ?
+      ORDER BY t.type ASC, t.name ASC
+    `, topicId);
+  }
+
+  async setTags(topicId: string, tagIds: string[]): Promise<TagRow[]> {
+    const topic = await this.db.queryFirst<TopicRow>("SELECT * FROM topics WHERE id = ?", topicId);
+    if (!topic) throw new NotFoundError(`Topic '${topicId}' not found`);
+    requireAuth();
+    if (!canAccess(topic.owner_id)) throw new ForbiddenError("You do not own this topic");
+
+    // Replace all tags
+    await this.db.run("DELETE FROM topic_tags WHERE topic_id = ?", topicId);
+    if (tagIds.length > 0) {
+      await this.db.batch(tagIds.map(tagId => ({
+        sql: "INSERT OR IGNORE INTO topic_tags (topic_id, tag_id) VALUES (?, ?)",
+        params: [topicId, tagId],
+      })));
+    }
+    return this.loadTags(topicId);
+  }
 
   async list(): Promise<TopicListItem[]> {
     const auth = requireAuth();
@@ -28,10 +54,22 @@ export class TopicsService {
       byTopic.get(v.topic_id)!.push(v);
     }
 
-    return topicRows.map(t => ({ ...t, versions: byTopic.get(t.id) ?? [] }));
+    const allTopicTags = await this.db.queryAll<{ topic_id: string } & TagRow>(`
+      SELECT tt.topic_id, t.* FROM tags t
+      JOIN topic_tags tt ON tt.tag_id = t.id
+      ORDER BY t.type ASC, t.name ASC
+    `);
+    const tagsByTopic = new Map<string, TagRow[]>();
+    for (const tt of allTopicTags) {
+      const { topic_id, ...tag } = tt;
+      if (!tagsByTopic.has(topic_id)) tagsByTopic.set(topic_id, []);
+      tagsByTopic.get(topic_id)!.push(tag as TagRow);
+    }
+
+    return topicRows.map(t => ({ ...t, versions: byTopic.get(t.id) ?? [], tags: tagsByTopic.get(t.id) ?? [] }));
   }
 
-  async create(title: string, description?: string): Promise<TopicRow> {
+  async create(title: string, description?: string, tagIds?: string[]): Promise<TopicRow> {
     const auth = requireAuth();
     const t = title.trim();
     if (!t) throw new ValidationError("title is required", "title");
@@ -42,9 +80,15 @@ export class TopicsService {
       auth.id, t, description?.trim() ?? null
     );
 
-    return (await this.db.queryFirst<TopicRow>(
+    const topic = (await this.db.queryFirst<TopicRow>(
       "SELECT * FROM topics WHERE owner_id = ? ORDER BY created_at DESC LIMIT 1", auth.id
     ))!;
+
+    if (tagIds && tagIds.length > 0) {
+      await this.setTags(topic.id, tagIds);
+    }
+
+    return topic;
   }
 
   async get(id: string): Promise<EnrichedTopic> {
@@ -97,10 +141,10 @@ export class TopicsService {
       })
     );
 
-    return { ...topic, versions: enrichedVersions };
+    return { ...topic, versions: enrichedVersions, tags: await this.loadTags(id) };
   }
 
-  async update(id: string, data: { title?: string; description?: string }): Promise<TopicRow> {
+  async update(id: string, data: { title?: string; description?: string; tagIds?: string[] }): Promise<TopicRow> {
     const topic = await this.db.queryFirst<TopicRow>(
       "SELECT * FROM topics WHERE id = ?", id
     );
@@ -122,6 +166,10 @@ export class TopicsService {
        updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now') WHERE id = ?`,
       title, description, id
     );
+
+    if (data.tagIds !== undefined) {
+      await this.setTags(id, data.tagIds);
+    }
 
     return (await this.db.queryFirst<TopicRow>("SELECT * FROM topics WHERE id = ?", id))!;
   }

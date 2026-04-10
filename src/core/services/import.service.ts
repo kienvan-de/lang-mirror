@@ -35,6 +35,7 @@ export interface LessonImportSingle {
   speed?: number;
   pitch?: number;
   sentences: ImportSentence[];
+  tags?: string[]; // tag names
 }
 
 export interface LessonImportTopic {
@@ -42,6 +43,7 @@ export interface LessonImportTopic {
   title: string;
   description?: string;
   versions: ImportVersion[];
+  tags?: string[]; // tag names
 }
 
 export type LessonImport = LessonImportSingle | LessonImportTopic;
@@ -128,9 +130,10 @@ export function validateSingle(data: unknown): { result: LessonImportSingle | nu
   const speed = typeof obj["speed"] === "number" ? obj["speed"] : undefined;
   const pitch = typeof obj["pitch"] === "number" ? obj["pitch"] : undefined;
   const sentences = validateSentences(obj["sentences"], "sentences", errors);
+  const tags = Array.isArray(obj["tags"]) ? (obj["tags"] as unknown[]).filter(t => typeof t === "string") as string[] : undefined;
 
   if (errors.length > 0) return { result: null, errors };
-  return { result: { format: "single", title, description, language, voice_name, speed, pitch, sentences }, errors: [] };
+  return { result: { format: "single", title, description, language, voice_name, speed, pitch, sentences, tags }, errors: [] };
 }
 
 export function validateTopic(data: unknown): { result: LessonImportTopic | null; errors: ImportValidationError[] } {
@@ -160,8 +163,10 @@ export function validateTopic(data: unknown): { result: LessonImportTopic | null
     if (lang) versions.push({ language: lang, title: versionTitle, description: versionDescription, voice_name, speed, pitch, sentences });
   }
 
+  const tags = Array.isArray(obj["tags"]) ? (obj["tags"] as unknown[]).filter(t => typeof t === "string") as string[] : undefined;
+
   if (errors.length > 0) return { result: null, errors };
-  return { result: { format: "topic", title, description, versions }, errors: [] };
+  return { result: { format: "topic", title, description, versions, tags }, errors: [] };
 }
 
 /**
@@ -228,6 +233,20 @@ export class ImportService {
       topicId = row!.id;
     }
 
+    // Resolve and apply tags if provided
+    if (lesson.tags && lesson.tags.length > 0) {
+      const tagRows = await this.db.queryAll<{ id: string; name: string }>(
+        `SELECT id, name FROM tags WHERE name IN (${lesson.tags.map(() => "?").join(",")})`,
+        ...lesson.tags
+      );
+      if (tagRows.length > 0) {
+        await this.db.batch(tagRows.map(tag => ({
+          sql: "INSERT OR IGNORE INTO topic_tags (topic_id, tag_id) VALUES (?, ?)",
+          params: [topicId, tag.id],
+        })));
+      }
+    }
+
     const versions: ImportVersion[] = lesson.format === "single"
       ? [{ language: lesson.language, voice_name: lesson.voice_name, speed: lesson.speed, pitch: lesson.pitch, sentences: lesson.sentences }]
       : lesson.versions;
@@ -271,6 +290,22 @@ export class ImportService {
 
       versionsResult.push({ versionId: version!.id, language: v.language, sentenceCount: v.sentences.length });
       totalSentences += v.sentences.length;
+    }
+
+    // Auto-apply language tags from all imported version language codes
+    const importedLangCodes = [...new Set(versionsResult.map(v => v.language.split("-")[0]!.toLowerCase()))];
+    if (importedLangCodes.length > 0) {
+      const placeholders = importedLangCodes.map(() => "?").join(",");
+      const langTagRows = await this.db.queryAll<{ id: string }>(
+        `SELECT id FROM tags WHERE type = 'language' AND name IN (${placeholders})`,
+        ...importedLangCodes
+      );
+      if (langTagRows.length > 0) {
+        await this.db.batch(langTagRows.map(tag => ({
+          sql: "INSERT OR IGNORE INTO topic_tags (topic_id, tag_id) VALUES (?, ?)",
+          params: [topicId, tag.id],
+        })));
+      }
     }
 
     const topic = await this.db.queryFirst<{ id: string; title: string }>(

@@ -17,6 +17,7 @@ interface PreviewResult {
   format: "single" | "topic" | null;
   title: string | null;
   description: string | null;
+  tags?: string[];
   versions: Array<{ language: string; sentenceCount: number }>;
 }
 
@@ -292,7 +293,9 @@ export function ImportPage() {
                 <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">{t("import.formatA")}</p>
                 <pre className="text-xs bg-gray-50 dark:bg-gray-800 rounded-lg p-3 overflow-x-auto text-gray-700 dark:text-gray-300">{`{
   "title": "Shopping in Tokyo",
+  "description": "Everyday shopping vocabulary",
   "language": "ja",
+  "tags": ["ja", "B1"],
   "voice_name": "ja-JP-NanamiNeural",
   "speed": 0.9,
   "sentences": [
@@ -314,6 +317,7 @@ export function ImportPage() {
                 <pre className="text-xs bg-gray-50 dark:bg-gray-800 rounded-lg p-3 overflow-x-auto text-gray-700 dark:text-gray-300">{`{
   "title": "My Lesson",
   "description": "Optional description",
+  "tags": ["vi", "B2"],
   "versions": [
     {
       "language": "en",
@@ -372,6 +376,15 @@ export function ImportPage() {
                 <LangBadge key={v.language} language={v.language} sentenceCount={v.sentenceCount} />
               ))}
             </div>
+            {preview.tags && preview.tags.length > 0 && (
+              <div className="flex flex-wrap gap-1.5 mt-2">
+                {preview.tags.map(tag => (
+                  <span key={tag} className="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
 
           <div>

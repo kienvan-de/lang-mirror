@@ -1,5 +1,5 @@
 import type { IDatabase } from "../ports/db.port";
-import { DDL_STATEMENTS, DEFAULT_SETTINGS, SYSTEM_USER_ID } from "./schema";
+import { DDL_STATEMENTS, DEFAULT_SETTINGS, DEFAULT_TAGS, SYSTEM_USER_ID } from "./schema";
 
 /**
  * Adapter-agnostic migration runner.
@@ -33,6 +33,14 @@ export async function runMigrations(db: IDatabase): Promise<void> {
       key,
       SYSTEM_USER_ID,
       value
+    );
+  }
+
+  // Seed default tags under system user
+  for (const tag of DEFAULT_TAGS) {
+    await db.run(
+      `INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES (?, ?, ?, ?)`,
+      tag.type, tag.name, tag.color, SYSTEM_USER_ID
     );
   }
 

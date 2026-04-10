@@ -84,6 +84,20 @@ export interface SettingRow {
   updated_at: string;
 }
 
+export interface TagRow {
+  id: string;
+  type: string;       // 'level' | 'language' | 'custom'
+  name: string;
+  color: string;      // hex color e.g. '#6366f1'
+  created_by: string;
+  created_at: string;
+}
+
+export interface TopicTagRow {
+  topic_id: string;
+  tag_id: string;
+}
+
 // ── Derived / enriched types ──────────────────────────────────────────────────
 
 export type SentenceWithNotes = Omit<SentenceRow, "notes"> & {
@@ -104,6 +118,7 @@ export type EnrichedVersion = VersionRow & {
 
 export type EnrichedTopic = TopicRow & {
   versions: EnrichedVersion[];
+  tags: TagRow[];
 };
 
 export type VersionMeta = Pick<VersionRow,
@@ -113,4 +128,5 @@ export type VersionMeta = Pick<VersionRow,
 export type TopicListItem = TopicRow & {
   version_count: number;
   versions: VersionMeta[];
+  tags: TagRow[];
 };

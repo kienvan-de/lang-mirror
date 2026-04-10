@@ -1,337 +1,223 @@
 {
   "title": "Day 07: Language Learning Journey",
-
   "description": "Polyglot Mastery — Week 1: Daily Life & Habits",
-
+  "tags": [
+    "vi",
+    "B1"
+  ],
   "versions": [
     {
       "language": "en",
-
       "title": "Language Learning Journey",
-
       "description": "Week 2: Work & Tech",
-
       "voice_name": "en-US-JennyNeural",
-
       "speed": 0.9,
       "sentences": [
         {
           "text": "Learning three languages at once is a difficult but rewarding challenge.",
-
           "notes": {
             "en": "## Grammar\n**Gerund as subject**: A gerund phrase (*Learning three languages at once*) acts as the sentence subject. The main verb is the linking verb *is*, and *challenge* is the predicate noun. **but** connects two contrasting adjectives (*difficult*, *rewarding*) modifying the same noun.\n\n## Vocabulary\n- **at once**: at the same time, simultaneously\n- **rewarding**: giving a sense of satisfaction or achievement\n- **challenge**: a task that requires effort and skill",
-
             "de": "## Grammatik\nDas **Gerundium als Subjekt** (*Learning three languages at once*) entspricht im Deutschen einer Infinitivkonstruktion oder einem nominalisierten Verb. Das Adjektiv-Paar **difficult but rewarding** verbindet zwei gegensätzliche Eigenschaften mit *but*.\n\n## Wortschatz\n- **at once**: gleichzeitig; at the same time\n- **rewarding**: lohnend, befriedigend; giving satisfaction\n- **challenge**: die Herausforderung; a demanding task",
-
             "ja": "## 文法\n**動名詞が主語**：動名詞句 *Learning three languages at once* が文の主語になっています。英語では動名詞（V-ing）が名詞として機能し、主語・目的語になれます。**but** は対立する二つの形容詞（*difficult* と *rewarding*）をつないでいます。\n\n## 語彙\n- **at once**: 同時に; at the same time\n- **rewarding**: やりがいのある、報われる; giving a sense of satisfaction\n- **challenge**: 挑戦、課題; a demanding task",
-
             "vi": "## Ngữ pháp\n**Danh động từ làm chủ ngữ**: Cụm danh động từ *Learning three languages at once* đóng vai trò chủ ngữ của câu. Trong tiếng Anh, V-ing có thể hoạt động như danh từ. **but** nối hai tính từ trái nghĩa (*difficult* và *rewarding*) cùng bổ nghĩa cho *challenge*.\n\n## Từ vựng\n- **at once**: cùng một lúc, đồng thời; at the same time\n- **rewarding**: xứng đáng, mang lại sự thỏa mãn; giving satisfaction\n- **challenge**: thử thách, nhiệm vụ đòi hỏi nỗ lực; a demanding task"
-
           }
         },
         {
           "text": "I try to practice every day, even if it is only for a short time.",
-
           "notes": {
             "en": "## Grammar\n**try to + infinitive**: expresses an attempt or effort (*I try to practice*). **even if + present simple** introduces a concessive clause — it accepts a potential obstacle (short time) without undermining the main statement. Contrast with *even though*, which states a fact rather than a hypothesis.\n\n## Vocabulary\n- **try to**: to make an effort to do something\n- **practice**: to repeatedly perform an activity to improve\n- **even if**: regardless of whether; used for hypothetical concession",
-
             "de": "## Grammatik\n**try to + Infinitiv** entspricht *versuchen + zu + Infinitiv*. **even if** (= *selbst wenn / auch wenn*) leitet einen konzessiven Konditionalsatz ein, der eine mögliche Einschränkung einräumt, ohne die Hauptaussage zu widerlegen.\n\n## Wortschatz\n- **try to**: versuchen zu; to attempt to\n- **practice**: üben; to rehearse repeatedly\n- **even if**: selbst wenn, auch wenn; regardless of whether",
-
             "ja": "## 文法\n**try to + 動詞の原形**：「〜しようとする」という意図・努力を表します。**even if + 現在形** は仮定的な譲歩節（「たとえ〜でも」）を導き、主節の行動が条件に左右されないことを示します。*even though*（事実の譲歩）との違いに注意。\n\n## 語彙\n- **try to**: 〜しようとする; to make an effort to do\n- **practice**: 練習する; to rehearse repeatedly\n- **even if**: たとえ〜でも; regardless of whether",
-
             "vi": "## Ngữ pháp\n**try to + động từ nguyên thể**: diễn đạt nỗ lực thực hiện điều gì (*cố gắng luyện tập*). **even if + mệnh đề** dẫn nhập câu nhượng bộ giả định — chấp nhận khả năng cản trở (ít thời gian) nhưng không phủ nhận hành động chính. Phân biệt với *even though* (nhượng bộ sự thật đã biết).\n\n## Từ vựng\n- **try to**: cố gắng làm gì; to make an effort\n- **practice**: luyện tập, tập đi tập lại; to rehearse repeatedly\n- **even if**: ngay cả khi, dù cho; regardless of whether"
-
           }
         },
         {
           "text": "Comparing the grammar of different languages helps me understand them better.",
-
           "notes": {
             "en": "## Grammar\n**Gerund as subject**: *Comparing the grammar of different languages* is a gerund phrase acting as the subject. **help + object + bare infinitive**: *helps me understand* — after *help*, the infinitive can be used with or without *to* in standard American English (bare infinitive is common).\n\n## Vocabulary\n- **compare**: to examine similarities and differences between things\n- **grammar**: the rules of a language's structure\n- **better**: to a greater degree; comparative adverb",
-
             "de": "## Grammatik\nDas **Gerundium als Subjekt** (*Comparing…*) entspricht einer deutschen Infinitivkonstruktion (*Das Vergleichen…*). **help + Objekt + Infinitiv ohne to** ist im amerikanischen Englisch üblich: *helps me understand*.\n\n## Wortschatz\n- **compare**: vergleichen; to examine similarities and differences\n- **grammar**: die Grammatik; rules of language structure\n- **better**: besser; to a greater degree",
-
             "ja": "## 文法\n**動名詞が主語**：*Comparing the grammar of different languages* が主語の役割を果たします。**help + 目的語 + 動詞の原形**（原形不定詞）：アメリカ英語では *helps me understand* のように *to* なし不定詞が一般的です。\n\n## 語彙\n- **compare**: 比べる、比較する; to examine similarities and differences\n- **grammar**: 文法; rules of language structure\n- **better**: より良く（比較の副詞）; to a greater degree",
-
             "vi": "## Ngữ pháp\n**Danh động từ làm chủ ngữ**: *Comparing the grammar of different languages* là cụm danh động từ làm chủ ngữ. **help + tân ngữ + động từ nguyên thể không có to**: cấu trúc *helps me understand* — sau *help*, có thể dùng bare infinitive (phổ biến trong tiếng Anh Mỹ).\n\n## Từ vựng\n- **compare**: so sánh, đối chiếu; to examine similarities and differences\n- **grammar**: ngữ pháp; rules of language structure\n- **better**: tốt hơn (trạng từ so sánh); to a greater degree"
-
           }
         },
         {
           "text": "Sometimes I feel confused, but I don't want to give up my goal.",
-
           "notes": {
             "en": "## Grammar\n**Frequency adverb** *sometimes* placed at the sentence start for emphasis. **feel + adjective**: *feel confused* — linking verb + predicate adjective. **give up**: phrasal verb meaning to stop trying. **don't want to + infinitive** = negative volition.\n\n## Vocabulary\n- **sometimes**: occasionally, not always\n- **confused**: unable to understand or think clearly\n- **give up**: to quit, to stop trying\n- **goal**: a desired outcome or aim",
-
             "de": "## Grammatik\n**sometimes** = *manchmal* als Häufigkeitsadverb am Satzanfang. **feel + Adjektiv**: Kopulaverb + prädikatives Adjektiv. **give up**: Phrasal Verb = *aufgeben*. **don't want to + Infinitiv** drückt negative Absicht aus.\n\n## Wortschatz\n- **sometimes**: manchmal; occasionally\n- **confused**: verwirrt; unable to think clearly\n- **give up**: aufgeben; to quit\n- **goal**: das Ziel; a desired aim",
-
             "ja": "## 文法\n**頻度副詞** *sometimes*（ときどき）は文頭に置いて強調することがあります。**feel + 形容詞**：連結動詞 + 叙述形容詞（*feel confused* ＝ 混乱している）。**give up**：句動詞で「あきらめる」の意。**don't want to + 動詞** は否定の意志を表します。\n\n## 語彙\n- **sometimes**: ときどき; occasionally\n- **confused**: 混乱した; unable to think clearly\n- **give up**: あきらめる; to quit, to stop trying\n- **goal**: 目標; a desired aim",
-
             "vi": "## Ngữ pháp\n**Trạng từ tần suất** *sometimes* đặt đầu câu để nhấn mạnh. **feel + tính từ**: động từ nối + tính từ vị ngữ (*feel confused*). **give up**: cụm động từ nghĩa là bỏ cuộc. **don't want to + động từ** diễn đạt ý nguyện phủ định.\n\n## Từ vựng\n- **sometimes**: đôi khi, thỉnh thoảng; occasionally\n- **confused**: bối rối, lúng túng; unable to think clearly\n- **give up**: từ bỏ, bỏ cuộc; to quit\n- **goal**: mục tiêu; a desired aim"
-
           }
         },
         {
           "text": "With enough patience, I believe I can become a true polyglot.",
-
           "notes": {
             "en": "## Grammar\n**Prepositional phrase as fronted adverbial**: *With enough patience* sets the condition for the main clause. **believe + that-clause** (that is omitted): *I believe [that] I can…* — reporting one's own conviction. **become + noun** is a linking-verb construction expressing transformation.\n\n## Vocabulary\n- **patience**: the ability to wait or persist without frustration\n- **believe**: to hold something as true; to be convinced\n- **polyglot**: a person who speaks several languages\n- **true**: genuine, in the fullest sense",
-
             "de": "## Grammatik\nDie vorangestellte Präpositionalphrase **With enough patience** entspricht *Mit genug Geduld* und steht als Bedingungsrahmen. **believe + that-clause** (ohne *that*): *Ich glaube, ich kann…* — Ausdruck eigener Überzeugung. **become + Nomen** = Kopulaverb + nominales Prädikativum.\n\n## Wortschatz\n- **patience**: die Geduld; the ability to persist calmly\n- **believe**: glauben; to be convinced\n- **polyglot**: der/die Vielsprachige; a person speaking many languages\n- **true**: wahr, echt; genuine",
-
             "ja": "## 文法\n**前置詞句の前置き**：*With enough patience* が条件・手段を表す副詞句として文頭に置かれています。**believe + that節**（*that* は省略）：自分の確信を表明します。**become + 名詞** は変化・変容を表す連結動詞構造です。\n\n## 語彙\n- **patience**: 忍耐、根気; the ability to persist calmly\n- **believe**: 信じる; to be convinced\n- **polyglot**: 多言語話者; a person speaking many languages\n- **true**: 本当の、真の; genuine, in the fullest sense",
-
             "vi": "## Ngữ pháp\n**Cụm giới từ làm trạng ngữ đầu câu**: *With enough patience* đặt điều kiện cho mệnh đề chính. **believe + mệnh đề that** (lược *that*): *I believe [that] I can…* — diễn đạt niềm tin của chính mình. **become + danh từ**: cấu trúc động từ nối, diễn tả sự biến đổi.\n\n## Từ vựng\n- **patience**: sự kiên nhẫn, bền bỉ; the ability to persist calmly\n- **believe**: tin tưởng, tin; to be convinced\n- **polyglot**: người đa ngôn ngữ; a person speaking many languages\n- **true**: thực sự, theo nghĩa đầy đủ; genuine"
-
           }
         }
       ]
     },
     {
       "language": "de",
-
       "title": "Der Sprachenlernweg",
-
       "description": "Woche 2: Arbeit & Technik",
-
       "voice_name": "de-DE-KatjaNeural",
-
       "speed": 0.85,
       "sentences": [
         {
           "text": "Ich lerne drei Sprachen gleichzeitig, das ist schwer aber interessant.",
-
           "notes": {
             "en": "## Grammar\n**German present tense (Präsens)**: *Ich lerne* = I learn/I am learning. German has no continuous tense — context or time adverbs supply that meaning. **Das** at the start of the second clause is a demonstrative pronoun summing up the whole preceding idea (= 'that'). **schwer aber interessant** = two predicate adjectives joined by *aber* (but).\n\n## Vocabulary\n- **lerne**: to learn (1st person singular present)\n- **gleichzeitig**: at the same time, simultaneously\n- **schwer**: difficult, hard\n- **interessant**: interesting",
-
             "de": "## Grammatik\n**Präsens der regelmäßigen Verben**: *Ich lerne* — Stamm *lern-* + Endung *-e*. **das** als Demonstrativpronomen fasst den gesamten vorherigen Satz zusammen. **schwer aber interessant** — zwei prädikative Adjektive, verbunden durch *aber*.\n\n## Wortschatz\n- **lerne**: 1. Person Singular Präsens von *lernen*\n- **gleichzeitig**: zur gleichen Zeit, simultan\n- **schwer**: schwierig, anspruchsvoll\n- **interessant**: anregend, fesselnd",
-
             "ja": "## 文法\n**ドイツ語現在形（Präsens）**：*Ich lerne* = 私は学んでいます。ドイツ語には進行形がなく、現在形で「〜している」も表します。**das** は前の節全体を指す指示代名詞（「それは」）。**schwer aber interessant** は接続詞 *aber*（しかし）でつながれた二つの叙述形容詞です。\n\n## 語彙\n- **lerne**: 学ぶ（1人称単数現在形）; to learn\n- **gleichzeitig**: 同時に; simultaneously\n- **schwer**: 難しい; difficult\n- **interessant**: 面白い、興味深い; interesting",
-
             "vi": "## Ngữ pháp\n**Thì hiện tại trong tiếng Đức (Präsens)**: *Ich lerne* = tôi học / tôi đang học. Tiếng Đức không có thì tiếp diễn riêng biệt — hiện tại đơn bao hàm cả hai nghĩa. **das** đứng đầu mệnh đề thứ hai là đại từ chỉ định, tóm tắt toàn bộ ý trước (= \"điều đó\"). **schwer aber interessant** — hai tính từ vị ngữ nối bởi *aber* (nhưng).\n\n## Từ vựng\n- **lerne**: học (ngôi thứ nhất số ít hiện tại của *lernen*)\n- **gleichzeitig**: đồng thời, cùng lúc; simultaneously\n- **schwer**: khó khăn, nặng nề; difficult\n- **interessant**: thú vị, hấp dẫn; interesting"
-
           }
         },
         {
           "text": "Ich übe jeden Tag ein bisschen Deutsch, Englisch und Japanisch.",
-
           "notes": {
             "en": "## Grammar\n**German present tense**: *Ich übe* = I practice. *jeden Tag* (accusative: *jeder Tag* -> *jeden Tag*) is a time expression in the accusative case expressing regular recurrence. **ein bisschen** = a little; it is invariable and does not decline.\n\n## Vocabulary\n- **übe**: to practice (1st person singular present of *üben*)\n- **jeden Tag**: every day (accusative of *jeder Tag*)\n- **ein bisschen**: a little, a bit",
-
             "de": "## Grammatik\n**Akkusativ der Zeitangabe**: *jeden Tag* steht im Akkusativ (*jeder -> jeden*) — regelmäßige Zeitangaben nutzen den Akkusativ ohne Präposition. **ein bisschen** ist unveränderlich und wird nicht dekliniert.\n\n## Wortschatz\n- **übe**: 1. Person Singular von *üben* (to practice)\n- **jeden Tag**: täglich, jeden einzelnen Tag (Akk.)\n- **ein bisschen**: ein wenig, etwas",
-
             "ja": "## 文法\n**時の対格（Akkusativ der Zeitangabe）**：*jeden Tag*（毎日）は前置詞なしで対格を使う時間表現です（*jeder -> jeden*）。**ein bisschen**（少し）は不変化詞で格変化しません。\n\n## 語彙\n- **übe**: 練習する（*üben* の1人称単数現在）; to practice\n- **jeden Tag**: 毎日（対格の時間表現）; every day\n- **ein bisschen**: 少し; a little, a bit",
-
             "vi": "## Ngữ pháp\n**Tân ngữ cách (Akkusativ) chỉ thời gian**: *jeden Tag* dùng cách tân ngữ (*jeder -> jeden*) — trong tiếng Đức, trạng ngữ thời gian định kỳ dùng tân ngữ cách mà không cần giới từ. **ein bisschen** (một chút) là từ bất biến, không chia theo cách.\n\n## Từ vựng\n- **übe**: luyện tập (ngôi thứ nhất số ít của *üben*); to practice\n- **jeden Tag**: mỗi ngày (tân ngữ cách); every day\n- **ein bisschen**: một chút, một ít; a little"
-
           }
         },
         {
           "text": "Ich vergleiche die Grammatik und lerne viele neue Wörter.",
-
           "notes": {
             "en": "## Grammar\n**Coordinating conjunction *und***: joins two main clauses with the same subject (*Ich*). In the second clause the subject is dropped (subject ellipsis): *und [ich] lerne…*. **viele neue Wörter**: *viele* (many) + attributive adjective *neue* (Nominative/Accusative plural ending -*e* after *viele*).\n\n## Vocabulary\n- **vergleiche**: to compare (1st person singular present of *vergleichen*)\n- **Grammatik**: grammar\n- **viele**: many\n- **neue Wörter**: new words",
-
             "de": "## Grammatik\n**Koordinierende Konjunktion *und*** verbindet zwei Hauptsätze; das Subjekt *Ich* wird im zweiten Satz weggelassen (Subjektellipse). **viele neue Wörter**: Adjektivendung *-e* im Akkusativ Plural nach *viele*.\n\n## Wortschatz\n- **vergleiche**: 1. Person Singular von *vergleichen* (to compare)\n- **Grammatik**: die Grammatik\n- **viele**: viele, zahlreich\n- **neue Wörter**: neue Vokabeln",
-
             "ja": "## 文法\n**等位接続詞 *und***：同じ主語 (*Ich*) を持つ二つの主節をつなぎます。二番目の節では主語が省略されます（主語省略）。**viele neue Wörter**：複数4格（Akkusativ Plural）で *viele* の後の形容詞語尾は *-e* です。\n\n## 語彙\n- **vergleiche**: 比較する（*vergleichen* の1人称単数現在）; to compare\n- **Grammatik**: 文法; grammar\n- **viele**: 多くの; many\n- **neue Wörter**: 新しい単語; new words",
-
             "vi": "## Ngữ pháp\n**Liên từ đẳng lập *und*** nối hai mệnh đề chính có cùng chủ ngữ (*Ich*); ở mệnh đề thứ hai, chủ ngữ được lược bỏ (tỉnh lược chủ ngữ). **viele neue Wörter**: tính từ bổ nghĩa *neue* có đuôi *-e* ở số nhiều tân ngữ cách sau *viele*.\n\n## Từ vựng\n- **vergleiche**: so sánh (ngôi thứ nhất số ít của *vergleichen*); to compare\n- **Grammatik**: ngữ pháp; grammar\n- **viele**: nhiều; many\n- **neue Wörter**: từ mới; new words"
-
           }
         },
         {
           "text": "Manchmal ist es kompliziert, aber ich mache weiter.",
-
           "notes": {
             "en": "## Grammar\n**Verb-second (V2) word order**: *Manchmal* (sometimes) is the fronted element, so the verb *ist* comes immediately after it. **es** is an expletive subject (dummy pronoun) with predicate adjective *kompliziert*. **machen weiter** = separable verb *weitermachen* (to continue, to keep going): in a main clause, prefix *weiter-* splits to the end.\n\n## Vocabulary\n- **manchmal**: sometimes, occasionally\n- **kompliziert**: complicated, difficult\n- **weitermachen**: to continue, to keep going (separable verb)",
-
             "de": "## Grammatik\n**Verb-Zweit-Stellung (V2)**: Das Adverb *Manchmal* steht auf Position 1, deshalb folgt das konjugierte Verb *ist* direkt danach. **es** als Platzhaltersubjekt mit prädikativem Adjektiv *kompliziert*. **weitermachen**: trennbares Verb — *mache weiter* im Hauptsatz.\n\n## Wortschatz\n- **manchmal**: gelegentlich, ab und zu\n- **kompliziert**: schwierig, nicht einfach\n- **weitermachen**: fortfahren, nicht aufhören",
-
             "ja": "## 文法\n**定動詞第2位（V2語順）**：副詞 *Manchmal*（ときどき）が第1位に来るため、動詞 *ist* が直後に置かれます。**es** は形式主語（ダミー代名詞）で、叙述形容詞 *kompliziert* と共に使われます。**weitermachen**：分離動詞 — 主文では前綴 *weiter-* が文末に移動します。\n\n## 語彙\n- **manchmal**: ときどき; sometimes\n- **kompliziert**: 複雑な、難しい; complicated\n- **weitermachen**: 続ける（分離動詞）; to continue, to keep going",
-
             "vi": "## Ngữ pháp\n**Quy tắc động từ đứng thứ hai (V2)**: *Manchmal* (đôi khi) được đẩy lên đầu câu, khiến động từ chia *ist* phải đứng ngay sau. **es** là đại từ chủ ngữ hình thức (dummy subject) đi cùng tính từ vị ngữ *kompliziert*. **weitermachen**: động từ tách được — trong mệnh đề chính, tiền tố *weiter-* tách ra cuối câu (*mache weiter*).\n\n## Từ vựng\n- **manchmal**: đôi khi, thỉnh thoảng; sometimes\n- **kompliziert**: phức tạp, khó khăn; complicated\n- **weitermachen**: tiếp tục (động từ tách được); to continue, to keep going"
-
           }
         },
         {
           "text": "Mein Ziel ist es, viele Sprachen zu sprechen.",
-
           "notes": {
             "en": "## Grammar\n**Infinitive clause with *es* anticipatory pronoun**: *Mein Ziel ist es, …zu sprechen* — the main clause uses *es* as a placeholder, which is then explained by the *zu*-infinitive clause (*viele Sprachen zu sprechen*). This construction is common when the subject is a full infinitive clause.\n\n## Vocabulary\n- **Ziel**: goal, aim, objective\n- **viele Sprachen**: many languages\n- **zu sprechen**: to speak (infinitive with *zu*)",
-
             "de": "## Grammatik\n**Vorwegnehmendes *es* mit Infinitivsatz**: *Mein Ziel ist es, viele Sprachen zu sprechen* — *es* kündigt den nachfolgenden *zu*-Infinitivsatz an. Dieser Satztyp ist häufig, wenn das Subjekt ein Infinitivsatz ist.\n\n## Wortschatz\n- **Ziel**: das Ziel, das Vorhaben\n- **viele Sprachen**: viele Sprachen\n- **zu sprechen**: sprechen (Infinitiv mit *zu*)",
-
             "ja": "## 文法\n**予期的 *es* と不定詞節**：*Mein Ziel ist es, viele Sprachen zu sprechen* — *es* が後続の *zu*-不定詞節（*viele Sprachen zu sprechen*）を予告します。主語が不定詞節である場合によく使われる構文です。\n\n## 語彙\n- **Ziel**: 目標、目的; goal, aim\n- **viele Sprachen**: 多くの言語; many languages\n- **zu sprechen**: 話すこと（zu-不定詞）; to speak",
-
             "vi": "## Ngữ pháp\n**Đại từ hình thức *es* trước mệnh đề bất định**: *Mein Ziel ist es, viele Sprachen zu sprechen* — *es* đóng vai trò chỗ giữ chỗ, báo hiệu mệnh đề bất định (*zu*-Infinitiv) sẽ đến sau. Cấu trúc này phổ biến khi chủ ngữ thực sự là một cụm động từ nguyên thể.\n\n## Từ vựng\n- **Ziel**: mục tiêu, đích đến; goal, aim\n- **viele Sprachen**: nhiều ngôn ngữ; many languages\n- **zu sprechen**: nói (động từ nguyên thể với *zu*); to speak"
-
           }
         }
       ]
     },
     {
       "language": "ja",
-
       "title": "語学学習の旅",
-
       "description": "第2週：仕事とテクノロジー",
-
       "voice_name": "ja-JP-NanamiNeural",
-
       "speed": 0.8,
       "sentences": [
         {
           "text": "三つの言葉を同時に勉強するのは大変（たいへん）ですが、楽しいです。",
-
           "notes": {
             "en": "## Grammar\n**〜のは nominalization**: *三つの言葉を同時に勉強する* (to study three languages at once) is nominalized by **の** and becomes the topic/subject. **〜ですが** (desu ga) connects two contrasting predicates: *大変 (taihen)* (difficult) but *楽しい (tanoshii)* (fun/enjoyable).\n\n## Vocabulary\n- **三つ (みっつ)**: three (native Japanese counter for general items)\n- **言葉 (ことば)**: language, word, speech\n- **同時に (どうじに)**: at the same time, simultaneously\n- **大変 (たいへん)**: difficult, tough; also 'very'\n- **楽しい (たのしい)**: fun, enjoyable",
-
             "de": "## Grammatik\n**〜のは (Nominalisierung)**: Die Verbphrase *三つの言葉を同時に勉強する* wird durch **の** nominalisiert und fungiert als Thema/Subjekt. **〜ですが** verbindet zwei kontrastierende Prädikative: *大変* (schwer) und *楽しい* (Spaß machend).\n\n## Wortschatz\n- **三つ (みっつ)**: drei (japanischer Zähler für allgemeine Gegenstände)\n- **言葉 (ことば)**: Sprache, Wort\n- **同時に (どうじに)**: gleichzeitig\n- **大変 (たいへん)**: schwierig, anstrengend\n- **楽しい (たのしい)**: angenehm, spaßig",
-
             "ja": "## 文法\n**〜のは（名詞節化）**：動詞句 *三つの言葉を同時に勉強する* を **の** で名詞節化し、文のテーマ・主語にしています。**〜ですが** は逆接の接続助詞で、二つの対立する叙述（大変 / 楽しい）をつなぎます。\n\n## 語彙\n- **三つ**: 三個、3（和語の数詞）\n- **言葉**: 言語、ことば\n- **同時に**: 同時に、いっぺんに\n- **大変**: 困難な、たいへんな\n- **楽しい**: 楽しい、愉快な",
-
             "vi": "## Ngữ pháp\n**〜のは (danh hóa)**: Cụm động từ *三つの言葉を同時に勉強する* được danh hóa bằng **の** và trở thành chủ đề/chủ ngữ của câu. **〜ですが** nối hai vị ngữ tương phản: *大変* (khó khăn) nhưng *楽しい* (thú vị).\n\n## Từ vựng\n- **三つ (みっつ)**: ba (từ đếm thuần Nhật dùng cho vật thể nói chung)\n- **言葉 (ことば)**: ngôn ngữ, từ ngữ; language, word\n- **同時に (どうじに)**: đồng thời; at the same time\n- **大変 (たいへん)**: khó khăn, vất vả; difficult, tough\n- **楽しい (たのしい)**: vui, thú vị; fun, enjoyable"
-
           }
         },
         {
           "text": "毎日、短い時間でも練習（れんしゅう）するようにしています。",
-
           "notes": {
             "en": "## Grammar\n**〜ようにしている**: expresses a conscious effort or habit one maintains — literally 'I do it so that [I practice]' -> 'I make a point of doing'. **〜でも** after *短い時間* (short time) means 'even just [a short time]' — particle *でも* adds the sense of 'at the very least' or 'even'.\n\n## Vocabulary\n- **毎日 (まいにち)**: every day\n- **短い (みじかい)**: short (in duration)\n- **時間 (じかん)**: time\n- **練習 (れんしゅう)**: practice, training\n- **〜ようにしている**: to make a habit of, to make a point of",
-
             "de": "## Grammatik\n**〜ようにしている**: drückt eine bewusste Gewohnheit aus — \"Ich sorge dafür, dass ich übe\" -> \"Ich bemühe mich, täglich zu üben\". **〜でも** nach *短い時間* bedeutet \"selbst wenn es nur kurze Zeit ist\" — die Partikel *でも* verstärkt die Bedeutung zu \"zumindest\".\n\n## Wortschatz\n- **毎日 (まいにち)**: jeden Tag, täglich\n- **短い (みじかい)**: kurz (zeitlich)\n- **時間 (じかん)**: Zeit\n- **練習 (れんしゅう)**: Übung, Training\n- **〜ようにしている**: sich bemühen zu; to make a habit of",
-
             "ja": "## 文法\n**〜ようにしている**：意識的に継続している習慣や努力を表します。「〜するように心がけている」という意味。**〜でも**：*短い時間でも* の *でも* は「たとえ〜だとしても」「〜だけでも」という譲歩・強調の助詞です。\n\n## 語彙\n- **毎日**: 毎日、毎日\n- **短い**: 短い（時間的に）\n- **時間**: 時間\n- **練習**: 練習、稽古\n- **〜ようにしている**: 〜するよう心がけている",
-
             "vi": "## Ngữ pháp\n**〜ようにしている**: diễn đạt thói quen hoặc nỗ lực có ý thức — nghĩa đen là \"tôi làm để [luyện tập]\", hiểu là \"tôi cố gắng/chú ý làm\". **〜でも** sau *短い時間* có nghĩa \"dù chỉ [một thời gian ngắn]\" — trợ từ *でも* thêm nghĩa nhượng bộ \"ít nhất là\" hoặc \"ngay cả\".\n\n## Từ vựng\n- **毎日 (まいにち)**: mỗi ngày; every day\n- **短い (みじかい)**: ngắn (về thời gian); short in duration\n- **時間 (じかん)**: thời gian; time\n- **練習 (れんしゅう)**: luyện tập, tập luyện; practice, training\n- **〜ようにしている**: cố gắng duy trì thói quen; to make a point of doing"
-
           }
         },
         {
           "text": "文法（ぶんぽう）を比べる（くらべる）と、もっとよくわかります。",
-
           "notes": {
             "en": "## Grammar\n**〜と (conditional/natural result)**: *文法を比べると* — the *と* particle after a verb in plain form expresses a natural, inevitable consequence: 'When/If you compare the grammar, [you naturally come to] understand better.' This is the *natural result と*, not the conditional *たら*.\n\n## Vocabulary\n- **文法 (ぶんぽう)**: grammar\n- **比べる (くらべる)**: to compare\n- **〜と**: when/if (natural consequence conditional)\n- **もっとよく**: better, more clearly (adverb)\n- **わかる**: to understand, to grasp",
-
             "de": "## Grammatik\n**〜と (Konditional des natürlichen Ergebnisses)**: *文法を比べると* — die Partikel *と* nach dem Wörterbuchform drückt eine natürliche, unvermeidliche Folge aus: \"Wenn man Grammatik vergleicht, versteht man sie automatisch besser.\"\n\n## Wortschatz\n- **文法 (ぶんぽう)**: Grammatik\n- **比べる (くらべる)**: vergleichen\n- **〜と**: wenn/sobald (natürliches Ergebnis)\n- **もっとよく**: besser, klarer (Adverb)\n- **わかる**: verstehen, begreifen",
-
             "ja": "## 文法\n**〜と（自然な結果の条件）**：辞書形 + *と* は「〜すると自然に…となる」という必然的な結果を表します。*文法を比べると* ＝ 「文法を比べれば（自然に）よくわかる」。仮定の *たら* と異なり、反復可能・普遍的な結果に使います。\n\n## 語彙\n- **文法**: 文法、文法規則\n- **比べる**: 比較する、比べる\n- **〜と**: 〜すると（自然な結果）\n- **もっとよく**: よりよく、はっきりと\n- **わかる**: わかる、理解できる",
-
             "vi": "## Ngữ pháp\n**〜と (điều kiện kết quả tự nhiên)**: *文法を比べると* — trợ từ *と* sau thể từ điển diễn đạt kết quả tất yếu, tự nhiên: \"Khi so sánh ngữ pháp, tự nhiên sẽ hiểu tốt hơn.\" Khác với *たら* (điều kiện giả định), *と* dùng cho kết quả có tính phổ quát, lặp lại được.\n\n## Từ vựng\n- **文法 (ぶんぽう)**: ngữ pháp; grammar\n- **比べる (くらべる)**: so sánh; to compare\n- **〜と**: khi, nếu (kết quả tự nhiên); natural result conditional\n- **もっとよく**: tốt hơn, rõ hơn (trạng từ); better, more clearly\n- **わかる**: hiểu; to understand"
-
           }
         },
         {
           "text": "時々わからなくなりますが、あきらめたくないです。",
-
           "notes": {
             "en": "## Grammar\n**〜なくなる**: *わからなくなる* = 'to become unable to understand' — the negative *〜ない* stem + *〜なる* (to become) expresses a transition into a state. **〜たくない**: the desiderative *〜たい* (want to) negated -> 'don't want to [give up]'.\n\n## Vocabulary\n- **時々 (ときどき)**: sometimes, occasionally\n- **わからなくなる**: to become unable to understand\n- **あきらめる**: to give up, to quit\n- **〜たくない**: don't want to (negative desiderative)",
-
             "de": "## Grammatik\n**〜なくなる**: *わからなくなる* = \"es wird mir unverständlich\" — Negationstamm *〜ない* + *〜なる* (werden) drückt einen Übergang in einen Zustand aus. **〜たくない**: Wunschform *〜たい* negiert -> \"ich will nicht [aufgeben]\".\n\n## Wortschatz\n- **時々 (ときどき)**: manchmal, gelegentlich\n- **わからなくなる**: nicht mehr verstehen können\n- **あきらめる**: aufgeben, verzichten\n- **〜たくない**: nicht wollen (negierter Wunsch)",
-
             "ja": "## 文法\n**〜なくなる**：*わからなくなる* ＝「わからない状態になる」 — 否定形語幹 *〜ない* + *〜なる* で状態変化を表します。**〜たくない**：希望を表す *〜たい* を否定したもの -> 「〜したくない（望まない）」\n\n## 語彙\n- **時々**: ときどき、時折\n- **わからなくなる**: わからなくなる、理解できなくなる\n- **あきらめる**: あきらめる、断念する\n- **〜たくない**: 〜したくない（否定の希望）",
-
             "vi": "## Ngữ pháp\n**〜なくなる**: *わからなくなる* = \"trở nên không hiểu được\" — gốc phủ định *〜ない* + *〜なる* (trở nên) diễn đạt sự chuyển sang một trạng thái mới. **〜たくない**: thể nguyện vọng *〜たい* (muốn làm) ở dạng phủ định -> \"không muốn [từ bỏ]\".\n\n## Từ vựng\n- **時々 (ときどき)**: đôi khi, thỉnh thoảng; sometimes\n- **わからなくなる**: trở nên không hiểu được; to become unable to understand\n- **あきらめる**: từ bỏ, bỏ cuộc; to give up\n- **〜たくない**: không muốn làm (phủ định nguyện vọng); don't want to"
-
           }
         },
         {
           "text": "頑張れば、きっと上手に話せるようになると思います。",
-
           "notes": {
             "en": "## Grammar\n**〜ば conditional**: *頑張れば* = 'if [I] do my best' — formed by the *〜ば* conditional, which expresses a general/hypothetical condition. **〜ようになる**: expresses a change of state — 'to come to be able to' or 'to reach the point of'. Here *話せるようになる* = 'will become able to speak well'.\n\n## Vocabulary\n- **頑張る (がんばる)**: to do one's best, to persist\n- **きっと**: surely, certainly\n- **上手に (じょうずに)**: skillfully, well\n- **〜ようになる**: to come to be able to; to reach the point where",
-
             "de": "## Grammatik\n**〜ば Konditionalis**: *頑張れば* = \"wenn ich mein Bestes gebe\" — allgemeine/hypothetische Bedingung. **〜ようになる**: drückt eine Zustandsänderung aus: \"in der Lage sein zu\" -> *話せるようになる* = \"man wird gut sprechen können\".\n\n## Wortschatz\n- **頑張る (がんばる)**: sein Bestes geben, durchhalten\n- **きっと**: sicherlich, bestimmt\n- **上手に (じょうずに)**: geschickt, gut\n- **〜ようになる**: in der Lage werden zu; to come to be able to",
-
             "ja": "## 文法\n**〜ば条件形**：*頑張れば* ＝「頑張るならば」— 一般的・仮定的な条件を表す条件形。**〜ようになる**：状態変化を表す表現。「〜できる状態になる」という意味で、ここでは *話せるようになる* ＝「上手に話せるようになる」。\n\n## 語彙\n- **頑張る**: 頑張る、努力する\n- **きっと**: きっと、必ず\n- **上手に**: うまく、じょうずに\n- **〜ようになる**: 〜できるようになる（状態変化）",
-
             "vi": "## Ngữ pháp\n**〜ば (điều kiện giả định)**: *頑張れば* = \"nếu cố gắng\" — thể *〜ば* diễn đạt điều kiện tổng quát hoặc giả định. **〜ようになる**: diễn đạt sự thay đổi trạng thái — \"trở nên có thể làm\", \"đạt đến mức có thể\". Ở đây *話せるようになる* = \"sẽ trở nên nói được thành thạo\".\n\n## Từ vựng\n- **頑張る (がんばる)**: cố gắng hết sức, kiên trì; to do one's best\n- **きっと**: chắc chắn, nhất định; surely, certainly\n- **上手に (じょうずに)**: thành thạo, giỏi; skillfully, well\n- **〜ようになる**: trở nên có thể làm; to come to be able to"
-
           }
         }
       ]
     },
     {
       "language": "vi",
-
       "title": "Hành Trình Học Ngôn Ngữ",
-
       "description": "Tuần 2: Công Việc & Công Nghệ",
-
       "voice_name": "vi-VN-HoaiMyNeural",
-
       "speed": 1,
       "sentences": [
         {
           "text": "Học ba ngôn ngữ cùng lúc là một thử thách khó khăn nhưng xứng đáng.",
-
           "notes": {
             "en": "## Grammar\n**Nominalized verb phrase as subject**: *Học ba ngôn ngữ cùng lúc* (Studying three languages at once) functions as the subject without any nominalizer — Vietnamese allows bare infinitive phrases as subjects. **[A] nhưng [B]**: conjunction *nhưng* (but) connects two contrasting adjectives (*khó khăn* vs *xứng đáng*) modifying the same noun.\n\n## Vocabulary\n- **ngôn ngữ**: language, linguistic system\n- **cùng lúc**: at the same time, simultaneously\n- **thử thách**: challenge, test\n- **khó khăn**: difficult, hard\n- **xứng đáng**: worthwhile, deserving",
-
             "de": "## Grammatik\n**Verbphrase als Subjekt**: *Học ba ngôn ngữ cùng lúc* dient ohne Nominalisierungspartikel als Subjekt — im Vietnamesischen können Verbphrasen direkt als Subjekt fungieren. **[A] nhưng [B]**: *nhưng* verbindet zwei kontrastierende Adjektive (*khó khăn* und *xứng đáng*).\n\n## Wortschatz\n- **ngôn ngữ**: Sprache, Sprachsystem\n- **cùng lúc**: gleichzeitig\n- **thử thách**: Herausforderung\n- **khó khăn**: schwierig\n- **xứng đáng**: lohnenswert, verdient",
-
             "ja": "## 文法\n**動詞句が主語**：*Học ba ngôn ngữ cùng lúc*（3言語を同時に学ぶこと）は名詞化なしで主語になります — ベトナム語では動詞句がそのまま主語として機能します。**[A] nhưng [B]**：接続詞 *nhưng*（しかし）が二つの対立する形容詞をつなぎます。\n\n## 語彙\n- **ngôn ngữ**: 言語; language\n- **cùng lúc**: 同時に; simultaneously\n- **thử thách**: 挑戦; challenge\n- **khó khăn**: 難しい; difficult\n- **xứng đáng**: やりがいのある; worthwhile",
-
             "vi": "## Ngữ pháp\nDanh ngữ **Học ba ngôn ngữ cùng lúc** đóng vai trò chủ ngữ của câu — đây là cách danh hóa bằng cách để nguyên cụm động từ không cần thêm \"việc\". Cấu trúc **[A] nhưng [B]** nối hai tính chất tương phản (khó khăn vs. xứng đáng) về cùng một đối tượng.\n\n## Từ vựng\n- **ngôn ngữ**: hệ thống âm thanh và ký hiệu dùng để giao tiếp; language\n- **cùng lúc**: tại cùng một thời điểm, đồng thời; at the same time, simultaneously\n- **thử thách**: tình huống đòi hỏi nỗ lực và sự kiên nhẫn; challenge\n- **khó khăn**: đòi hỏi nhiều công sức, không dễ dàng; difficult, hard\n- **xứng đáng**: đáng được phần thưởng hoặc kết quả tốt; worthwhile, rewarding"
-
           }
         },
         {
           "text": "Tôi cố gắng luyện tập mỗi ngày, ngay cả khi chỉ trong một thời gian ngắn.",
-
           "notes": {
             "en": "## Grammar\n**cố gắng + verb**: 'to try to / to make an effort to' — similar to English *try to*. **ngay cả khi + clause**: 'even if / even when' — introduces a concessive clause acknowledging a limiting condition without undermining the main statement.\n\n## Vocabulary\n- **cố gắng**: to try hard, to make an effort\n- **luyện tập**: to practice, to train\n- **mỗi ngày**: every day\n- **ngay cả khi**: even if, even when\n- **thời gian ngắn**: short time, brief period",
-
             "de": "## Grammatik\n**cố gắng + Verb**: \"sich bemühen zu / versuchen zu\" — ähnlich wie *try to* im Englischen. **ngay cả khi + Nebensatz**: \"selbst wenn / auch wenn\" — leitet einen konzessiven Satz ein.\n\n## Wortschatz\n- **cố gắng**: sich bemühen, versuchen; to try hard\n- **luyện tập**: üben, trainieren; to practice\n- **mỗi ngày**: jeden Tag; every day\n- **ngay cả khi**: selbst wenn; even if\n- **thời gian ngắn**: kurze Zeit; short time",
-
             "ja": "## 文法\n**cố gắng + 動詞**：「〜しようとする、努力する」— 英語の *try to* に相当します。**ngay cả khi + 節**：「たとえ〜でも」— 主文の内容を否定しない譲歩節を導きます。\n\n## 語彙\n- **cố gắng**: 努力する; to try hard\n- **luyện tập**: 練習する; to practice\n- **mỗi ngày**: 毎日; every day\n- **ngay cả khi**: たとえ〜でも; even if, even when\n- **thời gian ngắn**: 短い時間; short time",
-
             "vi": "## Ngữ pháp\nCụm **ngay cả khi + [điều kiện]** diễn đạt tính kiên định bất kể hoàn cảnh, tương đương \"even if / even when\". Đây là cách nhấn mạnh sự cam kết: cho dù thời gian ít, vẫn không bỏ qua việc luyện tập.\n\n## Từ vựng\n- **cố gắng**: nỗ lực hết sức để thực hiện điều gì; to try hard, to make an effort\n- **luyện tập**: thực hành lặp đi lặp lại để nâng cao kỹ năng; to practice, to train\n- **mỗi ngày**: hàng ngày, không bỏ ngày nào; every day, daily\n- **ngay cả khi**: kể cả trong trường hợp...; even if, even when\n- **thời gian ngắn**: khoảng thời gian ít, không kéo dài; short time, brief period"
-
           }
         },
         {
           "text": "Việc so sánh ngữ pháp của các ngôn ngữ khác nhau giúp tôi hiểu chúng rõ hơn.",
-
           "notes": {
             "en": "## Grammar\n**Việc + verb phrase** = nominalizer turning a verb phrase into a noun phrase subject. **giúp + [person] + [verb]**: 'help somebody do something' — the structure is the same as English *help me understand*.\n\n## Vocabulary\n- **Việc**: nominalizer for verb phrases (similar to English gerund/that-clause)\n- **so sánh**: to compare\n- **ngữ pháp**: grammar\n- **khác nhau**: different, varied\n- **rõ hơn**: more clearly (comparative adverb)",
-
             "de": "## Grammatik\n**Việc + Verbphrase** = Nominalisierung: verwandelt eine Verbphrase in ein Subjekt-Nominalphrases. **giúp + [Person] + [Verb]**: \"jemandem helfen, etwas zu tun\" — entspricht *help me understand* im Englischen.\n\n## Wortschatz\n- **Việc**: Nominalisierungspartikel für Verbphrasen\n- **so sánh**: vergleichen\n- **ngữ pháp**: Grammatik\n- **khác nhau**: unterschiedlich, verschieden\n- **rõ hơn**: klarer, deutlicher (komparatives Adverb)",
-
             "ja": "## 文法\n**Việc + 動詞句**：動詞句を名詞句（主語）に変える名詞化表現。英語の動名詞に相当します。**giúp + [人] + [動詞]**：「人が〜するのを助ける」— 英語の *help somebody do* と同じ構造です。\n\n## 語彙\n- **Việc**: 動詞句の名詞化詞（英語の動名詞に相当）\n- **so sánh**: 比較する; to compare\n- **ngữ pháp**: 文法; grammar\n- **khác nhau**: 異なる; different\n- **rõ hơn**: よりはっきりと（比較副詞）; more clearly",
-
             "vi": "## Ngữ pháp\nTừ **Việc** đứng đầu câu danh hóa toàn bộ cụm \"so sánh ngữ pháp của các ngôn ngữ khác nhau\", biến nó thành chủ ngữ. Cấu trúc **giúp + [người] + [động từ]** mang nghĩa tạo điều kiện để ai đó thực hiện hành động, tương đương \"help somebody do something\".\n\n## Từ vựng\n- **so sánh**: đặt hai hay nhiều thứ cạnh nhau để tìm điểm giống và khác; to compare\n- **ngữ pháp**: hệ thống quy tắc cấu tạo từ và câu của một ngôn ngữ; grammar\n- **khác nhau**: không giống nhau, có sự phân biệt; different, varied\n- **hiểu**: nắm bắt được ý nghĩa và cách hoạt động; to understand\n- **rõ hơn**: với độ rõ ràng cao hơn, dễ hiểu hơn; more clearly"
-
           }
         },
         {
           "text": "Đôi khi tôi cảm thấy bối rối, nhưng tôi không muốn từ bỏ mục tiêu của mình.",
-
           "notes": {
             "en": "## Grammar\n**không muốn + verb**: 'don't want to' — negation of *muốn* (want). **nhưng** (but) connects two contrasting clauses: feeling confused (negative) vs. not wanting to give up (persistence). **của mình** is a reflexive possessive referring back to the subject (*tôi*).\n\n## Vocabulary\n- **đôi khi**: sometimes, occasionally\n- **cảm thấy**: to feel (subjectively)\n- **bối rối**: confused, bewildered\n- **từ bỏ**: to give up, to abandon\n- **mục tiêu**: goal, objective",
-
             "de": "## Grammatik\n**không muốn + Verb**: \"nicht wollen\" — Negation von *muốn* (wollen). **nhưng** verbindet zwei kontrastierende Teilsätze. **của mình** ist ein reflexives Possessiv, das auf das Subjekt (*tôi*) zurückverweist.\n\n## Wortschatz\n- **đôi khi**: manchmal, gelegentlich\n- **cảm thấy**: fühlen (subjektiv)\n- **bối rối**: verwirrt, ratlos\n- **từ bỏ**: aufgeben, aufhören\n- **mục tiêu**: Ziel, Zielsetzung",
-
             "ja": "## 文法\n**không muốn + 動詞**：「〜したくない」 — *muốn*（〜したい）の否定。**nhưng**（しかし）が対立する二つの節をつなぎます。**của mình** は主語 (*tôi*) を指す再帰所有格です。\n\n## 語彙\n- **đôi khi**: ときどき; sometimes\n- **cảm thấy**: 感じる（主観的に）; to feel\n- **bối rối**: 混乱した; confused\n- **từ bỏ**: あきらめる; to give up\n- **mục tiêu**: 目標; goal, objective",
-
             "vi": "## Ngữ pháp\nCấu trúc **không muốn + [động từ]** diễn đạt sự từ chối hoặc không sẵn sàng làm điều gì. Liên từ **nhưng** nối hai mệnh đề mâu thuẫn: cảm thấy khó khăn (tiêu cực) nhưng vẫn kiên trì (tích cực).\n\n## Từ vựng\n- **đôi khi**: thỉnh thoảng, không phải lúc nào cũng vậy; sometimes\n- **cảm thấy**: có cảm giác chủ quan về một trạng thái nào đó; to feel\n- **bối rối**: không biết phải làm gì, lúng túng; confused, bewildered\n- **từ bỏ**: dừng lại, không tiếp tục nữa; to give up, to quit\n- **mục tiêu**: điều muốn đạt được, đích đến; goal, objective"
-
           }
         },
         {
           "text": "Với sự kiên trì, tôi tin mình có thể trở thành một người đa ngôn ngữ thực thụ.",
-
           "notes": {
             "en": "## Grammar\n**Với + noun** as fronted adverbial: *Với sự kiên trì* (With [enough] perseverance) sets the condition. **tin + clause**: 'to believe [that]…' — the complementizer is omitted. **trở thành**: linking verb meaning 'to become', followed by a noun phrase.\n\n## Vocabulary\n- **sự kiên trì**: perseverance, persistence (noun form using *sự*)\n- **tin**: to believe, to trust\n- **trở thành**: to become\n- **đa ngôn ngữ**: multilingual, polyglot\n- **thực thụ**: genuine, true, in the fullest sense",
-
             "de": "## Grammatik\n**Với + Substantiv** als vorangestelltes Adverbial: *Với sự kiên trì* = \"mit Ausdauer\" setzt die Bedingung. **tin + Nebensatz**: \"glauben, dass…\" — der Komplementierer wird weggelassen. **trở thành** ist ein Kopulaverb: \"werden zu\".\n\n## Wortschatz\n- **sự kiên trì**: Ausdauer, Beständigkeit (Nominalisierung mit *sự*)\n- **tin**: glauben, vertrauen\n- **trở thành**: werden, sich entwickeln zu\n- **đa ngôn ngữ**: mehrsprachig\n- **thực thụ**: echt, wahrhaftig",
-
             "ja": "## 文法\n**Với + 名詞（前置副詞句）**：*Với sự kiên trì*（忍耐を持って）が条件を設定します。**tin + 節**：「〜と信じる」— 補文標識は省略。**trở thành** は変化・変容を表す連結動詞（「〜になる」）です。\n\n## 語彙\n- **sự kiên trì**: 忍耐、粘り強さ（*sự* による名詞化）; perseverance\n- **tin**: 信じる; to believe\n- **trở thành**: 〜になる; to become\n- **đa ngôn ngữ**: 多言語の; multilingual\n- **thực thụ**: 本物の、真の; genuine, true",
-
             "vi": "## Ngữ pháp\nCụm giới từ **Với + [danh từ]** đứng đầu câu làm trạng ngữ chỉ điều kiện hoặc phương tiện. Cấu trúc **tin + [mệnh đề]** diễn đạt niềm tin vào một khả năng. Cụm **trở thành** chỉ sự biến đổi từ trạng thái này sang trạng thái khác (tương đương \"become\").\n\n## Từ vựng\n- **sự kiên trì**: tính bền bỉ, không bỏ cuộc dù gặp khó khăn; perseverance, patience\n- **tin**: tin tưởng, cho là đúng; to believe\n- **trở thành**: biến đổi, đạt đến một trạng thái mới; to become\n- **đa ngôn ngữ**: biết nhiều ngôn ngữ; multilingual, polyglot\n- **thực thụ**: thật sự, theo nghĩa đầy đủ nhất; true, genuine, real"
-
           }
         }
       ]

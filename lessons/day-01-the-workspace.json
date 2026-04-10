@@ -1,6 +1,10 @@
 {
   "title": "Day 01: The Workspace",
   "description": "Polyglot Mastery — Week 1: Daily Life & Habits",
+  "tags": [
+    "vi",
+    "B1"
+  ],
   "versions": [
     {
       "language": "en",

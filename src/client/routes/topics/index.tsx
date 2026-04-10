@@ -10,11 +10,21 @@ import { CreateTopicModal } from "../../components/topic/CreateTopicModal";
 export function TopicsPage() {
   const { t } = useTranslation();
   const [showCreate, setShowCreate] = useState(false);
+  const [selectedTagIds, setSelectedTagIds] = useState<string[]>([]);
 
   const { data: topics, isLoading, isError } = useQuery({
     queryKey: ["topics"],
     queryFn: api.getTopics,
   });
+
+  const { data: tags } = useQuery({
+    queryKey: ["tags"],
+    queryFn: api.getTags,
+  });
+
+  const filteredTopics = selectedTagIds.length === 0
+    ? (topics ?? [])
+    : (topics ?? []).filter(t => t.tags?.some(tag => selectedTagIds.includes(tag.id)));
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-8">
@@ -35,6 +45,34 @@ export function TopicsPage() {
           <PlusIcon className="w-4 h-4" /> {t("topics.newTopic")}
         </button>
       </div>
+
+      {/* Tag filter */}
+      {tags && tags.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-6">
+          {tags.map(tag => {
+            const active = selectedTagIds.includes(tag.id);
+            return (
+              <button
+                key={tag.id}
+                onClick={() => setSelectedTagIds(prev =>
+                  active ? prev.filter(id => id !== tag.id) : [...prev, tag.id]
+                )}
+                className="px-3 py-1 rounded-full text-xs font-semibold border transition-all"
+                style={active
+                  ? { backgroundColor: tag.color, borderColor: tag.color, color: "#fff" }
+                  : { backgroundColor: tag.color + "15", borderColor: tag.color, color: tag.color }
+                }
+              >{tag.name}</button>
+            );
+          })}
+          {selectedTagIds.length > 0 && (
+            <button
+              onClick={() => setSelectedTagIds([])}
+              className="px-3 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+            >Clear</button>
+          )}
+        </div>
+      )}
 
       {/* Loading */}
       {isLoading && (
@@ -79,7 +117,7 @@ export function TopicsPage() {
       {/* Topic grid */}
       {!isLoading && !isError && topics && topics.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {topics.map((topic) => (
+          {filteredTopics.map((topic) => (
             <TopicCard key={topic.id} topic={topic} />
           ))}
         </div>

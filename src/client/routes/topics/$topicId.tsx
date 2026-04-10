@@ -36,6 +36,10 @@ export function TopicDetailPage() {
   const [versionTitleDraft, setVersionTitleDraft] = useState("");
   const [versionDescDraft, setVersionDescDraft] = useState("");
 
+  // Description editing
+  const [editingDescription, setEditingDescription] = useState(false);
+  const [descriptionDraft, setDescriptionDraft] = useState("");
+
   // Tag editing
   const [editingTags, setEditingTags] = useState(false);
   const [tagDraft, setTagDraft] = useState<string[]>([]);
@@ -50,6 +54,11 @@ export function TopicDetailPage() {
   const { data: allTags } = useQuery({
     queryKey: ["tags"],
     queryFn: api.getTags,
+  });
+
+  const updateDescriptionMutation = useMutation({
+    mutationFn: (description: string) => api.updateTopic(topicId, { description: description.trim() || undefined }),
+    onSuccess: () => { setEditingDescription(false); qc.invalidateQueries({ queryKey: ["topic", topicId] }); },
   });
 
   const updateTitleMutation = useMutation({
@@ -193,24 +202,42 @@ export function TopicDetailPage() {
               {canEdit && <PencilIcon className="w-4 h-4 opacity-0 group-hover:opacity-40 transition-opacity" />}
             </h1>
           )}
-          {displayDescription && (
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{displayDescription}</p>
-          )}
-
-          {/* Tags display */}
-          {(topic.tags ?? []).length > 0 && !editingTags && (
-            <div className="flex flex-wrap gap-1.5 mt-2">
-              {(topic.tags ?? []).map(tag => (
-                <span key={tag.id} className="px-2.5 py-0.5 rounded-full text-xs font-semibold border"
-                  style={{ backgroundColor: tag.color + "20", borderColor: tag.color, color: tag.color }}>
-                  {tag.name}
-                </span>
-              ))}
+          {/* Description */}
+          {editingDescription ? (
+            <div className="mt-1 flex items-center gap-2">
+              <input
+                autoFocus
+                type="text"
+                value={descriptionDraft}
+                onChange={(e) => setDescriptionDraft(e.target.value)}
+                onBlur={() => updateDescriptionMutation.mutate(descriptionDraft)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") e.currentTarget.blur();
+                  if (e.key === "Escape") setEditingDescription(false);
+                }}
+                placeholder={t("createTopic.descriptionPlaceholder")}
+                className="flex-1 text-sm bg-transparent border-b border-blue-500 text-gray-500 dark:text-gray-400 focus:outline-none"
+              />
+            </div>
+          ) : (
+            <div className="group/desc flex items-center gap-1 mt-1">
+              {displayDescription
+                ? <p className="text-sm text-gray-500 dark:text-gray-400">{displayDescription}</p>
+                : canEdit && <p className="text-sm text-gray-400 dark:text-gray-600 italic">{t("createTopic.descriptionPlaceholder")}</p>
+              }
+              {canEdit && (
+                <button
+                  onClick={() => { setDescriptionDraft(topic.description ?? ""); setEditingDescription(true); }}
+                  className="opacity-0 group-hover/desc:opacity-60 hover:!opacity-100 text-gray-400 hover:text-blue-500 transition-all"
+                >
+                  <PencilIcon className="w-3 h-3" />
+                </button>
+              )}
             </div>
           )}
 
-          {/* Edit Tags */}
-          {canEdit && (
+          {/* Tags + edit icon */}
+          {(canEdit || (topic.tags ?? []).length > 0) && (
             <div className="mt-2">
               {editingTags ? (
                 <div className="p-3 rounded-xl border border-blue-300 dark:border-blue-700 bg-blue-50/50 dark:bg-blue-900/10 space-y-2">
@@ -234,31 +261,34 @@ export function TopicDetailPage() {
                     })}
                   </div>
                   <div className="flex justify-end gap-2">
-                    <button
-                      onClick={() => setEditingTags(false)}
-                      className="text-xs px-3 py-1 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                    >
+                    <button onClick={() => setEditingTags(false)}
+                      className="text-xs px-3 py-1 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
                       {t("common.cancel")}
                     </button>
-                    <button
-                      onClick={() => setTagsMutation.mutate(tagDraft)}
-                      disabled={setTagsMutation.isPending}
-                      className="text-xs px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors disabled:opacity-60"
-                    >
+                    <button onClick={() => setTagsMutation.mutate(tagDraft)} disabled={setTagsMutation.isPending}
+                      className="text-xs px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors disabled:opacity-60">
                       {t("common.save")}
                     </button>
                   </div>
                 </div>
               ) : (
-                <button
-                  onClick={() => {
-                    setTagDraft((topic.tags ?? []).map(tag => tag.id));
-                    setEditingTags(true);
-                  }}
-                  className="text-xs text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 flex items-center gap-1 transition-colors mt-1"
-                >
-                  <PencilIcon className="w-3 h-3" /> {t("topics.editTags", { defaultValue: "Edit tags" })}
-                </button>
+                <div className="flex flex-wrap items-center gap-1.5">
+                  {(topic.tags ?? []).map(tag => (
+                    <span key={tag.id} className="px-2.5 py-0.5 rounded-full text-xs font-semibold border"
+                      style={{ backgroundColor: tag.color + "20", borderColor: tag.color, color: tag.color }}>
+                      {tag.name}
+                    </span>
+                  ))}
+                  {canEdit && (
+                    <button
+                      onClick={() => { setTagDraft((topic.tags ?? []).map(t => t.id)); setEditingTags(true); }}
+                      className="text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+                      title={t("topics.editTags", { defaultValue: "Edit tags" })}
+                    >
+                      <PencilIcon className="w-3 h-3" />
+                    </button>
+                  )}
+                </div>
               )}
             </div>
           )}

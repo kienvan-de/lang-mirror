@@ -10,10 +10,10 @@
     "start": "bun src/server/index.ts",
     "typecheck": "tsc --noEmit && tsc -p tsconfig.server.json --noEmit",
     "mock-oidc": "lsof -ti :7843 2>/dev/null | xargs kill -9 2>/dev/null; bun scripts/mock-oidc/server.ts",
-    "cf:dev": "bun run cf:migrate && wrangler d1 execute lang-mirror-db --local --file=scripts/seed-mock-oidc.sql && concurrently \"bun run dev:client\" \"wrangler dev --local\" \"bun run mock-oidc\"",
+    "cf:dev": "bun run cf:migrate && concurrently \"bun run dev:client\" \"wrangler dev --local\" \"bun run mock-oidc\"",
     "cf:deploy": "vite build && wrangler deploy",
     "cf:schema:gen": "bun scripts/generate-schema.ts",
-    "cf:migrate": "bun run cf:schema:gen && wrangler d1 migrations apply lang-mirror-db --local",
+    "cf:migrate": "bun run cf:schema:gen && wrangler d1 migrations apply lang-mirror-db --local && wrangler d1 execute lang-mirror-db --local --file=scripts/seed-mock-oidc.sql",
     "cf:migrate:remote": "bun run cf:schema:gen && wrangler d1 migrations apply lang-mirror-db --remote",
     "cf:migrate:list": "wrangler d1 migrations list lang-mirror-db --local",
 

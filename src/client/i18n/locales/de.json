@@ -160,6 +160,7 @@
     "subtitle": "Globale TTS-Einstellungen für diese Sprachversion überschreiben",
     "globalDefaults": "Globale Standards: {{speed}}× Geschwindigkeit, Tonhöhe {{pitch}} st",
     "overridden": "überschrieben",
+    "voiceLabel": "Stimme",
     "speedLabel": "Geschwindigkeit",
     "pitchLabel": "Tonhöhe",
     "pitchDefault": "{{value}} (Standard)",

@@ -160,6 +160,7 @@
     "subtitle": "Ghi đè cài đặt TTS toàn cục cho phiên bản ngôn ngữ này",
     "globalDefaults": "Mặc định toàn cục: tốc độ {{speed}}×, cao độ {{pitch}} st",
     "overridden": "đã ghi đè",
+    "voiceLabel": "Giọng đọc",
     "speedLabel": "Tốc độ",
     "pitchLabel": "Cao độ",
     "pitchDefault": "{{value}} (mặc định)",

@@ -160,6 +160,7 @@
     "subtitle": "Override global TTS settings for this language version",
     "globalDefaults": "Global defaults: {{speed}}× speed, pitch {{pitch}} st",
     "overridden": "overridden",
+    "voiceLabel": "Voice",
     "speedLabel": "Speed",
     "pitchLabel": "Pitch",
     "pitchDefault": "{{value}} (default)",

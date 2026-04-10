@@ -352,8 +352,8 @@ export function TopicDetailPage() {
                     <XMarkIcon className="w-3.5 h-3.5" />
                   </span>
                 )}
-                {/* Version TTS settings (hidden in reorder mode) */}
-                {!reorderMode && (
+                {/* Version TTS settings (owner/admin only, hidden in reorder mode) */}
+                {canEdit && !reorderMode && (
                   <span
                     onClick={(e) => {
                       e.stopPropagation();

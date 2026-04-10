@@ -160,6 +160,7 @@
     "subtitle": "この言語バージョンのグローバルTTS設定を上書き",
     "globalDefaults": "グローバル設定：速度{{speed}}×、ピッチ{{pitch}} st",
     "overridden": "上書き中",
+    "voiceLabel": "音声",
     "speedLabel": "速度",
     "pitchLabel": "ピッチ",
     "pitchDefault": "{{value}}（デフォルト）",

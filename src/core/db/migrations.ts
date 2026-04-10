@@ -18,9 +18,10 @@ export async function runMigrations(db: IDatabase): Promise<void> {
     await db.exec(stmt);
   }
 
+  // Seed system default settings (owner_id = NULL means system)
   for (const [key, value] of DEFAULT_SETTINGS) {
     await db.run(
-      "INSERT OR IGNORE INTO settings (key, value) VALUES (?, ?)",
+      "INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES (?, NULL, ?)",
       key,
       value
     );

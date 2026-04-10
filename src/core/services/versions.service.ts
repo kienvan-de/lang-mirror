@@ -1,7 +1,15 @@
 import type { IDatabase } from "../ports/db.port";
 import type { IObjectStorage } from "../ports/storage.port";
-import type { VersionRow, SentenceRow, SentenceWithNotes } from "../db/types";
-import { NotFoundError, ConflictError, ValidationError } from "../errors";
+import type { VersionRow, SentenceRow, SentenceWithNotes, TopicRow } from "../db/types";
+import { NotFoundError, ConflictError, ValidationError, ForbiddenError } from "../errors";
+import { requireAuth, canAccess } from "../auth/context";
+
+async function assertTopicAccess(db: IDatabase, topicId: string): Promise<void> {
+  const topic = await db.queryFirst<TopicRow>("SELECT owner_id FROM topics WHERE id = ?", topicId);
+  if (!topic) throw new NotFoundError(`Topic '${topicId}' not found`);
+  requireAuth();
+  if (!canAccess(topic.owner_id)) throw new ForbiddenError("You do not own this topic");
+}
 
 function parseNotes(row: SentenceRow): SentenceWithNotes {
   return { ...row, notes: row.notes ? JSON.parse(row.notes) as Record<string, string> : null };
@@ -28,8 +36,7 @@ export class VersionsService {
     speed?: number;
     pitch?: number;
   }): Promise<VersionRow> {
-    const topic = await this.db.queryFirst("SELECT id FROM topics WHERE id = ?", topicId);
-    if (!topic) throw new NotFoundError(`Topic '${topicId}' not found`);
+    await assertTopicAccess(this.db, topicId);
 
     const lang = data.language_code?.trim();
     if (!lang) throw new ValidationError("language_code is required", "language_code");
@@ -91,6 +98,7 @@ export class VersionsService {
       "SELECT * FROM topic_language_versions WHERE id = ?", id
     );
     if (!version) throw new NotFoundError(`Version '${id}' not found`);
+    await assertTopicAccess(this.db, version.topic_id);
 
     await this.db.run(
       `UPDATE topic_language_versions
@@ -115,6 +123,7 @@ export class VersionsService {
       "SELECT * FROM topic_language_versions WHERE id = ?", id
     );
     if (!version) throw new NotFoundError(`Version '${id}' not found`);
+    await assertTopicAccess(this.db, version.topic_id);
 
     // Delete recordings from object storage for this version
     const prefix = `recordings/${version.topic_id}/${version.language_code}/`;
@@ -127,8 +136,7 @@ export class VersionsService {
   }
 
   async reorder(topicId: string, ids: string[]): Promise<VersionRow[]> {
-    const topic = await this.db.queryFirst("SELECT id FROM topics WHERE id = ?", topicId);
-    if (!topic) throw new NotFoundError(`Topic '${topicId}' not found`);
+    await assertTopicAccess(this.db, topicId);
 
     const existing = await this.db.queryAll<{ id: string }>(
       "SELECT id FROM topic_language_versions WHERE topic_id = ?", topicId

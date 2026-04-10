@@ -7,6 +7,7 @@
  */
 import type { IDatabase } from "../ports/db.port";
 import { NotFoundError, ConflictError, ValidationError as DomainValidationError } from "../errors";
+import { requireAuth } from "../auth/context";
 
 // ── Import types ──────────────────────────────────────────────────────────────
 
@@ -207,6 +208,7 @@ export class ImportService {
     existingTopicId: string | null,
     onDuplicate: "skip" | "error"
   ): Promise<ImportResult> {
+    const auth = requireAuth();
     let topicId: string;
 
     if (existingTopicId) {
@@ -217,8 +219,8 @@ export class ImportService {
       topicId = existingTopicId;
     } else {
       await this.db.run(
-        "INSERT INTO topics (title, description) VALUES (?, ?)",
-        lesson.title, (lesson as LessonImportTopic).description ?? null
+        "INSERT INTO topics (owner_id, title, description) VALUES (?, ?, ?)",
+        auth.id, lesson.title, (lesson as LessonImportTopic).description ?? null
       );
       const row = await this.db.queryFirst<{ id: string }>(
         "SELECT id FROM topics ORDER BY created_at DESC LIMIT 1"

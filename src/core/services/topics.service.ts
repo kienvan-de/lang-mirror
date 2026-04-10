@@ -1,23 +1,46 @@
 import type { IDatabase } from "../ports/db.port";
 import type { TopicRow, TopicListItem, EnrichedTopic, EnrichedVersion, EnrichedSentence, VersionMeta } from "../db/types";
-import { NotFoundError, ValidationError } from "../errors";
+import { getAuthContext, requireAuth, canAccess, isAdmin } from "../auth/context";
+import { NotFoundError, ValidationError, ForbiddenError } from "../errors";
 
 export class TopicsService {
   constructor(private db: IDatabase) {}
 
   async list(): Promise<TopicListItem[]> {
-    const topicRows = await this.db.queryAll<TopicRow & { version_count: number }>(`
-      SELECT t.*, COUNT(v.id) as version_count
-      FROM topics t
-      LEFT JOIN topic_language_versions v ON v.topic_id = t.id
-      GROUP BY t.id
-      ORDER BY t.updated_at DESC
-    `);
+    const ctx = getAuthContext();
+
+    // Return: own topics + public (owner_id = NULL) topics
+    // Admin sees all
+    let topicRows: Array<TopicRow & { version_count: number }>;
+    if (isAdmin()) {
+      topicRows = await this.db.queryAll<TopicRow & { version_count: number }>(`
+        SELECT t.*, COUNT(v.id) as version_count
+        FROM topics t
+        LEFT JOIN topic_language_versions v ON v.topic_id = t.id
+        GROUP BY t.id ORDER BY t.updated_at DESC
+      `);
+    } else if (!ctx.isAnonymous) {
+      topicRows = await this.db.queryAll<TopicRow & { version_count: number }>(`
+        SELECT t.*, COUNT(v.id) as version_count
+        FROM topics t
+        LEFT JOIN topic_language_versions v ON v.topic_id = t.id
+        WHERE t.owner_id IS NULL OR t.owner_id = ?
+        GROUP BY t.id ORDER BY t.updated_at DESC
+      `, ctx.id);
+    } else {
+      // Anonymous: only public topics
+      topicRows = await this.db.queryAll<TopicRow & { version_count: number }>(`
+        SELECT t.*, COUNT(v.id) as version_count
+        FROM topics t
+        LEFT JOIN topic_language_versions v ON v.topic_id = t.id
+        WHERE t.owner_id IS NULL
+        GROUP BY t.id ORDER BY t.updated_at DESC
+      `);
+    }
 
     const versionMeta = await this.db.queryAll<VersionMeta>(`
       SELECT id, topic_id, language_code, title, description, position
-      FROM topic_language_versions
-      ORDER BY topic_id, position ASC
+      FROM topic_language_versions ORDER BY topic_id, position ASC
     `);
 
     const byTopic = new Map<string, VersionMeta[]>();
@@ -30,19 +53,19 @@ export class TopicsService {
   }
 
   async create(title: string, description?: string): Promise<TopicRow> {
+    const auth = requireAuth();
     const t = title.trim();
     if (!t) throw new ValidationError("title is required", "title");
     if (t.length > 200) throw new ValidationError("title must be 200 characters or fewer", "title");
 
     await this.db.run(
-      "INSERT INTO topics (title, description) VALUES (?, ?)",
-      t, description?.trim() ?? null
+      "INSERT INTO topics (owner_id, title, description) VALUES (?, ?, ?)",
+      auth.id, t, description?.trim() ?? null
     );
 
-    const created = await this.db.queryFirst<TopicRow>(
-      "SELECT * FROM topics ORDER BY created_at DESC LIMIT 1"
-    );
-    return created!;
+    return (await this.db.queryFirst<TopicRow>(
+      "SELECT * FROM topics WHERE owner_id = ? ORDER BY created_at DESC LIMIT 1", auth.id
+    ))!;
   }
 
   async get(id: string): Promise<EnrichedTopic> {
@@ -51,9 +74,17 @@ export class TopicsService {
     );
     if (!topic) throw new NotFoundError(`Topic '${id}' not found`);
 
+    // Public topics (owner_id = NULL) are readable by all
+    if (topic.owner_id !== null && !canAccess(topic.owner_id)) {
+      throw new ForbiddenError("You do not have access to this topic");
+    }
+
     const versions = await this.db.queryAll<import("../db/types").VersionRow>(
       "SELECT * FROM topic_language_versions WHERE topic_id = ? ORDER BY position ASC", id
     );
+
+    const ctx = getAuthContext();
+    const ownerId = ctx.isAnonymous ? null : ctx.id;
 
     const enrichedVersions: EnrichedVersion[] = await Promise.all(
       versions.map(async v => {
@@ -62,18 +93,20 @@ export class TopicsService {
                  COUNT(pa.id) as attempt_count,
                  MAX(pa.attempted_at) as last_attempted_at
           FROM sentences s
-          LEFT JOIN practice_attempts pa ON pa.sentence_id = s.id
+          LEFT JOIN practice_attempts pa
+            ON pa.sentence_id = s.id AND (pa.owner_id = ? OR pa.owner_id IS NULL)
           WHERE s.version_id = ?
-          GROUP BY s.id
-          ORDER BY s.position ASC
-        `, v.id);
+          GROUP BY s.id ORDER BY s.position ASC
+        `, ownerId, v.id);
 
         const practicedRow = await this.db.queryFirst<{ practiced_today: number }>(`
           SELECT COUNT(DISTINCT pa.sentence_id) as practiced_today
           FROM practice_attempts pa
           JOIN sentences s ON s.id = pa.sentence_id
-          WHERE s.version_id = ? AND DATE(pa.attempted_at) = DATE('now')
-        `, v.id);
+          WHERE s.version_id = ?
+            AND (pa.owner_id = ? OR pa.owner_id IS NULL)
+            AND DATE(pa.attempted_at) = DATE('now')
+        `, v.id, ownerId);
 
         const practicedToday = practicedRow?.practiced_today ?? 0;
         const totalSentences = sentences.length;
@@ -100,6 +133,9 @@ export class TopicsService {
     );
     if (!topic) throw new NotFoundError(`Topic '${id}' not found`);
 
+    requireAuth();
+    if (!canAccess(topic.owner_id)) throw new ForbiddenError("You do not own this topic");
+
     const title = data.title !== undefined ? data.title.trim() : topic.title;
     if (data.title !== undefined && !title) throw new ValidationError("title cannot be empty", "title");
     if (title.length > 200) throw new ValidationError("title must be 200 characters or fewer", "title");
@@ -122,6 +158,10 @@ export class TopicsService {
       "SELECT * FROM topics WHERE id = ?", id
     );
     if (!topic) throw new NotFoundError(`Topic '${id}' not found`);
+
+    requireAuth();
+    if (!canAccess(topic.owner_id)) throw new ForbiddenError("You do not own this topic");
+
     await this.db.run("DELETE FROM topics WHERE id = ?", id);
   }
 }

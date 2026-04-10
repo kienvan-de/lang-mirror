@@ -38,6 +38,17 @@
     }
   ]
 
-  // No secrets needed — uses Microsoft Edge TTS service directly (free)
-  // To add secrets later: wrangler secret put MY_SECRET
+  ,
+
+  // Cloudflare KV — session + OIDC state cache
+  "kv_namespaces": [
+    {
+      "binding": "SESSION_CACHE",
+      // Fill after: wrangler kv namespace create SESSION_CACHE
+      "id": "placeholder-fill-after-wrangler-kv-create"
+    }
+  ]
+
+  // No secrets needed for TTS — uses Microsoft Edge TTS directly (free)
+  // To add secrets: wrangler secret put MY_SECRET
 }

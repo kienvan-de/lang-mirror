@@ -1,10 +1,10 @@
 /**
  * Build per-request service instances from CF Worker env bindings.
- * Called at the top of each Hono route handler.
  */
 import { D1Adapter }      from "../adapters/db.adapter";
 import { R2Adapter }      from "../adapters/storage.adapter";
 import { EdgeTTSAdapter } from "../adapters/tts.adapter";
+import { KVCacheAdapter } from "../adapters/cache.adapter";
 import { TopicsService }     from "../../core/services/topics.service";
 import { VersionsService }   from "../../core/services/versions.service";
 import { SentencesService }  from "../../core/services/sentences.service";
@@ -14,6 +14,8 @@ import { PracticeService }   from "../../core/services/practice.service";
 import { SettingsService }   from "../../core/services/settings.service";
 import { ImportService }     from "../../core/services/import.service";
 import { ExportService }     from "../../core/services/export.service";
+import { OidcService }       from "../../core/services/oidc.service";
+import { UsersService }      from "../../core/services/users.service";
 import type { Env } from "../types";
 
 export function buildContext(env: Env) {
@@ -21,9 +23,8 @@ export function buildContext(env: Env) {
   const ttsCache = new R2Adapter(env.TTS_CACHE);
   const recs     = new R2Adapter(env.RECORDINGS);
   const tts      = new EdgeTTSAdapter();
+  const cache    = new KVCacheAdapter(env.SESSION_CACHE);
 
-  // Combine TTS cache + recordings into one unified storage view
-  // Each service gets the bucket it needs
   return {
     topics:     new TopicsService(db),
     versions:   new VersionsService(db, recs),
@@ -34,5 +35,7 @@ export function buildContext(env: Env) {
     settings:   new SettingsService(db),
     importer:   new ImportService(db),
     exporter:   new ExportService(db),
+    oidc:       new OidcService(db, cache),
+    users:      new UsersService(db),
   };
 }

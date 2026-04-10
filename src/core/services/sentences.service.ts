@@ -1,6 +1,19 @@
 import type { IDatabase } from "../ports/db.port";
-import type { SentenceRow, SentenceWithNotes } from "../db/types";
-import { NotFoundError, ValidationError } from "../errors";
+import type { SentenceRow, SentenceWithNotes, TopicRow } from "../db/types";
+import { NotFoundError, ValidationError, ForbiddenError } from "../errors";
+import { requireAuth, canAccess } from "../auth/context";
+
+async function assertSentenceAccess(db: IDatabase, sentenceId: string): Promise<void> {
+  const row = await db.queryFirst<{ owner_id: string | null }>(`
+    SELECT t.owner_id FROM sentences s
+    JOIN topic_language_versions v ON v.id = s.version_id
+    JOIN topics t ON t.id = v.topic_id
+    WHERE s.id = ?
+  `, sentenceId);
+  if (!row) throw new NotFoundError(`Sentence '${sentenceId}' not found`);
+  requireAuth();
+  if (!canAccess(row.owner_id)) throw new ForbiddenError("You do not own this topic");
+}
 
 function parseNotes(row: SentenceRow): SentenceWithNotes {
   return { ...row, notes: row.notes ? JSON.parse(row.notes) as Record<string, string> : null };
@@ -13,6 +26,7 @@ export class SentencesService {
     text?: string;
     notes?: Record<string, string>;
   }): Promise<SentenceWithNotes> {
+    await assertSentenceAccess(this.db, id);
     const current = await this.db.queryFirst<SentenceRow>(
       "SELECT * FROM sentences WHERE id = ?", id
     );
@@ -44,6 +58,7 @@ export class SentencesService {
   }
 
   async delete(id: string): Promise<void> {
+    await assertSentenceAccess(this.db, id);
     const sentence = await this.db.queryFirst<SentenceRow>(
       "SELECT * FROM sentences WHERE id = ?", id
     );

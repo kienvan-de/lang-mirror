@@ -210,6 +210,23 @@ export const api = {
     return data as ReturnType<typeof api.importFile> extends Promise<infer T> ? T : never;
   },
 
+  // ── Auth ────────────────────────────────────────────────────────────────────
+  getMe: async () => {
+    const res = await fetch("/api/auth/me");
+    if (!res.ok) throw new Error("Not authenticated");
+    return res.json() as Promise<import("../hooks/useAuth").AuthUser>;
+  },
+
+  getProviders: () => apiFetch<Array<{ id: string; provider: string; display_name: string }>>("/auth/providers"),
+
+  initiateLogin: async (providerId: string): Promise<{ redirectUrl: string }> => {
+    const res = await fetch(`/api/auth/login/${providerId}`, { method: "POST" });
+    if (!res.ok) throw new Error("Failed to initiate login");
+    return res.json() as Promise<{ redirectUrl: string }>;
+  },
+
+  logout: () => apiFetch<{ ok: boolean }>("/auth/logout", { method: "POST" }),
+
   exportTopic: async (topicId: string, topicTitle: string): Promise<void> => {
     const res = await fetch(`/api/export/${topicId}`);
     if (!res.ok) throw new Error("Export failed");

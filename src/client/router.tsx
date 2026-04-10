@@ -32,16 +32,19 @@ import { PracticePage } from "./routes/practice/$topicId.$langCode";
 import { DashboardPage } from "./routes/index";
 import { SettingsPage } from "./routes/settings";
 import { ImportPage } from "./routes/import";
+import { LoginPage } from "./routes/login";
 
-export const rootRoute = createRootRoute({ component: RootLayout, errorComponent: ({ error }) => <RouteError error={error as Error} /> });
-export const indexRoute = createRoute({ getParentRoute: () => rootRoute, path: "/", component: DashboardPage, errorComponent: ({ error }) => <RouteError error={error as Error} /> });
-export const topicsRoute = createRoute({ getParentRoute: () => rootRoute, path: "/topics", component: TopicsPage });
+export const rootRoute        = createRootRoute({ component: RootLayout, errorComponent: ({ error }) => <RouteError error={error as Error} /> });
+export const loginRoute       = createRoute({ getParentRoute: () => rootRoute, path: "/login", component: LoginPage });
+export const indexRoute       = createRoute({ getParentRoute: () => rootRoute, path: "/", component: DashboardPage, errorComponent: ({ error }) => <RouteError error={error as Error} /> });
+export const topicsRoute      = createRoute({ getParentRoute: () => rootRoute, path: "/topics", component: TopicsPage });
 export const topicDetailRoute = createRoute({ getParentRoute: () => rootRoute, path: "/topics/$topicId", component: TopicDetailPage });
-export const practiceRoute = createRoute({ getParentRoute: () => rootRoute, path: "/practice/$topicId/$langCode", component: PracticePage });
-export const importRoute = createRoute({ getParentRoute: () => rootRoute, path: "/import", component: ImportPage, errorComponent: ({ error }) => <RouteError error={error as Error} /> });
-export const settingsRoute = createRoute({ getParentRoute: () => rootRoute, path: "/settings", component: SettingsPage, errorComponent: ({ error }) => <RouteError error={error as Error} /> });
+export const practiceRoute    = createRoute({ getParentRoute: () => rootRoute, path: "/practice/$topicId/$langCode", component: PracticePage });
+export const importRoute      = createRoute({ getParentRoute: () => rootRoute, path: "/import", component: ImportPage, errorComponent: ({ error }) => <RouteError error={error as Error} /> });
+export const settingsRoute    = createRoute({ getParentRoute: () => rootRoute, path: "/settings", component: SettingsPage, errorComponent: ({ error }) => <RouteError error={error as Error} /> });
 
 const routeTree = rootRoute.addChildren([
+  loginRoute,
   indexRoute,
   topicsRoute,
   topicDetailRoute,

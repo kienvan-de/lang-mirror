@@ -2,6 +2,7 @@ import type { IDatabase } from "../ports/db.port";
 import type { SettingRow } from "../db/types";
 import { getAuthContext, requireAuth, isAdmin } from "../auth/context";
 import { NotFoundError, ValidationError, ForbiddenError } from "../errors";
+import { SYSTEM_USER_ID } from "../db/schema";
 
 // Keys that only admins can change at system level
 const ADMIN_ONLY_SYSTEM_KEYS = new Set([
@@ -16,7 +17,7 @@ export class SettingsService {
 
   /**
    * Get all settings as a merged key→value map.
-   * User settings shadow system defaults (owner_id = NULL).
+   * User settings shadow system defaults (owner_id = SYSTEM_USER_ID).
    */
   async getAll(): Promise<Record<string, string>> {
     const ctx = getAuthContext();
@@ -26,14 +27,15 @@ export class SettingsService {
     if (ownerId) {
       // Merge: system defaults overridden by user's own settings
       rows = await this.db.queryAll<SettingRow>(`
-        SELECT s.key, COALESCE(u.value, s.value) as value, s.updated_at
+        SELECT s.key, COALESCE(u.value, s.value) as value, s.updated_at, s.owner_id
         FROM settings s
         LEFT JOIN settings u ON u.key = s.key AND u.owner_id = ?
-        WHERE s.owner_id IS NULL
-      `, ownerId);
+        WHERE s.owner_id = ?
+      `, ownerId, SYSTEM_USER_ID);
     } else {
       rows = await this.db.queryAll<SettingRow>(
-        "SELECT key, value, updated_at FROM settings WHERE owner_id IS NULL"
+        "SELECT key, value, updated_at, owner_id FROM settings WHERE owner_id = ?",
+        SYSTEM_USER_ID
       );
     }
 
@@ -59,7 +61,7 @@ export class SettingsService {
     if (!row) {
       // Fall back to system default
       row = await this.db.queryFirst<{ value: string }>(
-        "SELECT value FROM settings WHERE key = ? AND owner_id IS NULL", key
+        "SELECT value FROM settings WHERE key = ? AND owner_id = ?", key, SYSTEM_USER_ID
       );
     }
 
@@ -81,7 +83,7 @@ export class SettingsService {
     return { key, value: String(value) };
   }
 
-  /** Set a system-level setting (owner_id = NULL). Admin only for protected keys. */
+  /** Set a system-level setting (owner_id = SYSTEM_USER_ID). Admin only for protected keys. */
   async setSystem(key: string, value: string): Promise<{ key: string; value: string }> {
     if (ADMIN_ONLY_SYSTEM_KEYS.has(key) && !isAdmin()) {
       throw new ForbiddenError(`Setting '${key}' can only be changed by admins`);
@@ -89,10 +91,10 @@ export class SettingsService {
     if (value === undefined || value === null) throw new ValidationError("value is required", "value");
 
     await this.db.run(
-      `INSERT INTO settings (key, owner_id, value) VALUES (?, NULL, ?)
+      `INSERT INTO settings (key, owner_id, value) VALUES (?, ?, ?)
        ON CONFLICT(key, owner_id) DO UPDATE SET value = excluded.value,
          updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now')`,
-      key, String(value)
+      key, SYSTEM_USER_ID, String(value)
     );
     return { key, value: String(value) };
   }

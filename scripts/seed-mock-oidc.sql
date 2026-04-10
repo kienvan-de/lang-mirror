@@ -12,6 +12,6 @@ VALUES
    'openid email profile', 1);
 
 INSERT INTO settings (key, owner_id, value)
-VALUES ('app.baseUrl', NULL, 'http://localhost:5173')
-ON CONFLICT(key) WHERE owner_id IS NULL
-DO UPDATE SET value = excluded.value, updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now');
+VALUES ('app.baseUrl', 'system', 'http://localhost:5173')
+ON CONFLICT(key, owner_id) DO UPDATE SET value = excluded.value,
+  updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now');

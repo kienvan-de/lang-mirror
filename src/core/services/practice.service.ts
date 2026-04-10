@@ -1,6 +1,6 @@
 import type { IDatabase } from "../ports/db.port";
 import type { PracticeAttemptRow } from "../db/types";
-import { getAuthContext, requireAuth } from "../auth/context";
+import { requireAuth } from "../auth/context";
 import { NotFoundError, ValidationError } from "../errors";
 
 export interface DailyStats {
@@ -54,34 +54,27 @@ export class PracticeService {
     ))!;
   }
 
-  private get ownerId(): string | null {
-    const ctx = getAuthContext();
-    return ctx.isAnonymous ? null : ctx.id;
-  }
-
   async getDailyStats(): Promise<DailyStats> {
-    const ownerId = this.ownerId;
-    const ownerFilter = ownerId ? "AND (owner_id = ? OR owner_id IS NULL)" : "AND owner_id IS NULL";
-    const ownerParam  = ownerId ? [ownerId] : [];
+    const { id: ownerId } = requireAuth();
 
     const today = await this.db.queryFirst<{ attempts: number; sentences: number }>(
       `SELECT COUNT(*) as attempts, COUNT(DISTINCT sentence_id) as sentences
        FROM practice_attempts
-       WHERE DATE(attempted_at) = DATE('now') ${ownerFilter}`,
-      ...ownerParam
+       WHERE DATE(attempted_at) = DATE('now') AND owner_id = ?`,
+      ownerId
     );
     const topicsToday = await this.db.queryFirst<{ topics: number }>(
       `SELECT COUNT(DISTINCT topic_id) as topics
        FROM practice_attempts
-       WHERE DATE(attempted_at) = DATE('now') ${ownerFilter}`,
-      ...ownerParam
+       WHERE DATE(attempted_at) = DATE('now') AND owner_id = ?`,
+      ownerId
     );
     const week = await this.db.queryAll<{ date: string; attempts: number }>(
       `SELECT DATE(attempted_at) as date, COUNT(*) as attempts
        FROM practice_attempts
-       WHERE attempted_at >= DATE('now', '-6 days') ${ownerFilter}
+       WHERE attempted_at >= DATE('now', '-6 days') AND owner_id = ?
        GROUP BY DATE(attempted_at) ORDER BY date ASC`,
-      ...ownerParam
+      ownerId
     );
 
     return {
@@ -95,14 +88,12 @@ export class PracticeService {
   }
 
   async getStreak(): Promise<StreakStats> {
-    const ownerId = this.ownerId;
-    const ownerFilter = ownerId ? "AND (owner_id = ? OR owner_id IS NULL)" : "AND owner_id IS NULL";
-    const ownerParam  = ownerId ? [ownerId] : [];
+    const { id: ownerId } = requireAuth();
 
     const dates = (await this.db.queryAll<{ date: string }>(
       `SELECT DISTINCT DATE(attempted_at) as date
-       FROM practice_attempts WHERE 1=1 ${ownerFilter} ORDER BY date DESC`,
-      ...ownerParam
+       FROM practice_attempts WHERE owner_id = ? ORDER BY date DESC`,
+      ownerId
     )).map(r => r.date);
 
     if (dates.length === 0) {
@@ -142,9 +133,7 @@ export class PracticeService {
   }
 
   async getRecent(): Promise<RecentItem[]> {
-    const ownerId = this.ownerId;
-    const ownerFilter = ownerId ? "AND (pa.owner_id = ? OR pa.owner_id IS NULL)" : "AND pa.owner_id IS NULL";
-    const ownerParam  = ownerId ? [ownerId] : [];
+    const { id: ownerId } = requireAuth();
 
     return this.db.queryAll<RecentItem>(
       `SELECT
@@ -152,32 +141,31 @@ export class PracticeService {
          pa.version_id as versionId, v.language_code as langCode,
          MAX(pa.attempted_at) as lastAttemptAt,
          (SELECT COUNT(DISTINCT pa2.sentence_id) FROM practice_attempts pa2
-          WHERE pa2.version_id = pa.version_id AND DATE(pa2.attempted_at) = DATE('now')
-          ${ownerId ? "AND (pa2.owner_id = ? OR pa2.owner_id IS NULL)" : "AND pa2.owner_id IS NULL"}
+          WHERE pa2.version_id = pa.version_id
+            AND pa2.owner_id = ?
+            AND DATE(pa2.attempted_at) = DATE('now')
          ) as sentencesAttemptedToday,
          (SELECT COUNT(*) FROM sentences s WHERE s.version_id = pa.version_id) as totalSentences
        FROM practice_attempts pa
        JOIN topics t ON t.id = pa.topic_id
        JOIN topic_language_versions v ON v.id = pa.version_id
-       WHERE 1=1 ${ownerFilter}
+       WHERE pa.owner_id = ?
        GROUP BY pa.topic_id, pa.version_id
        ORDER BY lastAttemptAt DESC LIMIT 3`,
-      ...(ownerId ? [ownerId, ownerId] : [])
+      ownerId, ownerId
     );
   }
 
   async getCalendar(weeks: number): Promise<Array<{ date: string; attempts: number }>> {
-    const ownerId = this.ownerId;
-    const ownerFilter = ownerId ? "AND (owner_id = ? OR owner_id IS NULL)" : "AND owner_id IS NULL";
-    const ownerParam  = ownerId ? [ownerId] : [];
+    const { id: ownerId } = requireAuth();
     const days = weeks * 7;
 
     return this.db.queryAll<{ date: string; attempts: number }>(
       `SELECT DATE(attempted_at) as date, COUNT(*) as attempts
        FROM practice_attempts
-       WHERE attempted_at >= DATE('now', ? || ' days') ${ownerFilter}
+       WHERE attempted_at >= DATE('now', ? || ' days') AND owner_id = ?
        GROUP BY DATE(attempted_at) ORDER BY date ASC`,
-      `-${days}`, ...ownerParam
+      `-${days}`, ownerId
     );
   }
 }

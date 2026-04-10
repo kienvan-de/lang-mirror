@@ -22,20 +22,20 @@ export type PublicOidcProvider = Omit<OidcProviderRow, "client_secret" | "client
 
 export interface UserRow {
   id: string;
-  oidc_provider_id: string;
-  user_id: string;         // OIDC sub claim
+  oidc_provider_id: string | null; // NULL for system user
+  user_id: string;                 // OIDC sub claim; 'system' for system user
   email: string | null;
-  email_verified: number;  // 1 = true, 0 = false
+  email_verified: number;          // 1 = true, 0 = false
   name: string | null;
   avatar_url: string | null;
-  role: "user" | "admin";
+  role: "user" | "admin" | "readonly"; // 'readonly' = system user, no privileges
   created_at: string;
   updated_at: string;
 }
 
 export interface TopicRow {
   id: string;
-  owner_id: string | null;
+  owner_id: string;
   title: string;
   description: string | null;
   created_at: string;
@@ -70,7 +70,7 @@ export interface SentenceRow {
 
 export interface PracticeAttemptRow {
   id: string;
-  owner_id: string | null;
+  owner_id: string;
   sentence_id: string;
   version_id: string;
   topic_id: string;
@@ -79,7 +79,7 @@ export interface PracticeAttemptRow {
 
 export interface SettingRow {
   key: string;
-  owner_id: string | null; // NULL = system default
+  owner_id: string; // 'system' = system default; user id = user/admin override
   value: string;
   updated_at: string;
 }

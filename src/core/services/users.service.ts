@@ -2,6 +2,7 @@ import type { IDatabase } from "../ports/db.port";
 import type { UserRow } from "../db/types";
 import { requireAuth, isAdmin, getAuthContext } from "../auth/context";
 import { NotFoundError, ForbiddenError } from "../errors";
+import { SYSTEM_USER_ID } from "../db/schema";
 
 export class UsersService {
   constructor(private db: IDatabase) {}
@@ -16,11 +17,12 @@ export class UsersService {
     return user;
   }
 
-  /** List all users — admin only */
+  /** List all users — admin only, excludes system user */
   async listUsers(): Promise<UserRow[]> {
     if (!isAdmin()) throw new ForbiddenError("Only admins can list users");
     return this.db.queryAll<UserRow>(
-      "SELECT * FROM users ORDER BY created_at ASC"
+      "SELECT * FROM users WHERE id != ? ORDER BY created_at ASC",
+      SYSTEM_USER_ID
     );
   }
 
@@ -34,9 +36,12 @@ export class UsersService {
     return user;
   }
 
-  /** Update a user's role — admin only, cannot demote self */
+  /** Update a user's role — admin only, cannot demote self, cannot touch system user */
   async updateRole(id: string, role: "user" | "admin"): Promise<UserRow> {
     if (!isAdmin()) throw new ForbiddenError();
+    if (id === SYSTEM_USER_ID) {
+      throw new ForbiddenError("Cannot change the system user's role");
+    }
     const auth = requireAuth();
     if (id === auth.id && role !== "admin") {
       throw new ForbiddenError("Cannot demote yourself");
@@ -57,9 +62,12 @@ export class UsersService {
     ))!;
   }
 
-  /** Delete a user — admin only, cannot delete self */
+  /** Delete a user — admin only, cannot delete self, cannot delete system user */
   async deleteUser(id: string): Promise<void> {
     if (!isAdmin()) throw new ForbiddenError();
+    if (id === SYSTEM_USER_ID) {
+      throw new ForbiddenError("Cannot delete the system user");
+    }
     const auth = requireAuth();
     if (id === auth.id) throw new ForbiddenError("Cannot delete yourself");
 

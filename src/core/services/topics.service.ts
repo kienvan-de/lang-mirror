@@ -1,42 +1,21 @@
 import type { IDatabase } from "../ports/db.port";
 import type { TopicRow, TopicListItem, EnrichedTopic, EnrichedVersion, EnrichedSentence, VersionMeta } from "../db/types";
-import { getAuthContext, requireAuth, canAccess, isAdmin } from "../auth/context";
+import { requireAuth, canAccess, isAdmin } from "../auth/context";
 import { NotFoundError, ValidationError, ForbiddenError } from "../errors";
 
 export class TopicsService {
   constructor(private db: IDatabase) {}
 
   async list(): Promise<TopicListItem[]> {
-    const ctx = getAuthContext();
+    const auth = requireAuth();
 
-    // Return: own topics + public (owner_id = NULL) topics
-    // Admin sees all
-    let topicRows: Array<TopicRow & { version_count: number }>;
-    if (isAdmin()) {
-      topicRows = await this.db.queryAll<TopicRow & { version_count: number }>(`
-        SELECT t.*, COUNT(v.id) as version_count
-        FROM topics t
-        LEFT JOIN topic_language_versions v ON v.topic_id = t.id
-        GROUP BY t.id ORDER BY t.updated_at DESC
-      `);
-    } else if (!ctx.isAnonymous) {
-      topicRows = await this.db.queryAll<TopicRow & { version_count: number }>(`
-        SELECT t.*, COUNT(v.id) as version_count
-        FROM topics t
-        LEFT JOIN topic_language_versions v ON v.topic_id = t.id
-        WHERE t.owner_id IS NULL OR t.owner_id = ?
-        GROUP BY t.id ORDER BY t.updated_at DESC
-      `, ctx.id);
-    } else {
-      // Anonymous: only public topics
-      topicRows = await this.db.queryAll<TopicRow & { version_count: number }>(`
-        SELECT t.*, COUNT(v.id) as version_count
-        FROM topics t
-        LEFT JOIN topic_language_versions v ON v.topic_id = t.id
-        WHERE t.owner_id IS NULL
-        GROUP BY t.id ORDER BY t.updated_at DESC
-      `);
-    }
+    // Admin sees all topics; regular users see all topics (read access for everyone)
+    const topicRows = await this.db.queryAll<TopicRow & { version_count: number }>(`
+      SELECT t.*, COUNT(v.id) as version_count
+      FROM topics t
+      LEFT JOIN topic_language_versions v ON v.topic_id = t.id
+      GROUP BY t.id ORDER BY t.updated_at DESC
+    `);
 
     const versionMeta = await this.db.queryAll<VersionMeta>(`
       SELECT id, topic_id, language_code, title, description, position
@@ -69,22 +48,16 @@ export class TopicsService {
   }
 
   async get(id: string): Promise<EnrichedTopic> {
+    const auth = requireAuth();
+
     const topic = await this.db.queryFirst<TopicRow>(
       "SELECT * FROM topics WHERE id = ?", id
     );
     if (!topic) throw new NotFoundError(`Topic '${id}' not found`);
 
-    // Public topics (owner_id = NULL) are readable by all
-    if (topic.owner_id !== null && !canAccess(topic.owner_id)) {
-      throw new ForbiddenError("You do not have access to this topic");
-    }
-
     const versions = await this.db.queryAll<import("../db/types").VersionRow>(
       "SELECT * FROM topic_language_versions WHERE topic_id = ? ORDER BY position ASC", id
     );
-
-    const ctx = getAuthContext();
-    const ownerId = ctx.isAnonymous ? null : ctx.id;
 
     const enrichedVersions: EnrichedVersion[] = await Promise.all(
       versions.map(async v => {
@@ -94,19 +67,19 @@ export class TopicsService {
                  MAX(pa.attempted_at) as last_attempted_at
           FROM sentences s
           LEFT JOIN practice_attempts pa
-            ON pa.sentence_id = s.id AND (pa.owner_id = ? OR pa.owner_id IS NULL)
+            ON pa.sentence_id = s.id AND pa.owner_id = ?
           WHERE s.version_id = ?
           GROUP BY s.id ORDER BY s.position ASC
-        `, ownerId, v.id);
+        `, auth.id, v.id);
 
         const practicedRow = await this.db.queryFirst<{ practiced_today: number }>(`
           SELECT COUNT(DISTINCT pa.sentence_id) as practiced_today
           FROM practice_attempts pa
           JOIN sentences s ON s.id = pa.sentence_id
           WHERE s.version_id = ?
-            AND (pa.owner_id = ? OR pa.owner_id IS NULL)
+            AND pa.owner_id = ?
             AND DATE(pa.attempted_at) = DATE('now')
-        `, v.id, ownerId);
+        `, v.id, auth.id);
 
         const practicedToday = practicedRow?.practiced_today ?? 0;
         const totalSentences = sentences.length;

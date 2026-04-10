@@ -26,7 +26,7 @@ export const DDL_STATEMENTS: string[] = [
   // ── Users ─────────────────────────────────────────────────────────────────
   `CREATE TABLE IF NOT EXISTS users (
     id                TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
-    oidc_provider_id  TEXT NOT NULL REFERENCES oidc_providers(id) ON DELETE RESTRICT,
+    oidc_provider_id  TEXT REFERENCES oidc_providers(id) ON DELETE RESTRICT,
     user_id           TEXT NOT NULL,
     email             TEXT,
     email_verified    INTEGER NOT NULL DEFAULT 0,
@@ -34,14 +34,13 @@ export const DDL_STATEMENTS: string[] = [
     avatar_url        TEXT,
     role              TEXT NOT NULL DEFAULT 'user',
     created_at        TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
-    updated_at        TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
-    UNIQUE(oidc_provider_id, user_id)
+    updated_at        TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
   )`,
 
   // ── Topics ────────────────────────────────────────────────────────────────
   `CREATE TABLE IF NOT EXISTS topics (
     id          TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
-    owner_id    TEXT REFERENCES users(id) ON DELETE SET NULL,
+    owner_id    TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     title       TEXT NOT NULL,
     description TEXT,
     created_at  TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
@@ -79,24 +78,25 @@ export const DDL_STATEMENTS: string[] = [
   // ── Practice attempts ─────────────────────────────────────────────────────
   `CREATE TABLE IF NOT EXISTS practice_attempts (
     id           TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
-    owner_id     TEXT REFERENCES users(id) ON DELETE CASCADE,
+    owner_id     TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     sentence_id  TEXT NOT NULL REFERENCES sentences(id) ON DELETE CASCADE,
     version_id   TEXT NOT NULL REFERENCES topic_language_versions(id) ON DELETE CASCADE,
     topic_id     TEXT NOT NULL REFERENCES topics(id) ON DELETE CASCADE,
     attempted_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
   )`,
 
-  // ── Settings (composite PK: key + owner_id, NULL owner = system default) ──
+  // ── Settings (composite PK: key + owner_id) ──────────────────────────────
   `CREATE TABLE IF NOT EXISTS settings (
     key        TEXT NOT NULL,
-    owner_id   TEXT REFERENCES users(id) ON DELETE CASCADE,
+    owner_id   TEXT NOT NULL,
     value      TEXT NOT NULL,
     updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
     PRIMARY KEY (key, owner_id)
   )`,
 
   // ── Indexes ───────────────────────────────────────────────────────────────
-  `CREATE INDEX IF NOT EXISTS idx_users_oidc           ON users(oidc_provider_id, user_id)`,
+  // Enforce uniqueness for real OIDC users only (system user has no oidc_provider_id)
+  `CREATE UNIQUE INDEX IF NOT EXISTS idx_users_oidc ON users(oidc_provider_id, user_id) WHERE oidc_provider_id IS NOT NULL`,
   `CREATE INDEX IF NOT EXISTS idx_topics_owner         ON topics(owner_id)`,
   `CREATE INDEX IF NOT EXISTS idx_versions_topic_id    ON topic_language_versions(topic_id)`,
   `CREATE INDEX IF NOT EXISTS idx_sentences_version_id ON sentences(version_id)`,
@@ -104,10 +104,6 @@ export const DDL_STATEMENTS: string[] = [
   `CREATE INDEX IF NOT EXISTS idx_attempts_owner       ON practice_attempts(owner_id)`,
   `CREATE INDEX IF NOT EXISTS idx_attempts_attempted_at ON practice_attempts(attempted_at)`,
   `CREATE INDEX IF NOT EXISTS idx_settings_owner       ON settings(owner_id)`,
-
-  // Enforce one system-default row per key (owner_id IS NULL).
-  // SQLite PRIMARY KEY allows multiple NULLs — this index prevents duplicates.
-  `CREATE UNIQUE INDEX IF NOT EXISTS idx_settings_system_key ON settings(key) WHERE owner_id IS NULL`,
 ];
 
 export const DEFAULT_SETTINGS: [string, string][] = [
@@ -118,7 +114,9 @@ export const DEFAULT_SETTINGS: [string, string][] = [
   ["practice.drillPause",          "1"],
   ["practice.autoPlayback",        "true"],
   ["display.fontSize",             "lg"],
-  // Note: app.baseUrl is intentionally NOT seeded here.
-  // It is an optional override — when absent, redirects are relative (production default).
+  // Note: app.baseUrl is intentionally NOT seeded here — it is dev-only.
   // Set explicitly for local CF dev via: bun run cf:seed:mock
 ];
+
+/** Well-known system user — owns all default settings. Role 'readonly' = no privileges. */
+export const SYSTEM_USER_ID = "system";

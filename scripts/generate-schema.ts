@@ -8,7 +8,7 @@
  * The generated SQL is used by: wrangler d1 migrations apply
  */
 
-import { DDL_STATEMENTS, DEFAULT_SETTINGS } from "../src/core/db/schema";
+import { DDL_STATEMENTS, DEFAULT_SETTINGS, SYSTEM_USER_ID } from "../src/core/db/schema";
 import { writeFileSync } from "fs";
 import { join } from "path";
 
@@ -27,11 +27,18 @@ for (const stmt of DDL_STATEMENTS) {
   lines.push("");
 }
 
+// System user seed — owns all default settings, role 'readonly' = no privileges
+lines.push("-- System user (owns default settings, cannot log in)");
+lines.push(
+  `INSERT OR IGNORE INTO users (id, oidc_provider_id, user_id, name, role) VALUES ('${SYSTEM_USER_ID}', NULL, '${SYSTEM_USER_ID}', 'System', 'readonly');`
+);
+lines.push("");
+
 // Default settings seed
 lines.push("-- Default system settings");
 for (const [key, value] of DEFAULT_SETTINGS) {
   lines.push(
-    `INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('${key}', NULL, '${value}');`
+    `INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('${key}', '${SYSTEM_USER_ID}', '${value}');`
   );
 }
 lines.push("");

@@ -144,7 +144,7 @@ export class OidcService {
     await this.db.run(
       `INSERT INTO users (oidc_provider_id, user_id, email, email_verified, name, avatar_url, role)
        VALUES (?, ?, ?, ?, ?, ?, 'user')
-       ON CONFLICT(oidc_provider_id, user_id) DO UPDATE SET
+       ON CONFLICT(oidc_provider_id, user_id) WHERE oidc_provider_id IS NOT NULL DO UPDATE SET
          email          = excluded.email,
          email_verified = excluded.email_verified,
          name           = excluded.name,
@@ -163,7 +163,12 @@ export class OidcService {
       providerId, userInfo.sub
     );
 
-    // 5. Create session
+    // 5. Block login for readonly users (e.g. system user)
+    if (user!.role === "readonly") {
+      throw new ForbiddenError("This account is not allowed to log in");
+    }
+
+    // 6. Create session
     const sessionId = crypto.randomUUID();
     const authUser: AuthUser = {
       isAnonymous: false,

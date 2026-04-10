@@ -33,29 +33,29 @@ authRouter.get("/callback/:providerId", async (c) => {
   const state = c.req.query("state");
   const error = c.req.query("error");
 
-  if (error) {
-    return c.redirect(`/login?error=${encodeURIComponent(error)}`);
-  }
+  const { oidc, settings } = buildContext(c.env);
+  const baseUrl  = await settings.getValue("app.baseUrl", "");
+  const isSecure = baseUrl.startsWith("https://");
 
-  if (!code || !state) {
-    return c.redirect("/login?error=missing_params");
-  }
+  const loginUrl   = (err: string) => baseUrl ? `${baseUrl}/login?error=${encodeURIComponent(err)}` : `/login?error=${encodeURIComponent(err)}`;
+  const successUrl = baseUrl ? `${baseUrl}/?login=success` : "/?login=success";
 
-  const { oidc } = buildContext(c.env);
+  if (error) return c.redirect(loginUrl(error), 302);
+  if (!code || !state) return c.redirect(loginUrl("missing_params"), 302);
+
   const { sessionId } = await oidc.handleCallback(
     c.req.param("providerId"), code, state
   );
 
-  // Set HttpOnly session cookie (7 days)
   setCookie(c, "session", sessionId, {
     httpOnly: true,
     sameSite: "Lax",
-    secure:   true,
+    secure:   isSecure,
     maxAge:   7 * 24 * 60 * 60,
     path:     "/",
   });
 
-  return c.redirect("/?login=success");
+  return c.redirect(successUrl, 302);
 });
 
 // POST /api/auth/logout — clears session

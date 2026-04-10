@@ -114,4 +114,8 @@ export const DEFAULT_SETTINGS: [string, string][] = [
   ["practice.drillPause",          "1"],
   ["practice.autoPlayback",        "true"],
   ["display.fontSize",             "lg"],
+  // Base URL of the frontend — used for post-auth redirects.
+  // Override in local CF dev: set to http://localhost:5173
+  // In production this should be the public domain e.g. https://yourdomain.com
+  ["app.baseUrl",                  ""],
 ];

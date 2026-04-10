@@ -107,3 +107,4 @@ INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('practice.recordin
 INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('practice.drillPause', NULL, '1');
 INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('practice.autoPlayback', NULL, 'true');
 INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('display.fontSize', NULL, 'lg');
+INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('app.baseUrl', NULL, '');

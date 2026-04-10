@@ -1,7 +1,5 @@
 -- !! AUTO-GENERATED — do not edit by hand.
 -- Source: src/core/db/schema.ts
--- Generated: 2026-04-10T05:31:35.836Z
---
 -- To regenerate: bun run cf:schema:gen
 
 CREATE TABLE IF NOT EXISTS oidc_providers (

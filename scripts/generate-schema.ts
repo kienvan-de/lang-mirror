@@ -17,8 +17,6 @@ const OUTPUT = join(import.meta.dir, "../migrations/0001_initial_schema.sql");
 const lines: string[] = [
   "-- !! AUTO-GENERATED — do not edit by hand.",
   "-- Source: src/core/db/schema.ts",
-  `-- Generated: ${new Date().toISOString()}`,
-  "--",
   "-- To regenerate: bun run cf:schema:gen",
   "",
 ];

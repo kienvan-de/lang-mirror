@@ -12,6 +12,7 @@ import { exportRouter }    from "./export";
 import { authRouter }      from "./auth";
 import { usersRouter }     from "./users";
 import { tagsRouter }     from "./tags";
+import { pathsRouter }    from "./paths";
 import { authMiddleware } from "./middleware/auth";
 import { authGuard }      from "./middleware/guard";
 import {
@@ -57,6 +58,7 @@ export function createApp() {
   app.route("/api/export",     exportRouter);
   app.route("/api/users",      usersRouter);
   app.route("/api/tags",       tagsRouter);
+  app.route("/api/path",       pathsRouter);
 
   // ── Error handler ────────────────────────────────────────────────────────────
   app.notFound((c) => c.json({ error: "not found" }, 404));

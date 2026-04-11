@@ -98,6 +98,36 @@ export interface TopicTagRow {
   tag_id: string;
 }
 
+export interface PathRow {
+  id: string;
+  owner_id: string;
+  name: string;
+  description: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface PathTopicRow {
+  path_id: string;
+  topic_id: string;
+  position: number;
+}
+
+export interface PathTopicItem {
+  topic_id: string;
+  topic_title: string;
+  position: number;
+  tags: TagRow[];
+  // Progress: how many unique sentences have been practiced at least once (any version)
+  totalSentences: number;
+  practicedSentences: number;
+  isDone: boolean; // true when practicedSentences >= totalSentences && totalSentences > 0
+}
+
+export interface PathWithTopics extends PathRow {
+  topics: PathTopicItem[];
+}
+
 // ── Derived / enriched types ──────────────────────────────────────────────────
 
 export type SentenceWithNotes = Omit<SentenceRow, "notes"> & {

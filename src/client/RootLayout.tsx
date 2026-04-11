@@ -13,6 +13,7 @@ const LANGS = [
 
 const NAV_ITEMS = [
   { to: "/" as const,        labelKey: "nav.dashboard" },
+  { to: "/path" as const,    labelKey: "nav.path"      },
   { to: "/topics" as const,  labelKey: "nav.topics"    },
   { to: "/import" as const,  labelKey: "nav.import"    },
   { to: "/settings" as const, labelKey: "nav.settings" },

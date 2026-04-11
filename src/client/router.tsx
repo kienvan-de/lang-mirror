@@ -33,6 +33,7 @@ import { DashboardPage } from "./routes/index";
 import { SettingsPage } from "./routes/settings";
 import { ImportPage } from "./routes/import";
 import { LoginPage } from "./routes/login";
+import { PathPage } from "./routes/path";
 
 export const rootRoute        = createRootRoute({ component: RootLayout, errorComponent: ({ error }) => <RouteError error={error as Error} /> });
 export const loginRoute       = createRoute({ getParentRoute: () => rootRoute, path: "/login", component: LoginPage });
@@ -42,6 +43,7 @@ export const topicDetailRoute = createRoute({ getParentRoute: () => rootRoute, p
 export const practiceRoute    = createRoute({ getParentRoute: () => rootRoute, path: "/practice/$topicId/$langCode", component: PracticePage });
 export const importRoute      = createRoute({ getParentRoute: () => rootRoute, path: "/import", component: ImportPage, errorComponent: ({ error }) => <RouteError error={error as Error} /> });
 export const settingsRoute    = createRoute({ getParentRoute: () => rootRoute, path: "/settings", component: SettingsPage, errorComponent: ({ error }) => <RouteError error={error as Error} /> });
+export const pathRoute        = createRoute({ getParentRoute: () => rootRoute, path: "/path", component: PathPage, errorComponent: ({ error }) => <RouteError error={error as Error} /> });
 
 const routeTree = rootRoute.addChildren([
   loginRoute,
@@ -51,6 +53,7 @@ const routeTree = rootRoute.addChildren([
   practiceRoute,
   importRoute,
   settingsRoute,
+  pathRoute,
 ]);
 
 export const router = createRouter({ routeTree });

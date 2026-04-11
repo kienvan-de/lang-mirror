@@ -20,6 +20,26 @@ export interface Topic {
   tags?: Tag[];
 }
 
+export interface PathTopic {
+  topic_id: string;
+  topic_title: string;
+  position: number;
+  tags: Tag[];
+  totalSentences: number;
+  practicedSentences: number;
+  isDone: boolean;
+}
+
+export interface LearningPath {
+  id: string;
+  owner_id: string;
+  name: string;
+  description: string | null;
+  created_at: string;
+  updated_at: string;
+  topics: PathTopic[];
+}
+
 export interface Version {
   id: string;
   topic_id: string;
@@ -97,6 +117,20 @@ export const api = {
     apiFetch<Tag>(`/tags/${id}`, { method: "PUT", body: JSON.stringify(body) }),
   deleteTag: (id: string) =>
     apiFetch<{ deleted: boolean }>(`/tags/${id}`, { method: "DELETE" }),
+
+  // Learning Path
+  getPath: () => apiFetch<LearningPath>("/path"),
+  updatePath: (id: string, body: { name?: string; description?: string }) =>
+    apiFetch<LearningPath>(`/path/${id}`, { method: "PUT", body: JSON.stringify(body) }),
+  addTopicToPath: (pathId: string, topicId: string) =>
+    apiFetch<LearningPath>(`/path/${pathId}/topics`, { method: "POST", body: JSON.stringify({ topicId }) }),
+  removeTopicFromPath: (pathId: string, topicId: string) =>
+    apiFetch<LearningPath>(`/path/${pathId}/topics/${topicId}`, { method: "DELETE" }),
+  reorderPathTopics: (pathId: string, topicIds: string[]) =>
+    apiFetch<LearningPath>(`/path/${pathId}/topics/reorder`, { method: "POST", body: JSON.stringify({ topicIds }) }),
+  searchPaths: (q: string) => apiFetch<(LearningPath & { topic_count: number })[]>(`/path/search?q=${encodeURIComponent(q)}`),
+  copyPath: (sourcePathId: string) =>
+    apiFetch<LearningPath>(`/path/${sourcePathId}/copy`, { method: "POST" }),
 
   // Versions
   createVersion: (topicId: string, body: { language_code: string; title?: string; description?: string; voice_name?: string; speed?: number; pitch?: number }) =>

@@ -82,6 +82,22 @@ CREATE TABLE IF NOT EXISTS settings (
     PRIMARY KEY (key, owner_id)
   );
 
+CREATE TABLE IF NOT EXISTS paths (
+    id          TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
+    owner_id    TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    name        TEXT NOT NULL DEFAULT 'My Learning Path',
+    description TEXT,
+    created_at  TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
+    updated_at  TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+  );
+
+CREATE TABLE IF NOT EXISTS path_topics (
+    path_id  TEXT NOT NULL REFERENCES paths(id) ON DELETE CASCADE,
+    topic_id TEXT NOT NULL REFERENCES topics(id) ON DELETE CASCADE,
+    position INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY (path_id, topic_id)
+  );
+
 CREATE TABLE IF NOT EXISTS tags (
     id         TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
     type       TEXT NOT NULL DEFAULT 'custom',
@@ -119,6 +135,12 @@ CREATE INDEX IF NOT EXISTS idx_topic_tags_topic ON topic_tags(topic_id);
 CREATE INDEX IF NOT EXISTS idx_topic_tags_tag   ON topic_tags(tag_id);
 
 CREATE INDEX IF NOT EXISTS idx_tags_type        ON tags(type);
+
+CREATE INDEX IF NOT EXISTS idx_paths_owner        ON paths(owner_id);
+
+CREATE INDEX IF NOT EXISTS idx_path_topics_path   ON path_topics(path_id);
+
+CREATE INDEX IF NOT EXISTS idx_path_topics_topic  ON path_topics(topic_id);
 
 -- System user (owns default settings, cannot log in)
 INSERT OR IGNORE INTO users (id, oidc_provider_id, user_id, name, role) VALUES ('system', NULL, 'system', 'System', 'readonly');

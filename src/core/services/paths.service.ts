@@ -203,12 +203,19 @@ export class PathsService {
         r.topic_id
       );
 
+      // Version titles for language-aware display
+      const versions = await this.db.queryAll<{ language_code: string; title: string | null }>(
+        `SELECT language_code, title FROM topic_language_versions WHERE topic_id = ? ORDER BY position ASC`,
+        r.topic_id
+      );
+
       const total = totalRow?.total ?? 0;
       const practiced = practicedRow?.practiced ?? 0;
 
       return {
         topic_id: r.topic_id,
         topic_title: r.topic_title,
+        topic_versions: versions,
         position: r.position,
         tags,
         totalSentences: total,

@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useParams, Link } from "@tanstack/react-router";
+import { useParams, Link, useSearch } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import {
   PencilIcon, ArrowDownTrayIcon, PlayIcon,
@@ -18,6 +18,9 @@ import { useAuth } from "../../hooks/useAuth";
 export function TopicDetailPage() {
   const { t, i18n } = useTranslation();
   const { topicId } = useParams({ strict: false }) as { topicId: string };
+  const search = useSearch({ strict: false }) as { from?: string };
+  const backTo = search.from === "path" ? "/path" : "/topics";
+  const backLabel = search.from === "path" ? t("nav.path") : t("topics.backLink");
   const qc = useQueryClient();
   const { user } = useAuth();
 
@@ -105,7 +108,7 @@ export function TopicDetailPage() {
   if (isLoading) return <TopicDetailSkeleton />;
   if (isError || !topic) {
     return (
-      <div className="max-w-4xl mx-auto px-6 py-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <div className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 p-6 text-center">
           <p className="text-red-600 dark:text-red-400 font-medium">{t("topics.notFound")}</p>
           <Link to="/topics" className="mt-3 inline-block text-sm text-blue-600 dark:text-blue-400 hover:underline">{t("topics.backToTopics")}</Link>
@@ -174,14 +177,14 @@ export function TopicDetailPage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
       {/* Breadcrumb */}
-      <Link to="/topics" className="text-sm text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors mb-4 inline-flex items-center gap-1">
-        <ChevronLeftIcon className="w-4 h-4" /> {t("topics.backLink")}
+      <Link to={backTo} className="text-sm text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors mb-4 inline-flex items-center gap-1">
+        <ChevronLeftIcon className="w-4 h-4" /> {backLabel}
       </Link>
 
       {/* Topic header */}
-      <div className="flex items-start justify-between gap-4 mt-2 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mt-2 mb-6">
         <div className="flex-1 min-w-0">
           {editingTitle ? (
             <input
@@ -295,7 +298,7 @@ export function TopicDetailPage() {
         </div>
 
         {/* Export + Practice button */}
-        <div className="flex items-center gap-2 flex-shrink-0">
+        <div className="flex items-center gap-2 flex-shrink-0 self-start">
           <button
             onClick={() => api.exportTopic(topicId, topic.title).catch(() => alert("Export failed"))}
             className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
@@ -316,7 +319,11 @@ export function TopicDetailPage() {
       </div>
 
       {/* Language version tabs */}
-      <div className="flex items-center gap-1 border-b border-gray-200 dark:border-gray-700 mb-0 overflow-x-auto">
+      <div className="relative -mx-4 sm:mx-0">
+        {/* Right fade hint — hints more tabs are off-screen */}
+        <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-gray-50 dark:from-gray-950 to-transparent z-10 sm:hidden" />
+        <div className="overflow-x-auto w-full [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div className="flex items-center border-b border-gray-200 dark:border-gray-700 min-w-max px-4 sm:px-0 snap-x snap-mandatory">
         {versions.map((v, idx) => {
           const isActive = v.id === (activeVersion?.id);
           return (
@@ -340,14 +347,14 @@ export function TopicDetailPage() {
               )}
               <button
                 onClick={() => setActiveVersionId(v.id)}
-                className={`relative flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
+                className={`relative flex items-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-3 sm:py-2.5 text-xs sm:text-sm font-medium whitespace-nowrap border-b-2 transition-colors snap-start ${
                   isActive
                     ? "border-blue-500 text-blue-600 dark:text-blue-400"
                     : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:border-gray-300 dark:hover:border-gray-600"
                 }`}
               >
                 <span>{langFlag(v.language_code)}</span>
-                <span>{langLabel(v.language_code)}</span>
+                <span className="hidden min-[380px]:inline">{langLabel(v.language_code)}</span>
                 {/* Sentence count badge */}
                 <span className={`text-xs px-1.5 py-0.5 rounded-full ${
                   isActive
@@ -405,7 +412,7 @@ export function TopicDetailPage() {
         {canEdit && versions.length >= 2 && (
           <button
             onClick={() => setReorderMode((v) => !v)}
-            className={`flex items-center gap-1 px-2.5 py-2.5 text-xs border-b-2 border-transparent transition-colors whitespace-nowrap ${
+            className={`flex items-center gap-1 px-3 py-3 sm:py-2.5 text-xs border-b-2 border-transparent transition-colors whitespace-nowrap ${
               reorderMode
                 ? "text-blue-600 dark:text-blue-400 font-semibold"
                 : "text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
@@ -420,16 +427,18 @@ export function TopicDetailPage() {
         {canEdit && (
           <button
             onClick={() => setShowAddLang(true)}
-            className="inline-flex items-center gap-1 px-3 py-2.5 text-sm text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 border-b-2 border-transparent hover:border-blue-400 transition-colors whitespace-nowrap"
+            className="inline-flex items-center gap-1 px-3 py-3 sm:py-2.5 text-xs sm:text-sm text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 border-b-2 border-transparent hover:border-blue-400 transition-colors whitespace-nowrap"
             title={t("topics.addLanguage")}
           >
             <PlusIcon className="w-4 h-4" /> {t("topics.addLanguage")}
           </button>
         )}
+          </div>
+        </div>
       </div>
 
       {/* Sentence list for active version */}
-      <div className="mt-0 bg-white dark:bg-gray-900 rounded-b-xl border border-t-0 border-gray-200 dark:border-gray-800 p-4">
+      <div className="mt-0 bg-white dark:bg-gray-900 rounded-b-xl border border-t-0 border-gray-200 dark:border-gray-800 p-3 sm:p-4">
         {versions.length === 0 ? (
           <div className="py-10 text-center">
             <p className="text-gray-400 dark:text-gray-600 text-sm mb-3">{t("topics.noVersions")}</p>
@@ -444,7 +453,7 @@ export function TopicDetailPage() {
           </div>
         ) : activeVersion ? (
           <>
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
               <span className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wide">
                 {langFlag(activeVersion.language_code)} {t("topics.sentencesLabel", { lang: activeVersion.language_code })}
               </span>
@@ -569,7 +578,7 @@ export function TopicDetailPage() {
 
 function TopicDetailSkeleton() {
   return (
-    <div className="max-w-4xl mx-auto px-6 py-8 animate-pulse">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8 animate-pulse">
       <div className="h-3 w-20 bg-gray-200 dark:bg-gray-700 rounded mb-6" />
       <div className="h-8 w-56 bg-gray-200 dark:bg-gray-700 rounded mb-2" />
       <div className="h-4 w-80 bg-gray-100 dark:bg-gray-800 rounded mb-6" />

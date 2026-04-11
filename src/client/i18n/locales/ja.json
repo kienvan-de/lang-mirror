@@ -346,6 +346,21 @@
     "tagNamePlaceholder": "タグ名…",
     "tagNameRequired": "タグ名は必須です"
   },
+  "path": {
+    "findPaths": "パスを探す",
+    "searchPlaceholder": "パス名で検索…",
+    "copy": "コピー",
+    "noPathsFound": "パスが見つかりません",
+    "noTopicsYet": "トピックがまだありません",
+    "noTopicsSubtitle": "トピックを追加して学習パスを作成しましょう",
+    "addTopic": "トピックを追加",
+    "searchTopicsPlaceholder": "トピックを検索…",
+    "noTopicsMatch": "一致するトピックがありません",
+    "allTopicsInPath": "すべてのトピックはパスに追加済みです",
+    "done": "完了",
+    "progress": "{{done}}/{{total}} トピック完了 · {{pct}}%",
+    "removeConfirm": "「{{title}}」をパスから削除しますか？"
+  },
   "error": {
     "pageError": "ページエラー"
   }

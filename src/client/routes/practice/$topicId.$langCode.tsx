@@ -475,7 +475,11 @@ export function PracticePage() {
 
       {/* ── Language tabs ──────────────────────────────────────────────────── */}
       {allVersions.length > 0 && (
-        <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-4 flex items-center gap-0 overflow-x-auto">
+        <div className="relative">
+          {/* Right fade hint */}
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white dark:from-gray-900 to-transparent z-10 sm:hidden" />
+          <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 overflow-x-auto w-full [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="flex items-center min-w-max snap-x snap-mandatory">
           {allVersions.map((v) => {
             const isActive = v.language_code === langCode;
             const isInterleaveActive = isDrillInterleaved && interleavedLang?.id === v.id;
@@ -483,7 +487,7 @@ export function PracticePage() {
               <button
                 key={v.id}
                 onClick={() => handleLangSwitch(v.language_code)}
-                className={`flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
+                className={`flex items-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-3 sm:py-2.5 text-xs sm:text-sm font-medium whitespace-nowrap border-b-2 transition-colors snap-start ${
                   isActive
                     ? "border-blue-500 text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/10"
                     : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:border-gray-300 dark:hover:border-gray-600"
@@ -491,13 +495,15 @@ export function PracticePage() {
                 title={langName(v.language_code)}
               >
                 <span>{langFlag(v.language_code)}</span>
-                <span>{langLabel(v.language_code)}</span>
+                <span className="hidden min-[380px]:inline">{langLabel(v.language_code)}</span>
                 {isInterleaveActive && (
                   <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse" title={t("practice.interleavedActive")} />
                 )}
               </button>
             );
           })}
+            </div>
+          </div>
         </div>
       )}
 

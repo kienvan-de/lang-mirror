@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import {
   AcademicCapIcon, PlusIcon, TrashIcon,
   ChevronUpIcon, ChevronDownIcon,
-  MagnifyingGlassIcon, PencilIcon, CheckIcon, XMarkIcon,
+  MagnifyingGlassIcon, PencilIcon, CheckIcon, XMarkIcon, ArrowRightIcon,
 } from "@heroicons/react/24/outline";
 import { api, type PathTopic } from "../lib/api";
 
@@ -132,7 +132,7 @@ export function PathPage() {
           </div>
           {totalCount > 0 && (
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              {doneCount}/{totalCount} {t("nav.path")} · {overallPct}%
+              {t("path.progress", { done: doneCount, total: totalCount, pct: overallPct })}
             </p>
           )}
         </div>
@@ -140,7 +140,7 @@ export function PathPage() {
           onClick={() => setShowSearch(v => !v)}
           className="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
         >
-          <MagnifyingGlassIcon className="w-4 h-4" /> Find paths
+          <MagnifyingGlassIcon className="w-4 h-4" /> {t("path.findPaths")}
         </button>
       </div>
 
@@ -163,7 +163,7 @@ export function PathPage() {
               type="text"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              placeholder="Search paths by name…"
+              placeholder={t("path.searchPlaceholder")}
               className="flex-1 px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <button onClick={() => setShowSearch(false)} className="p-1.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
@@ -183,13 +183,13 @@ export function PathPage() {
                     disabled={copyMutation.isPending}
                     className="px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-xs font-semibold text-white transition-colors disabled:opacity-60"
                   >
-                    Copy
+                    {t("path.copy")}
                   </button>
                 </div>
               ))}
             </div>
           ) : searchQuery.trim().length > 1 ? (
-            <p className="text-sm text-gray-400 dark:text-gray-500 text-center py-2">No paths found</p>
+            <p className="text-sm text-gray-400 dark:text-gray-500 text-center py-2">{t("path.noPathsFound")}</p>
           ) : null}
         </div>
       )}
@@ -199,13 +199,13 @@ export function PathPage() {
         {path.topics.length === 0 ? (
           <div className="rounded-2xl border-2 border-dashed border-gray-200 dark:border-gray-700 p-10 text-center">
             <AcademicCapIcon className="w-10 h-10 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-            <p className="text-gray-600 dark:text-gray-400 font-medium mb-1">No topics yet</p>
-            <p className="text-sm text-gray-400 dark:text-gray-500 mb-4">Add topics to build your learning path</p>
+            <p className="text-gray-600 dark:text-gray-400 font-medium mb-1">{t("path.noTopicsYet")}</p>
+            <p className="text-sm text-gray-400 dark:text-gray-500 mb-4">{t("path.noTopicsSubtitle")}</p>
             <button
               onClick={() => setShowAddTopic(true)}
               className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-sm font-semibold text-white transition-colors"
             >
-              Add Topic
+              {t("path.addTopic")}
             </button>
           </div>
         ) : (
@@ -218,7 +218,7 @@ export function PathPage() {
               onMoveUp={() => moveUp(index)}
               onMoveDown={() => moveDown(index)}
               onRemove={() => {
-                if (confirm(`Remove "${topic.topic_title}" from path?`)) {
+                if (confirm(t("path.removeConfirm", { title: topic.topic_title }))) {
                   removeTopicMutation.mutate(topic.topic_id);
                 }
               }}
@@ -233,7 +233,7 @@ export function PathPage() {
           onClick={() => setShowAddTopic(v => !v)}
           className="mt-4 w-full py-2.5 rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-700 text-sm font-medium text-gray-500 dark:text-gray-400 hover:border-blue-400 hover:text-blue-500 transition-colors flex items-center justify-center gap-2"
         >
-          <PlusIcon className="w-4 h-4" /> Add Topic
+          <PlusIcon className="w-4 h-4" /> {t("path.addTopic")}
         </button>
       )}
 
@@ -245,13 +245,13 @@ export function PathPage() {
             type="text"
             value={topicSearch}
             onChange={e => setTopicSearch(e.target.value)}
-            placeholder="Search topics…"
+            placeholder={t("path.searchTopicsPlaceholder")}
             className="w-full px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <div className="max-h-48 overflow-y-auto space-y-1">
             {availableTopics.length === 0 ? (
               <p className="text-sm text-gray-400 text-center py-3">
-                {topicSearch ? "No topics match" : "All topics already in path"}
+                {topicSearch ? t("path.noTopicsMatch") : t("path.allTopicsInPath")}
               </p>
             ) : (
               availableTopics.map(t => (
@@ -283,6 +283,10 @@ function PathTopicCard({ topic, index, total, onMoveUp, onMoveDown, onRemove }: 
   onMoveDown: () => void;
   onRemove: () => void;
 }) {
+  const { t, i18n } = useTranslation();
+  const uiLang = i18n.language.split("-")[0]!.toLowerCase();
+  const matchedVersion = topic.topic_versions?.find(v => v.language_code.split("-")[0]!.toLowerCase() === uiLang);
+  const displayTitle = matchedVersion?.title ?? topic.topic_versions?.[0]?.title ?? topic.topic_title;
   const pct = topic.totalSentences > 0
     ? Math.round((topic.practicedSentences / topic.totalSentences) * 100)
     : 0;
@@ -301,16 +305,12 @@ function PathTopicCard({ topic, index, total, onMoveUp, onMoveDown, onRemove }: 
       {/* Content */}
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 flex-wrap">
-          <Link
-            to="/topics/$topicId"
-            params={{ topicId: topic.topic_id }}
-            className="text-sm font-semibold text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors truncate"
-          >
-            {topic.topic_title}
-          </Link>
+          <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate">
+            {displayTitle}
+          </p>
           {topic.isDone && (
             <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">
-              <CheckIcon className="w-2.5 h-2.5" /> Done
+              <CheckIcon className="w-2.5 h-2.5" /> {t("path.done")}
             </span>
           )}
         </div>
@@ -344,19 +344,31 @@ function PathTopicCard({ topic, index, total, onMoveUp, onMoveDown, onRemove }: 
       </div>
 
       {/* Actions */}
-      <div className="flex-shrink-0 flex flex-col items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-        <button onClick={onMoveUp} disabled={index === 0}
-          className="p-0.5 rounded text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-20 transition-colors">
-          <ChevronUpIcon className="w-3.5 h-3.5" />
-        </button>
-        <button onClick={onMoveDown} disabled={index === total - 1}
-          className="p-0.5 rounded text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-20 transition-colors">
-          <ChevronDownIcon className="w-3.5 h-3.5" />
-        </button>
-        <button onClick={onRemove}
-          className="p-0.5 rounded text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors mt-0.5">
-          <TrashIcon className="w-3.5 h-3.5" />
-        </button>
+      <div className="flex-shrink-0 flex flex-col items-center gap-1.5">
+        {/* Open button — always visible, matches TopicCard */}
+        <Link
+          to="/topics/$topicId"
+          params={{ topicId: topic.topic_id }}
+          search={{ from: "path" }}
+          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-xs font-semibold text-white transition-colors"
+        >
+          {t("topicCard.open")} <ArrowRightIcon className="w-3 h-3" />
+        </Link>
+        {/* Reorder + remove — visible on hover */}
+        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+          <button onClick={onMoveUp} disabled={index === 0}
+            className="p-0.5 rounded text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-20 transition-colors">
+            <ChevronUpIcon className="w-3.5 h-3.5" />
+          </button>
+          <button onClick={onMoveDown} disabled={index === total - 1}
+            className="p-0.5 rounded text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-20 transition-colors">
+            <ChevronDownIcon className="w-3.5 h-3.5" />
+          </button>
+          <button onClick={onRemove}
+            className="p-0.5 rounded text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors">
+            <TrashIcon className="w-3.5 h-3.5" />
+          </button>
+        </div>
       </div>
     </div>
   );

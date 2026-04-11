@@ -347,6 +347,21 @@
     "tagNamePlaceholder": "Tag-Name…",
     "tagNameRequired": "Tag-Name ist erforderlich"
   },
+  "path": {
+    "findPaths": "Pfade suchen",
+    "searchPlaceholder": "Pfade nach Name suchen…",
+    "copy": "Kopieren",
+    "noPathsFound": "Keine Pfade gefunden",
+    "noTopicsYet": "Noch keine Themen",
+    "noTopicsSubtitle": "Themen hinzufügen, um deinen Lernpfad aufzubauen",
+    "addTopic": "Thema hinzufügen",
+    "searchTopicsPlaceholder": "Themen suchen…",
+    "noTopicsMatch": "Keine Themen gefunden",
+    "allTopicsInPath": "Alle Themen bereits im Pfad",
+    "done": "Erledigt",
+    "progress": "{{done}}/{{total}} Themen abgeschlossen · {{pct}}%",
+    "removeConfirm": "\"{{title}}\" aus dem Pfad entfernen?"
+  },
   "error": {
     "pageError": "Seitenfehler"
   }

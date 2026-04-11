@@ -345,6 +345,21 @@
     "tagNamePlaceholder": "Tên nhãn…",
     "tagNameRequired": "Tên nhãn là bắt buộc"
   },
+  "path": {
+    "findPaths": "Tìm lộ trình",
+    "searchPlaceholder": "Tìm lộ trình theo tên…",
+    "copy": "Sao chép",
+    "noPathsFound": "Không tìm thấy lộ trình",
+    "noTopicsYet": "Chưa có chủ đề nào",
+    "noTopicsSubtitle": "Thêm chủ đề để xây dựng lộ trình học của bạn",
+    "addTopic": "Thêm chủ đề",
+    "searchTopicsPlaceholder": "Tìm chủ đề…",
+    "noTopicsMatch": "Không có chủ đề phù hợp",
+    "allTopicsInPath": "Tất cả chủ đề đã có trong lộ trình",
+    "done": "Hoàn thành",
+    "progress": "{{done}}/{{total}} chủ đề hoàn thành · {{pct}}%",
+    "removeConfirm": "Xóa \"{{title}}\" khỏi lộ trình?"
+  },
   "error": {
     "pageError": "Lỗi trang"
   }

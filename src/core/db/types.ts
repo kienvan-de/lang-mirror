@@ -113,15 +113,20 @@ export interface PathTopicRow {
   position: number;
 }
 
+export interface PathTopicVersion {
+  language_code: string;
+  title: string | null;
+}
+
 export interface PathTopicItem {
   topic_id: string;
-  topic_title: string;
+  topic_title: string;       // base topic title
+  topic_versions: PathTopicVersion[]; // for language-aware display
   position: number;
   tags: TagRow[];
-  // Progress: how many unique sentences have been practiced at least once (any version)
   totalSentences: number;
   practicedSentences: number;
-  isDone: boolean; // true when practicedSentences >= totalSentences && totalSentences > 0
+  isDone: boolean;
 }
 
 export interface PathWithTopics extends PathRow {

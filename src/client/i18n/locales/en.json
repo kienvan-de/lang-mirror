@@ -345,6 +345,21 @@
     "tagNamePlaceholder": "Tag name…",
     "tagNameRequired": "Tag name is required"
   },
+  "path": {
+    "findPaths": "Find paths",
+    "searchPlaceholder": "Search paths by name…",
+    "copy": "Copy",
+    "noPathsFound": "No paths found",
+    "noTopicsYet": "No topics yet",
+    "noTopicsSubtitle": "Add topics to build your learning path",
+    "addTopic": "Add Topic",
+    "searchTopicsPlaceholder": "Search topics…",
+    "noTopicsMatch": "No topics match",
+    "allTopicsInPath": "All topics already in path",
+    "done": "Done",
+    "progress": "{{done}}/{{total}} topics completed · {{pct}}%",
+    "removeConfirm": "Remove \"{{title}}\" from path?"
+  },
   "error": {
     "pageError": "Page error"
   }

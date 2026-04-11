@@ -20,9 +20,15 @@ export interface Topic {
   tags?: Tag[];
 }
 
+export interface PathTopicVersion {
+  language_code: string;
+  title: string | null;
+}
+
 export interface PathTopic {
   topic_id: string;
   topic_title: string;
+  topic_versions: PathTopicVersion[];
   position: number;
   tags: Tag[];
   totalSentences: number;

@@ -15,9 +15,10 @@ interface Props {
   activeLangCode: string;
   /** Whether the current user can edit this topic (owner or admin) */
   canEdit?: boolean;
+  isNative?: boolean;
 }
 
-export function SentenceList({ sentences, versionId, topicId, allVersions, activeLangCode, canEdit = false }: Props) {
+export function SentenceList({ sentences, versionId, topicId, allVersions, activeLangCode, canEdit = false, isNative = false }: Props) {
   const { t } = useTranslation();
   const qc = useQueryClient();
   const [newText, setNewText] = useState("");
@@ -94,6 +95,7 @@ export function SentenceList({ sentences, versionId, topicId, allVersions, activ
               isFirst={index === 0}
               isLast={index === sentences.length - 1}
               canEdit={canEdit}
+              isNative={isNative}
             />
           ))}
         </div>

@@ -3,13 +3,10 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { SunIcon, MoonIcon, Bars3Icon, XMarkIcon, ArrowRightEndOnRectangleIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "./hooks/useAuth";
+import { useUserLanguages } from "./hooks/useUserLanguages";
+import { langFlag } from "./lib/lang";
 
-const LANGS = [
-  { code: "en", flag: "🇬🇧", label: "EN" },
-  { code: "vi", flag: "🇻🇳", label: "VI" },
-  { code: "de", flag: "🇩🇪", label: "DE" },
-  { code: "ja", flag: "🇯🇵", label: "JA" },
-] as const;
+
 
 const NAV_ITEMS = [
   { to: "/" as const,        labelKey: "nav.dashboard" },
@@ -28,6 +25,7 @@ export function RootLayout() {
   );
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, isLoading, logout } = useAuth();
+  const { nativeLanguage } = useUserLanguages();
   const location = useLocation();
   const navigate  = useNavigate();
 
@@ -95,23 +93,12 @@ export function RootLayout() {
           {/* Spacer on mobile */}
           <div className="flex-1 md:hidden" />
 
-          {/* Language switcher — hidden on small screens */}
-          <div className="hidden sm:flex items-center gap-0.5">
-            {LANGS.map(({ code, flag, label }) => (
-              <button
-                key={code}
-                onClick={() => i18n.changeLanguage(code)}
-                className={`flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-semibold transition-colors ${
-                  i18n.language === code
-                    ? "bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300"
-                    : "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-800 dark:hover:text-gray-200"
-                }`}
-              >
-                <span>{flag}</span>
-                <span className="hidden lg:inline">{label}</span>
-              </button>
-            ))}
-          </div>
+          {/* Native language indicator (links to settings) */}
+          {nativeLanguage && (
+            <Link to="/settings" className="hidden sm:flex items-center gap-1 px-2 py-1 rounded-lg text-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" title={t("nav.languageSettings")}>
+              <span>{langFlag(nativeLanguage)}</span>
+            </Link>
+          )}
 
           {/* Dark mode toggle */}
           <button
@@ -169,23 +156,13 @@ export function RootLayout() {
             ))}
 
             <div className="border-t border-gray-100 dark:border-gray-800 pt-3 mt-2 flex items-center justify-between gap-3">
-              {/* Language switcher */}
-              <div className="flex items-center gap-0.5">
-                {LANGS.map(({ code, flag, label }) => (
-                  <button
-                    key={code}
-                    onClick={() => { i18n.changeLanguage(code); setMenuOpen(false); }}
-                    className={`flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-semibold transition-colors ${
-                      i18n.language === code
-                        ? "bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300"
-                        : "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
-                    }`}
-                  >
-                    <span>{flag}</span>
-                    <span>{label}</span>
-                  </button>
-                ))}
-              </div>
+              {/* Native language indicator */}
+              {nativeLanguage && (
+                <Link to="/settings" onClick={() => setMenuOpen(false)}
+                  className="flex items-center gap-1 px-2 py-1 rounded-lg text-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                  <span>{langFlag(nativeLanguage)}</span>
+                </Link>
+              )}
 
               {/* User + logout */}
               <div className="flex items-center gap-2">

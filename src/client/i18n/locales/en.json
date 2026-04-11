@@ -5,7 +5,8 @@
     "import": "Import",
     "settings": "Settings",
     "path": "Path",
-    "toggleDark": "Toggle dark mode"
+    "toggleDark": "Toggle dark mode",
+    "languageSettings": "Language settings"
   },
   "common": {
     "cancel": "Cancel",
@@ -54,8 +55,29 @@
     "todayCount": "{{count}} today",
     "noPracticeThisWeek": "No practice this week yet.",
     "practiceHistory": "Practice History",
-    "days_short": ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
-    "months_short": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    "days_short": [
+      "Su",
+      "Mo",
+      "Tu",
+      "We",
+      "Th",
+      "Fr",
+      "Sa"
+    ],
+    "months_short": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
     "justNow": "just now",
     "minutesAgo": "{{n}}m ago",
     "hoursAgo": "{{n}}h ago",
@@ -101,7 +123,10 @@
     "versionTitlePlaceholder": "Title in this language…",
     "versionDescPlaceholder": "Description in this language…",
     "editVersionTitle": "Edit title/description for this language",
-    "addVersionTitle": "Add title/description for this language"
+    "addVersionTitle": "Add title/description for this language",
+    "notInLanguageConfig": "This topic doesn't match your language configuration",
+    "notInLanguageConfigHint": "This topic is missing one or more of your required languages.",
+    "goToSettings": "Go to Settings"
   },
   "topicCard": {
     "open": "Open",
@@ -244,8 +269,29 @@
     "unavailableSubtitle": "Connect a microphone to use recording features."
   },
   "calendar": {
-    "days": ["S", "M", "T", "W", "T", "F", "S"],
-    "months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    "days": [
+      "S",
+      "M",
+      "T",
+      "W",
+      "T",
+      "F",
+      "S"
+    ],
+    "months": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
     "streakDays": "{{count}} day streak",
     "streakDays_other": "{{count}} days streak",
     "longest": "Longest: {{count}} day",
@@ -343,7 +389,10 @@
     "noVoicesFound": "No voices found",
     "addTag": "Add Tag",
     "tagNamePlaceholder": "Tag name…",
-    "tagNameRequired": "Tag name is required"
+    "tagNameRequired": "Tag name is required",
+    "sectionUser": "Profile",
+    "nativeLanguage": "Native Language",
+    "learningLanguages": "Learning Languages"
   },
   "path": {
     "findPaths": "Find paths",

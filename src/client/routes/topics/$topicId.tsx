@@ -14,6 +14,7 @@ import { SentenceList } from "../../components/topic/SentenceList";
 import { AddLanguageModal } from "../../components/topic/AddLanguageModal";
 import { VersionSettingsModal } from "../../components/topic/VersionSettingsModal";
 import { useAuth } from "../../hooks/useAuth";
+import { useUserLanguages } from "../../hooks/useUserLanguages";
 
 export function TopicDetailPage() {
   const { t, i18n } = useTranslation();
@@ -53,6 +54,7 @@ export function TopicDetailPage() {
   });
 
   const canEdit = !!topic && !!user && (topic.owner_id === user.id || user.role === "admin");
+  const { hasConfig, requiredLanguages, nativeLanguage } = useUserLanguages();
 
   const { data: allTags } = useQuery({
     queryKey: ["tags"],
@@ -117,9 +119,32 @@ export function TopicDetailPage() {
     );
   }
 
-  // Sort versions so the one matching the current UI language comes first (visual only).
+  // Block non-owners if topic doesn't match user's language config
+  if (!canEdit && hasConfig && requiredLanguages.length > 0) {
+    const topicLangs = (topic.versions ?? []).map(v => v.language_code.split("-")[0]!.toLowerCase());
+    const qualifies = requiredLanguages.every(lang => topicLangs.includes(lang));
+    if (!qualifies) {
+      return (
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+          <Link to={backTo} className="text-sm text-gray-400 hover:text-blue-500 transition-colors mb-4 inline-flex items-center gap-1">
+            <ChevronLeftIcon className="w-4 h-4" /> {backLabel}
+          </Link>
+          <div className="mt-4 rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 p-6 text-center">
+            <p className="text-amber-700 dark:text-amber-400 font-medium">{t("topics.notInLanguageConfig")}</p>
+            <p className="text-sm text-amber-600 dark:text-amber-500 mt-1">{t("topics.notInLanguageConfigHint")}</p>
+            <Link to="/settings" className="mt-3 inline-block text-sm text-blue-600 dark:text-blue-400 hover:underline">{t("topics.goToSettings")}</Link>
+          </div>
+        </div>
+      );
+    }
+  }
+
+  // Sort versions — filter to required languages only if config set, otherwise show all
   const uiLang = i18n.language.split("-")[0]!.toLowerCase();
-  const versions: Version[] = [...(topic.versions ?? [])].sort((a, b) => {
+  const versions: Version[] = [...(topic.versions ?? [])].filter(v => {
+    if (!hasConfig || canEdit) return true;
+    return requiredLanguages.includes(v.language_code.split("-")[0]!.toLowerCase());
+  }).sort((a, b) => {
     const aMatch = a.language_code.split("-")[0]!.toLowerCase() === uiLang ? 0 : 1;
     const bMatch = b.language_code.split("-")[0]!.toLowerCase() === uiLang ? 0 : 1;
     return aMatch - bMatch;
@@ -306,7 +331,7 @@ export function TopicDetailPage() {
           >
             <ArrowDownTrayIcon className="w-4 h-4" /> {t("topics.export")}
           </button>
-          {activeVersion && (
+          {activeVersion && !(nativeLanguage && activeVersion.language_code.split("-")[0]!.toLowerCase() === nativeLanguage) && (
             <Link
               to="/practice/$topicId/$langCode"
               params={{ topicId, langCode: activeVersion.language_code }}
@@ -457,13 +482,15 @@ export function TopicDetailPage() {
               <span className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wide">
                 {langFlag(activeVersion.language_code)} {t("topics.sentencesLabel", { lang: activeVersion.language_code })}
               </span>
-              <Link
-                to="/practice/$topicId/$langCode"
-                params={{ topicId, langCode: activeVersion.language_code }}
-                className="inline-flex items-center gap-1 text-xs px-3 py-1 rounded-lg bg-green-600 hover:bg-green-700 text-white font-medium transition-colors"
-              >
-                <PlayIcon className="w-3.5 h-3.5" /> {t("topics.practiceThis")}
-              </Link>
+              {!(nativeLanguage && activeVersion.language_code.split("-")[0]!.toLowerCase() === nativeLanguage) && (
+                <Link
+                  to="/practice/$topicId/$langCode"
+                  params={{ topicId, langCode: activeVersion.language_code }}
+                  className="inline-flex items-center gap-1 text-xs px-3 py-1 rounded-lg bg-green-600 hover:bg-green-700 text-white font-medium transition-colors"
+                >
+                  <PlayIcon className="w-3.5 h-3.5" /> {t("topics.practiceThis")}
+                </Link>
+              )}
             </div>
 
             {/* Version title/description (localised) */}
@@ -555,6 +582,7 @@ export function TopicDetailPage() {
               allVersions={versions}
               activeLangCode={activeVersion.language_code}
               canEdit={canEdit}
+              isNative={!!nativeLanguage && activeVersion.language_code.split("-")[0]!.toLowerCase() === nativeLanguage}
             />
           </>
         ) : null}

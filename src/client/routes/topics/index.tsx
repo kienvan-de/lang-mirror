@@ -6,11 +6,15 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import { api } from "../../lib/api";
 import { TopicCard, TopicCardSkeleton } from "../../components/topic/TopicCard";
 import { CreateTopicModal } from "../../components/topic/CreateTopicModal";
+import { useAuth } from "../../hooks/useAuth";
+import { useUserLanguages } from "../../hooks/useUserLanguages";
 
 export function TopicsPage() {
   const { t } = useTranslation();
   const [showCreate, setShowCreate] = useState(false);
   const [selectedTagIds, setSelectedTagIds] = useState<string[]>([]);
+  const { user } = useAuth();
+  const { hasConfig, requiredLanguages } = useUserLanguages();
 
   const { data: topics, isLoading, isError } = useQuery({
     queryKey: ["topics"],
@@ -22,9 +26,20 @@ export function TopicsPage() {
     queryFn: api.getTags,
   });
 
-  const filteredTopics = selectedTagIds.length === 0
-    ? (topics ?? [])
-    : (topics ?? []).filter(t => t.tags?.some(tag => selectedTagIds.includes(tag.id)));
+  const filteredTopics = (topics ?? []).filter(t => {
+    // Owned topics are always shown
+    if (user && t.owner_id === user.id) return true;
+    // Language config filter
+    if (hasConfig && requiredLanguages.length > 0) {
+      const topicLangs = (t.versions ?? []).map(v => v.language_code.split("-")[0]!.toLowerCase());
+      if (!requiredLanguages.every(lang => topicLangs.includes(lang))) return false;
+    }
+    // Tag filter
+    if (selectedTagIds.length > 0) {
+      return t.tags?.some(tag => selectedTagIds.includes(tag.id)) ?? false;
+    }
+    return true;
+  });
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-8">

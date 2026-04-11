@@ -18,6 +18,7 @@ import { MicPermissionBanner } from "../../components/practice/MicPermissionBann
 import { ShortcutHelpOverlay } from "../../components/practice/ShortcutHelpOverlay";
 import { langFlag, langLabel, langName } from "../../lib/lang";
 import { api, type Version } from "../../lib/api";
+import { useUserLanguages } from "../../hooks/useUserLanguages";
 import ReactMarkdown from "react-markdown";
 
 // ── Font size mapping ──────────────────────────────────────────────────────────
@@ -144,11 +145,20 @@ export function PracticePage() {
   });
 
   const version = topic?.versions?.find((v) => v.language_code === langCode);
-  const allVersions: Version[] = topic?.versions ?? [];
+  const { hasConfig, requiredLanguages, nativeLanguage } = useUserLanguages();
 
-  // Derive uiLang-matched display title
-  const matchedVersion = allVersions.find((v) => v.language_code.split("-")[0] === uiLang);
-  const displayTitle = matchedVersion?.title ?? allVersions[0]?.title ?? topic?.title ?? "";
+  // Filter versions to required languages only if config is set, also exclude native language from practice tabs
+  const allVersions: Version[] = (topic?.versions ?? []).filter(v => {
+    const base = v.language_code.split("-")[0]!.toLowerCase();
+    if (nativeLanguage && base === nativeLanguage) return false; // hide native tab in practice
+    if (!hasConfig) return true;
+    return requiredLanguages.includes(base);
+  });
+
+  // Derive uiLang-matched display title — use all topic versions (not filtered) for title lookup
+  const allTopicVersions: Version[] = topic?.versions ?? [];
+  const matchedVersion = allTopicVersions.find((v) => v.language_code.split("-")[0] === uiLang);
+  const displayTitle = matchedVersion?.title ?? allTopicVersions[0]?.title ?? topic?.title ?? "";
 
   const prevVersionIdRef = useRef<string | undefined>(undefined);
   useEffect(() => {

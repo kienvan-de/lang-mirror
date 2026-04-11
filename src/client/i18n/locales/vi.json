@@ -5,7 +5,8 @@
     "import": "Nhập",
     "settings": "Cài đặt",
     "path": "Lộ trình",
-    "toggleDark": "Chuyển chế độ tối"
+    "toggleDark": "Chuyển chế độ tối",
+    "languageSettings": "Cài đặt ngôn ngữ"
   },
   "common": {
     "cancel": "Hủy",
@@ -54,8 +55,29 @@
     "todayCount": "{{count}} hôm nay",
     "noPracticeThisWeek": "Tuần này chưa luyện tập.",
     "practiceHistory": "Lịch sử luyện tập",
-    "days_short": ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
-    "months_short": ["Th1", "Th2", "Th3", "Th4", "Th5", "Th6", "Th7", "Th8", "Th9", "Th10", "Th11", "Th12"],
+    "days_short": [
+      "CN",
+      "T2",
+      "T3",
+      "T4",
+      "T5",
+      "T6",
+      "T7"
+    ],
+    "months_short": [
+      "Th1",
+      "Th2",
+      "Th3",
+      "Th4",
+      "Th5",
+      "Th6",
+      "Th7",
+      "Th8",
+      "Th9",
+      "Th10",
+      "Th11",
+      "Th12"
+    ],
     "justNow": "vừa xong",
     "minutesAgo": "{{n}} phút trước",
     "hoursAgo": "{{n}} giờ trước",
@@ -101,7 +123,10 @@
     "versionTitlePlaceholder": "Tiêu đề bằng ngôn ngữ này…",
     "versionDescPlaceholder": "Mô tả bằng ngôn ngữ này…",
     "editVersionTitle": "Sửa tiêu đề/mô tả cho ngôn ngữ này",
-    "addVersionTitle": "Thêm tiêu đề/mô tả cho ngôn ngữ này"
+    "addVersionTitle": "Thêm tiêu đề/mô tả cho ngôn ngữ này",
+    "notInLanguageConfig": "Chủ đề này không phù hợp với cấu hình ngôn ngữ của bạn",
+    "notInLanguageConfigHint": "Chủ đề này thiếu một hoặc nhiều ngôn ngữ bắt buộc.",
+    "goToSettings": "Đến Cài đặt"
   },
   "topicCard": {
     "open": "Mở",
@@ -244,8 +269,29 @@
     "unavailableSubtitle": "Kết nối microphone để sử dụng tính năng ghi âm."
   },
   "calendar": {
-    "days": ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
-    "months": ["Th1", "Th2", "Th3", "Th4", "Th5", "Th6", "Th7", "Th8", "Th9", "Th10", "Th11", "Th12"],
+    "days": [
+      "CN",
+      "T2",
+      "T3",
+      "T4",
+      "T5",
+      "T6",
+      "T7"
+    ],
+    "months": [
+      "Th1",
+      "Th2",
+      "Th3",
+      "Th4",
+      "Th5",
+      "Th6",
+      "Th7",
+      "Th8",
+      "Th9",
+      "Th10",
+      "Th11",
+      "Th12"
+    ],
     "streakDays": "Chuỗi {{count}} ngày",
     "streakDays_other": "Chuỗi {{count}} ngày",
     "longest": "Dài nhất: {{count}} ngày",
@@ -343,7 +389,10 @@
     "noVoicesFound": "Không tìm thấy giọng đọc",
     "addTag": "Thêm nhãn",
     "tagNamePlaceholder": "Tên nhãn…",
-    "tagNameRequired": "Tên nhãn là bắt buộc"
+    "tagNameRequired": "Tên nhãn là bắt buộc",
+    "sectionUser": "Hồ sơ",
+    "nativeLanguage": "Ngôn ngữ mẹ đẻ",
+    "learningLanguages": "Ngôn ngữ đang học"
   },
   "path": {
     "findPaths": "Tìm lộ trình",

@@ -5,7 +5,8 @@
     "import": "Importieren",
     "settings": "Einstellungen",
     "path": "Pfad",
-    "toggleDark": "Dunkelmodus umschalten"
+    "toggleDark": "Dunkelmodus umschalten",
+    "languageSettings": "Spracheinstellungen"
   },
   "common": {
     "cancel": "Abbrechen",
@@ -54,8 +55,29 @@
     "todayCount": "{{count}} heute",
     "noPracticeThisWeek": "Diese Woche noch keine Übungen.",
     "practiceHistory": "Übungshistorie",
-    "days_short": ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
-    "months_short": ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
+    "days_short": [
+      "So",
+      "Mo",
+      "Di",
+      "Mi",
+      "Do",
+      "Fr",
+      "Sa"
+    ],
+    "months_short": [
+      "Jan",
+      "Feb",
+      "Mär",
+      "Apr",
+      "Mai",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Okt",
+      "Nov",
+      "Dez"
+    ],
     "justNow": "gerade eben",
     "minutesAgo": "vor {{n}} Min.",
     "hoursAgo": "vor {{n}} Std.",
@@ -101,7 +123,10 @@
     "versionTitlePlaceholder": "Titel in dieser Sprache…",
     "versionDescPlaceholder": "Beschreibung in dieser Sprache…",
     "editVersionTitle": "Titel/Beschreibung für diese Sprache bearbeiten",
-    "addVersionTitle": "Titel/Beschreibung für diese Sprache hinzufügen"
+    "addVersionTitle": "Titel/Beschreibung für diese Sprache hinzufügen",
+    "notInLanguageConfig": "Dieses Thema passt nicht zu deiner Sprachkonfiguration",
+    "notInLanguageConfigHint": "Diesem Thema fehlen eine oder mehrere deiner erforderlichen Sprachen.",
+    "goToSettings": "Zu den Einstellungen"
   },
   "topicCard": {
     "open": "Öffnen",
@@ -244,8 +269,29 @@
     "unavailableSubtitle": "Schließe ein Mikrofon an, um Aufnahmefunktionen zu nutzen."
   },
   "calendar": {
-    "days": ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
-    "months": ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
+    "days": [
+      "So",
+      "Mo",
+      "Di",
+      "Mi",
+      "Do",
+      "Fr",
+      "Sa"
+    ],
+    "months": [
+      "Jan",
+      "Feb",
+      "Mär",
+      "Apr",
+      "Mai",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Okt",
+      "Nov",
+      "Dez"
+    ],
     "streakDays": "{{count}} Tag Serie",
     "streakDays_other": "{{count}} Tage Serie",
     "longest": "Längste: {{count}} Tag",
@@ -345,7 +391,10 @@
     "noVoicesFound": "Keine Stimmen gefunden",
     "addTag": "Tag hinzufügen",
     "tagNamePlaceholder": "Tag-Name…",
-    "tagNameRequired": "Tag-Name ist erforderlich"
+    "tagNameRequired": "Tag-Name ist erforderlich",
+    "sectionUser": "Profil",
+    "nativeLanguage": "Muttersprache",
+    "learningLanguages": "Lernsprachen"
   },
   "path": {
     "findPaths": "Pfade suchen",

@@ -14,6 +14,7 @@ import { langFlag, langLabel } from "../../lib/lang";
 
 interface Props {
   canEdit?: boolean;
+  isNative?: boolean;
   sentence: Sentence;
   topicId: string;
   versionId: string;
@@ -25,7 +26,7 @@ interface Props {
   isLast: boolean;
 }
 
-export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onReorderUp, onReorderDown, isFirst, isLast, canEdit = false }: Props) {
+export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onReorderUp, onReorderDown, isFirst, isLast, canEdit = false, isNative = false }: Props) {
   const { t, i18n } = useTranslation();
   const uiLang = i18n.language.split("-")[0]!;
   const qc = useQueryClient();
@@ -144,8 +145,8 @@ export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onR
           <p className="text-sm text-gray-900 dark:text-gray-100 leading-relaxed">{sentence.text}</p>
 
           <div className="flex items-center gap-3 mt-0.5 flex-wrap">
-            {/* Sibling languages toggle */}
-            {siblings.length > 0 && (
+            {/* Sibling languages toggle — hidden on native language tab */}
+            {!isNative && siblings.length > 0 && (
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); setShowSiblings((v) => !v); }}
@@ -157,8 +158,8 @@ export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onR
               </button>
             )}
 
-            {/* Notes button — only shown when a note exists for the current UI language */}
-            {sentence.notes?.[uiLang] && (
+            {/* Notes button — hidden on native language tab */}
+            {!isNative && sentence.notes?.[uiLang] && (
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); setShowNotesDialog(true); }}
@@ -169,8 +170,8 @@ export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onR
             )}
           </div>
 
-          {/* Sibling sentences (inline, collapsible) */}
-          {showSiblings && siblings.length > 0 && (
+          {/* Sibling sentences — hidden on native language tab */}
+          {!isNative && showSiblings && siblings.length > 0 && (
             <div className="mt-1.5 space-y-0.5">
               {siblings.map(({ langCode, text }) => (
                 <p key={langCode} className="text-xs text-gray-500 dark:text-gray-400 italic flex items-center gap-1.5">

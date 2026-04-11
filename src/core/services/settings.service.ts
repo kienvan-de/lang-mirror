@@ -23,24 +23,27 @@ export class SettingsService {
     const ctx = getAuthContext();
     const ownerId = ctx.isAnonymous ? null : ctx.id;
 
-    let rows: SettingRow[];
+    const map: Record<string, string> = {};
+
     if (ownerId) {
-      // Merge: system defaults overridden by user's own settings
-      rows = await this.db.queryAll<SettingRow>(`
-        SELECT s.key, COALESCE(u.value, s.value) as value, s.updated_at, s.owner_id
-        FROM settings s
-        LEFT JOIN settings u ON u.key = s.key AND u.owner_id = ?
-        WHERE s.owner_id = ?
-      `, ownerId, SYSTEM_USER_ID);
-    } else {
-      rows = await this.db.queryAll<SettingRow>(
-        "SELECT key, value, updated_at, owner_id FROM settings WHERE owner_id = ?",
-        SYSTEM_USER_ID
+      // 1. System defaults as baseline
+      const systemRows = await this.db.queryAll<SettingRow>(
+        "SELECT key, value FROM settings WHERE owner_id = ?", SYSTEM_USER_ID
       );
+      for (const r of systemRows) map[r.key] = r.value;
+
+      // 2. User-specific settings override system defaults AND include user-only keys
+      const userRows = await this.db.queryAll<SettingRow>(
+        "SELECT key, value FROM settings WHERE owner_id = ?", ownerId
+      );
+      for (const r of userRows) map[r.key] = r.value;
+    } else {
+      const rows = await this.db.queryAll<SettingRow>(
+        "SELECT key, value FROM settings WHERE owner_id = ?", SYSTEM_USER_ID
+      );
+      for (const r of rows) map[r.key] = r.value;
     }
 
-    const map: Record<string, string> = {};
-    for (const r of rows) map[r.key] = r.value;
     return map;
   }
 

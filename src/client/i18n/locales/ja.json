@@ -5,7 +5,8 @@
     "import": "インポート",
     "settings": "設定",
     "path": "パス",
-    "toggleDark": "ダークモード切替"
+    "toggleDark": "ダークモード切替",
+    "languageSettings": "言語設定"
   },
   "common": {
     "cancel": "キャンセル",
@@ -54,8 +55,29 @@
     "todayCount": "今日{{count}}回",
     "noPracticeThisWeek": "今週はまだ練習していません。",
     "practiceHistory": "練習履歴",
-    "days_short": ["日", "月", "火", "水", "木", "金", "土"],
-    "months_short": ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+    "days_short": [
+      "日",
+      "月",
+      "火",
+      "水",
+      "木",
+      "金",
+      "土"
+    ],
+    "months_short": [
+      "1月",
+      "2月",
+      "3月",
+      "4月",
+      "5月",
+      "6月",
+      "7月",
+      "8月",
+      "9月",
+      "10月",
+      "11月",
+      "12月"
+    ],
     "justNow": "たった今",
     "minutesAgo": "{{n}}分前",
     "hoursAgo": "{{n}}時間前",
@@ -101,7 +123,10 @@
     "versionTitlePlaceholder": "この言語でのタイトル…",
     "versionDescPlaceholder": "この言語での説明…",
     "editVersionTitle": "この言語のタイトル/説明を編集",
-    "addVersionTitle": "この言語のタイトル/説明を追加"
+    "addVersionTitle": "この言語のタイトル/説明を追加",
+    "notInLanguageConfig": "このトピックはあなたの言語設定に合いません",
+    "notInLanguageConfigHint": "このトピックには必要な言語が不足しています。",
+    "goToSettings": "設定へ"
   },
   "topicCard": {
     "open": "開く",
@@ -244,8 +269,29 @@
     "unavailableSubtitle": "録音機能を使用するにはマイクを接続してください。"
   },
   "calendar": {
-    "days": ["日", "月", "火", "水", "木", "金", "土"],
-    "months": ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+    "days": [
+      "日",
+      "月",
+      "火",
+      "水",
+      "木",
+      "金",
+      "土"
+    ],
+    "months": [
+      "1月",
+      "2月",
+      "3月",
+      "4月",
+      "5月",
+      "6月",
+      "7月",
+      "8月",
+      "9月",
+      "10月",
+      "11月",
+      "12月"
+    ],
     "streakDays": "{{count}}日連続",
     "streakDays_other": "{{count}}日連続",
     "longest": "最長：{{count}}日",
@@ -344,7 +390,10 @@
     "noVoicesFound": "音声が見つかりません",
     "addTag": "タグを追加",
     "tagNamePlaceholder": "タグ名…",
-    "tagNameRequired": "タグ名は必須です"
+    "tagNameRequired": "タグ名は必須です",
+    "sectionUser": "プロフィール",
+    "nativeLanguage": "母国語",
+    "learningLanguages": "学習言語"
   },
   "path": {
     "findPaths": "パスを探す",

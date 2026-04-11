@@ -6,6 +6,7 @@ import { api, type Voice, type Tag } from "../lib/api";
 import { langFlag, langName } from "../lib/lang";
 import { defaultVoiceForLang } from "../hooks/useTTS";
 import { useAuth } from "../hooks/useAuth";
+import { useUserLanguages } from "../hooks/useUserLanguages";
 
 // ── Reusable save feedback hook ───────────────────────────────────────────────
 
@@ -127,6 +128,8 @@ export function SettingsPage() {
   const { savedKey, showSaved } = useSaveFeedback();
   const { user } = useAuth();
   const isAdmin = user?.role === "admin";
+  const userId = user?.id ?? "";
+  const { nativeLanguage, learningLanguages } = useUserLanguages();
 
   const { data: settings, isLoading } = useQuery({
     queryKey: ["settings"],
@@ -209,6 +212,7 @@ export function SettingsPage() {
   const { data: dataPath } = useQuery({ queryKey: ["dataPath"], queryFn: api.getDataPath, enabled: isAdmin });
 
   const sections = [
+    { id: "user", label: t("settings.sectionUser") }, // "Profile"
     { id: "playback", label: t("settings.sectionPlayback") },
     { id: "voices", label: t("settings.sectionVoices") },
     { id: "practice", label: t("settings.sectionPractice") },
@@ -252,6 +256,13 @@ export function SettingsPage() {
         <div className="flex-1 space-y-6 min-w-0">
 
           {/* ── Playback ──────────────────────────────────────────────── */}
+          {/* ── User ──────────────────────────────────────────────────────── */}
+          <UserLanguageSection
+            nativeLanguage={nativeLanguage}
+            learningLanguages={learningLanguages}
+            onSaved={() => qc.invalidateQueries({ queryKey: ["settings", userId] })}
+          />
+
           <Section id="playback" title={t("settings.sectionPlayback")}>
             <div className="space-y-6">
               <div className="space-y-3">
@@ -648,6 +659,127 @@ export function SettingsPage() {
 }
 
 // ── Voice Picker component ────────────────────────────────────────────────────
+
+// ── User Language Section ─────────────────────────────────────────────────────
+
+function UserLanguageSection({
+  nativeLanguage, learningLanguages, onSaved,
+}: {
+  nativeLanguage: string | null;
+  learningLanguages: string[];
+  onSaved: () => void;
+}) {
+  const { t } = useTranslation();
+  const { data: voices } = useQuery({
+    queryKey: ["voices"],
+    queryFn: () => api.getVoices(),
+    staleTime: 10 * 60_000,
+  });
+
+  // Deduplicate lang codes from all voices
+  const availableLangs = Array.from(
+    new Map((voices ?? []).map(v => [v.langCode, v])).values()
+  ).sort((a, b) => langName(a.langCode).localeCompare(langName(b.langCode)));
+
+  const [native, setNative] = useState<string>(nativeLanguage ?? "");
+  const [learning, setLearning] = useState<string[]>(learningLanguages);
+  const [saved, setSaved] = useState(false);
+
+  // Sync when settings load
+  useEffect(() => {
+    setNative(nativeLanguage ?? "");
+    setLearning(learningLanguages);
+  }, [nativeLanguage, learningLanguages.join(",")]);
+
+  const { i18n } = useTranslation();
+
+  const handleSave = async () => {
+    if (native) {
+      await api.setSetting("user.nativeLanguage", native);
+      // Persist to localStorage so i18n detector picks it up on next load
+      localStorage.setItem("lang-mirror-lang", native);
+      if (i18n.language !== native) i18n.changeLanguage(native);
+    }
+    await api.setSetting("user.learningLanguages", JSON.stringify(learning));
+    onSaved();
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
+  };
+
+  const toggleLearning = (code: string) => {
+    setLearning(prev =>
+      prev.includes(code) ? prev.filter(c => c !== code) : [...prev, code]
+    );
+  };
+
+  return (
+    <Section id="user" title={t("settings.sectionUser")}>
+      <div className="space-y-5">
+        {/* Native language */}
+        <div>
+          <label className="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-2">
+            {t("settings.nativeLanguage")}
+          </label>
+          <div className="flex flex-wrap gap-1.5">
+            {availableLangs.map(({ langCode }) => (
+              <button
+                key={langCode}
+                type="button"
+                onClick={() => setNative(langCode)}
+                className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold border transition-all ${
+                  native === langCode
+                    ? "bg-blue-600 border-blue-600 text-white"
+                    : "bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-blue-400"
+                }`}
+              >
+                {langFlag(langCode)} {langName(langCode)}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Learning languages */}
+        <div>
+          <label className="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-2">
+            {t("settings.learningLanguages")}
+          </label>
+          <div className="flex flex-wrap gap-1.5">
+            {availableLangs.filter(({ langCode }) => langCode !== native).map(({ langCode }) => {
+              const active = learning.includes(langCode);
+              return (
+                <button
+                  key={langCode}
+                  type="button"
+                  onClick={() => toggleLearning(langCode)}
+                  className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold border transition-all ${
+                    active
+                      ? "bg-green-600 border-green-600 text-white"
+                      : "bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-green-400"
+                  }`}
+                >
+                  {langFlag(langCode)} {langName(langCode)}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="flex items-center justify-end gap-3 pt-2 border-t border-gray-100 dark:border-gray-800">
+          <span className={`text-xs font-medium text-green-600 dark:text-green-400 transition-opacity duration-300 ${saved ? "opacity-100" : "opacity-0"}`}>
+            {t("settings.saved")}
+          </span>
+          <button
+            onClick={handleSave}
+            disabled={!native}
+            className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-sm font-semibold text-white transition-colors disabled:opacity-40"
+          >
+            {t("common.save")}
+          </button>
+        </div>
+      </div>
+    </Section>
+  );
+}
 
 function VoicePicker({
   langCode, selectedVoice, speed, pitch, onSelect,

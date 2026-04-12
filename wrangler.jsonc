@@ -51,4 +51,11 @@
 
   // No secrets needed for TTS — uses Microsoft Edge TTS directly (free)
   // To add secrets: wrangler secret put MY_SECRET
+
+  // Local dev vars — NOT for production
+  // These are plain text bindings only used during `wrangler dev --local`
+  ,
+  "vars": {
+    "SKIP_OIDC_URL_VALIDATION": "true"
+  }
 }

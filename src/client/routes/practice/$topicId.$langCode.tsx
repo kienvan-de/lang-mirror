@@ -9,7 +9,7 @@ import {
   MicrophoneIcon, SpeakerWaveIcon,
   EyeIcon, DocumentTextIcon,
 } from "@heroicons/react/24/outline";
-import { usePracticeStore, type PracticeMode } from "../../stores/practice.store";
+import { usePracticeStore, type PracticeMode, type FontSize } from "../../stores/practice.store";
 import { useTTS } from "../../hooks/useTTS";
 import { useRecorder } from "../../hooks/useRecorder";
 import { useKeyboardShortcuts } from "../../hooks/useKeyboardShortcuts";
@@ -174,7 +174,8 @@ export function PracticePage() {
   const prevVersionIdRef = useRef<string | undefined>(undefined);
   useEffect(() => {
     if (!version || !topic) return;
-    const mode = (settings?.["practice.mode"] as PracticeMode) ?? "auto";
+    const mode     = (settings?.["practice.mode"] as PracticeMode) ?? "auto";
+    const fontSize = (settings?.["display.fontSize"] as FontSize) ?? undefined;
     const preserveIndex = prevVersionIdRef.current !== undefined && prevVersionIdRef.current !== version.id;
     prevVersionIdRef.current = version.id;
     store.init({
@@ -183,6 +184,7 @@ export function PracticePage() {
       versionId: version.id,
       sentences: version.sentences ?? [],
       practiceMode: mode,
+      fontSize,
       preserveIndex,
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -12,6 +12,8 @@ export type CyclePhase =
   | "playingBack" // playing own recording
   | "done";       // cycle complete for this sentence
 
+export type FontSize = "xs" | "sm" | "md" | "lg" | "xl";
+
 interface PracticeState {
   // Session data
   topicId: string;
@@ -29,7 +31,7 @@ interface PracticeState {
   // Display options
   showTranslation: boolean;
   showNotes: boolean;
-  fontSize: "xs" | "sm" | "md" | "lg" | "xl";
+  fontSize: FontSize;
 
   // Mode
   practiceMode: PracticeMode;
@@ -50,6 +52,7 @@ interface PracticeState {
     versionId: string;
     sentences: Sentence[];
     practiceMode: PracticeMode;
+    fontSize?: FontSize;
     preserveIndex?: boolean;
   }) => void;
   setCurrentIndex: (i: number) => void;
@@ -63,7 +66,7 @@ interface PracticeState {
 
   toggleTranslation: () => void;
   toggleNotes: () => void;
-  setFontSize: (size: PracticeState["fontSize"]) => void;
+  setFontSize: (size: FontSize) => void;
 
   setPracticeMode: (mode: PracticeMode) => void;
 
@@ -105,7 +108,7 @@ export const usePracticeStore = create<PracticeState>((set, get) => ({
 
   // ── Actions ──────────────────────────────────────────────────────────────
 
-  init: ({ topicId, langCode, versionId, sentences, practiceMode, preserveIndex }) => {
+  init: ({ topicId, langCode, versionId, sentences, practiceMode, fontSize, preserveIndex }) => {
     const currentIndex = preserveIndex
       ? Math.min(get().currentIndex, Math.max(0, sentences.length - 1))
       : 0;
@@ -117,6 +120,8 @@ export const usePracticeStore = create<PracticeState>((set, get) => ({
       recordingBlob: null,
       hasRecording: false,
       practiceMode,
+      // Apply saved font size from settings; preserve current if not provided
+      ...(fontSize ? { fontSize } : {}),
       isDrillMode: false,
       isDrillPaused: false,
       isDrillInterleaved: false,

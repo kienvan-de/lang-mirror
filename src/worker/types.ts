@@ -9,4 +9,8 @@ export interface Env {
    *  Disables HTTPS + private-IP validation on OIDC provider URLs.
    *  Must never be set in production. */
   SKIP_OIDC_URL_VALIDATION?: string;
+  /** Base URL of the UI in local dev (e.g. "http://localhost:5173").
+   *  Used to redirect the browser back to the Vite dev server after OIDC callback.
+   *  Leave unset in production — relative URLs are used instead. */
+  APP_BASE_URL?: string;
 }

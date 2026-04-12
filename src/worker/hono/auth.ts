@@ -35,11 +35,13 @@ authRouter.get("/callback/:providerId", async (c) => {
   const error = c.req.query("error");
 
   const { oidc } = buildContext(c.env);
-  const isSecure = c.req.url.startsWith("https://");
 
-  // Always use relative URLs for redirects — never trust DB-stored baseUrl for redirect targets
-  const loginUrl   = (err: string) => `/login?error=${encodeURIComponent(err)}`;
-  const successUrl = `/?login=success`;
+  // In production APP_BASE_URL is unset → relative URLs work (Worker serves the SPA).
+  // In local dev (Vite on a different port) set APP_BASE_URL=http://localhost:5173
+  // in .dev.vars so the browser is redirected back to the Vite dev server after login.
+  const base       = c.env.APP_BASE_URL ?? "";
+  const loginUrl   = (err: string) => `${base}/login?error=${encodeURIComponent(err)}`;
+  const successUrl = `${base}/?login=success`;
 
   if (error) return c.redirect(loginUrl(error), 302);
   if (!code || !state) return c.redirect(loginUrl("missing_params"), 302);

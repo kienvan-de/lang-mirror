@@ -874,7 +874,7 @@ function VoicePicker({
                         v.name === selectedVoice ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 font-medium" : "text-gray-700 dark:text-gray-300"
                       }`}
                     >
-                      {v.shortName.split("-").slice(2).join("-")}
+                      {v.shortName}
                     </button>
                   ))}
                 </div>

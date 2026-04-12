@@ -82,15 +82,17 @@ export class TTSService {
     const ctx     = getAuthContext();
     const ownerId = ctx.isAnonymous ? SYSTEM_USER_ID : ctx.id;
 
-    // One query resolves sentence text + version overrides + user/system settings
+    // One query resolves sentence text + version overrides + user/system settings.
+    // User voice preference is stored as a JSON map under key "tts.voices":
+    //   {"ja":"ja-JP-NanamiNeural","de":"de-DE-KatjaNeural",...}
+    // We read the whole map and extract the relevant language code in the app layer.
     const row = await this.db.queryFirst<{
       text:           string;
       language_code:  string;
       version_voice:  string | null;
       version_speed:  number | null;
       version_pitch:  number | null;
-      user_voice:     string | null;
-      sys_voice:      string | null;
+      user_voices:    string | null;   // JSON map: Record<langCode, voiceName>
       resolved_speed: string | null;
       resolved_pitch: string | null;
     }>(
@@ -101,11 +103,8 @@ export class TTSService {
          v.speed                                                               AS version_speed,
          v.pitch                                                               AS version_pitch,
          (SELECT value FROM settings
-          WHERE key = 'tts.voices.' || v.language_code
-            AND owner_id = ?)                                                  AS user_voice,
-         (SELECT value FROM settings
-          WHERE key = 'tts.voices.' || v.language_code
-            AND owner_id = ?)                                                  AS sys_voice,
+          WHERE key = 'tts.voices'
+            AND owner_id = ?)                                                  AS user_voices,
          COALESCE(
            (SELECT value FROM settings
             WHERE key = 'tts.global.speed' AND owner_id = ?),
@@ -121,7 +120,7 @@ export class TTSService {
        FROM sentences s
        JOIN topic_language_versions v ON v.id = s.version_id
        WHERE s.id = ?`,
-      ownerId, SYSTEM_USER_ID,          // user_voice / sys_voice
+      ownerId,                          // user_voices
       ownerId, SYSTEM_USER_ID,          // resolved_speed
       ownerId, SYSTEM_USER_ID,          // resolved_pitch
       sentenceId,
@@ -129,9 +128,18 @@ export class TTSService {
 
     if (!row) throw new NotFoundError(`Sentence '${sentenceId}' not found`);
 
+    // Extract the user's preferred voice for this language from the JSON map
+    let userVoice: string | null = null;
+    if (row.user_voices) {
+      try {
+        const map = JSON.parse(row.user_voices) as Record<string, string>;
+        const base = row.language_code.split("-")[0]!.toLowerCase();
+        userVoice = map[row.language_code] ?? map[base] ?? null;
+      } catch { /* malformed JSON — ignore */ }
+    }
+
     const voice = row.version_voice
-      ?? row.user_voice
-      ?? row.sys_voice
+      ?? userVoice
       ?? defaultVoiceForLang(row.language_code);
 
     const speed = row.version_speed ?? parseFloat(row.resolved_speed ?? "1.0");

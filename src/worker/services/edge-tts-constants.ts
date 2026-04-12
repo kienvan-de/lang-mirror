@@ -27,10 +27,11 @@ const USER_AGENT =
 
 /** Headers required on the WebSocket upgrade request */
 export const WSS_HEADERS: Record<string, string> = {
-  "User-Agent": USER_AGENT,
-  "Accept-Encoding": "gzip, deflate, br, zstd",
-  "Accept-Language": "en-US,en;q=0.9",
-  "Pragma": "no-cache",
-  "Cache-Control": "no-cache",
-  "Origin": "chrome-extension://jdiccldimpdaibmpdkjnbmckianbfold",
+  "User-Agent":            USER_AGENT,
+  "Accept-Encoding":       "gzip, deflate, br, zstd",
+  "Accept-Language":       "en-US,en;q=0.9",
+  "Pragma":                "no-cache",
+  "Cache-Control":         "no-cache",
+  "Origin":                "chrome-extension://jdiccldimpdaibmpdkjnbmckianbfold",
+  "Sec-WebSocket-Version": "13",
 };

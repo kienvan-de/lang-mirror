@@ -15,7 +15,7 @@ import type { Env } from "../../types";
  * before they reach any route handler.
  */
 export const authMiddleware = createMiddleware<{ Bindings: Env }>(async (c, next) => {
-  const sessionId = getCookie(c, "session");
+  const sessionId = getCookie(c, "__Host-session");
 
   if (sessionId) {
     const oidcSvc = new OidcService(

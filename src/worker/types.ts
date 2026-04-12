@@ -4,4 +4,5 @@ export interface Env {
   TTS_CACHE: R2Bucket;
   RECORDINGS: R2Bucket;
   SESSION_CACHE: KVNamespace;
+  ALLOWED_ORIGINS?: string;
 }

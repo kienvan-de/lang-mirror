@@ -4,13 +4,7 @@ import { getAuthContext, requireAuth, isAdmin } from "../auth/context";
 import { NotFoundError, ValidationError, ForbiddenError } from "../errors";
 import { SYSTEM_USER_ID } from "../db/schema";
 
-// Keys that only admins can change at system level
-const ADMIN_ONLY_SYSTEM_KEYS = new Set([
-  "app.port",
-  "app.browserOpen",
-  "tts.global.speed",
-  "tts.global.pitch",
-]);
+
 
 export class SettingsService {
   constructor(private db: IDatabase) {}
@@ -86,10 +80,10 @@ export class SettingsService {
     return { key, value: String(value) };
   }
 
-  /** Set a system-level setting (owner_id = SYSTEM_USER_ID). Admin only for protected keys. */
+  /** Set a system-level setting (owner_id = SYSTEM_USER_ID). Admin only. */
   async setSystem(key: string, value: string): Promise<{ key: string; value: string }> {
-    if (ADMIN_ONLY_SYSTEM_KEYS.has(key) && !isAdmin()) {
-      throw new ForbiddenError(`Setting '${key}' can only be changed by admins`);
+    if (!isAdmin()) {
+      throw new ForbiddenError("Only admins can change system settings");
     }
     if (value === undefined || value === null) throw new ValidationError("value is required", "value");
 

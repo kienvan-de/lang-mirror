@@ -43,9 +43,23 @@ topicsRouter.get("/:topicId/versions", async (c) => {
 });
 
 topicsRouter.post("/:topicId/versions", async (c) => {
-  const body = await c.req.json();
+  const body = await c.req.json<{
+    language_code?: string;
+    title?: string;
+    description?: string;
+    voice_name?: string;
+    speed?: number;
+    pitch?: number;
+  }>();
   const { versions } = buildContext(c.env);
-  return c.json(await versions.create(c.req.param("topicId"), body), 201);
+  return c.json(await versions.create(c.req.param("topicId"), {
+    language_code: typeof body.language_code === "string" ? body.language_code : "",
+    title:         typeof body.title         === "string" ? body.title         : undefined,
+    description:   typeof body.description   === "string" ? body.description   : undefined,
+    voice_name:    typeof body.voice_name    === "string" ? body.voice_name    : undefined,
+    speed:         typeof body.speed         === "number" ? body.speed         : undefined,
+    pitch:         typeof body.pitch         === "number" ? body.pitch         : undefined,
+  }), 201);
 });
 
 topicsRouter.post("/:topicId/versions/reorder", async (c) => {

@@ -11,6 +11,35 @@ import {
   generateNonce,
 } from "../auth/pkce";
 
+/** Reject URLs pointing at private/internal network ranges to prevent SSRF */
+function assertSafeUrl(url: string, field: string): void {
+  let parsed: URL;
+  try { parsed = new URL(url); } catch {
+    throw new ValidationError(`${field} is not a valid URL`, field);
+  }
+  if (parsed.protocol !== "https:") {
+    throw new ValidationError(`${field} must use HTTPS`, field);
+  }
+  const host = parsed.hostname.toLowerCase();
+  // Block localhost, private IPs, link-local, metadata endpoints
+  const blocked = [
+    /^localhost$/,
+    /^127\./,
+    /^10\./,
+    /^172\.(1[6-9]|2\d|3[01])\./,
+    /^192\.168\./,
+    /^169\.254\./,           // link-local / AWS metadata
+    /^::1$/,
+    /^fc[0-9a-f]{2}:/i,     // IPv6 ULA
+    /^fe[89ab][0-9a-f]:/i,  // IPv6 link-local
+    /metadata\.google\.internal/i,
+    /metadata\.azure\.com/i,
+  ];
+  if (blocked.some(r => r.test(host))) {
+    throw new ValidationError(`${field} points to a disallowed host`, field);
+  }
+}
+
 const SESSION_TTL  = 7 * 24 * 60 * 60; // 7 days
 const OIDC_STATE_TTL = 600;             // 10 minutes
 
@@ -112,6 +141,9 @@ export class OidcService {
       tokenParams["client_secret"] = provider.client_secret;
     }
 
+    assertSafeUrl(provider.token_url, "token_url");
+    assertSafeUrl(provider.userinfo_url, "userinfo_url");
+
     const tokenRes = await fetch(provider.token_url, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -119,11 +151,29 @@ export class OidcService {
     });
 
     if (!tokenRes.ok) {
-      const body = await tokenRes.text();
-      throw new ValidationError(`Token exchange failed: ${body}`);
+      // Do NOT expose the raw error body to the client — log server-side only
+      console.error(`[oidc] Token exchange failed: HTTP ${tokenRes.status} from ${provider.token_url}`);
+      throw new ValidationError("Token exchange failed");
     }
 
-    const tokens = await tokenRes.json() as { access_token: string };
+    const tokens = await tokenRes.json() as { access_token: string; id_token?: string };
+
+    // Validate nonce from ID token to prevent replay attacks
+    if (tokens.id_token) {
+      try {
+        // JWT payload is the second base64url segment (no signature verification needed for nonce check
+        // since the token came directly from the token endpoint over HTTPS)
+        const payloadB64 = tokens.id_token.split(".")[1] ?? "";
+        const payload = JSON.parse(atob(payloadB64.replace(/-/g, "+").replace(/_/g, "/"))) as Record<string, unknown>;
+        if (payload["nonce"] !== stateEntry.nonce) {
+          throw new ValidationError("Nonce mismatch — possible replay attack");
+        }
+      } catch (e) {
+        if (e instanceof ValidationError) throw e;
+        // id_token parsing failed — non-fatal, log and continue
+        console.warn("[oidc] Could not parse id_token for nonce validation:", e);
+      }
+    }
 
     // 3. Get user info
     const userInfoRes = await fetch(provider.userinfo_url, {

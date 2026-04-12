@@ -21,10 +21,12 @@ exportRouter.get("/all", adminGuard, async (c) => {
 exportRouter.get("/:topicId", async (c) => {
   const { exporter } = buildContext(c.env);
   const { payload, filename } = await exporter.exportTopic(c.req.param("topicId"));
+  // Sanitise filename: strip quotes, backslashes and non-ASCII to prevent header injection
+  const safeFilename = filename.replace(/[^\w\s\-\.]/g, "_").replace(/\s+/g, "_").slice(0, 100);
   return new Response(JSON.stringify(payload, null, 2), {
     headers: {
       "Content-Type": "application/json",
-      "Content-Disposition": `attachment; filename="${filename}"`,
+      "Content-Disposition": `attachment; filename="${safeFilename}"`,
     },
   });
 });

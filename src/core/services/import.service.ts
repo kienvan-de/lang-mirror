@@ -63,6 +63,9 @@ export interface ImportResult {
   skipped?: boolean;
 }
 
+const MAX_TAGS    = 20;
+const MAX_TAG_LEN = 100;
+
 // ── Validators ────────────────────────────────────────────────────────────────
 
 function validateString(
@@ -130,7 +133,12 @@ export function validateSingle(data: unknown): { result: LessonImportSingle | nu
   const speed = typeof obj["speed"] === "number" ? obj["speed"] : undefined;
   const pitch = typeof obj["pitch"] === "number" ? obj["pitch"] : undefined;
   const sentences = validateSentences(obj["sentences"], "sentences", errors);
-  const tags = Array.isArray(obj["tags"]) ? (obj["tags"] as unknown[]).filter(t => typeof t === "string") as string[] : undefined;
+  const tags = Array.isArray(obj["tags"])
+    ? (obj["tags"] as unknown[])
+        .filter(t => typeof t === "string")
+        .slice(0, MAX_TAGS)
+        .map(t => (t as string).slice(0, MAX_TAG_LEN)) as string[]
+    : undefined;
 
   if (errors.length > 0) return { result: null, errors };
   return { result: { format: "single", title, description, language, voice_name, speed, pitch, sentences, tags }, errors: [] };
@@ -163,7 +171,12 @@ export function validateTopic(data: unknown): { result: LessonImportTopic | null
     if (lang) versions.push({ language: lang, title: versionTitle, description: versionDescription, voice_name, speed, pitch, sentences });
   }
 
-  const tags = Array.isArray(obj["tags"]) ? (obj["tags"] as unknown[]).filter(t => typeof t === "string") as string[] : undefined;
+  const tags = Array.isArray(obj["tags"])
+    ? (obj["tags"] as unknown[])
+        .filter(t => typeof t === "string")
+        .slice(0, MAX_TAGS)
+        .map(t => (t as string).slice(0, MAX_TAG_LEN)) as string[]
+    : undefined;
 
   if (errors.length > 0) return { result: null, errors };
   return { result: { format: "topic", title, description, versions, tags }, errors: [] };

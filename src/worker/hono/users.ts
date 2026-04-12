@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { buildContext } from "../lib/context";
+import { adminGuard } from "./middleware/admin";
 import type { Env } from "../types";
 
 export const usersRouter = new Hono<{ Bindings: Env }>();
@@ -11,26 +12,26 @@ usersRouter.get("/me", async (c) => {
 });
 
 // GET /api/users — admin only
-usersRouter.get("/", async (c) => {
+usersRouter.get("/", adminGuard, async (c) => {
   const { users } = buildContext(c.env);
   return c.json(await users.listUsers());
 });
 
 // GET /api/users/:id — admin only
-usersRouter.get("/:id", async (c) => {
+usersRouter.get("/:id", adminGuard, async (c) => {
   const { users } = buildContext(c.env);
   return c.json(await users.getUserById(c.req.param("id")));
 });
 
 // PUT /api/users/:id/role — admin only
-usersRouter.put("/:id/role", async (c) => {
+usersRouter.put("/:id/role", adminGuard, async (c) => {
   const { role } = await c.req.json<{ role: "user" | "admin" }>();
   const { users } = buildContext(c.env);
   return c.json(await users.updateRole(c.req.param("id"), role));
 });
 
 // DELETE /api/users/:id — admin only
-usersRouter.delete("/:id", async (c) => {
+usersRouter.delete("/:id", adminGuard, async (c) => {
   const { users } = buildContext(c.env);
   await users.deleteUser(c.req.param("id"));
   return c.json({ deleted: true });

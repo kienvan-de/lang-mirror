@@ -62,18 +62,20 @@ function pitchToHz(semitones: number): string {
   return semitones >= 0 ? `+${semitones}Hz` : `${semitones}Hz`;
 }
 
-function buildSSML(text: string, voice: string, rate: string, pitch: string): string {
-  // Escape XML special characters in text
-  const escaped = text
+function escapeXml(s: string): string {
+  return s
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
 
+function buildSSML(text: string, voice: string, rate: string, pitch: string): string {
   return (
     `<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='en-US'>` +
-    `<voice name='${voice}'>` +
-    `<prosody rate='${rate}' pitch='${pitch}'>${escaped}</prosody>` +
+    `<voice name='${escapeXml(voice)}'>` +
+    `<prosody rate='${escapeXml(rate)}' pitch='${escapeXml(pitch)}'>${escapeXml(text)}</prosody>` +
     `</voice></speak>`
   );
 }

@@ -25,12 +25,27 @@ export function createApp() {
   const app = new Hono<{ Bindings: Env }>();
 
   // ── Global CORS ─────────────────────────────────────────────────────────────
+  // Use explicit origin allowlist — never wildcard with credentials:true
   app.use("*", cors({
-    origin: "*",
+    origin: (origin, c) => {
+      const allowed = c.env.ALLOWED_ORIGINS
+        ? c.env.ALLOWED_ORIGINS.split(",").map((s: string) => s.trim())
+        : [];
+      if (!origin || allowed.includes(origin)) return origin ?? "";
+      return "";
+    },
     allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowHeaders: ["Content-Type"],
     credentials: true,
   }));
+
+  // ── Security headers ─────────────────────────────────────────────────────────
+  app.use("*", async (c, next) => {
+    await next();
+    c.res.headers.set("X-Content-Type-Options", "nosniff");
+    c.res.headers.set("X-Frame-Options", "DENY");
+    c.res.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  });
 
   // ── Health (public) ─────────────────────────────────────────────────────────
   app.get("/api/health", (c) =>

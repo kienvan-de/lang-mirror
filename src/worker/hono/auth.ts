@@ -1,7 +1,8 @@
 import { Hono } from "hono";
-import { setCookie, deleteCookie } from "hono/cookie";
+import { setCookie, deleteCookie, getCookie } from "hono/cookie";
 import { buildContext } from "../lib/context";
 import { getAuthContext } from "../../core/auth/context";
+import { adminGuard } from "./middleware/admin";
 import type { Env } from "../types";
 
 export const authRouter = new Hono<{ Bindings: Env }>();
@@ -33,12 +34,12 @@ authRouter.get("/callback/:providerId", async (c) => {
   const state = c.req.query("state");
   const error = c.req.query("error");
 
-  const { oidc, settings } = buildContext(c.env);
-  const baseUrl  = await settings.getValue("app.baseUrl", "");
-  const isSecure = baseUrl.startsWith("https://");
+  const { oidc } = buildContext(c.env);
+  const isSecure = c.req.url.startsWith("https://");
 
-  const loginUrl   = (err: string) => baseUrl ? `${baseUrl}/login?error=${encodeURIComponent(err)}` : `/login?error=${encodeURIComponent(err)}`;
-  const successUrl = baseUrl ? `${baseUrl}/?login=success` : "/?login=success";
+  // Always use relative URLs for redirects — never trust DB-stored baseUrl for redirect targets
+  const loginUrl   = (err: string) => `/login?error=${encodeURIComponent(err)}`;
+  const successUrl = `/?login=success`;
 
   if (error) return c.redirect(loginUrl(error), 302);
   if (!code || !state) return c.redirect(loginUrl("missing_params"), 302);
@@ -47,10 +48,10 @@ authRouter.get("/callback/:providerId", async (c) => {
     c.req.param("providerId"), code, state
   );
 
-  setCookie(c, "session", sessionId, {
+  setCookie(c, "__Host-session", sessionId, {
     httpOnly: true,
     sameSite: "Lax",
-    secure:   isSecure,
+    secure:   true,
     maxAge:   7 * 24 * 60 * 60,
     path:     "/",
   });
@@ -59,34 +60,43 @@ authRouter.get("/callback/:providerId", async (c) => {
 });
 
 // POST /api/auth/logout — clears session
+// CSRF guard: only accept requests from the same origin
 authRouter.post("/logout", async (c) => {
-  const session = c.req.header("Cookie")?.match(/session=([^;]+)/)?.[1];
+  const origin  = c.req.header("Origin");
+  const referer = c.req.header("Referer");
+  const host    = c.req.header("Host");
+  const source  = origin ?? referer ?? "";
+  if (host && source && !source.includes(host)) {
+    return c.json({ error: "Forbidden" }, 403);
+  }
+
+  const session = getCookie(c, "__Host-session");
   if (session) {
     const { oidc } = buildContext(c.env);
     await oidc.deleteSession(session);
   }
-  deleteCookie(c, "session", { path: "/" });
+  deleteCookie(c, "__Host-session", { path: "/" });
   return c.json({ ok: true });
 });
 
 // ── Provider management (admin) ───────────────────────────────────────────────
 
 // POST /api/auth/providers — add a new provider
-authRouter.post("/providers", async (c) => {
+authRouter.post("/providers", adminGuard, async (c) => {
   const body = await c.req.json();
   const { oidc } = buildContext(c.env);
   return c.json(await oidc.addProvider(body), 201);
 });
 
 // PUT /api/auth/providers/:id
-authRouter.put("/providers/:id", async (c) => {
+authRouter.put("/providers/:id", adminGuard, async (c) => {
   const body = await c.req.json();
   const { oidc } = buildContext(c.env);
   return c.json(await oidc.updateProvider(c.req.param("id"), body));
 });
 
 // DELETE /api/auth/providers/:id
-authRouter.delete("/providers/:id", async (c) => {
+authRouter.delete("/providers/:id", adminGuard, async (c) => {
   const { oidc } = buildContext(c.env);
   await oidc.deleteProvider(c.req.param("id"));
   return c.json({ deleted: true });

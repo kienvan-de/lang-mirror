@@ -9,16 +9,25 @@ async function readFile(req: Request): Promise<{ content: string; filename: stri
   let formData: FormData;
   try { formData = await req.formData(); } catch { return null; }
 
+  const MAX_IMPORT_BYTES = 5 * 1024 * 1024; // 5 MB
+
   const entry = formData.get("file");
   if (!entry) return null;
-  if (entry instanceof File) return { content: await entry.text(), filename: entry.name };
-  if (typeof entry === "string") return { content: entry, filename: "import.json" };
+  if (entry instanceof File) {
+    if (entry.size > MAX_IMPORT_BYTES) throw new Error("Import file exceeds 5 MB limit");
+    return { content: await entry.text(), filename: entry.name };
+  }
+  if (typeof entry === "string") {
+    if (entry.length > MAX_IMPORT_BYTES) throw new Error("Import file exceeds 5 MB limit");
+    return { content: entry, filename: "import.json" };
+  }
   return null;
 }
 
 // POST /api/import/preview
 importRouter.post("/preview", async (c) => {
-  const file = await readFile(c.req.raw);
+  let file: { content: string; filename: string } | null;
+  try { file = await readFile(c.req.raw); } catch (e) { return c.json({ error: (e as Error).message }, 413); }
   if (!file) return c.json({ error: "No file uploaded" }, 400);
 
   const result = parseAndValidate(file.content, file.filename);
@@ -40,7 +49,8 @@ importRouter.post("/preview", async (c) => {
 
 // POST /api/import
 importRouter.post("/", async (c) => {
-  const file = await readFile(c.req.raw);
+  let file: { content: string; filename: string } | null;
+  try { file = await readFile(c.req.raw); } catch (e) { return c.json({ error: (e as Error).message }, 413); }
   if (!file) return c.json({ error: "No file uploaded" }, 400);
 
   const result = parseAndValidate(file.content, file.filename);

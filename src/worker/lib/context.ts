@@ -18,9 +18,10 @@ import { OidcService }       from "../../core/services/oidc.service";
 import { UsersService }      from "../../core/services/users.service";
 import { TagsService }       from "../../core/services/tags.service";
 import { PathsService }      from "../../core/services/paths.service";
+import type { IExecutionContext } from "../../core/ports/execution.port";
 import type { Env } from "../types";
 
-export function buildContext(env: Env) {
+export function buildContext(env: Env, ctx?: IExecutionContext) {
   const db       = new D1Adapter(env.DB);
   const ttsCache = new R2Adapter(env.TTS_CACHE);
   const recs     = new R2Adapter(env.RECORDINGS);
@@ -31,7 +32,7 @@ export function buildContext(env: Env) {
     topics:     new TopicsService(db),
     versions:   new VersionsService(db, recs),
     sentences:  new SentencesService(db),
-    ttsService: new TTSService(db, ttsCache, tts),
+    ttsService: new TTSService(db, ttsCache, tts, ctx),
     recordings: new RecordingsService(db, recs),
     practice:   new PracticeService(db),
     settings:   new SettingsService(db),

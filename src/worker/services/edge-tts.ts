@@ -186,12 +186,21 @@ export interface SynthesizeOptions {
   pitch?: number;  // semitones, default 0
 }
 
-export async function synthesize(opts: SynthesizeOptions): Promise<ArrayBuffer> {
+/**
+ * Synthesise speech via Edge TTS WebSocket and return audio as a ReadableStream.
+ *
+ * The WebSocket setup (handshake + sending SSML) happens eagerly before the stream
+ * is returned, so any connection errors surface immediately rather than inside the
+ * stream's pull. Audio chunks are enqueued as binary WebSocket frames arrive —
+ * the first byte reaches the caller as soon as the service sends it, without waiting
+ * for the full audio to be assembled.
+ */
+export async function synthesize(opts: SynthesizeOptions): Promise<ReadableStream<Uint8Array>> {
   const { text, voice, speed = 1.0, pitch = 0 } = opts;
 
   const secMsGec = await computeSecMsGec();
-  const connId = generateConnId();
-  const muid = generateMuid();
+  const connId   = generateConnId();
+  const muid     = generateMuid();
 
   const url =
     `${WSS_URL}` +
@@ -199,59 +208,59 @@ export async function synthesize(opts: SynthesizeOptions): Promise<ArrayBuffer> 
     `&Sec-MS-GEC-Version=${SEC_MS_GEC_VERSION}` +
     `&ConnectionId=${connId}`;
 
-  // Open WebSocket with custom headers.
-  // Two paths:
-  //   1. Real CF Workers runtime  → fetch() upgrade pattern (resp.webSocket)
-  //   2. Miniflare local dev / Node → native WebSocket constructor with headers option
   const ws = await openWebSocket(url, {
     ...WSS_HEADERS,
     "Cookie": `muid=${muid};`,
   });
 
-  const ssml = buildSSML(text, voice, speedToRate(speed), pitchToHz(pitch));
+  const ssml      = buildSSML(text, voice, speedToRate(speed), pitchToHz(pitch));
   const requestId = connId;
 
-  // Send speech config first
+  // Send speech config then SSML — both before returning the stream so that any
+  // send errors throw synchronously rather than inside the ReadableStream controller.
   ws.send(speechConfigMessage());
-  // Then send the SSML synthesis request
   ws.send(ssmlMessage(requestId, ssml));
 
-  // Collect binary audio chunks until turn.end
-  const chunks: Uint8Array[] = [];
+  // Return a ReadableStream that enqueues audio chunks as WebSocket frames arrive.
+  return new ReadableStream<Uint8Array>({
+    start(controller) {
+      const timeout = setTimeout(() => {
+        controller.error(new Error("Edge TTS: synthesis timed out after 30s"));
+        try { ws.close(); } catch { /* ignore */ }
+      }, 30_000);
 
-  await new Promise<void>((resolve, reject) => {
-    const timeout = setTimeout(() => {
-      reject(new Error("Edge TTS: synthesis timed out after 30s"));
-    }, 30_000);
-
-    ws.addEventListener("message", (event: MessageEvent) => {
-      if (typeof event.data === "string") {
-        // Text message — check for turn.end signal
-        if (event.data.includes("Path:turn.end")) {
-          clearTimeout(timeout);
-          resolve();
+      ws.addEventListener("message", (event: MessageEvent) => {
+        if (typeof event.data === "string") {
+          // Text frame — turn.end signals the end of audio
+          if (event.data.includes("Path:turn.end")) {
+            clearTimeout(timeout);
+            controller.close();
+          }
+        } else {
+          // Binary frame — extract and enqueue the MP3 payload
+          const data       = new Uint8Array(event.data as ArrayBuffer);
+          const audioStart = findAudioStart(data);
+          if (audioStart !== -1) {
+            controller.enqueue(data.slice(audioStart));
+          }
         }
-      } else {
-        // Binary message — extract audio payload
-        const data = new Uint8Array(event.data as ArrayBuffer);
-        const audioStart = findAudioStart(data);
-        if (audioStart !== -1) {
-          chunks.push(data.slice(audioStart));
-        }
-      }
-    });
+      });
 
-    ws.addEventListener("error", (event) => {
-      clearTimeout(timeout);
-      reject(new Error(`Edge TTS WebSocket error: ${JSON.stringify(event)}`));
-    });
+      ws.addEventListener("error", (event) => {
+        clearTimeout(timeout);
+        controller.error(new Error(`Edge TTS WebSocket error: ${JSON.stringify(event)}`));
+      });
 
-    ws.addEventListener("close", () => {
-      clearTimeout(timeout);
-      if (chunks.length > 0) resolve();
-      else reject(new Error("Edge TTS: connection closed before audio received"));
-    });
+      ws.addEventListener("close", () => {
+        clearTimeout(timeout);
+        // close() is idempotent on ReadableStreamDefaultController
+        try { controller.close(); } catch { /* already closed */ }
+      });
+    },
+
+    cancel() {
+      // Client disconnected — close the WebSocket to stop the upstream synthesis
+      try { ws.close(); } catch { /* ignore */ }
+    },
   });
-
-  return concatChunks(chunks).buffer as ArrayBuffer;
 }

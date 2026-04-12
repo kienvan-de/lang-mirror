@@ -1,7 +1,7 @@
 import type { IDatabase } from "../ports/db.port";
 import type { IObjectStorage } from "../ports/storage.port";
 import type { ITTSProvider } from "../ports/tts.port";
-import type { SentenceRow, VersionRow } from "../db/types";
+import type { IExecutionContext } from "../ports/execution.port";
 import { getAuthContext } from "../auth/context";
 import { SYSTEM_USER_ID } from "../db/schema";
 import { NotFoundError } from "../errors";
@@ -23,7 +23,8 @@ function defaultVoiceForLang(langCode: string): string {
 }
 
 export interface TTSResult {
-  audio: ArrayBuffer;
+  /** Streaming MP3 audio — pipe directly into a Response body */
+  stream: ReadableStream<Uint8Array>;
   cacheHit: boolean;
   cacheKey: string;
 }
@@ -36,12 +37,12 @@ export interface CacheStats {
 
 /** Compute a deterministic cache key for TTS params using Web Crypto SHA-256 */
 async function computeCacheKey(
-  text: string, voice: string, speed: number, pitch: number
+  text: string, voice: string, speed: number, pitch: number,
 ): Promise<string> {
   const input = `${text}|${voice}|${speed}|${pitch}`;
-  const buf = await globalThis.crypto.subtle.digest(
+  const buf   = await globalThis.crypto.subtle.digest(
     "SHA-256",
-    new TextEncoder().encode(input)
+    new TextEncoder().encode(input),
   );
   const hex = Array.from(new Uint8Array(buf))
     .map(b => b.toString(16).padStart(2, "0"))
@@ -50,116 +51,167 @@ async function computeCacheKey(
   return `${hex}.mp3`;
 }
 
+// ── Resolved TTS params (from single DB query) ────────────────────────────────
+
+interface ResolvedParams {
+  text: string;
+  voice: string;
+  speed: number;
+  pitch: number;
+}
+
 export class TTSService {
   constructor(
-    private db: IDatabase,
+    private db:      IDatabase,
     private storage: IObjectStorage,
-    private tts: ITTSProvider,
+    private tts:     ITTSProvider,
+    /** Optional — used by the CF Worker for background R2 writes on cache miss */
+    private ctx?:    IExecutionContext,
   ) {}
 
+  // ── Public API ─────────────────────────────────────────────────────────────
+
   async getBySentenceId(sentenceId: string): Promise<TTSResult> {
-    const sentence = await this.db.queryFirst<SentenceRow & { language_code: string }>(
-      `SELECT s.*, v.language_code, v.voice_name, v.speed, v.pitch
+    const params = await this.resolveParams(sentenceId);
+    return this.synthesize(params);
+  }
+
+  // ── Parameter resolution — single D1 round-trip ───────────────────────────
+
+  private async resolveParams(sentenceId: string): Promise<ResolvedParams> {
+    const ctx     = getAuthContext();
+    const ownerId = ctx.isAnonymous ? SYSTEM_USER_ID : ctx.id;
+
+    // One query resolves sentence text + version overrides + user/system settings
+    const row = await this.db.queryFirst<{
+      text:           string;
+      language_code:  string;
+      version_voice:  string | null;
+      version_speed:  number | null;
+      version_pitch:  number | null;
+      user_voice:     string | null;
+      sys_voice:      string | null;
+      resolved_speed: string | null;
+      resolved_pitch: string | null;
+    }>(
+      `SELECT
+         s.text,
+         v.language_code,
+         v.voice_name                                                          AS version_voice,
+         v.speed                                                               AS version_speed,
+         v.pitch                                                               AS version_pitch,
+         (SELECT value FROM settings
+          WHERE key = 'tts.voices.' || v.language_code
+            AND owner_id = ?)                                                  AS user_voice,
+         (SELECT value FROM settings
+          WHERE key = 'tts.voices.' || v.language_code
+            AND owner_id = ?)                                                  AS sys_voice,
+         COALESCE(
+           (SELECT value FROM settings
+            WHERE key = 'tts.global.speed' AND owner_id = ?),
+           (SELECT value FROM settings
+            WHERE key = 'tts.global.speed' AND owner_id = ?)
+         )                                                                     AS resolved_speed,
+         COALESCE(
+           (SELECT value FROM settings
+            WHERE key = 'tts.global.pitch' AND owner_id = ?),
+           (SELECT value FROM settings
+            WHERE key = 'tts.global.pitch' AND owner_id = ?)
+         )                                                                     AS resolved_pitch
        FROM sentences s
        JOIN topic_language_versions v ON v.id = s.version_id
        WHERE s.id = ?`,
-      sentenceId
+      ownerId, SYSTEM_USER_ID,          // user_voice / sys_voice
+      ownerId, SYSTEM_USER_ID,          // resolved_speed
+      ownerId, SYSTEM_USER_ID,          // resolved_pitch
+      sentenceId,
     );
-    if (!sentence) throw new NotFoundError(`Sentence '${sentenceId}' not found`);
 
-    const version = await this.db.queryFirst<VersionRow>(
-      "SELECT * FROM topic_language_versions WHERE id = ?", sentence.version_id
-    );
-    if (!version) throw new NotFoundError("Version not found");
+    if (!row) throw new NotFoundError(`Sentence '${sentenceId}' not found`);
 
-    // Resolve owner: use authenticated user's settings if available, fall back to system defaults
-    const ctx = getAuthContext();
-    const ownerId = ctx.isAnonymous ? SYSTEM_USER_ID : ctx.id;
+    const voice = row.version_voice
+      ?? row.user_voice
+      ?? row.sys_voice
+      ?? defaultVoiceForLang(row.language_code);
 
-    // Resolve voice: version override → user setting → system default → language default
-    const userVoice = ctx.isAnonymous ? null : await this.db.queryFirst<{ value: string }>(
-      "SELECT value FROM settings WHERE key = ? AND owner_id = ?",
-      `tts.voices.${version.language_code}`, ownerId
-    );
-    const systemVoice = userVoice ? null : await this.db.queryFirst<{ value: string }>(
-      "SELECT value FROM settings WHERE key = ? AND owner_id = ?",
-      `tts.voices.${version.language_code}`, SYSTEM_USER_ID
-    );
-    const voice = version.voice_name ?? userVoice?.value ?? systemVoice?.value ?? defaultVoiceForLang(version.language_code);
+    const speed = row.version_speed ?? parseFloat(row.resolved_speed ?? "1.0");
+    const pitch = row.version_pitch ?? parseInt(row.resolved_pitch  ?? "0",  10);
 
-    const speedRow = await this.db.queryFirst<{ value: string }>(
-      `SELECT COALESCE(u.value, s.value) as value
-       FROM settings s
-       LEFT JOIN settings u ON u.key = s.key AND u.owner_id = ?
-       WHERE s.key = 'tts.global.speed' AND s.owner_id = ?`,
-      ownerId, SYSTEM_USER_ID
-    );
-    const pitchRow = await this.db.queryFirst<{ value: string }>(
-      `SELECT COALESCE(u.value, s.value) as value
-       FROM settings s
-       LEFT JOIN settings u ON u.key = s.key AND u.owner_id = ?
-       WHERE s.key = 'tts.global.pitch' AND s.owner_id = ?`,
-      ownerId, SYSTEM_USER_ID
-    );
-    const speed = version.speed ?? parseFloat(speedRow?.value ?? "1.0");
-    const pitch = version.pitch ?? parseInt(pitchRow?.value ?? "0", 10);
-
-    return this.synthesize(sentence.text, voice, speed, pitch);
+    return { text: row.text, voice, speed, pitch };
   }
 
-  async getByParams(text: string, voice: string, speed: number, pitch: number): Promise<TTSResult> {
-    return this.synthesize(text, voice, speed, pitch);
-  }
+  // ── Synthesis + streaming cache ───────────────────────────────────────────
 
-  private async synthesize(
-    text: string, voice: string, speed: number, pitch: number
-  ): Promise<TTSResult> {
+  private async synthesize(params: ResolvedParams): Promise<TTSResult> {
+    const { text, voice, speed, pitch } = params;
     const cacheKey = await computeCacheKey(text, voice, speed, pitch);
 
-    // Check storage cache
+    // ── Cache HIT — wire R2 ReadableStream directly to response ──────────────
+    // The CF runtime pipes this zero-copy; Worker CPU is released immediately.
     const cached = await this.storage.get(cacheKey);
     if (cached) {
-      const chunks: Uint8Array[] = [];
-      const reader = cached.body.getReader();
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        chunks.push(value);
-      }
-      const total = chunks.reduce((n, c) => n + c.length, 0);
-      const out = new Uint8Array(total);
-      let offset = 0;
-      for (const c of chunks) { out.set(c, offset); offset += c.length; }
-      return { audio: out.buffer as ArrayBuffer, cacheHit: true, cacheKey };
+      return { stream: cached.body, cacheHit: true, cacheKey };
     }
 
-    // Generate via TTS provider
-    const audio = await this.tts.synthesize(text, voice, speed, pitch);
+    // ── Cache MISS — synthesise then tee the stream ───────────────────────────
+    const audioStream = await this.tts.synthesize(text, voice, speed, pitch);
 
-    // Cache result
-    await this.storage.put(cacheKey, audio, { contentType: "audio/mpeg" });
+    // tee() splits the stream into two independent readers:
+    //   branch[0] → returned to caller → piped to HTTP response
+    //   branch[1] → written to R2/filesystem cache in the background
+    const [responseStream, cacheStream] = audioStream.tee();
 
-    return { audio, cacheHit: false, cacheKey };
+    // Schedule the R2 write as a background task.
+    // On CF Workers: ctx.waitUntil() keeps the Worker alive until the write finishes
+    // even after the HTTP response has been flushed to the client.
+    // On the desktop server: ctx is a no-op shim — the Bun process stays alive anyway.
+    const writePromise = this.storage.put(cacheKey, cacheStream, { contentType: "audio/mpeg" });
+    if (this.ctx) {
+      this.ctx.waitUntil(writePromise);
+    } else {
+      // No ctx (e.g. unit tests) — await directly so the put still completes
+      await writePromise;
+    }
+
+    return { stream: responseStream, cacheHit: false, cacheKey };
   }
 
+  // ── Cache management ──────────────────────────────────────────────────────
+
   async getCacheStats(): Promise<CacheStats> {
-    const objects = await this.storage.list("tts/");
-    const totalBytes = objects.reduce((n, o) => n + o.size, 0);
+    let cursor:     string | undefined;
+    let fileCount   = 0;
+    let totalBytes  = 0;
+
+    do {
+      const page = await this.storage.list("", { cursor, limit: 1000 });
+      fileCount  += page.objects.length;
+      totalBytes += page.objects.reduce((n, o) => n + o.size, 0);
+      cursor      = page.truncated ? page.cursor : undefined;
+    } while (cursor);
+
     return {
-      fileCount: objects.length,
+      fileCount,
       totalBytes,
       totalMB: (totalBytes / 1024 / 1024).toFixed(2),
     };
   }
 
   async clearCache(): Promise<{ deletedFiles: number; bytesFreed: number }> {
-    const objects = await this.storage.list("tts/");
-    let bytesFreed = 0;
-    for (const obj of objects) {
-      bytesFreed += obj.size;
-      await this.storage.delete(obj.key);
-    }
-    await this.db.run("UPDATE sentences SET tts_cache_key = NULL");
-    return { deletedFiles: objects.length, bytesFreed };
+    let cursor:      string | undefined;
+    let deletedFiles = 0;
+    let bytesFreed   = 0;
+
+    do {
+      const page = await this.storage.list("", { cursor, limit: 1000 });
+      if (page.objects.length > 0) {
+        bytesFreed   += page.objects.reduce((n, o) => n + o.size, 0);
+        await this.storage.deleteBatch(page.objects.map(o => o.key));
+        deletedFiles += page.objects.length;
+      }
+      cursor = page.truncated ? page.cursor : undefined;
+    } while (cursor);
+
+    return { deletedFiles, bytesFreed };
   }
 }

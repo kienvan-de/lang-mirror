@@ -3,13 +3,13 @@ import { buildContext } from "../lib/context";
 import { parseAndValidate } from "../../core/services/import.service";
 import type { Env } from "../types";
 
+const MAX_IMPORT_BYTES = 5 * 1024 * 1024; // 5 MB
+
 export const importRouter = new Hono<{ Bindings: Env }>();
 
 async function readFile(req: Request): Promise<{ content: string; filename: string } | null> {
   let formData: FormData;
   try { formData = await req.formData(); } catch { return null; }
-
-  const MAX_IMPORT_BYTES = 5 * 1024 * 1024; // 5 MB
 
   const entry = formData.get("file");
   if (!entry) return null;
@@ -26,6 +26,9 @@ async function readFile(req: Request): Promise<{ content: string; filename: stri
 
 // POST /api/import/preview
 importRouter.post("/preview", async (c) => {
+  const cl = parseInt(c.req.header("Content-Length") ?? "0", 10);
+  if (cl > MAX_IMPORT_BYTES) return c.json({ error: "Import file exceeds 5 MB limit" }, 413);
+
   let file: { content: string; filename: string } | null;
   try { file = await readFile(c.req.raw); } catch (e) { return c.json({ error: (e as Error).message }, 413); }
   if (!file) return c.json({ error: "No file uploaded" }, 400);
@@ -49,6 +52,9 @@ importRouter.post("/preview", async (c) => {
 
 // POST /api/import
 importRouter.post("/", async (c) => {
+  const cl = parseInt(c.req.header("Content-Length") ?? "0", 10);
+  if (cl > MAX_IMPORT_BYTES) return c.json({ error: "Import file exceeds 5 MB limit" }, 413);
+
   let file: { content: string; filename: string } | null;
   try { file = await readFile(c.req.raw); } catch (e) { return c.json({ error: (e as Error).message }, 413); }
   if (!file) return c.json({ error: "No file uploaded" }, 400);
@@ -58,7 +64,8 @@ importRouter.post("/", async (c) => {
   if (result.errors.length > 0 || !result.data) return c.json({ error: "Validation failed", details: result.errors }, 400);
 
   const existingTopicId = c.req.query("topic_id") ?? null;
-  const onDuplicate = (c.req.query("onDuplicate") ?? "skip") as "skip" | "error";
+  const rawDuplicate = c.req.query("onDuplicate") ?? "skip";
+  const onDuplicate: "skip" | "error" = rawDuplicate === "error" ? "error" : "skip";
 
   const { importer } = buildContext(c.env);
   const importResult = await importer.importLesson(result.data, existingTopicId, onDuplicate);

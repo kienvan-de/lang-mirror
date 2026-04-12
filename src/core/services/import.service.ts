@@ -227,8 +227,9 @@ export class ImportService {
     onDuplicate: "skip" | "error"
   ): Promise<ImportResult> {
     const auth = requireAuth();
-    let topicId: string;
 
+    // ── Resolve or create topic ID ─────────────────────────────────────────
+    let topicId: string;
     if (existingTopicId) {
       const t = await this.db.queryFirst<{ id: string }>(
         "SELECT id FROM topics WHERE id = ?", existingTopicId
@@ -236,89 +237,119 @@ export class ImportService {
       if (!t) throw new NotFoundError(`Topic '${existingTopicId}' not found`);
       topicId = existingTopicId;
     } else {
-      await this.db.run(
-        "INSERT INTO topics (owner_id, title, description) VALUES (?, ?, ?)",
-        auth.id, lesson.title, (lesson as LessonImportTopic).description ?? null
-      );
-      const row = await this.db.queryFirst<{ id: string }>(
-        "SELECT id FROM topics ORDER BY created_at DESC LIMIT 1"
-      );
-      topicId = row!.id;
+      topicId = crypto.randomUUID();
     }
 
-    // Resolve and apply tags if provided
-    if (lesson.tags && lesson.tags.length > 0) {
-      const tagRows = await this.db.queryAll<{ id: string; name: string }>(
-        `SELECT id, name FROM tags WHERE name IN (${lesson.tags.map(() => "?").join(",")})`,
-        ...lesson.tags
-      );
-      if (tagRows.length > 0) {
-        await this.db.batch(tagRows.map(tag => ({
-          sql: "INSERT OR IGNORE INTO topic_tags (topic_id, tag_id) VALUES (?, ?)",
-          params: [topicId, tag.id],
-        })));
+    // ── Normalise to versions array ────────────────────────────────────────
+    const versions: ImportVersion[] = lesson.format === "single"
+      ? [{ language: lesson.language, title: undefined, description: undefined, voice_name: lesson.voice_name, speed: lesson.speed, pitch: lesson.pitch, sentences: lesson.sentences }]
+      : lesson.versions;
+
+    // ── Duplicate check (needs DB read before batch) ───────────────────────
+    const langCodes = versions.map(v => v.language);
+    const existingVersions = existingTopicId
+      ? await this.db.queryAll<{ language_code: string }>(
+          `SELECT language_code FROM topic_language_versions WHERE topic_id = ? AND language_code IN (${langCodes.map(() => "?").join(",")})`,
+          existingTopicId, ...langCodes
+        )
+      : [];
+    const existingLangs = new Set(existingVersions.map(v => v.language_code));
+
+    for (const v of versions) {
+      if (existingLangs.has(v.language)) {
+        if (onDuplicate === "error") throw new ConflictError(`Language '${v.language}' already exists on this topic`);
       }
     }
 
-    const versions: ImportVersion[] = lesson.format === "single"
-      ? [{ language: lesson.language, voice_name: lesson.voice_name, speed: lesson.speed, pitch: lesson.pitch, sentences: lesson.sentences }]
-      : lesson.versions;
+    // ── Tag lookups (SELECT — must happen before batch) ────────────────────
+    let tagIds: string[] = [];
+    if (lesson.tags && lesson.tags.length > 0) {
+      const tagRows = await this.db.queryAll<{ id: string }>(
+        `SELECT id FROM tags WHERE name IN (${lesson.tags.map(() => "?").join(",")})`,
+        ...lesson.tags
+      );
+      tagIds = tagRows.map(t => t.id);
+    }
 
+    // ── Compute next version position offset ───────────────────────────────
     const maxPosRow = await this.db.queryFirst<{ m: number }>(
       "SELECT COALESCE(MAX(position), -1) as m FROM topic_language_versions WHERE topic_id = ?", topicId
     );
     let posOffset = (maxPosRow?.m ?? -1) + 1;
 
-    const versionsResult: ImportResult["versions"] = [];
-    let totalSentences = 0;
+    // ── Build all INSERT statements upfront ────────────────────────────────
+    const statements: { sql: string; params: unknown[] }[] = [];
 
-    for (const v of versions) {
-      const existing = await this.db.queryFirst(
-        "SELECT id FROM topic_language_versions WHERE topic_id = ? AND language_code = ?",
-        topicId, v.language
-      );
-      if (existing) {
-        if (onDuplicate === "skip") continue;
-        throw new ConflictError(`Language '${v.language}' already exists on this topic`);
-      }
-
-      await this.db.run(
-        `INSERT INTO topic_language_versions (topic_id, language_code, title, description, voice_name, speed, pitch, position)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-        topicId, v.language,
-        v.title ?? null, v.description ?? null,
-        v.voice_name ?? null, v.speed ?? null, v.pitch ?? null,
-        posOffset++
-      );
-
-      const version = await this.db.queryFirst<{ id: string }>(
-        "SELECT id FROM topic_language_versions WHERE topic_id = ? AND language_code = ?",
-        topicId, v.language
-      );
-
-      await this.db.batch(v.sentences.map((s, i) => ({
-        sql: "INSERT INTO sentences (version_id, text, notes, position) VALUES (?, ?, ?, ?)",
-        params: [version!.id, s.text, s.notes ? JSON.stringify(s.notes) : null, i],
-      })));
-
-      versionsResult.push({ versionId: version!.id, language: v.language, sentenceCount: v.sentences.length });
-      totalSentences += v.sentences.length;
+    // Topic INSERT (only if new)
+    if (!existingTopicId) {
+      statements.push({
+        sql: "INSERT INTO topics (id, owner_id, title, description) VALUES (?, ?, ?, ?)",
+        params: [topicId, auth.id, lesson.title, (lesson as LessonImportTopic).description ?? null],
+      });
     }
 
-    // Auto-apply language tags from all imported version language codes
-    const importedLangCodes = [...new Set(versionsResult.map(v => v.language.split("-")[0]!.toLowerCase()))];
+    // Track results for return value
+    const versionsResult: ImportResult["versions"] = [];
+    let totalSentences = 0;
+    const importedLangCodes: string[] = [];
+
+    for (const v of versions) {
+      // Skip duplicates (already validated above for "error" mode)
+      if (existingLangs.has(v.language)) continue;
+
+      const versionId = crypto.randomUUID();
+
+      statements.push({
+        sql: `INSERT INTO topic_language_versions
+              (id, topic_id, language_code, title, description, voice_name, speed, pitch, position)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        params: [
+          versionId, topicId, v.language,
+          v.title ?? null, v.description ?? null,
+          v.voice_name ?? null, v.speed ?? null, v.pitch ?? null,
+          posOffset++,
+        ],
+      });
+
+      for (let i = 0; i < v.sentences.length; i++) {
+        const s = v.sentences[i]!;
+        statements.push({
+          sql: "INSERT INTO sentences (id, version_id, text, notes, position) VALUES (?, ?, ?, ?, ?)",
+          params: [crypto.randomUUID(), versionId, s.text, s.notes ? JSON.stringify(s.notes) : null, i],
+        });
+      }
+
+      versionsResult.push({ versionId, language: v.language, sentenceCount: v.sentences.length });
+      totalSentences += v.sentences.length;
+      importedLangCodes.push(v.language.split("-")[0]!.toLowerCase());
+    }
+
+    // Topic tag links
+    for (const tagId of tagIds) {
+      statements.push({
+        sql: "INSERT OR IGNORE INTO topic_tags (topic_id, tag_id) VALUES (?, ?)",
+        params: [topicId, tagId],
+      });
+    }
+
+    // Auto language tags
     if (importedLangCodes.length > 0) {
-      const placeholders = importedLangCodes.map(() => "?").join(",");
+      const uniqueCodes = [...new Set(importedLangCodes)];
       const langTagRows = await this.db.queryAll<{ id: string }>(
-        `SELECT id FROM tags WHERE type = 'language' AND name IN (${placeholders})`,
-        ...importedLangCodes
+        `SELECT id FROM tags WHERE type = 'language' AND name IN (${uniqueCodes.map(() => "?").join(",")})`,
+        ...uniqueCodes
       );
-      if (langTagRows.length > 0) {
-        await this.db.batch(langTagRows.map(tag => ({
+      for (const tag of langTagRows) {
+        statements.push({
           sql: "INSERT OR IGNORE INTO topic_tags (topic_id, tag_id) VALUES (?, ?)",
           params: [topicId, tag.id],
-        })));
+        });
       }
+    }
+
+    // ── Single batch round-trip ────────────────────────────────────────────
+    if (statements.length > 0) {
+      await this.db.batch(statements);
     }
 
     const topic = await this.db.queryFirst<{ id: string; title: string }>(

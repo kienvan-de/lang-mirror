@@ -1,6 +1,6 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync, unlinkSync, readdirSync, statSync } from "fs";
 import { join, dirname } from "path";
-import type { IObjectStorage, StoredObject } from "../../core/ports/storage.port";
+import type { IObjectStorage, ListResult, StoredObject } from "../../core/ports/storage.port";
 
 /**
  * Filesystem-based object storage adapter for the desktop (Bun) server.
@@ -31,7 +31,6 @@ export class FilesystemAdapter implements IObjectStorage {
                       : key.endsWith(".ogg")  ? "audio/ogg"
                       : "application/octet-stream";
 
-    // Wrap Buffer in a ReadableStream
     const body = new ReadableStream<Uint8Array>({
       start(controller) {
         controller.enqueue(new Uint8Array(buffer));
@@ -53,7 +52,6 @@ export class FilesystemAdapter implements IObjectStorage {
     if (data instanceof ArrayBuffer) {
       writeFileSync(path, new Uint8Array(data));
     } else {
-      // Consume the ReadableStream and write to disk
       const chunks: Uint8Array[] = [];
       const reader = (data as ReadableStream<Uint8Array>).getReader();
       while (true) {
@@ -74,7 +72,27 @@ export class FilesystemAdapter implements IObjectStorage {
     if (existsSync(path)) unlinkSync(path);
   }
 
-  async list(prefix = ""): Promise<Array<{ key: string; size: number }>> {
+  /** Filesystem: delete each key individually (no native batch) */
+  async deleteBatch(keys: string[]): Promise<void> {
+    for (const key of keys) await this.delete(key);
+  }
+
+  async list(prefix = "", opts?: { cursor?: string; limit?: number }): Promise<ListResult> {
+    const limit = opts?.limit ?? 1000;
+    const cursor = opts?.cursor ? parseInt(opts.cursor, 10) : 0;
+
+    const all = this.listAll(prefix);
+    const page = all.slice(cursor, cursor + limit);
+    const truncated = cursor + limit < all.length;
+
+    return {
+      objects:   page,
+      truncated,
+      cursor:    truncated ? String(cursor + limit) : undefined,
+    };
+  }
+
+  private listAll(prefix = ""): Array<{ key: string; size: number }> {
     const baseWithPrefix = this.fullPath(prefix);
     if (!existsSync(baseWithPrefix)) return [];
 
@@ -94,9 +112,10 @@ export class FilesystemAdapter implements IObjectStorage {
       }
     };
 
-    walk(existsSync(baseWithPrefix) && statSync(baseWithPrefix).isDirectory()
+    const target = existsSync(baseWithPrefix) && statSync(baseWithPrefix).isDirectory()
       ? baseWithPrefix
-      : this.fullPath(""));
+      : this.fullPath("");
+    walk(target);
 
     return results.filter(r => r.key.startsWith(prefix));
   }

@@ -13,6 +13,14 @@ export interface StoredObject {
   size: number;
 }
 
+export interface ListResult {
+  objects: Array<{ key: string; size: number }>;
+  /** true if there are more objects beyond this page */
+  truncated: boolean;
+  /** pass as cursor to the next list() call to get the next page */
+  cursor?: string;
+}
+
 export interface IObjectStorage {
   /** Returns null if the key does not exist */
   get(key: string): Promise<StoredObject | null>;
@@ -24,9 +32,15 @@ export interface IObjectStorage {
     opts?: { contentType?: string }
   ): Promise<void>;
 
-  /** Delete an object — no-op if key does not exist */
+  /** Delete a single object — no-op if key does not exist */
   delete(key: string): Promise<void>;
 
-  /** List objects, optionally filtered by key prefix */
-  list(prefix?: string): Promise<Array<{ key: string; size: number }>>;
+  /** Delete multiple objects in one call — no-op for missing keys */
+  deleteBatch(keys: string[]): Promise<void>;
+
+  /**
+   * List objects with optional prefix filter and pagination.
+   * Use cursor from a previous response to fetch the next page.
+   */
+  list(prefix?: string, opts?: { cursor?: string; limit?: number }): Promise<ListResult>;
 }

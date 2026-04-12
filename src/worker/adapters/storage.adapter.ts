@@ -1,4 +1,4 @@
-import type { IObjectStorage, StoredObject } from "../../core/ports/storage.port";
+import type { IObjectStorage, ListResult, StoredObject } from "../../core/ports/storage.port";
 
 /**
  * Cloudflare R2 adapter implementing IObjectStorage.
@@ -13,9 +13,9 @@ export class R2Adapter implements IObjectStorage {
     if (!obj) return null;
 
     return {
-      body: obj.body,
+      body:        obj.body,
       contentType: obj.httpMetadata?.contentType ?? "application/octet-stream",
-      size: obj.size,
+      size:        obj.size,
     };
   }
 
@@ -33,8 +33,22 @@ export class R2Adapter implements IObjectStorage {
     await this.bucket.delete(key);
   }
 
-  async list(prefix?: string): Promise<Array<{ key: string; size: number }>> {
-    const listed = await this.bucket.list(prefix ? { prefix } : undefined);
-    return listed.objects.map(obj => ({ key: obj.key, size: obj.size }));
+  /** R2 natively accepts an array of keys — single round-trip for up to 1000 keys */
+  async deleteBatch(keys: string[]): Promise<void> {
+    if (keys.length === 0) return;
+    await this.bucket.delete(keys);
+  }
+
+  async list(prefix?: string, opts?: { cursor?: string; limit?: number }): Promise<ListResult> {
+    const listed = await this.bucket.list({
+      prefix,
+      cursor: opts?.cursor,
+      limit:  opts?.limit ?? 1000,
+    });
+    return {
+      objects:   listed.objects.map(o => ({ key: o.key, size: o.size })),
+      truncated: listed.truncated,
+      cursor:    listed.truncated ? listed.cursor : undefined,
+    };
   }
 }

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { XMarkIcon, GlobeAltIcon, ExclamationTriangleIcon, PlayIcon } from "@heroicons/react/24/outline";
-import { api, type Version } from "../../lib/api";
+import { api, type Version, type Voice } from "../../lib/api";
 import { langFlag, langLabel } from "../../lib/lang";
 import { defaultVoiceForLang } from "../../hooks/useTTS";
 

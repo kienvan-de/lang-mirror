@@ -19,6 +19,7 @@ import { ShortcutHelpOverlay } from "../../components/practice/ShortcutHelpOverl
 import { langFlag, langLabel, langName } from "../../lib/lang";
 import { api, type Version } from "../../lib/api";
 import { useUserLanguages } from "../../hooks/useUserLanguages";
+import { useAuth } from "../../hooks/useAuth";
 import ReactMarkdown from "react-markdown";
 
 // ── Font size mapping ──────────────────────────────────────────────────────────
@@ -145,14 +146,24 @@ export function PracticePage() {
   });
 
   const version = topic?.versions?.find((v) => v.language_code === langCode);
-  const { hasConfig, requiredLanguages, nativeLanguage } = useUserLanguages();
+  const { hasConfig, requiredLanguages, nativeLanguage, isLoadingConfig } = useUserLanguages();
+  const { user } = useAuth();
+  const isOwnTopic = !!topic && !!user && topic.owner_id === user.id;
 
-  // Filter versions to required languages only if config is set, also exclude native language from practice tabs
+  // Filter versions shown as practice tabs:
+  // - Always show the currently active langCode tab
+  // - Always hide the native language (no point practising your own language)
+  // - For own topics: show ALL non-native versions (no learning-language restriction)
+  // - For others' topics: only show versions matching the user's learning languages
+  // - While settings are loading: show only active tab to avoid a flash
   const allVersions: Version[] = (topic?.versions ?? []).filter(v => {
     const base = v.language_code.split("-")[0]!.toLowerCase();
-    if (nativeLanguage && base === nativeLanguage) return false; // hide native tab in practice
+    if (v.language_code === langCode) return true;                // always show active tab
+    if (isLoadingConfig) return false;                            // wait for settings before showing others
+    if (nativeLanguage && base === nativeLanguage) return false;  // never show native language tab
+    if (isOwnTopic) return true;                                  // own topic: show all remaining versions
     if (!hasConfig) return true;
-    return requiredLanguages.includes(base);
+    return requiredLanguages.includes(base);                      // others' topics: respect learning config
   });
 
   // Derive uiLang-matched display title — use all topic versions (not filtered) for title lookup

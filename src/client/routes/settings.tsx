@@ -700,11 +700,18 @@ function UserLanguageSection({
       localStorage.setItem("lang-mirror-lang", native);
       if (i18n.language !== native) i18n.changeLanguage(native);
     }
-    await api.setSetting("user.learningLanguages", JSON.stringify(learning));
+    // Always strip native from learning list before saving — guards against stale data
+    const cleanLearning = learning.filter(c => c !== native);
+    await api.setSetting("user.learningLanguages", JSON.stringify(cleanLearning));
     onSaved();
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   };
+
+  // When native changes, remove it from learning state immediately
+  useEffect(() => {
+    if (native) setLearning(prev => prev.filter(c => c !== native));
+  }, [native]);
 
   const toggleLearning = (code: string) => {
     setLearning(prev =>

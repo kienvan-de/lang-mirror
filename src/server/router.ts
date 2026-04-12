@@ -10,6 +10,7 @@ import * as practice    from "./routes/practice";
 import * as settings    from "./routes/settings";
 import * as importRoute from "./routes/import";
 import * as exportRoute from "./routes/export";
+import * as paths       from "./routes/paths";
 
 export async function router(req: Request): Promise<Response | null> {
   const url  = new URL(req.url);
@@ -42,6 +43,7 @@ export async function router(req: Request): Promise<Response | null> {
 
   // All other routes run inside the mock admin context
   return withMockAuth(async () => {
+    if (path.startsWith("/api/path"))              return paths.handle(req, url);
     if (path.match(/^\/api\/topics\/[^/]+\/versions/)) return versions.handle(req, url);
     if (path.startsWith("/api/topics"))     return topics.handle(req, url);
     if (path.startsWith("/api/versions"))   return versions.handle(req, url);

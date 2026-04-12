@@ -11,6 +11,8 @@ export interface UserLanguageConfig {
   hasConfig: boolean;
   /** all required language codes: [native, ...learning] */
   requiredLanguages: string[];
+  /** true while the settings query is still in-flight */
+  isLoadingConfig: boolean;
 }
 
 export function useUserLanguages(): UserLanguageConfig {
@@ -18,7 +20,7 @@ export function useUserLanguages(): UserLanguageConfig {
   const { i18n } = useTranslation();
   const userId = user?.id ?? "";
 
-  const { data: settings } = useQuery({
+  const { data: settings, isLoading: isLoadingConfig } = useQuery({
     queryKey: ["settings", userId],
     queryFn: api.getSettings,
     enabled: !!userId,
@@ -46,9 +48,11 @@ export function useUserLanguages(): UserLanguageConfig {
   }, [nativeLanguage, i18n]);
 
   const hasConfig = !!nativeLanguage;
+  // Exclude native language from learning languages in case the user accidentally saved it in both
+  const filteredLearningLanguages = learningLanguages.filter(l => l !== nativeLanguage);
   const requiredLanguages = hasConfig
-    ? [nativeLanguage!, ...learningLanguages]
+    ? [nativeLanguage!, ...filteredLearningLanguages]
     : [];
 
-  return { nativeLanguage, learningLanguages, hasConfig, requiredLanguages };
+  return { nativeLanguage, learningLanguages, hasConfig, requiredLanguages, isLoadingConfig };
 }

@@ -38,7 +38,7 @@ export function buildContext(env: Env, ctx?: IExecutionContext) {
     settings:   new SettingsService(db),
     importer:   new ImportService(db),
     exporter:   new ExportService(db),
-    oidc:       new OidcService(db, cache),
+    oidc:       new OidcService(db, cache, env.SKIP_OIDC_URL_VALIDATION === "true"),
     users:      new UsersService(db),
     tags:       new TagsService(db),
     paths:      new PathsService(db),

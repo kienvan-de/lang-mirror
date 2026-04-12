@@ -66,6 +66,10 @@ export class OidcService {
   constructor(
     private db: IDatabase,
     private cache: ICache,
+    /** Skip HTTPS + private-IP validation on token_url / userinfo_url.
+     *  Set to true only in local development (SKIP_OIDC_URL_VALIDATION env var).
+     *  Never enable in production. */
+    private skipUrlValidation = false,
   ) {}
 
   // ── Public provider list (login page) ──────────────────────────────────────
@@ -141,8 +145,10 @@ export class OidcService {
       tokenParams["client_secret"] = provider.client_secret;
     }
 
-    assertSafeUrl(provider.token_url, "token_url");
-    assertSafeUrl(provider.userinfo_url, "userinfo_url");
+    if (!this.skipUrlValidation) {
+      assertSafeUrl(provider.token_url, "token_url");
+      assertSafeUrl(provider.userinfo_url, "userinfo_url");
+    }
 
     const tokenRes = await fetch(provider.token_url, {
       method: "POST",

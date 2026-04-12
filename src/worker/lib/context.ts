@@ -21,12 +21,17 @@ import { PathsService }      from "../../core/services/paths.service";
 import type { IExecutionContext } from "../../core/ports/execution.port";
 import type { Env } from "../types";
 
-export function buildContext(env: Env, ctx?: IExecutionContext) {
+export async function buildContext(env: Env, ctx?: IExecutionContext) {
   const db       = new D1Adapter(env.DB);
   const ttsCache = new R2Adapter(env.TTS_CACHE);
   const recs     = new R2Adapter(env.RECORDINGS);
-  const tts      = new EdgeTTSAdapter();
   const cache    = new KVCacheAdapter(env.SESSION_CACHE);
+  const settings = new SettingsService(db);
+
+  // Resolve volatile Edge TTS protocol constants from DB settings.
+  // Falls back to hardcoded defaults if keys are missing.
+  const edgeTTSConfig = await settings.getEdgeTTSConfig();
+  const tts           = new EdgeTTSAdapter(edgeTTSConfig);
 
   return {
     topics:     new TopicsService(db),
@@ -35,7 +40,7 @@ export function buildContext(env: Env, ctx?: IExecutionContext) {
     ttsService: new TTSService(db, ttsCache, tts, ctx),
     recordings: new RecordingsService(db, recs),
     practice:   new PracticeService(db),
-    settings:   new SettingsService(db),
+    settings,
     importer:   new ImportService(db),
     exporter:   new ExportService(db),
     oidc:       new OidcService(db, cache, env.SKIP_OIDC_URL_VALIDATION === "true"),

@@ -67,7 +67,7 @@ importRouter.post("/", async (c) => {
   const rawDuplicate = c.req.query("onDuplicate") ?? "skip";
   const onDuplicate: "skip" | "error" = rawDuplicate === "error" ? "error" : "skip";
 
-  const { importer } = buildContext(c.env);
+  const { importer } = await buildContext(c.env);
   const importResult = await importer.importLesson(result.data, existingTopicId, onDuplicate);
   return c.json(importResult, 201);
 });

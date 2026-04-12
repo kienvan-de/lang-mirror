@@ -10,12 +10,8 @@
  * in browsers or standard runtimes).
  */
 
-import {
-  TRUSTED_CLIENT_TOKEN,
-  WSS_URL,
-  WSS_HEADERS,
-  SEC_MS_GEC_VERSION,
-} from "./edge-tts-constants";
+import { BASE_URL } from "./edge-tts-constants";
+import type { EdgeTTSConfig } from "../../core/services/settings.service";
 
 // ── DRM — Sec-MS-GEC token (matches IsomorphicDRM exactly) ───────────────────
 
@@ -33,13 +29,13 @@ function getUnixTimestamp(): number {
   return Date.now() / 1e3 + clockSkewSeconds;
 }
 
-async function generateSecMsGec(): Promise<string> {
+async function generateSecMsGec(token: string): Promise<string> {
   let ticks = getUnixTimestamp();
   ticks += WIN_EPOCH;
   ticks -= ticks % 300;
   ticks *= S_TO_NS / 100;          // convert to 100-nanosecond intervals
 
-  const strToHash = `${ticks.toFixed(0)}${TRUSTED_CLIENT_TOKEN}`;
+  const strToHash = `${ticks.toFixed(0)}${token}`;
   const hashBuffer = await crypto.subtle.digest(
     "SHA-256",
     new TextEncoder().encode(strToHash),
@@ -48,6 +44,20 @@ async function generateSecMsGec(): Promise<string> {
     .map(b => b.toString(16).padStart(2, "0"))
     .join("")
     .toUpperCase();
+}
+
+/** Build WSS headers from runtime config — volatile fields come from DB */
+function buildWSSHeaders(config: EdgeTTSConfig): Record<string, string> {
+  const major = config.chromiumVersion.split(".")[0]!;
+  return {
+    "User-Agent":            `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${major}.0.0.0 Safari/537.36 Edg/${major}.0.0.0`,
+    "Accept-Encoding":       "gzip, deflate, br, zstd",
+    "Accept-Language":       "en-US,en;q=0.9",
+    "Pragma":                "no-cache",
+    "Cache-Control":         "no-cache",
+    "Origin":                config.origin,
+    "Sec-WebSocket-Version": "13",
+  };
 }
 
 /**
@@ -240,18 +250,21 @@ async function synthesizeOnce(
   rate: string,
   pitch: string,
   volume = "+0%",
+  config: EdgeTTSConfig,
 ): Promise<ReadableStream<Uint8Array>> {
-  const secMsGec = await generateSecMsGec();
-  const reqId    = connectId();
+  const secMsGec       = await generateSecMsGec(config.token);
+  const secMsGecVersion = `1-${config.chromiumVersion}`;
+  const reqId           = connectId();
+  const wssUrl          = `wss://${BASE_URL}/edge/v1?TrustedClientToken=${encodeURIComponent(config.token)}`;
 
   const url =
-    `${WSS_URL}` +
+    `${wssUrl}` +
     `&Sec-MS-GEC=${encodeURIComponent(secMsGec)}` +
-    `&Sec-MS-GEC-Version=${encodeURIComponent(SEC_MS_GEC_VERSION)}` +
+    `&Sec-MS-GEC-Version=${encodeURIComponent(secMsGecVersion)}` +
     `&ConnectionId=${reqId}`;
 
   const { ws } = await openWebSocket(url, {
-    ...WSS_HEADERS,
+    ...buildWSSHeaders(config),
     Cookie: `muid=${generateMuid()};`,
   });
 
@@ -318,9 +331,10 @@ async function synthesizeOnce(
 export interface SynthesizeOptions {
   text: string;
   voice: string;
-  speed?: number;   // 0.5–2.0, default 1.0
-  pitch?: number;   // semitones, default 0
-  volume?: number;  // 0–100 percentage, default 100
+  speed?: number;           // 0.5–2.0, default 1.0
+  pitch?: number;           // semitones, default 0
+  volume?: number;          // 0–100 percentage, default 100
+  config: EdgeTTSConfig;    // resolved from DB settings by TTSService
 }
 
 /**
@@ -338,6 +352,7 @@ export async function synthesize(opts: SynthesizeOptions): Promise<ReadableStrea
     speed  = 1.0,
     pitch  = 0,
     volume = 100,
+    config,
   } = opts;
 
   const rate      = speedToRate(speed);
@@ -345,7 +360,7 @@ export async function synthesize(opts: SynthesizeOptions): Promise<ReadableStrea
   const volumeStr = `+${Math.max(0, Math.min(100, volume))}%`;
 
   try {
-    return await synthesizeOnce(text, voice, rate, pitchStr, volumeStr);
+    return await synthesizeOnce(text, voice, rate, pitchStr, volumeStr, config);
   } catch (err) {
     const status = (err as { status?: number }).status;
 
@@ -357,7 +372,7 @@ export async function synthesize(opts: SynthesizeOptions): Promise<ReadableStrea
         console.warn(`[edge-tts] ${status} — clock synced from server Date header, retrying once`);
       }
       // Second attempt with corrected clock — let any error propagate to caller
-      return await synthesizeOnce(text, voice, rate, pitchStr, volumeStr);
+      return await synthesizeOnce(text, voice, rate, pitchStr, volumeStr, config);
     }
 
     // Any other error — propagate immediately

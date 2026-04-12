@@ -8,29 +8,29 @@ import type { Env } from "../types";
 export const topicsRouter = new Hono<{ Bindings: Env }>();
 
 topicsRouter.get("/", async (c) => {
-  const { topics } = buildContext(c.env);
+  const { topics } = await buildContext(c.env);
   return c.json(await topics.list());
 });
 
 topicsRouter.post("/", async (c) => {
   const body = await c.req.json<{ title?: string; description?: string }>();
-  const { topics } = buildContext(c.env);
+  const { topics } = await buildContext(c.env);
   return c.json(await topics.create(body.title ?? "", body.description), 201);
 });
 
 topicsRouter.get("/:id", async (c) => {
-  const { topics } = buildContext(c.env);
+  const { topics } = await buildContext(c.env);
   return c.json(await topics.get(c.req.param("id")));
 });
 
 topicsRouter.put("/:id", async (c) => {
   const body = await c.req.json<{ title?: string; description?: string }>();
-  const { topics } = buildContext(c.env);
+  const { topics } = await buildContext(c.env);
   return c.json(await topics.update(c.req.param("id"), body));
 });
 
 topicsRouter.delete("/:id", async (c) => {
-  const { topics } = buildContext(c.env);
+  const { topics } = await buildContext(c.env);
   await topics.delete(c.req.param("id"));
   return c.json({ deleted: true });
 });
@@ -38,7 +38,7 @@ topicsRouter.delete("/:id", async (c) => {
 // ── /api/topics/:topicId/versions ─────────────────────────────────────────────
 
 topicsRouter.get("/:topicId/versions", async (c) => {
-  const { versions } = buildContext(c.env);
+  const { versions } = await buildContext(c.env);
   return c.json(await versions.listByTopic(c.req.param("topicId")));
 });
 
@@ -51,7 +51,7 @@ topicsRouter.post("/:topicId/versions", async (c) => {
     speed?: number;
     pitch?: number;
   }>();
-  const { versions } = buildContext(c.env);
+  const { versions } = await buildContext(c.env);
   return c.json(await versions.create(c.req.param("topicId"), {
     language_code: typeof body.language_code === "string" ? body.language_code : "",
     title:         typeof body.title         === "string" ? body.title         : undefined,
@@ -64,7 +64,7 @@ topicsRouter.post("/:topicId/versions", async (c) => {
 
 topicsRouter.post("/:topicId/versions/reorder", async (c) => {
   const { ids } = await c.req.json<{ ids: string[] }>();
-  const { versions } = buildContext(c.env);
+  const { versions } = await buildContext(c.env);
   return c.json(await versions.reorder(c.req.param("topicId"), ids));
 });
 
@@ -73,6 +73,6 @@ topicsRouter.post("/:topicId/versions/reorder", async (c) => {
 // PUT /api/topics/:topicId/tags — replace all tags on a topic (owner only)
 topicsRouter.put("/:topicId/tags", async (c) => {
   const { tagIds } = await c.req.json<{ tagIds: string[] }>();
-  const { topics } = buildContext(c.env);
+  const { topics } = await buildContext(c.env);
   return c.json(await topics.setTags(c.req.param("topicId"), tagIds ?? []));
 });

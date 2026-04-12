@@ -66,7 +66,7 @@ async function readBoundedStream(
 
 // DELETE /api/recordings — delete all (admin only)
 recordingsRouter.delete("/", adminGuard, async (c) => {
-  const { recordings } = buildContext(c.env);
+  const { recordings } = await buildContext(c.env);
   return c.json(await recordings.deleteAll());
 });
 
@@ -83,7 +83,7 @@ recordingsRouter.post("/:sentenceId", validateUuidParam("sentenceId"), async (c)
   const buf = await readBoundedStream(c.req.raw.body!, MAX_RECORDING_BYTES);
   if (!buf) return c.json({ error: "Recording exceeds 10 MB limit" }, 413);
 
-  const { recordings } = buildContext(c.env);
+  const { recordings } = await buildContext(c.env);
   const result = await recordings.upload(
     c.req.param("sentenceId"),
     buf,          // ArrayBuffer — safe, bounded
@@ -94,7 +94,7 @@ recordingsRouter.post("/:sentenceId", validateUuidParam("sentenceId"), async (c)
 
 // GET /api/recordings/:sentenceId
 recordingsRouter.get("/:sentenceId", validateUuidParam("sentenceId"), async (c) => {
-  const { recordings } = buildContext(c.env);
+  const { recordings } = await buildContext(c.env);
   const ref = await recordings.get(c.req.param("sentenceId"));
   return new Response(ref.object.body, {
     headers: {
@@ -106,7 +106,7 @@ recordingsRouter.get("/:sentenceId", validateUuidParam("sentenceId"), async (c) 
 
 // DELETE /api/recordings/:sentenceId
 recordingsRouter.delete("/:sentenceId", validateUuidParam("sentenceId"), async (c) => {
-  const { recordings } = buildContext(c.env);
+  const { recordings } = await buildContext(c.env);
   await recordings.delete(c.req.param("sentenceId"));
   return new Response(null, { status: 204 });
 });

@@ -7,7 +7,7 @@ export const sentencesRouter = new Hono<{ Bindings: Env }>();
 
 sentencesRouter.put("/:id", validateUuidParam("id"), async (c) => {
   const body = await c.req.json<{ text?: string; notes?: Record<string, string> }>();
-  const { sentences } = buildContext(c.env);
+  const { sentences } = await buildContext(c.env);
   // Explicitly allowlist fields — never pass raw body to service
   return c.json(await sentences.update(c.req.param("id"), {
     text:  typeof body.text  === "string" ? body.text  : undefined,
@@ -18,7 +18,7 @@ sentencesRouter.put("/:id", validateUuidParam("id"), async (c) => {
 });
 
 sentencesRouter.delete("/:id", validateUuidParam("id"), async (c) => {
-  const { sentences } = buildContext(c.env);
+  const { sentences } = await buildContext(c.env);
   await sentences.delete(c.req.param("id"));
   return c.json({ deleted: true });
 });

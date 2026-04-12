@@ -157,6 +157,11 @@ export const DEFAULT_SETTINGS: [string, string][] = [
   ["practice.drillPause",          "1"],
   ["practice.autoPlayback",        "true"],
   ["display.fontSize",             "lg"],
+  // Edge TTS protocol constants — update these in DB when Microsoft rotates them,
+  // no deploy required. Values below match edge-tts-universal v1.4.0 / Chrome 143.
+  ["tts.edgeTTS.trustedClientToken", "6A5AA1D4EAFF4E9FB37E23D68491D6F4"],
+  ["tts.edgeTTS.chromiumVersion",    "143.0.3650.75"],
+  ["tts.edgeTTS.origin",             "chrome-extension://jdiccldimpdaibmpdkjnbmckianbfold"],
   // Note: app.baseUrl is intentionally NOT seeded here — it is dev-only.
   // Set explicitly for local CF dev via: bun run cf:seed:mock
 ];

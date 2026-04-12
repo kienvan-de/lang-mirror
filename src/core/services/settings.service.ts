@@ -105,4 +105,29 @@ export class SettingsService {
       return fallback;
     }
   }
+
+  /**
+   * Resolve Edge TTS protocol constants from system settings.
+   * Falls back to hardcoded defaults if the DB keys are missing (e.g. before
+   * first migration run). Update the DB keys to rotate without a redeploy.
+   */
+  async getEdgeTTSConfig(): Promise<EdgeTTSConfig> {
+    const [token, chromiumVersion, origin] = await Promise.all([
+      this.getValue("tts.edgeTTS.trustedClientToken", "6A5AA1D4EAFF4E9FB37E23D68491D6F4"),
+      this.getValue("tts.edgeTTS.chromiumVersion",    "143.0.3650.75"),
+      this.getValue("tts.edgeTTS.origin",             "chrome-extension://jdiccldimpdaibmpdkjnbmckianbfold"),
+    ]);
+    return { token, chromiumVersion, origin };
+  }
+}
+
+// ── Edge TTS config type — exported for use by adapters ───────────────────────
+
+export interface EdgeTTSConfig {
+  /** TRUSTED_CLIENT_TOKEN — used in Sec-MS-GEC hash + WSS URL query param */
+  token: string;
+  /** Full Chromium version e.g. "143.0.3650.75" — drives User-Agent + SEC_MS_GEC_VERSION */
+  chromiumVersion: string;
+  /** WebSocket upgrade Origin header — must match Microsoft's allowlist */
+  origin: string;
 }

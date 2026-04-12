@@ -15,13 +15,13 @@ ttsRouter.get("/voices", (c) => {
 
 // GET /api/tts/cache/stats  (admin only)
 ttsRouter.get("/cache/stats", adminGuard, async (c) => {
-  const { ttsService } = buildContext(c.env);
+  const { ttsService } = await buildContext(c.env);
   return c.json(await ttsService.getCacheStats());
 });
 
 // DELETE /api/tts/cache  (admin only)
 ttsRouter.delete("/cache", adminGuard, async (c) => {
-  const { ttsService } = buildContext(c.env);
+  const { ttsService } = await buildContext(c.env);
   return c.json(await ttsService.clearCache());
 });
 
@@ -29,7 +29,7 @@ ttsRouter.delete("/cache", adminGuard, async (c) => {
 // Pass c.executionCtx so TTSService can use waitUntil() to write to R2 in the
 // background while the streamed response is already on its way to the client.
 ttsRouter.get("/:sentenceId", validateUuidParam("sentenceId"), async (c) => {
-  const { ttsService } = buildContext(c.env, c.executionCtx);
+  const { ttsService } = await buildContext(c.env, c.executionCtx);
   const result = await ttsService.getBySentenceId(c.req.param("sentenceId"));
 
   return new Response(result.stream, {

@@ -17,13 +17,13 @@ authRouter.get("/me", async (c) => {
 
 // GET /api/auth/providers — public, lists enabled OIDC providers
 authRouter.get("/providers", async (c) => {
-  const { oidc } = buildContext(c.env);
+  const { oidc } = await buildContext(c.env);
   return c.json(await oidc.listProviders());
 });
 
 // GET /api/auth/login/:providerId — kick off OIDC flow (browser navigates directly)
 authRouter.get("/login/:providerId", async (c) => {
-  const { oidc } = buildContext(c.env);
+  const { oidc } = await buildContext(c.env);
   const { redirectUrl } = await oidc.initiateLogin(c.req.param("providerId"));
   return c.redirect(redirectUrl, 302);
 });
@@ -34,7 +34,7 @@ authRouter.get("/callback/:providerId", async (c) => {
   const state = c.req.query("state");
   const error = c.req.query("error");
 
-  const { oidc } = buildContext(c.env);
+  const { oidc } = await buildContext(c.env);
 
   // In production APP_BASE_URL is unset → relative URLs work (Worker serves the SPA).
   // In local dev (Vite on a different port) set APP_BASE_URL=http://localhost:5173
@@ -92,7 +92,7 @@ authRouter.post("/logout", async (c) => {
   const session    = getCookie(c, cookieName);
 
   if (session) {
-    const { oidc } = buildContext(c.env);
+    const { oidc } = await buildContext(c.env);
     await oidc.deleteSession(session);
   }
   deleteCookie(c, cookieName, { path: "/" });
@@ -104,20 +104,20 @@ authRouter.post("/logout", async (c) => {
 // POST /api/auth/providers — add a new provider
 authRouter.post("/providers", adminGuard, async (c) => {
   const body = await c.req.json();
-  const { oidc } = buildContext(c.env);
+  const { oidc } = await buildContext(c.env);
   return c.json(await oidc.addProvider(body), 201);
 });
 
 // PUT /api/auth/providers/:id
 authRouter.put("/providers/:id", adminGuard, async (c) => {
   const body = await c.req.json();
-  const { oidc } = buildContext(c.env);
+  const { oidc } = await buildContext(c.env);
   return c.json(await oidc.updateProvider(c.req.param("id"), body));
 });
 
 // DELETE /api/auth/providers/:id
 authRouter.delete("/providers/:id", adminGuard, async (c) => {
-  const { oidc } = buildContext(c.env);
+  const { oidc } = await buildContext(c.env);
   await oidc.deleteProvider(c.req.param("id"));
   return c.json({ deleted: true });
 });

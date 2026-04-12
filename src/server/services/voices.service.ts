@@ -1,7 +1,8 @@
 import { join } from "path";
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import { DATA_DIR } from "../lib/data-dir";
-import { TRUSTED_CLIENT_TOKEN, generateSecMsGecToken, CHROMIUM_FULL_VERSION } from "node-edge-tts/dist/drm.js";
+import { dbAdapter } from "../lib/context";
+import { SettingsService } from "../../core/services/settings.service";
 
 export interface Voice {
   name: string;       // "ja-JP-NanamiNeural"
@@ -43,15 +44,17 @@ export function getVoices(): Voice[] {
 
 export async function refreshVoices(): Promise<Voice[]> {
   try {
+    // Resolve volatile constants from DB settings — no deploy needed to update them
+    const { token, chromiumVersion } = await new SettingsService(dbAdapter).getEdgeTTSConfig();
+    const major = chromiumVersion.split(".")[0]!;
+
     const res = await fetch(
-      `https://speech.platform.bing.com/consumer/speech/synthesize/readaloud/voices/list?trustedclienttoken=${TRUSTED_CLIENT_TOKEN}`,
+      `https://speech.platform.bing.com/consumer/speech/synthesize/readaloud/voices/list?trustedclienttoken=${token}`,
       {
         headers: {
           Authority: "speech.platform.bing.com",
-          "Sec-MS-GEC": generateSecMsGecToken(),
-          "Sec-MS-GEC-Version": `1-${CHROMIUM_FULL_VERSION}`,
-          "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+          "Sec-MS-GEC-Version": `1-${chromiumVersion}`,
+          "User-Agent": `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${major}.0.0.0 Safari/537.36 Edg/${major}.0.0.0`,
         },
       }
     );

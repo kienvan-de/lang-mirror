@@ -51,17 +51,19 @@ async function generateSecMsGec(): Promise<string> {
 }
 
 /**
- * Adjust clock skew from a failed HTTP response's Date header.
- * Called on 403/404 before retrying so the next Sec-MS-GEC is computed
- * with a timestamp that matches Microsoft's server clock.
+ * Sync clock skew from a 403/404 response's Date header.
+ * Microsoft's Sec-MS-GEC token is time-sensitive — a mismatch between the
+ * Worker clock and Microsoft's server clock causes 403/404 rejections.
+ * Reading the Date header from the failed response gives us the server's
+ * current time, letting us recompute a correct token for one retry.
  */
-function adjustClockSkew(response: Response): void {
+function syncClockFromResponse(response: Response): void {
   try {
     const serverDate = response.headers.get("date");
     if (!serverDate) return;
     const serverTs = new Date(serverDate).getTime() / 1e3;
-    const clientTs = getUnixTimestamp();
-    clockSkewSeconds += serverTs - clientTs;
+    // Replace the accumulated skew with the precise delta from this response
+    clockSkewSeconds = serverTs - (Date.now() / 1e3);
   } catch { /* ignore parse errors */ }
 }
 
@@ -324,9 +326,10 @@ export interface SynthesizeOptions {
 /**
  * Synthesise speech via Edge TTS WebSocket and return audio as a ReadableStream.
  *
- * Retries up to 3 times on 403/404 (Microsoft's servers are occasionally flaky)
- * and adjusts the clock skew from the server's Date header on each failure so
- * the next Sec-MS-GEC token is computed with a correct timestamp.
+ * On 403/404: the Sec-MS-GEC token is time-sensitive — the rejection means our
+ * Worker clock differs from Microsoft's. We sync the clock exactly once from the
+ * Date header of the failed response, then retry once with a freshly computed token.
+ * If the retry also fails we surface the error immediately — no further attempts.
  */
 export async function synthesize(opts: SynthesizeOptions): Promise<ReadableStream<Uint8Array>> {
   const {
@@ -341,27 +344,23 @@ export async function synthesize(opts: SynthesizeOptions): Promise<ReadableStrea
   const pitchStr  = pitchToHz(pitch);
   const volumeStr = `+${Math.max(0, Math.min(100, volume))}%`;
 
-  let lastError: Error = new Error("Edge TTS: unknown error");
+  try {
+    return await synthesizeOnce(text, voice, rate, pitchStr, volumeStr);
+  } catch (err) {
+    const status = (err as { status?: number }).status;
 
-  for (let attempt = 0; attempt < 3; attempt++) {
-    try {
-      return await synthesizeOnce(text, voice, rate, pitchStr, volumeStr);
-    } catch (err) {
-      lastError = err as Error;
-      const status = (err as { status?: number }).status;
-
-      if (status === 403 || status === 404) {
-        // Adjust clock skew from the failed response's Date header then retry
-        const resp = (err as { response?: Response }).response;
-        if (resp) adjustClockSkew(resp);
-        console.warn(`[edge-tts] attempt ${attempt + 1} failed (${status}), retrying with adjusted clock skew`);
-        continue;
+    // 403/404 = clock skew — sync from the response Date header and retry once
+    if (status === 403 || status === 404) {
+      const resp = (err as { response?: Response }).response;
+      if (resp) {
+        syncClockFromResponse(resp);
+        console.warn(`[edge-tts] ${status} — clock synced from server Date header, retrying once`);
       }
-
-      // Non-recoverable error — throw immediately
-      throw err;
+      // Second attempt with corrected clock — let any error propagate to caller
+      return await synthesizeOnce(text, voice, rate, pitchStr, volumeStr);
     }
-  }
 
-  throw lastError;
+    // Any other error — propagate immediately
+    throw err;
+  }
 }

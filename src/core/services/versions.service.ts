@@ -139,15 +139,18 @@ export class VersionsService {
     if (!version) throw new NotFoundError(`Version '${id}' not found`);
     await assertTopicAccess(this.db, version.topic_id);
 
-    // Delete all recordings for this version across all users
+    // Delete all recordings for this version across all users — paginate through R2
     // key format: recordings/{userId}/{topicId}/{langCode}/sentence-{id}.ext
-    const allObjects = await this.storage.list("recordings/");
     const versionInfix = `${version.topic_id}/${version.language_code}/`;
-    for (const obj of allObjects) {
-      if (obj.key.includes(versionInfix)) {
-        await this.storage.delete(obj.key);
-      }
-    }
+    let cursor: string | undefined;
+    do {
+      const page = await this.storage.list("recordings/", { cursor, limit: 1000 });
+      const keys = page.objects
+        .filter(o => o.key.includes(versionInfix))
+        .map(o => o.key);
+      if (keys.length > 0) await this.storage.deleteBatch(keys);
+      cursor = page.truncated ? page.cursor : undefined;
+    } while (cursor);
 
     await this.db.run("DELETE FROM topic_language_versions WHERE id = ?", id);
   }

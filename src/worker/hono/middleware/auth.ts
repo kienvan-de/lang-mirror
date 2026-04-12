@@ -15,12 +15,17 @@ import type { Env } from "../../types";
  * before they reach any route handler.
  */
 export const authMiddleware = createMiddleware<{ Bindings: Env }>(async (c, next) => {
-  const sessionId = getCookie(c, "__Host-session");
+  // Use __Host- prefix on HTTPS (production), plain name on HTTP (local dev).
+  // __Host- requires secure context — browsers silently drop it over plain HTTP.
+  const isSecure   = c.req.url.startsWith("https://");
+  const cookieName = isSecure ? "__Host-session" : "session";
+  const sessionId  = getCookie(c, cookieName);
 
   if (sessionId) {
     const oidcSvc = new OidcService(
       new D1Adapter(c.env.DB),
-      new KVCacheAdapter(c.env.SESSION_CACHE)
+      new KVCacheAdapter(c.env.SESSION_CACHE),
+      c.env.SKIP_OIDC_URL_VALIDATION === "true",
     );
     const user = await oidcSvc.getSession(sessionId);
     if (user) {

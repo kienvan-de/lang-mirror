@@ -50,10 +50,16 @@ authRouter.get("/callback/:providerId", async (c) => {
     c.req.param("providerId"), code, state
   );
 
-  setCookie(c, "__Host-session", sessionId, {
+  // Use __Host- prefix on HTTPS (production) for maximum cookie security.
+  // Fall back to plain "session" on HTTP (local dev) — __Host- is silently
+  // dropped by browsers over non-secure connections.
+  const isSecure   = c.req.url.startsWith("https://");
+  const cookieName = isSecure ? "__Host-session" : "session";
+
+  setCookie(c, cookieName, sessionId, {
     httpOnly: true,
     sameSite: "Lax",
-    secure:   true,
+    secure:   isSecure,
     maxAge:   7 * 24 * 60 * 60,
     path:     "/",
   });
@@ -62,22 +68,34 @@ authRouter.get("/callback/:providerId", async (c) => {
 });
 
 // POST /api/auth/logout — clears session
-// CSRF guard: only accept requests from the same origin
 authRouter.post("/logout", async (c) => {
-  const origin  = c.req.header("Origin");
-  const referer = c.req.header("Referer");
-  const host    = c.req.header("Host");
-  const source  = origin ?? referer ?? "";
-  if (host && source && !source.includes(host)) {
-    return c.json({ error: "Forbidden" }, 403);
+  // CSRF guard — check Origin header only (Referer is suppressible via
+  // Referrer-Policy and uses substring match which is weaker).
+  // SameSite=Lax on the cookie is the primary CSRF defence for modern browsers;
+  // this Origin check is belt-and-suspenders for older ones.
+  const origin = c.req.header("Origin");
+  const host   = c.req.header("Host");
+  if (origin && host) {
+    const allowedOrigins = new Set([
+      `http://${host}`,
+      `https://${host}`,
+      // Allow the Vite dev server origin in local dev (APP_BASE_URL=http://localhost:5173)
+      ...(c.env.APP_BASE_URL ? [c.env.APP_BASE_URL] : []),
+    ]);
+    if (!allowedOrigins.has(origin)) {
+      return c.json({ error: "Forbidden" }, 403);
+    }
   }
 
-  const session = getCookie(c, "__Host-session");
+  const isSecure   = c.req.url.startsWith("https://");
+  const cookieName = isSecure ? "__Host-session" : "session";
+  const session    = getCookie(c, cookieName);
+
   if (session) {
     const { oidc } = buildContext(c.env);
     await oidc.deleteSession(session);
   }
-  deleteCookie(c, "__Host-session", { path: "/" });
+  deleteCookie(c, cookieName, { path: "/" });
   return c.json({ ok: true });
 });
 

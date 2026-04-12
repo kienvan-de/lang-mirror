@@ -75,8 +75,17 @@ export function createApp() {
   app.route("/api/tags",       tagsRouter);
   app.route("/api/path",       pathsRouter);
 
-  // ── Error handler ────────────────────────────────────────────────────────────
-  app.notFound((c) => c.json({ error: "not found" }, 404));
+  // ── Static asset fallback ────────────────────────────────────────────────────
+  // For non-/api/* routes, forward to the ASSETS binding (Vite build output).
+  // This serves the SPA and lets client-side routing (React Router / TanStack)
+  // handle all non-API paths. Falls back to index.html for unknown paths so
+  // deep-links like /topics/123 work correctly after a hard refresh.
+  app.notFound((c) => {
+    if (!c.req.path.startsWith("/api/")) {
+      return c.env.ASSETS.fetch(c.req.raw);
+    }
+    return c.json({ error: "not found" }, 404);
+  });
 
   app.onError((err, c) => {
     console.error(`[worker] ${err.name}: ${err.message}`);

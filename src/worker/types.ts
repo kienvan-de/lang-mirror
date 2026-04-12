@@ -4,6 +4,8 @@ export interface Env {
   TTS_CACHE: R2Bucket;
   RECORDINGS: R2Bucket;
   SESSION_CACHE: KVNamespace;
+  /** Bound automatically by the assets: { directory: "./dist" } config in wrangler.jsonc */
+  ASSETS: Fetcher;
   ALLOWED_ORIGINS?: string;
   /** Set to "true" in wrangler.toml [vars] for local dev only.
    *  Disables HTTPS + private-IP validation on OIDC provider URLs.

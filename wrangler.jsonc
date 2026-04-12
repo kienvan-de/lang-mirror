@@ -6,22 +6,22 @@
   "compatibility_date": "2025-04-01",
   "compatibility_flags": ["nodejs_compat"],
 
+  // Serve Vite build output as Worker static assets (same origin as /api/*)
+  "assets": {
+    "directory": "./dist"
+  },
+
   // Local dev port — matches the Vite proxy target so `bun run cf:dev` works
   "dev": {
     "port": 7842
   },
-
-  // Output dir for `vite build` — used by `wrangler pages deploy`
-  "pages_build_output_dir": "dist",
 
   // Cloudflare D1 — SQLite-compatible database
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "lang-mirror-db",
-      // Fill this in after: wrangler d1 create lang-mirror-db
-      "database_id": "placeholder-fill-after-wrangler-d1-create",
-      // Wrangler migration system — run before worker starts
+      "database_id": "709f6531-aa8f-4ee8-90b8-f0d1be077ef9",
       "migrations_dir": "migrations"
     }
   ],
@@ -36,19 +36,20 @@
       "binding": "RECORDINGS",
       "bucket_name": "lang-mirror-recordings"
     }
-  ]
-
-  ,
+  ],
 
   // Cloudflare KV — session + OIDC state cache
   "kv_namespaces": [
     {
       "binding": "SESSION_CACHE",
-      // Fill after: wrangler kv namespace create SESSION_CACHE
-      "id": "placeholder-fill-after-wrangler-kv-create"
+      "id": "1d5a1125805d423aaa510065fa99dccb"
     }
   ]
 
-  // No secrets needed for TTS — uses Microsoft Edge TTS directly (free)
-  // To add secrets: wrangler secret put MY_SECRET
+  // Secrets (set via `wrangler secret put` or CF dashboard — never committed):
+  //   (none required — Edge TTS is free and unauthenticated)
+  //
+  // To set ALLOWED_ORIGINS for CORS after deploy:
+  //   wrangler secret put ALLOWED_ORIGINS
+  //   → enter: https://lang-mirror.<your-subdomain>.workers.dev
 }

@@ -126,7 +126,20 @@
     "addVersionTitle": "Titel/Beschreibung für diese Sprache hinzufügen",
     "notInLanguageConfig": "Dieses Thema passt nicht zu deiner Sprachkonfiguration",
     "notInLanguageConfigHint": "Diesem Thema fehlen eine oder mehrere deiner erforderlichen Sprachen.",
-    "goToSettings": "Zu den Einstellungen"
+    "goToSettings": "Zu den Einstellungen",
+    "reviewThis": "Überprüfen"
+  },
+  "review": {
+    "title": "Überprüfen",
+    "backToTopic": "← Zurück zum Thema",
+    "practiceThis": "Üben",
+    "playTTS": "TTS-Referenz",
+    "playRecording": "Meine Aufnahme",
+    "noRecording": "Noch nicht aufgenommen",
+    "stop": "Stopp",
+    "notes": "Notizen",
+    "hideNotes": "Notizen ausblenden",
+    "sentenceOf": "{{current}} / {{total}}"
   },
   "topicCard": {
     "open": "Öffnen",

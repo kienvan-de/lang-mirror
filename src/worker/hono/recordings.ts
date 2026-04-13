@@ -83,6 +83,13 @@ recordingsRouter.delete("/", adminGuard, async (c) => {
   return c.json(await recordings.deleteAll());
 });
 
+// GET /api/recordings/check/:versionId
+recordingsRouter.get("/check/:versionId", validateUuidParam("versionId"), async (c) => {
+  const { recordings } = await buildContext(c.env);
+  const sentenceIds = await recordings.hasRecordingsForVersion(c.req.param("versionId")!);
+  return c.json({ hasAny: sentenceIds.size > 0, sentenceIds: [...sentenceIds] });
+});
+
 // POST /api/recordings/:sentenceId
 recordingsRouter.post("/:sentenceId", validateUuidParam("sentenceId"), async (c) => {
   // Guard null body before attempting to stream — body is null for bodyless requests

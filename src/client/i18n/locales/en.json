@@ -109,6 +109,7 @@
     "practice": "Practice",
     "sentencesLabel": "{{lang}} sentences",
     "practiceThis": "Practice this language",
+    "reviewThis": "Review",
     "reorderLanguages": "Reorder languages",
     "doneReordering": "Done reordering",
     "addLanguage": "Add language",
@@ -408,6 +409,18 @@
     "done": "Done",
     "progress": "{{done}}/{{total}} topics completed · {{pct}}%",
     "removeConfirm": "Remove \"{{title}}\" from path?"
+  },
+  "review": {
+    "title": "Review",
+    "backToTopic": "← Back to Topic",
+    "practiceThis": "Practice",
+    "playTTS": "TTS reference",
+    "playRecording": "My recording",
+    "noRecording": "Not recorded yet",
+    "stop": "Stop",
+    "notes": "Notes",
+    "hideNotes": "Hide notes",
+    "sentenceOf": "{{current}} / {{total}}"
   },
   "error": {
     "pageError": "Page error"

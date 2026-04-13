@@ -126,7 +126,20 @@
     "addVersionTitle": "Thêm tiêu đề/mô tả cho ngôn ngữ này",
     "notInLanguageConfig": "Chủ đề này không phù hợp với cấu hình ngôn ngữ của bạn",
     "notInLanguageConfigHint": "Chủ đề này thiếu một hoặc nhiều ngôn ngữ bắt buộc.",
-    "goToSettings": "Đến Cài đặt"
+    "goToSettings": "Đến Cài đặt",
+    "reviewThis": "Xem lại"
+  },
+  "review": {
+    "title": "Xem lại",
+    "backToTopic": "← Về chủ đề",
+    "practiceThis": "Luyện tập",
+    "playTTS": "TTS tham chiếu",
+    "playRecording": "Bản ghi của tôi",
+    "noRecording": "Chưa có bản ghi",
+    "stop": "Dừng",
+    "notes": "Ghi chú",
+    "hideNotes": "Ẩn ghi chú",
+    "sentenceOf": "{{current}} / {{total}}"
   },
   "topicCard": {
     "open": "Mở",

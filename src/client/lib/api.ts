@@ -188,6 +188,8 @@ export const api = {
     }
   },
   getRecordingUrl: (sentenceId: string) => `/api/recordings/${sentenceId}`,
+  checkRecordings: (versionId: string) =>
+    apiFetch<{ hasAny: boolean; sentenceIds: string[] }>(`/recordings/check/${versionId}`),
 
   deleteAllRecordings: () =>
     apiFetch<{ deletedFiles: number; bytesFreed: number }>("/recordings", { method: "DELETE" }),

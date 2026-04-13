@@ -153,6 +153,45 @@ export class RecordingsService {
     }
   }
 
+  /**
+   * Returns the set of sentenceIds for which the current user has a recording
+   * in the given version. Probes R2 by listing the version's prefix.
+   */
+  async hasRecordingsForVersion(versionId: string): Promise<Set<string>> {
+    const { id: userId } = requireAuth();
+
+    const version = await this.db.queryFirst<{ topic_id: string; language_code: string }>(
+      "SELECT v.topic_id, v.language_code FROM topic_language_versions v WHERE v.id = ?", versionId
+    );
+    if (!version) throw new NotFoundError(`Version '${versionId}' not found`);
+
+    const topic = await this.db.queryFirst<{ owner_id: string }>(
+      "SELECT owner_id FROM topics WHERE id = ?", version.topic_id
+    );
+    if (!topic) throw new NotFoundError("Topic not found");
+    if (!canAccess(topic.owner_id)) throw new ForbiddenError("You do not own this topic");
+
+    const prefix = `recordings/${userId}/${version.topic_id}/${version.language_code}/`;
+
+    const sentenceIds = new Set<string>();
+    let cursor: string | undefined;
+
+    do {
+      const page = await this.storage.list(prefix, { cursor, limit: 1000 });
+
+      for (const obj of page.objects) {
+        // key format: recordings/{userId}/{topicId}/{langCode}/sentence-{sentenceId}.{ext}
+        const filename = obj.key.slice(prefix.length);
+        const match = filename.match(/^sentence-([^.]+)\./);
+        if (match) sentenceIds.add(match[1]!);
+      }
+
+      cursor = page.truncated ? page.cursor : undefined;
+    } while (cursor);
+
+    return sentenceIds;
+  }
+
   async deleteAll(): Promise<{ deletedFiles: number; bytesFreed: number }> {
     // Admin-only — deletes all users' recordings (guarded at route level by adminGuard)
     // Paginate through R2 to handle >1000 objects

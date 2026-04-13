@@ -7,6 +7,7 @@ import {
   ChevronLeftIcon, ChevronRightIcon,
   XMarkIcon, Cog6ToothIcon,
   ArrowsUpDownIcon, CheckIcon, PlusIcon,
+  ClipboardDocumentListIcon,
 } from "@heroicons/react/24/outline";
 import { api, type Version, type Tag } from "../../lib/api";
 import { langFlag, langLabel } from "../../lib/lang";
@@ -151,6 +152,13 @@ export function TopicDetailPage() {
   });
   const activeVersion: Version | undefined =
     versions.find((v) => v.id === activeVersionId) ?? versions[0];
+
+  const { data: recordingsCheck } = useQuery({
+    queryKey: ["recordings-check", activeVersion?.id],
+    queryFn: () => api.checkRecordings(activeVersion!.id),
+    enabled: !!activeVersion,
+  });
+  const hasRecordings = (recordingsCheck?.hasAny) ?? false;
 
   // Derive uiLang-matched display title/description
   const matchedVersion = versions.find((v) => v.language_code.split("-")[0] === uiLang);
@@ -483,13 +491,24 @@ export function TopicDetailPage() {
                 {langFlag(activeVersion.language_code)} {t("topics.sentencesLabel", { lang: activeVersion.language_code })}
               </span>
               {!(nativeLanguage && activeVersion.language_code.split("-")[0]!.toLowerCase() === nativeLanguage) && (
-                <Link
-                  to="/practice/$topicId/$langCode"
-                  params={{ topicId, langCode: activeVersion.language_code }}
-                  className="inline-flex items-center gap-1 text-xs px-3 py-1 rounded-lg bg-green-600 hover:bg-green-700 text-white font-medium transition-colors"
-                >
-                  <PlayIcon className="w-3.5 h-3.5" /> {t("topics.practiceThis")}
-                </Link>
+                <div className="flex items-center gap-2">
+                  <Link
+                    to="/practice/$topicId/$langCode"
+                    params={{ topicId, langCode: activeVersion.language_code }}
+                    className="inline-flex items-center gap-1 text-xs px-3 py-1 rounded-lg bg-green-600 hover:bg-green-700 text-white font-medium transition-colors"
+                  >
+                    <PlayIcon className="w-3.5 h-3.5" /> {t("topics.practiceThis")}
+                  </Link>
+                  {hasRecordings && (
+                    <Link
+                      to="/practice/$topicId/$langCode/review"
+                      params={{ topicId, langCode: activeVersion.language_code }}
+                      className="inline-flex items-center gap-1 text-xs px-3 py-1 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 font-medium transition-colors"
+                    >
+                      <ClipboardDocumentListIcon className="w-3.5 h-3.5" /> {t("topics.reviewThis")}
+                    </Link>
+                  )}
+                </div>
               )}
             </div>
 

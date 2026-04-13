@@ -126,7 +126,20 @@
     "addVersionTitle": "この言語のタイトル/説明を追加",
     "notInLanguageConfig": "このトピックはあなたの言語設定に合いません",
     "notInLanguageConfigHint": "このトピックには必要な言語が不足しています。",
-    "goToSettings": "設定へ"
+    "goToSettings": "設定へ",
+    "reviewThis": "復習"
+  },
+  "review": {
+    "title": "復習",
+    "backToTopic": "← トピックへ戻る",
+    "practiceThis": "練習する",
+    "playTTS": "TTS参照",
+    "playRecording": "自分の録音",
+    "noRecording": "まだ録音なし",
+    "stop": "停止",
+    "notes": "メモ",
+    "hideNotes": "メモを隠す",
+    "sentenceOf": "{{current}} / {{total}}"
   },
   "topicCard": {
     "open": "開く",

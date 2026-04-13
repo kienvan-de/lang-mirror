@@ -29,6 +29,7 @@ import { RootLayout } from "./RootLayout.tsx";
 import { TopicsPage } from "./routes/topics/index";
 import { TopicDetailPage } from "./routes/topics/$topicId";
 import { PracticePage } from "./routes/practice/$topicId.$langCode";
+import { ReviewPage } from "./routes/practice/review";
 import { DashboardPage } from "./routes/index";
 import { SettingsPage } from "./routes/settings";
 import { ImportPage } from "./routes/import";
@@ -41,6 +42,7 @@ export const indexRoute       = createRoute({ getParentRoute: () => rootRoute, p
 export const topicsRoute      = createRoute({ getParentRoute: () => rootRoute, path: "/topics", component: TopicsPage });
 export const topicDetailRoute = createRoute({ getParentRoute: () => rootRoute, path: "/topics/$topicId", component: TopicDetailPage });
 export const practiceRoute    = createRoute({ getParentRoute: () => rootRoute, path: "/practice/$topicId/$langCode", component: PracticePage });
+export const reviewRoute      = createRoute({ getParentRoute: () => rootRoute, path: "/practice/$topicId/$langCode/review", component: ReviewPage });
 export const importRoute      = createRoute({ getParentRoute: () => rootRoute, path: "/import", component: ImportPage, errorComponent: ({ error }) => <RouteError error={error as Error} /> });
 export const settingsRoute    = createRoute({ getParentRoute: () => rootRoute, path: "/settings", component: SettingsPage, errorComponent: ({ error }) => <RouteError error={error as Error} /> });
 export const pathRoute        = createRoute({ getParentRoute: () => rootRoute, path: "/path", component: PathPage, errorComponent: ({ error }) => <RouteError error={error as Error} /> });
@@ -51,6 +53,7 @@ const routeTree = rootRoute.addChildren([
   topicsRoute,
   topicDetailRoute,
   practiceRoute,
+  reviewRoute,
   importRoute,
   settingsRoute,
   pathRoute,

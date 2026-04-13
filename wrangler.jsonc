@@ -7,8 +7,12 @@
   "compatibility_flags": ["nodejs_compat"],
 
   // Serve Vite build output as Worker static assets (same origin as /api/*)
+  // not_found_handling: "single-page-application" — CF serves index.html for
+  // any path that doesn't match a static file (e.g. /login, /topics/123).
+  // This is the SPA fallback — equivalent to Vite dev server's behavior.
   "assets": {
-    "directory": "./dist"
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
   },
 
   // Local dev port — matches the Vite proxy target so `bun run cf:dev` works

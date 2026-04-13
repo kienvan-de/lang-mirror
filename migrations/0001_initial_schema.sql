@@ -154,6 +154,9 @@ INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('practice.recordin
 INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('practice.drillPause', 'system', '1');
 INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('practice.autoPlayback', 'system', 'true');
 INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('display.fontSize', 'system', 'lg');
+INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('tts.edgeTTS.trustedClientToken', 'system', '6A5AA1D4EAFF4E9FB37E23D68491D6F4');
+INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('tts.edgeTTS.chromiumVersion', 'system', '143.0.3650.75');
+INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('tts.edgeTTS.origin', 'system', 'chrome-extension://jdiccldimpdaibmpdkjnbmckianbfold');
 
 -- Default tags (seeded under system user)
 INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('level', 'A1', '#22c55e', 'system');

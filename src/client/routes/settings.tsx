@@ -670,16 +670,9 @@ function UserLanguageSection({
   onSaved: () => void;
 }) {
   const { t } = useTranslation();
-  const { data: voices } = useQuery({
-    queryKey: ["voices"],
-    queryFn: () => api.getVoices(),
-    staleTime: 10 * 60_000,
-  });
-
-  // Deduplicate lang codes from all voices
-  const availableLangs = Array.from(
-    new Map((voices ?? []).map(v => [v.langCode, v])).values()
-  ).sort((a, b) => langName(a.langCode).localeCompare(langName(b.langCode)));
+  // Supported UI languages — intentionally limited to the languages
+  // the app is translated into and tested against.
+  const availableLangs = ["en", "vi", "ja", "de", "fr", "zh", "ko"].map(code => ({ langCode: code }));
 
   const [native, setNative] = useState<string>(nativeLanguage ?? "");
   const [learning, setLearning] = useState<string[]>(learningLanguages);

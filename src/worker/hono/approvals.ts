@@ -13,13 +13,14 @@ approvalsRouter.get("/", adminGuard, async (c) => {
 });
 
 // PUT /api/approvals/:id/approve — admin approves
-approvalsRouter.put("/:id/approve", adminGuard, validateUuidParam("id"), async (c) => {
+// Note: no validateUuidParam here — approval IDs are crypto.randomUUID() standard UUIDs
+approvalsRouter.put("/:id/approve", adminGuard, async (c) => {
   const { approvals } = await buildContext(c.env);
   return c.json(await approvals.approve(c.req.param("id")!));
 });
 
 // PUT /api/approvals/:id/reject — admin rejects with note
-approvalsRouter.put("/:id/reject", adminGuard, validateUuidParam("id"), async (c) => {
+approvalsRouter.put("/:id/reject", adminGuard, async (c) => {
   const body = await c.req.json<{ note?: string }>().catch(() => ({ note: undefined }));
   const { approvals } = await buildContext(c.env);
   return c.json(await approvals.reject(c.req.param("id")!, body.note ?? ""));

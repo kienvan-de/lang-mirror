@@ -215,9 +215,9 @@ export class TopicsService {
     );
 
     await this.db.run(
-      `INSERT INTO topic_approval_requests (topic_id, owner_id, note)
-       VALUES (?, ?, ?)`,
-      topicId, auth.id, note?.trim() || null
+      `INSERT INTO topic_approval_requests (id, topic_id, owner_id, note)
+       VALUES (?, ?, ?, ?)`,
+      crypto.randomUUID(), topicId, auth.id, note?.trim() || null
     );
     await this.db.run(
       `UPDATE topics SET status = 'pending',

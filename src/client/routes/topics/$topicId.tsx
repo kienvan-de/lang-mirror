@@ -9,6 +9,7 @@ import {
   ArrowsUpDownIcon, CheckIcon, PlusIcon,
   ClipboardDocumentListIcon,
   PaperAirplaneIcon, XCircleIcon,
+  ClockIcon, CheckCircleIcon, ExclamationCircleIcon, LockClosedIcon,
 } from "@heroicons/react/24/outline";
 import { api, type Version, type Tag } from "../../lib/api";
 import { langFlag, langLabel } from "../../lib/lang";
@@ -107,8 +108,8 @@ export function TopicDetailPage() {
     onSuccess: () => { setEditingTags(false); qc.invalidateQueries({ queryKey: ["topic", topicId] }); },
   });
 
-  // Pre-fetch approval request so it's in cache when TopicStatusBar mounts.
-  // The status itself comes from topic.status (already in the topic query).
+  // Pre-fetch latest approval request for this topic (owner only).
+  // topic.status drives the UI; this call warms the cache for any future use.
   useQuery({
     queryKey: ["topic-approval", topicId],
     queryFn: () => api.getTopicApproval(topicId),
@@ -279,6 +280,10 @@ export function TopicDetailPage() {
             >
               {displayTitle}
               {canEdit && <PencilIcon className="w-4 h-4 opacity-0 group-hover:opacity-40 transition-opacity" />}
+              {/* Status icon — shown to owner only */}
+              {canEdit && (
+                <TopicStatusIcon status={topic.status} rejectionNote={topic.rejection_note} />
+              )}
             </h1>
           )}
           {/* Description */}
@@ -373,7 +378,7 @@ export function TopicDetailPage() {
           )}
         </div>
 
-        {/* Export + Practice button */}
+        {/* Export + Approval request + Practice buttons */}
         <div className="flex items-center gap-2 flex-shrink-0 self-start">
           <button
             onClick={() => api.exportTopic(topicId, topic.title).catch(() => alert("Export failed"))}
@@ -382,6 +387,25 @@ export function TopicDetailPage() {
           >
             <ArrowDownTrayIcon className="w-4 h-4" /> {t("topics.export")}
           </button>
+          {/* Approval action button — owner only, not shown when published */}
+          {canEdit && topic.status !== "published" && (
+            topic.status === "pending" ? (
+              <button
+                onClick={() => withdrawMutation.mutate()}
+                disabled={withdrawMutation.isPending}
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-amber-300 dark:border-amber-700 text-sm font-medium text-amber-700 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/20 transition-colors disabled:opacity-40"
+              >
+                <XCircleIcon className="w-4 h-4" /> {t("topics.withdrawRequest")}
+              </button>
+            ) : (
+              <button
+                onClick={() => setShowSubmitForm(true)}
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-blue-300 dark:border-blue-700 text-sm font-medium text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+              >
+                <PaperAirplaneIcon className="w-4 h-4" /> {t("topics.submitForReview")}
+              </button>
+            )
+          )}
           {activeVersion && !(nativeLanguage && activeVersion.language_code.split("-")[0]!.toLowerCase() === nativeLanguage) && (
             <Link
               to="/practice/$topicId/$langCode"
@@ -394,22 +418,42 @@ export function TopicDetailPage() {
         </div>
       </div>
 
-      {/* ── Topic publish status bar (owner only) ──────────────────────── */}
-      {canEdit && (
-        <div className="mt-4 px-4 sm:px-6">
-          <TopicStatusBar
-            status={topic.status}
-            rejectionNote={topic.rejection_note}
-            showSubmitForm={showSubmitForm}
-            submitNote={submitNote}
-            onSubmitNoteChange={setSubmitNote}
-            onShowSubmitForm={() => setShowSubmitForm(true)}
-            onCancelSubmit={() => { setShowSubmitForm(false); setSubmitNote(""); }}
-            onSubmit={() => submitMutation.mutate({ note: submitNote })}
-            onWithdraw={() => withdrawMutation.mutate()}
-            isSubmitting={submitMutation.isPending}
-            isWithdrawing={withdrawMutation.isPending}
-          />
+      {/* Submit for review dialog */}
+      {showSubmitForm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+          <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800 p-6 space-y-4">
+            <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">
+              {t("topics.submitForReview")}
+            </h3>
+            <div>
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1.5">
+                {t("topics.submitNote")}
+              </label>
+              <textarea
+                autoFocus
+                value={submitNote}
+                onChange={(e) => setSubmitNote(e.target.value)}
+                placeholder={t("topics.submitNotePlaceholder")}
+                rows={3}
+                className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+              />
+            </div>
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={() => { setShowSubmitForm(false); setSubmitNote(""); }}
+                className="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              >
+                {t("common.cancel")}
+              </button>
+              <button
+                onClick={() => submitMutation.mutate({ note: submitNote })}
+                disabled={submitMutation.isPending}
+                className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold transition-colors disabled:opacity-40"
+              >
+                {submitMutation.isPending ? t("common.saving") : t("topics.submitConfirm")}
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
@@ -685,114 +729,22 @@ export function TopicDetailPage() {
   );
 }
 
-function TopicStatusBar({
-  status, rejectionNote,
-  showSubmitForm, submitNote, onSubmitNoteChange,
-  onShowSubmitForm, onCancelSubmit, onSubmit, onWithdraw,
-  isSubmitting, isWithdrawing,
-}: {
+/** Small icon shown inline in the topic title — indicates publish status to the owner */
+function TopicStatusIcon({ status, rejectionNote }: {
   status: "private" | "pending" | "published" | "rejected";
   rejectionNote: string | null;
-  showSubmitForm: boolean;
-  submitNote: string;
-  onSubmitNoteChange: (v: string) => void;
-  onShowSubmitForm: () => void;
-  onCancelSubmit: () => void;
-  onSubmit: () => void;
-  onWithdraw: () => void;
-  isSubmitting: boolean;
-  isWithdrawing: boolean;
 }) {
   const { t } = useTranslation();
 
-  // Color + label per status
-  const statusConfig = {
-    private:   { label: t("topics.private"),      bg: "bg-gray-100 dark:bg-gray-800",          text: "text-gray-600 dark:text-gray-400" },
-    pending:   { label: t("topics.pendingReview"), bg: "bg-amber-50 dark:bg-amber-900/20",      text: "text-amber-700 dark:text-amber-400" },
-    published: { label: t("topics.published"),     bg: "bg-green-50 dark:bg-green-900/20",      text: "text-green-700 dark:text-green-400" },
-    rejected:  { label: t("topics.rejected"),      bg: "bg-red-50 dark:bg-red-900/20",          text: "text-red-700 dark:text-red-400" },
+  const config = {
+    private:   { Icon: LockClosedIcon,       cls: "text-gray-400 dark:text-gray-500",           title: t("topics.private") },
+    pending:   { Icon: ClockIcon,             cls: "text-amber-500 dark:text-amber-400",         title: t("topics.pendingReview") },
+    published: { Icon: CheckCircleIcon,       cls: "text-green-500 dark:text-green-400",         title: t("topics.published") },
+    rejected:  { Icon: ExclamationCircleIcon, cls: "text-red-500 dark:text-red-400",             title: rejectionNote ? t("topics.rejectionNote", { note: rejectionNote }) : t("topics.rejected") },
   };
-  const cfg = statusConfig[status];
 
-  return (
-    <div className={`rounded-xl border px-4 py-3 ${cfg.bg} ${
-      status === "private"   ? "border-gray-200 dark:border-gray-700" :
-      status === "pending"   ? "border-amber-200 dark:border-amber-800" :
-      status === "published" ? "border-green-200 dark:border-green-800" :
-                               "border-red-200 dark:border-red-800"
-    }`}>
-      <div className="flex items-center justify-between gap-3 flex-wrap">
-        <div className="flex items-center gap-2">
-          <span className={`text-xs font-semibold ${cfg.text}`}>{cfg.label}</span>
-          {status === "rejected" && rejectionNote && (
-            <span className="text-xs text-red-500 dark:text-red-400">
-              — {t("topics.rejectionNote", { note: rejectionNote })}
-            </span>
-          )}
-        </div>
-        <div className="flex items-center gap-2">
-          {status === "private" && !showSubmitForm && (
-            <button
-              onClick={onShowSubmitForm}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition-colors"
-            >
-              <PaperAirplaneIcon className="w-3.5 h-3.5" />
-              {t("topics.submitForReview")}
-            </button>
-          )}
-          {status === "rejected" && !showSubmitForm && (
-            <button
-              onClick={onShowSubmitForm}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition-colors"
-            >
-              <PaperAirplaneIcon className="w-3.5 h-3.5" />
-              {t("topics.submitForReview")}
-            </button>
-          )}
-          {status === "pending" && (
-            <button
-              onClick={onWithdraw}
-              disabled={isWithdrawing}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/30 text-xs font-semibold transition-colors disabled:opacity-40"
-            >
-              <XCircleIcon className="w-3.5 h-3.5" />
-              {t("topics.withdrawRequest")}
-            </button>
-          )}
-        </div>
-      </div>
-      {/* Submit form */}
-      {showSubmitForm && (
-        <div className="mt-3 space-y-2 border-t border-current/10 pt-3">
-          <label className="text-xs font-medium text-gray-600 dark:text-gray-400">
-            {t("topics.submitNote")}
-          </label>
-          <textarea
-            value={submitNote}
-            onChange={(e) => onSubmitNoteChange(e.target.value)}
-            placeholder={t("topics.submitNotePlaceholder")}
-            rows={2}
-            className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-          />
-          <div className="flex items-center justify-end gap-2">
-            <button
-              onClick={onCancelSubmit}
-              className="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            >
-              {t("common.cancel")}
-            </button>
-            <button
-              onClick={onSubmit}
-              disabled={isSubmitting}
-              className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition-colors disabled:opacity-40"
-            >
-              {isSubmitting ? t("common.saving") : t("topics.submitConfirm")}
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
-  );
+  const { Icon, cls, title } = config[status];
+  return <Icon className={`w-5 h-5 flex-shrink-0 ${cls}`} title={title} />;
 }
 
 function TopicDetailSkeleton() {

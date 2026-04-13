@@ -61,7 +61,7 @@ export function AdminUsersPage() {
 
   if (currentUser?.role !== "admin") {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
         <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl p-8 text-center">
           <p className="text-lg font-semibold text-red-700 dark:text-red-400">403 — Forbidden</p>
           <p className="text-sm text-red-500 dark:text-red-500 mt-1">You do not have permission to access this page.</p>
@@ -79,7 +79,7 @@ export function AdminUsersPage() {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
       {/* Header */}
       <div className="mb-6">
         <Link

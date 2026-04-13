@@ -74,7 +74,7 @@ export function RootLayout() {
 
           {/* Logo */}
           <Link to="/" className="font-bold text-lg tracking-tight select-none text-gray-900 dark:text-gray-100 flex-shrink-0">
-            🪞 Lang Mirror
+            🪞 Lang Mirror Today
           </Link>
 
           {/* Desktop nav links */}

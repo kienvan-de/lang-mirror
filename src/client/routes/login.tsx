@@ -63,7 +63,7 @@ export function LoginPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="text-4xl mb-3">🪞</div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Lang Mirror</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Lang Mirror Today</h1>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
             Sign in to continue
           </p>

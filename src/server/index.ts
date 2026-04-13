@@ -69,7 +69,7 @@ const server = Bun.serve({
         });
       } catch {
         return new Response(
-          "<html><body><h2>🪞 lang-mirror</h2><p>Vite not running. Use <code>bun run dev</code> to start both servers.</p></body></html>",
+          "<html><body><h2>🪞 Lang Mirror Today</h2><p>Vite not running. Use <code>bun run dev</code> to start both servers.</p></body></html>",
           { headers: { "Content-Type": "text/html" } }
         );
       }
@@ -90,7 +90,7 @@ const server = Bun.serve({
   },
 });
 
-console.log(`🪞 lang-mirror running at http://localhost:${PORT}`);
+console.log(`🪞 Lang Mirror Today running at http://localhost:${PORT}`);
 
 if (shouldOpenBrowser()) {
   const url = IS_DEV ? "http://localhost:5173" : `http://localhost:${PORT}`;

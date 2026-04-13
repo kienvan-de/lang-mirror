@@ -173,6 +173,12 @@ export class TTSService {
     // On CF Workers: ctx.waitUntil() keeps the Worker alive until the write finishes
     // even after the HTTP response has been flushed to the client.
     // On the desktop server: ctx is a no-op shim — the Bun process stays alive anyway.
+    //
+    // ⚠️ Known CF Workers SDK bug: R2 put() rejects a ReadableStream from .tee() with
+    // "Provided readable stream must have a known length (FixedLengthStream)".
+    // The write silently fails on cache miss — audio still plays but is never cached.
+    // Tracked at: https://github.com/cloudflare/workers-sdk/issues/6425
+    // Fix: buffer to ArrayBuffer before put() once the bug is resolved upstream.
     const writePromise = this.storage.put(cacheKey, cacheStream, { contentType: "audio/mpeg" });
     if (this.ctx) {
       this.ctx.waitUntil(writePromise);

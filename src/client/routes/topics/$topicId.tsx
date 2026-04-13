@@ -62,6 +62,20 @@ export function TopicDetailPage() {
     queryFn: api.getTags,
   });
 
+  // Must be declared here (before any early returns) to satisfy Rules of Hooks.
+  // We pre-compute the active version id using the same logic as below
+  // (activeVersionId state ?? first version), so the query key stays in sync
+  // with what the user actually sees — even on initial render when activeVersionId is null.
+  const preActiveVersionId = (
+    topic?.versions?.find((v) => v.id === activeVersionId)
+    ?? topic?.versions?.[0]
+  )?.id;
+  const { data: recordingsCheck } = useQuery({
+    queryKey: ["recordings-check", preActiveVersionId],
+    queryFn: () => api.checkRecordings(preActiveVersionId!),
+    enabled: !!preActiveVersionId,
+  });
+
   const updateDescriptionMutation = useMutation({
     mutationFn: (description: string) => api.updateTopic(topicId, { description: description.trim() || undefined }),
     onSuccess: () => { setEditingDescription(false); qc.invalidateQueries({ queryKey: ["topic", topicId] }); },
@@ -153,12 +167,10 @@ export function TopicDetailPage() {
   const activeVersion: Version | undefined =
     versions.find((v) => v.id === activeVersionId) ?? versions[0];
 
-  const { data: recordingsCheck } = useQuery({
-    queryKey: ["recordings-check", activeVersion?.id],
-    queryFn: () => api.checkRecordings(activeVersion!.id),
-    enabled: !!activeVersion,
-  });
-  const hasRecordings = (recordingsCheck?.hasAny) ?? false;
+  // Only show the Review button when the check result belongs to the active version
+  const hasRecordings = !!activeVersion &&
+    preActiveVersionId === activeVersion.id &&
+    (recordingsCheck?.hasAny ?? false);
 
   // Derive uiLang-matched display title/description
   const matchedVersion = versions.find((v) => v.language_code.split("-")[0] === uiLang);
@@ -492,13 +504,6 @@ export function TopicDetailPage() {
               </span>
               {!(nativeLanguage && activeVersion.language_code.split("-")[0]!.toLowerCase() === nativeLanguage) && (
                 <div className="flex items-center gap-2">
-                  <Link
-                    to="/practice/$topicId/$langCode"
-                    params={{ topicId, langCode: activeVersion.language_code }}
-                    className="inline-flex items-center gap-1 text-xs px-3 py-1 rounded-lg bg-green-600 hover:bg-green-700 text-white font-medium transition-colors"
-                  >
-                    <PlayIcon className="w-3.5 h-3.5" /> {t("topics.practiceThis")}
-                  </Link>
                   {hasRecordings && (
                     <Link
                       to="/practice/$topicId/$langCode/review"
@@ -508,6 +513,13 @@ export function TopicDetailPage() {
                       <ClipboardDocumentListIcon className="w-3.5 h-3.5" /> {t("topics.reviewThis")}
                     </Link>
                   )}
+                  <Link
+                    to="/practice/$topicId/$langCode"
+                    params={{ topicId, langCode: activeVersion.language_code }}
+                    className="inline-flex items-center gap-1 text-xs px-3 py-1 rounded-lg bg-green-600 hover:bg-green-700 text-white font-medium transition-colors"
+                  >
+                    <PlayIcon className="w-3.5 h-3.5" /> {t("topics.practiceThis")}
+                  </Link>
                 </div>
               )}
             </div>

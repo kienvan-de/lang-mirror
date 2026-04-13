@@ -1,7 +1,7 @@
 import type { IDatabase } from "../ports/db.port";
-import type { TopicRow, TopicListItem, AdminTopicListItem, EnrichedTopic, EnrichedVersion, EnrichedSentence, VersionMeta, TagRow } from "../db/types";
+import type { TopicRow, TopicListItem, AdminTopicListItem, EnrichedTopic, EnrichedVersion, EnrichedSentence, VersionMeta, TagRow, ApprovalRequestRow } from "../db/types";
 import { requireAuth, canAccess, isAdmin } from "../auth/context";
-import { NotFoundError, ValidationError, ForbiddenError } from "../errors";
+import { NotFoundError, ValidationError, ForbiddenError, ConflictError } from "../errors";
 
 export class TopicsService {
   constructor(private db: IDatabase) {}
@@ -47,7 +47,7 @@ export class TopicsService {
           SELECT t.*, COUNT(v.id) as version_count
           FROM topics t
           LEFT JOIN topic_language_versions v ON v.topic_id = t.id
-          WHERE t.owner_id = ? OR t.published = 1
+          WHERE t.owner_id = ? OR t.status = 'published'
           GROUP BY t.id ORDER BY t.updated_at DESC
         `, auth.id);
 
@@ -106,6 +106,9 @@ export class TopicsService {
       "SELECT * FROM topics WHERE id = ?", id
     );
     if (!topic) throw new NotFoundError(`Topic '${id}' not found`);
+    if (!canAccess(topic.owner_id) && !isAdmin() && topic.status !== 'published') {
+      throw new NotFoundError(`Topic '${id}' not found`);
+    }
 
     const versions = await this.db.queryAll<import("../db/types").VersionRow>(
       "SELECT * FROM topic_language_versions WHERE topic_id = ? ORDER BY position ASC", id
@@ -194,29 +197,80 @@ export class TopicsService {
     await this.db.run("DELETE FROM topics WHERE id = ?", id);
   }
 
-  async publish(id: string): Promise<TopicRow> {
-    if (!isAdmin()) throw new ForbiddenError("Only admins can publish topics");
+  /** Owner submits topic for admin review */
+  async submitForReview(topicId: string, note?: string): Promise<ApprovalRequestRow> {
     const auth = requireAuth();
-    const topic = await this.db.queryFirst<TopicRow>("SELECT * FROM topics WHERE id = ?", id);
-    if (!topic) throw new NotFoundError(`Topic '${id}' not found`);
+    const topic = await this.db.queryFirst<TopicRow>("SELECT * FROM topics WHERE id = ?", topicId);
+    if (!topic) throw new NotFoundError(`Topic '${topicId}' not found`);
+    if (!canAccess(topic.owner_id)) throw new ForbiddenError("You do not own this topic");
+    if (topic.status === "published") throw new ValidationError("Topic is already published", "status");
+    if (topic.status === "pending") throw new ConflictError("Topic already has a pending review request");
+
+    // Cancel any previous rejected/withdrawn requests for this topic by this user
     await this.db.run(
-      `UPDATE topics SET published = 1, published_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now'),
-       published_by = ?, updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now') WHERE id = ?`,
-      auth.id, id
+      `UPDATE topic_approval_requests SET status = 'withdrawn',
+       updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
+       WHERE topic_id = ? AND owner_id = ? AND status IN ('rejected', 'withdrawn')`,
+      topicId, auth.id
     );
-    return (await this.db.queryFirst<TopicRow>("SELECT * FROM topics WHERE id = ?", id))!;
+
+    await this.db.run(
+      `INSERT INTO topic_approval_requests (topic_id, owner_id, note)
+       VALUES (?, ?, ?)`,
+      topicId, auth.id, note?.trim() || null
+    );
+    await this.db.run(
+      `UPDATE topics SET status = 'pending',
+       status_updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now'),
+       status_updated_by = ?,
+       updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
+       WHERE id = ?`,
+      auth.id, topicId
+    );
+    return (await this.db.queryFirst<ApprovalRequestRow>(
+      "SELECT * FROM topic_approval_requests WHERE topic_id = ? AND owner_id = ? ORDER BY created_at DESC LIMIT 1",
+      topicId, auth.id
+    ))!;
   }
 
-  async unpublish(id: string): Promise<TopicRow> {
-    if (!isAdmin()) throw new ForbiddenError("Only admins can unpublish topics");
-    const topic = await this.db.queryFirst<TopicRow>("SELECT * FROM topics WHERE id = ?", id);
-    if (!topic) throw new NotFoundError(`Topic '${id}' not found`);
+  /** Owner withdraws a pending review request */
+  async withdrawRequest(topicId: string): Promise<void> {
+    const auth = requireAuth();
+    const topic = await this.db.queryFirst<TopicRow>("SELECT * FROM topics WHERE id = ?", topicId);
+    if (!topic) throw new NotFoundError(`Topic '${topicId}' not found`);
+    if (!canAccess(topic.owner_id)) throw new ForbiddenError("You do not own this topic");
+    if (topic.status !== "pending") throw new ValidationError("No pending review request to withdraw", "status");
+
     await this.db.run(
-      `UPDATE topics SET published = 0, published_at = NULL, published_by = NULL,
-       updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now') WHERE id = ?`,
-      id
+      `UPDATE topic_approval_requests SET status = 'withdrawn',
+       updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
+       WHERE topic_id = ? AND owner_id = ? AND status = 'pending'`,
+      topicId, auth.id
     );
-    return (await this.db.queryFirst<TopicRow>("SELECT * FROM topics WHERE id = ?", id))!;
+    await this.db.run(
+      `UPDATE topics SET status = 'private',
+       status_updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now'),
+       status_updated_by = ?,
+       updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
+       WHERE id = ?`,
+      auth.id, topicId
+    );
+  }
+
+  /** Admin directly unpublishes a published topic (e.g. content violation) */
+  async unpublish(topicId: string): Promise<TopicRow> {
+    if (!isAdmin()) throw new ForbiddenError("Only admins can unpublish topics");
+    const topic = await this.db.queryFirst<TopicRow>("SELECT * FROM topics WHERE id = ?", topicId);
+    if (!topic) throw new NotFoundError(`Topic '${topicId}' not found`);
+    if (topic.status !== "published") throw new ValidationError("Topic is not published", "status");
+    const auth = requireAuth();
+    await this.db.run(
+      `UPDATE topics SET status = 'private', status_updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now'),
+       status_updated_by = ?, rejection_note = NULL,
+       updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now') WHERE id = ?`,
+      auth.id, topicId
+    );
+    return (await this.db.queryFirst<TopicRow>("SELECT * FROM topics WHERE id = ?", topicId))!;
   }
 
   async adminList(): Promise<AdminTopicListItem[]> {
@@ -227,12 +281,21 @@ export class TopicsService {
       sentence_count: number;
       owner_name: string | null;
       owner_email: string | null;
+      latest_request_id: string | null;
+      latest_request_status: string | null;
+      latest_request_note: string | null;
     }>(`
       SELECT t.*,
              COUNT(DISTINCT v.id) as version_count,
              COUNT(DISTINCT s.id) as sentence_count,
              u.name  as owner_name,
-             u.email as owner_email
+             u.email as owner_email,
+             (SELECT ar.id FROM topic_approval_requests ar
+              WHERE ar.topic_id = t.id ORDER BY ar.created_at DESC LIMIT 1) as latest_request_id,
+             (SELECT ar.status FROM topic_approval_requests ar
+              WHERE ar.topic_id = t.id ORDER BY ar.created_at DESC LIMIT 1) as latest_request_status,
+             (SELECT ar.note FROM topic_approval_requests ar
+              WHERE ar.topic_id = t.id ORDER BY ar.created_at DESC LIMIT 1) as latest_request_note
       FROM topics t
       LEFT JOIN topic_language_versions v ON v.topic_id = t.id
       LEFT JOIN sentences s ON s.version_id = v.id

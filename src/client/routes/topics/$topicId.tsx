@@ -8,6 +8,7 @@ import {
   XMarkIcon, Cog6ToothIcon,
   ArrowsUpDownIcon, CheckIcon, PlusIcon,
   ClipboardDocumentListIcon,
+  PaperAirplaneIcon, XCircleIcon,
 } from "@heroicons/react/24/outline";
 import { api, type Version, type Tag } from "../../lib/api";
 import { langFlag, langLabel } from "../../lib/lang";
@@ -48,6 +49,10 @@ export function TopicDetailPage() {
   // Tag editing
   const [editingTags, setEditingTags] = useState(false);
   const [tagDraft, setTagDraft] = useState<string[]>([]);
+
+  // Submit for review form
+  const [showSubmitForm, setShowSubmitForm] = useState(false);
+  const [submitNote, setSubmitNote] = useState("");
 
   const { data: topic, isLoading, isError } = useQuery({
     queryKey: ["topic", topicId],
@@ -100,6 +105,32 @@ export function TopicDetailPage() {
   const setTagsMutation = useMutation({
     mutationFn: (tagIds: string[]) => api.setTopicTags(topic!.id, tagIds),
     onSuccess: () => { setEditingTags(false); qc.invalidateQueries({ queryKey: ["topic", topicId] }); },
+  });
+
+  // Pre-fetch approval request so it's in cache when TopicStatusBar mounts.
+  // The status itself comes from topic.status (already in the topic query).
+  useQuery({
+    queryKey: ["topic-approval", topicId],
+    queryFn: () => api.getTopicApproval(topicId),
+    enabled: canEdit && !!topic,
+  });
+
+  const submitMutation = useMutation({
+    mutationFn: ({ note }: { note: string }) => api.submitForReview(topicId, note || undefined),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["topic", topicId] });
+      qc.invalidateQueries({ queryKey: ["topic-approval", topicId] });
+      setShowSubmitForm(false);
+      setSubmitNote("");
+    },
+  });
+
+  const withdrawMutation = useMutation({
+    mutationFn: () => api.withdrawRequest(topicId),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["topic", topicId] });
+      qc.invalidateQueries({ queryKey: ["topic-approval", topicId] });
+    },
   });
 
   const reorderVersionsMutation = useMutation({
@@ -362,6 +393,25 @@ export function TopicDetailPage() {
           )}
         </div>
       </div>
+
+      {/* ── Topic publish status bar (owner only) ──────────────────────── */}
+      {canEdit && (
+        <div className="mt-4 px-4 sm:px-6">
+          <TopicStatusBar
+            status={topic.status}
+            rejectionNote={topic.rejection_note}
+            showSubmitForm={showSubmitForm}
+            submitNote={submitNote}
+            onSubmitNoteChange={setSubmitNote}
+            onShowSubmitForm={() => setShowSubmitForm(true)}
+            onCancelSubmit={() => { setShowSubmitForm(false); setSubmitNote(""); }}
+            onSubmit={() => submitMutation.mutate({ note: submitNote })}
+            onWithdraw={() => withdrawMutation.mutate()}
+            isSubmitting={submitMutation.isPending}
+            isWithdrawing={withdrawMutation.isPending}
+          />
+        </div>
+      )}
 
       {/* Language version tabs */}
       <div className="relative -mx-4 sm:mx-0">
@@ -631,6 +681,116 @@ export function TopicDetailPage() {
           />
         ) : null;
       })()}
+    </div>
+  );
+}
+
+function TopicStatusBar({
+  status, rejectionNote,
+  showSubmitForm, submitNote, onSubmitNoteChange,
+  onShowSubmitForm, onCancelSubmit, onSubmit, onWithdraw,
+  isSubmitting, isWithdrawing,
+}: {
+  status: "private" | "pending" | "published" | "rejected";
+  rejectionNote: string | null;
+  showSubmitForm: boolean;
+  submitNote: string;
+  onSubmitNoteChange: (v: string) => void;
+  onShowSubmitForm: () => void;
+  onCancelSubmit: () => void;
+  onSubmit: () => void;
+  onWithdraw: () => void;
+  isSubmitting: boolean;
+  isWithdrawing: boolean;
+}) {
+  const { t } = useTranslation();
+
+  // Color + label per status
+  const statusConfig = {
+    private:   { label: t("topics.private"),      bg: "bg-gray-100 dark:bg-gray-800",          text: "text-gray-600 dark:text-gray-400" },
+    pending:   { label: t("topics.pendingReview"), bg: "bg-amber-50 dark:bg-amber-900/20",      text: "text-amber-700 dark:text-amber-400" },
+    published: { label: t("topics.published"),     bg: "bg-green-50 dark:bg-green-900/20",      text: "text-green-700 dark:text-green-400" },
+    rejected:  { label: t("topics.rejected"),      bg: "bg-red-50 dark:bg-red-900/20",          text: "text-red-700 dark:text-red-400" },
+  };
+  const cfg = statusConfig[status];
+
+  return (
+    <div className={`rounded-xl border px-4 py-3 ${cfg.bg} ${
+      status === "private"   ? "border-gray-200 dark:border-gray-700" :
+      status === "pending"   ? "border-amber-200 dark:border-amber-800" :
+      status === "published" ? "border-green-200 dark:border-green-800" :
+                               "border-red-200 dark:border-red-800"
+    }`}>
+      <div className="flex items-center justify-between gap-3 flex-wrap">
+        <div className="flex items-center gap-2">
+          <span className={`text-xs font-semibold ${cfg.text}`}>{cfg.label}</span>
+          {status === "rejected" && rejectionNote && (
+            <span className="text-xs text-red-500 dark:text-red-400">
+              — {t("topics.rejectionNote", { note: rejectionNote })}
+            </span>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
+          {status === "private" && !showSubmitForm && (
+            <button
+              onClick={onShowSubmitForm}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition-colors"
+            >
+              <PaperAirplaneIcon className="w-3.5 h-3.5" />
+              {t("topics.submitForReview")}
+            </button>
+          )}
+          {status === "rejected" && !showSubmitForm && (
+            <button
+              onClick={onShowSubmitForm}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition-colors"
+            >
+              <PaperAirplaneIcon className="w-3.5 h-3.5" />
+              {t("topics.submitForReview")}
+            </button>
+          )}
+          {status === "pending" && (
+            <button
+              onClick={onWithdraw}
+              disabled={isWithdrawing}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/30 text-xs font-semibold transition-colors disabled:opacity-40"
+            >
+              <XCircleIcon className="w-3.5 h-3.5" />
+              {t("topics.withdrawRequest")}
+            </button>
+          )}
+        </div>
+      </div>
+      {/* Submit form */}
+      {showSubmitForm && (
+        <div className="mt-3 space-y-2 border-t border-current/10 pt-3">
+          <label className="text-xs font-medium text-gray-600 dark:text-gray-400">
+            {t("topics.submitNote")}
+          </label>
+          <textarea
+            value={submitNote}
+            onChange={(e) => onSubmitNoteChange(e.target.value)}
+            placeholder={t("topics.submitNotePlaceholder")}
+            rows={2}
+            className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+          />
+          <div className="flex items-center justify-end gap-2">
+            <button
+              onClick={onCancelSubmit}
+              className="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            >
+              {t("common.cancel")}
+            </button>
+            <button
+              onClick={onSubmit}
+              disabled={isSubmitting}
+              className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition-colors disabled:opacity-40"
+            >
+              {isSubmitting ? t("common.saving") : t("topics.submitConfirm")}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

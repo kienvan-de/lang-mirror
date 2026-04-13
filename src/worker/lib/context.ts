@@ -18,6 +18,7 @@ import { OidcService }       from "../../core/services/oidc.service";
 import { UsersService }      from "../../core/services/users.service";
 import { TagsService }       from "../../core/services/tags.service";
 import { PathsService }      from "../../core/services/paths.service";
+import { ApprovalsService }  from "../../core/services/approvals.service";
 import type { IExecutionContext } from "../../core/ports/execution.port";
 import type { Env } from "../types";
 
@@ -47,5 +48,6 @@ export async function buildContext(env: Env, ctx?: IExecutionContext) {
     users:      new UsersService(db),
     tags:       new TagsService(db),
     paths:      new PathsService(db),
+    approvals:  new ApprovalsService(db),
   };
 }

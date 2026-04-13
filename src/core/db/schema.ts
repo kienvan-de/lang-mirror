@@ -42,12 +42,13 @@ export const DDL_STATEMENTS: string[] = [
     id          TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
     owner_id    TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     title       TEXT NOT NULL,
-    description TEXT,
-    published    INTEGER NOT NULL DEFAULT 0,
-    published_at TEXT,
-    published_by TEXT REFERENCES users(id) ON DELETE SET NULL,
-    created_at  TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
-    updated_at  TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+    description      TEXT,
+    status           TEXT NOT NULL DEFAULT 'private',
+    status_updated_at TEXT,
+    status_updated_by TEXT REFERENCES users(id) ON DELETE SET NULL,
+    rejection_note   TEXT,
+    created_at       TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
+    updated_at       TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
   )`,
 
   // ── Topic language versions ───────────────────────────────────────────────
@@ -132,11 +133,25 @@ export const DDL_STATEMENTS: string[] = [
     PRIMARY KEY (topic_id, tag_id)
   )`,
 
+  // ── Topic approval requests ───────────────────────────────────────────────
+  `CREATE TABLE IF NOT EXISTS topic_approval_requests (
+    id             TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
+    topic_id       TEXT NOT NULL REFERENCES topics(id) ON DELETE CASCADE,
+    owner_id       TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    note           TEXT,
+    status         TEXT NOT NULL DEFAULT 'pending',
+    reviewed_by    TEXT REFERENCES users(id) ON DELETE SET NULL,
+    reviewed_at    TEXT,
+    rejection_note TEXT,
+    created_at     TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
+    updated_at     TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+  )`,
+
   // ── Indexes ───────────────────────────────────────────────────────────────
   // Enforce uniqueness for real OIDC users only (system user has no oidc_provider_id)
   `CREATE UNIQUE INDEX IF NOT EXISTS idx_users_oidc ON users(oidc_provider_id, user_id) WHERE oidc_provider_id IS NOT NULL`,
   `CREATE INDEX IF NOT EXISTS idx_topics_owner         ON topics(owner_id)`,
-  `CREATE INDEX IF NOT EXISTS idx_topics_published ON topics(published)`,
+  `CREATE INDEX IF NOT EXISTS idx_topics_status        ON topics(status)`,
   `CREATE INDEX IF NOT EXISTS idx_versions_topic_id    ON topic_language_versions(topic_id)`,
   `CREATE INDEX IF NOT EXISTS idx_sentences_version_id ON sentences(version_id)`,
   `CREATE INDEX IF NOT EXISTS idx_attempts_sentence_id ON practice_attempts(sentence_id)`,
@@ -149,6 +164,9 @@ export const DDL_STATEMENTS: string[] = [
   `CREATE INDEX IF NOT EXISTS idx_paths_owner        ON paths(owner_id)`,
   `CREATE INDEX IF NOT EXISTS idx_path_topics_path   ON path_topics(path_id)`,
   `CREATE INDEX IF NOT EXISTS idx_path_topics_topic  ON path_topics(topic_id)`,
+  `CREATE INDEX IF NOT EXISTS idx_approvals_topic    ON topic_approval_requests(topic_id)`,
+  `CREATE INDEX IF NOT EXISTS idx_approvals_status   ON topic_approval_requests(status)`,
+  `CREATE INDEX IF NOT EXISTS idx_approvals_owner    ON topic_approval_requests(owner_id)`,
 ];
 
 export const DEFAULT_SETTINGS: [string, string][] = [

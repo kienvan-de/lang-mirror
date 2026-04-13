@@ -38,9 +38,23 @@ export interface TopicRow {
   owner_id: string;
   title: string;
   description: string | null;
-  published: number;       // 0 = private, 1 = published
-  published_at: string | null;
-  published_by: string | null;
+  status: "private" | "pending" | "published" | "rejected";
+  status_updated_at: string | null;
+  status_updated_by: string | null;
+  rejection_note: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ApprovalRequestRow {
+  id: string;
+  topic_id: string;
+  owner_id: string;
+  note: string | null;
+  status: "pending" | "approved" | "rejected" | "withdrawn";
+  reviewed_by: string | null;
+  reviewed_at: string | null;
+  rejection_note: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -175,6 +189,21 @@ export type AdminTopicListItem = TopicRow & {
   owner_name: string | null;
   owner_email: string | null;
   sentence_count: number;
+  // latest approval request (if any)
+  latest_request_id: string | null;
+  latest_request_status: string | null;
+  latest_request_note: string | null;
+};
+
+export type ApprovalRequestWithTopic = ApprovalRequestRow & {
+  topic_title: string;
+  topic_description: string | null;
+  topic_status: string;
+  owner_name: string | null;
+  owner_email: string | null;
+  version_count: number;
+  sentence_count: number;
+  language_codes: string | null; // comma-separated
 };
 
 export type AdminUserRow = UserRow & {

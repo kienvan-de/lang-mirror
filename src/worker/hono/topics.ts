@@ -26,30 +26,38 @@ topicsRouter.get("/admin/all", adminGuard, async (c) => {
   return c.json(await topics.adminList());
 });
 
-// PUT /api/topics/:id/publish — admin only
-topicsRouter.put("/:id/publish", adminGuard, validateUuidParam("id"), async (c) => {
+// POST /api/topics/:id/submit — owner submits topic for review
+topicsRouter.post("/:id/submit", validateUuidParam("id"), async (c) => {
+  const body = await c.req.json<{ note?: string }>().catch(() => ({ note: undefined }));
   const { topics } = await buildContext(c.env);
-  return c.json(await topics.publish(c.req.param("id")!));
+  return c.json(await topics.submitForReview(c.req.param("id")!, body.note), 201);
 });
 
-// PUT /api/topics/:id/unpublish — admin only
+// DELETE /api/topics/:id/submit — owner withdraws pending request
+topicsRouter.delete("/:id/submit", validateUuidParam("id"), async (c) => {
+  const { topics } = await buildContext(c.env);
+  await topics.withdrawRequest(c.req.param("id")!);
+  return new Response(null, { status: 204 });
+});
+
+// PUT /api/topics/:id/unpublish — admin directly unpublishes (emergency)
 topicsRouter.put("/:id/unpublish", adminGuard, validateUuidParam("id"), async (c) => {
   const { topics } = await buildContext(c.env);
   return c.json(await topics.unpublish(c.req.param("id")!));
 });
 
-topicsRouter.get("/:id", async (c) => {
+topicsRouter.get("/:id", validateUuidParam("id"), async (c) => {
   const { topics } = await buildContext(c.env);
   return c.json(await topics.get(c.req.param("id")));
 });
 
-topicsRouter.put("/:id", async (c) => {
+topicsRouter.put("/:id", validateUuidParam("id"), async (c) => {
   const body = await c.req.json<{ title?: string; description?: string }>();
   const { topics } = await buildContext(c.env);
   return c.json(await topics.update(c.req.param("id"), body));
 });
 
-topicsRouter.delete("/:id", async (c) => {
+topicsRouter.delete("/:id", validateUuidParam("id"), async (c) => {
   const { topics } = await buildContext(c.env);
   await topics.delete(c.req.param("id"));
   return c.json({ deleted: true });

@@ -13,9 +13,10 @@ export interface Topic {
   owner_id: string;
   title: string;
   description: string | null;
-  published: number;         // 0 = private, 1 = published
-  published_at: string | null;
-  published_by: string | null;
+  status: "private" | "pending" | "published" | "rejected";
+  status_updated_at: string | null;
+  status_updated_by: string | null;
+  rejection_note: string | null;
   created_at: string;
   updated_at: string;
   version_count?: number;
@@ -27,6 +28,33 @@ export interface AdminTopic extends Topic {
   owner_name: string | null;
   owner_email: string | null;
   sentence_count: number;
+  latest_request_id: string | null;
+  latest_request_status: string | null;
+  latest_request_note: string | null;
+}
+
+export interface ApprovalRequest {
+  id: string;
+  topic_id: string;
+  owner_id: string;
+  note: string | null;
+  status: "pending" | "approved" | "rejected" | "withdrawn";
+  reviewed_by: string | null;
+  reviewed_at: string | null;
+  rejection_note: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ApprovalRequestWithTopic extends ApprovalRequest {
+  topic_title: string;
+  topic_description: string | null;
+  topic_status: string;
+  owner_name: string | null;
+  owner_email: string | null;
+  version_count: number;
+  sentence_count: number;
+  language_codes: string | null;
 }
 
 export interface AdminUser {
@@ -135,10 +163,20 @@ export const api = {
     apiFetch<{ deleted: boolean }>(`/topics/${id}`, { method: "DELETE" }),
   setTopicTags: (topicId: string, tagIds: string[]) =>
     apiFetch<Tag[]>(`/topics/${topicId}/tags`, { method: "PUT", body: JSON.stringify({ tagIds }) }),
-  publishTopic: (id: string) =>
-    apiFetch<Topic>(`/topics/${id}/publish`, { method: "PUT" }),
+  submitForReview: (id: string, note?: string) =>
+    apiFetch<ApprovalRequest>(`/topics/${id}/submit`, { method: "POST", body: JSON.stringify({ note }) }),
+  withdrawRequest: (id: string) =>
+    apiFetch<void>(`/topics/${id}/submit`, { method: "DELETE" }),
   unpublishTopic: (id: string) =>
     apiFetch<Topic>(`/topics/${id}/unpublish`, { method: "PUT" }),
+  listPendingApprovals: () =>
+    apiFetch<ApprovalRequestWithTopic[]>("/approvals"),
+  approveRequest: (requestId: string) =>
+    apiFetch<ApprovalRequest>(`/approvals/${requestId}/approve`, { method: "PUT" }),
+  rejectRequest: (requestId: string, note: string) =>
+    apiFetch<ApprovalRequest>(`/approvals/${requestId}/reject`, { method: "PUT", body: JSON.stringify({ note }) }),
+  getTopicApproval: (topicId: string) =>
+    apiFetch<ApprovalRequest | null>(`/approvals/topic/${topicId}`),
   adminListTopics: () =>
     apiFetch<AdminTopic[]>("/topics/admin/all"),
   adminListUsers: () =>

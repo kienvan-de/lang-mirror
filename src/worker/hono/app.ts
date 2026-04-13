@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { topicsRouter }    from "./topics";
+import { approvalsRouter } from "./approvals";
 import { versionsRouter }  from "./versions";
 import { sentencesRouter } from "./sentences";
 import { ttsRouter }       from "./tts";
@@ -58,6 +59,7 @@ export function createApp() {
   app.route("/api/users",      usersRouter);
   app.route("/api/tags",       tagsRouter);
   app.route("/api/path",       pathsRouter);
+  app.route("/api/approvals",  approvalsRouter);
 
   // ── API 404 handler ───────────────────────────────────────────────────────────
   // Only handle not-found for /api/* routes — CF's asset routing with

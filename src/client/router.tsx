@@ -38,6 +38,7 @@ import { PathPage } from "./routes/path";
 import { AdminPage } from "./routes/admin/index";
 import { AdminUsersPage } from "./routes/admin/users";
 import { AdminTopicsPage } from "./routes/admin/topics";
+import { AdminTagsPage } from "./routes/admin/tags";
 
 export const rootRoute        = createRootRoute({ component: RootLayout, errorComponent: ({ error }) => <RouteError error={error as Error} /> });
 export const loginRoute       = createRoute({ getParentRoute: () => rootRoute, path: "/login", component: LoginPage });
@@ -52,6 +53,7 @@ export const pathRoute        = createRoute({ getParentRoute: () => rootRoute, p
 export const adminRoute       = createRoute({ getParentRoute: () => rootRoute, path: "/admin", component: AdminPage });
 export const adminUsersRoute  = createRoute({ getParentRoute: () => rootRoute, path: "/admin/users", component: AdminUsersPage });
 export const adminTopicsRoute = createRoute({ getParentRoute: () => rootRoute, path: "/admin/topics", component: AdminTopicsPage });
+export const adminTagsRoute   = createRoute({ getParentRoute: () => rootRoute, path: "/admin/tags", component: AdminTagsPage });
 
 const routeTree = rootRoute.addChildren([
   loginRoute,
@@ -66,6 +68,7 @@ const routeTree = rootRoute.addChildren([
   adminRoute,
   adminUsersRoute,
   adminTopicsRoute,
+  adminTagsRoute,
 ]);
 
 export const router = createRouter({ routeTree });

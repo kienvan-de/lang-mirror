@@ -34,9 +34,13 @@ CREATE TABLE IF NOT EXISTS topics (
     id          TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
     owner_id    TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     title       TEXT NOT NULL,
-    description TEXT,
-    created_at  TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
-    updated_at  TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+    description      TEXT,
+    status           TEXT NOT NULL DEFAULT 'private',
+    status_updated_at TEXT,
+    status_updated_by TEXT REFERENCES users(id) ON DELETE SET NULL,
+    rejection_note   TEXT,
+    created_at       TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
+    updated_at       TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
   );
 
 CREATE TABLE IF NOT EXISTS topic_language_versions (
@@ -113,9 +117,24 @@ CREATE TABLE IF NOT EXISTS topic_tags (
     PRIMARY KEY (topic_id, tag_id)
   );
 
+CREATE TABLE IF NOT EXISTS topic_approval_requests (
+    id             TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
+    topic_id       TEXT NOT NULL REFERENCES topics(id) ON DELETE CASCADE,
+    owner_id       TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    note           TEXT,
+    status         TEXT NOT NULL DEFAULT 'pending',
+    reviewed_by    TEXT REFERENCES users(id) ON DELETE SET NULL,
+    reviewed_at    TEXT,
+    rejection_note TEXT,
+    created_at     TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
+    updated_at     TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+  );
+
 CREATE UNIQUE INDEX IF NOT EXISTS idx_users_oidc ON users(oidc_provider_id, user_id) WHERE oidc_provider_id IS NOT NULL;
 
 CREATE INDEX IF NOT EXISTS idx_topics_owner         ON topics(owner_id);
+
+CREATE INDEX IF NOT EXISTS idx_topics_status        ON topics(status);
 
 CREATE INDEX IF NOT EXISTS idx_versions_topic_id    ON topic_language_versions(topic_id);
 
@@ -140,6 +159,12 @@ CREATE INDEX IF NOT EXISTS idx_paths_owner        ON paths(owner_id);
 CREATE INDEX IF NOT EXISTS idx_path_topics_path   ON path_topics(path_id);
 
 CREATE INDEX IF NOT EXISTS idx_path_topics_topic  ON path_topics(topic_id);
+
+CREATE INDEX IF NOT EXISTS idx_approvals_topic    ON topic_approval_requests(topic_id);
+
+CREATE INDEX IF NOT EXISTS idx_approvals_status   ON topic_approval_requests(status);
+
+CREATE INDEX IF NOT EXISTS idx_approvals_owner    ON topic_approval_requests(owner_id);
 
 -- System user (owns default settings, cannot log in)
 INSERT OR IGNORE INTO users (id, oidc_provider_id, user_id, name, role) VALUES ('system', NULL, 'system', 'System', 'readonly');

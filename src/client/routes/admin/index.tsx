@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Link } from "@tanstack/react-router";
-import { UsersIcon, BookOpenIcon } from "@heroicons/react/24/outline";
-import { api, type AdminUser, type AdminTopic } from "../../lib/api";
+import { UsersIcon, BookOpenIcon, TagIcon } from "@heroicons/react/24/outline";
+import { api, type AdminUser, type AdminTopic, type ApprovalRequestWithTopic } from "../../lib/api";
 import { useAuth } from "../../hooks/useAuth";
 
 // ── helpers ───────────────────────────────────────────────────────────────────
@@ -72,6 +72,12 @@ export function AdminPage() {
     enabled: user?.role === "admin",
   });
 
+  const { data: pendingApprovals = [] } = useQuery<ApprovalRequestWithTopic[]>({
+    queryKey: ["admin-approvals"],
+    queryFn: api.listPendingApprovals,
+    enabled: user?.role === "admin",
+  });
+
   if (user?.role !== "admin") {
     return (
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
@@ -87,7 +93,7 @@ export function AdminPage() {
   const active7d = users.filter((u) => isActiveWithin(u, 7)).length;
   const active30d = users.filter((u) => isActiveWithin(u, 30)).length;
   const totalTopics = topics.length;
-  const publishedTopics = topics.filter((tp) => tp.published === 1).length;
+  const pendingCount = pendingApprovals.length;
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
@@ -102,12 +108,12 @@ export function AdminPage() {
         <StatCard label={t("admin.activeUsers7d")} value={active7d} />
         <StatCard label={t("admin.activeUsers30d")} value={active30d} />
         <StatCard label={t("admin.totalTopics")} value={totalTopics} />
-        <StatCard label={t("admin.publishedTopics")} value={publishedTopics} />
+        <StatCard label={t("admin.pendingApprovals")} value={pendingCount} />
       </div>
 
       {/* Quick actions */}
       <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 shadow-sm">
-        <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-5">Quick Actions</h2>
+        <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-5">{t("admin.quickActions")}</h2>
         <div className="flex flex-col sm:flex-row gap-4">
           <QuickCard
             icon={<UsersIcon className="w-8 h-8 text-blue-500" />}
@@ -120,6 +126,12 @@ export function AdminPage() {
             title={t("admin.reviewTopics")}
             subtitle={t("admin.reviewTopicsHint")}
             to="/admin/topics"
+          />
+          <QuickCard
+            icon={<TagIcon className="w-8 h-8 text-green-500" />}
+            title={t("admin.manageTags")}
+            subtitle={t("admin.manageTagsHint")}
+            to="/admin/tags"
           />
         </div>
       </div>

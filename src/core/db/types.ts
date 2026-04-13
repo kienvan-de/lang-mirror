@@ -64,8 +64,6 @@ export interface SentenceRow {
   notes: string | null;
   position: number;
   tts_cache_key: string | null;
-  /** R2/filesystem key of the user's recorded audio for this sentence */
-  recording_key: string | null;
   created_at: string;
   updated_at: string;
 }

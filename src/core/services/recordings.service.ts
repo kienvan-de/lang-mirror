@@ -1,11 +1,17 @@
 import type { IDatabase } from "../ports/db.port";
 import type { IObjectStorage, StoredObject } from "../ports/storage.port";
-import type { SentenceRow, VersionRow, TopicRow } from "../db/types";
+import type { SentenceRow, VersionRow } from "../db/types";
 import { requireAuth, canAccess } from "../auth/context";
 import { NotFoundError, ForbiddenError, ValidationError } from "../errors";
 
 // ── Storage key helpers ───────────────────────────────────────────────────────
 
+/**
+ * Deterministic R2 key for a user's recording of a sentence.
+ * Derived entirely from server-side values — never from client input.
+ *
+ *   recordings/{userId}/{topicId}/{langCode}/sentence-{sentenceId}.{ext}
+ */
 function r2Key(userId: string, topicId: string, langCode: string, sentenceId: string, ext: string): string {
   return `recordings/${userId}/${topicId}/${langCode}/sentence-${sentenceId}.${ext}`;
 }
@@ -21,6 +27,14 @@ const CANONICAL_CONTENT_TYPE: Record<string, string> = {
   "audio/mp4":  "audio/mp4",
   "audio/mpeg": "audio/mpeg",
   "audio/wav":  "audio/wav",
+};
+
+const EXT_TO_MIME: Record<string, string> = {
+  webm: "audio/webm",
+  ogg:  "audio/ogg",
+  mp4:  "audio/mp4",
+  mp3:  "audio/mpeg",
+  wav:  "audio/wav",
 };
 
 function canonicalContentType(baseType: string): string {
@@ -52,7 +66,7 @@ export class RecordingsService {
   ) {}
 
   /**
-   * Resolve sentence → version, then verify the caller owns the parent topic.
+   * Resolve sentence → version → topic, then verify the caller owns the topic.
    * Throws NotFoundError or ForbiddenError — never leaks existence of records
    * the caller cannot access.
    */
@@ -97,60 +111,45 @@ export class RecordingsService {
     const ext = extFromContentType(safeContentType);
     const key = r2Key(userId, version.topic_id, version.language_code, sentenceId, ext);
 
-    // Write to object storage
     await this.storage.put(key, data, { contentType: safeContentType });
-
-    // Persist key to DB — single source of truth for this user's recording
-    await this.db.run(
-      `UPDATE sentences SET recording_key = ?, updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
-       WHERE id = ?`,
-      key, sentenceId
-    );
 
     return { key };
   }
 
   async get(sentenceId: string): Promise<RecordingRef> {
-    requireAuth();
+    // requireAuth() must be called before resolveAndAuthorise so auth.id is available
+    const { id: userId } = requireAuth();
 
     // Ownership: only the topic owner (or admin) may fetch the recording
-    const { sentence } = await this.resolveAndAuthorise(sentenceId);
+    const { version } = await this.resolveAndAuthorise(sentenceId);
 
-    if (!sentence.recording_key) {
-      throw new NotFoundError(`No recording for sentence '${sentenceId}'`);
+    // Derive the R2 key at runtime — no DB column needed
+    // Try all supported extensions to find whichever file exists
+    const extensions = ["webm", "ogg", "mp4", "mp3", "wav"];
+    for (const ext of extensions) {
+      const key = r2Key(userId, version.topic_id, version.language_code, sentenceId, ext);
+      const obj = await this.storage.get(key);
+      if (obj) {
+        const contentType = EXT_TO_MIME[ext] ?? "audio/webm";
+        return { key, contentType, object: obj };
+      }
     }
 
-    const obj = await this.storage.get(sentence.recording_key);
-    if (!obj) throw new NotFoundError(`Recording file missing for sentence '${sentenceId}'`);
-
-    // Derive content type from the stored key extension — never trust R2 metadata
-    // directly in case it was written by an older version without canonicalisation.
-    const ext = sentence.recording_key.split(".").pop() ?? "webm";
-    const extToMime: Record<string, string> = {
-      webm: "audio/webm",
-      ogg:  "audio/ogg",
-      mp4:  "audio/mp4",
-      mp3:  "audio/mpeg",
-      wav:  "audio/wav",
-    };
-    const contentType = extToMime[ext] ?? "audio/webm";
-
-    return { key: sentence.recording_key, contentType, object: obj };
+    throw new NotFoundError(`No recording for sentence '${sentenceId}'`);
   }
 
   async delete(sentenceId: string): Promise<void> {
-    requireAuth();
+    // requireAuth() must be called before resolveAndAuthorise so auth.id is available
+    const { id: userId } = requireAuth();
 
     // Ownership: only the topic owner (or admin) may delete the recording
-    const { sentence } = await this.resolveAndAuthorise(sentenceId);
+    const { version } = await this.resolveAndAuthorise(sentenceId);
 
-    if (sentence.recording_key) {
-      await this.storage.delete(sentence.recording_key);
-      await this.db.run(
-        `UPDATE sentences SET recording_key = NULL, updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
-         WHERE id = ?`,
-        sentenceId
-      );
+    // Delete all possible extension variants for this user's recording
+    const extensions = ["webm", "ogg", "mp4", "mp3", "wav"];
+    for (const ext of extensions) {
+      const key = r2Key(userId, version.topic_id, version.language_code, sentenceId, ext);
+      await this.storage.delete(key); // no-op if key does not exist
     }
   }
 

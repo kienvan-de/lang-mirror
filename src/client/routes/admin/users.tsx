@@ -94,7 +94,7 @@ export function AdminUsersPage() {
       </div>
 
       {/* Filter bar */}
-      <div className="flex items-center gap-1 bg-gray-100 dark:bg-gray-800 rounded-lg p-1 w-fit mb-6">
+      <div className="flex items-center gap-1 bg-gray-100 dark:bg-gray-800 rounded-lg p-1 w-fit mb-6 flex-wrap">
         {filterTabs.map(({ key, label }) => (
           <button
             key={key}
@@ -117,17 +117,17 @@ export function AdminUsersPage() {
         ) : filtered.length === 0 ? (
           <div className="p-8 text-center text-sm text-gray-400 dark:text-gray-500">{t("admin.noUsers")}</div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+          <div className="overflow-x-auto -mx-4 sm:mx-0">
+            <table className="w-full text-sm min-w-[600px]">
               <thead>
                 <tr className="border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
                   <th className="text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.name")}</th>
-                  <th className="text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.email")}</th>
+                  <th className="hidden sm:table-cell text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.email")}</th>
                   <th className="text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.role")}</th>
-                  <th className="text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.joined")}</th>
+                  <th className="hidden sm:table-cell text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.joined")}</th>
                   <th className="text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.lastActive")}</th>
-                  <th className="text-right px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.topicCount")}</th>
-                  <th className="text-right px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.attempts")}</th>
+                  <th className="hidden sm:table-cell text-right px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.topicCount")}</th>
+                  <th className="hidden sm:table-cell text-right px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.attempts")}</th>
                   <th className="text-right px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.actions")}</th>
                 </tr>
               </thead>
@@ -146,15 +146,20 @@ export function AdminUsersPage() {
                               {(u.name ?? u.email ?? "?")[0]?.toUpperCase()}
                             </div>
                           )}
-                          <span className="font-medium text-gray-900 dark:text-gray-100 truncate max-w-[120px]">
-                            {u.name ?? "—"}
-                            {isSelf && <span className="ml-1 text-xs text-blue-500">(you)</span>}
-                          </span>
+                          <div>
+                            <div className="flex items-center gap-1">
+                              <span className="font-medium text-gray-900 dark:text-gray-100 truncate max-w-[120px]">
+                                {u.name ?? "—"}
+                              </span>
+                              {isSelf && <span className="text-xs text-blue-500">(you)</span>}
+                            </div>
+                            <p className="text-xs text-gray-400 dark:text-gray-500 sm:hidden truncate max-w-[140px]">{u.email}</p>
+                          </div>
                         </div>
                       </td>
 
-                      {/* Email */}
-                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400 truncate max-w-[160px]">
+                      {/* Email — hidden on mobile */}
+                      <td className="hidden sm:table-cell px-4 py-3 text-gray-600 dark:text-gray-400 truncate max-w-[160px]">
                         {u.email ?? "—"}
                       </td>
 
@@ -171,8 +176,8 @@ export function AdminUsersPage() {
                         </span>
                       </td>
 
-                      {/* Joined */}
-                      <td className="px-4 py-3 text-gray-500 dark:text-gray-400 whitespace-nowrap">
+                      {/* Joined — hidden on mobile */}
+                      <td className="hidden sm:table-cell px-4 py-3 text-gray-500 dark:text-gray-400 whitespace-nowrap">
                         {formatDate(u.created_at)}
                       </td>
 
@@ -181,13 +186,13 @@ export function AdminUsersPage() {
                         {u.last_active_at ? formatDate(u.last_active_at) : t("admin.neverActive")}
                       </td>
 
-                      {/* Topics */}
-                      <td className="px-4 py-3 text-right text-gray-600 dark:text-gray-400">
+                      {/* Topics — hidden on mobile */}
+                      <td className="hidden sm:table-cell px-4 py-3 text-right text-gray-600 dark:text-gray-400">
                         {u.topic_count}
                       </td>
 
-                      {/* Attempts */}
-                      <td className="px-4 py-3 text-right text-gray-600 dark:text-gray-400">
+                      {/* Attempts — hidden on mobile */}
+                      <td className="hidden sm:table-cell px-4 py-3 text-right text-gray-600 dark:text-gray-400">
                         {u.attempt_count}
                       </td>
 

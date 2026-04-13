@@ -499,7 +499,7 @@
     "noTopics": "Aucun sujet trouvé.",
     "manageTags": "Gestion des étiquettes",
     "manageTagsHint": "Créer et supprimer des étiquettes de sujets globales",
-    "backToAdmin": "← Admin",
+    "backToAdmin": "Admin",
     "noTags": "Aucune étiquette pour l'instant.",
     "quickActions": "Actions rapides"
   }

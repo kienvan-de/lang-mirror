@@ -164,16 +164,16 @@ function ApprovalQueueSection() {
         ) : requests.length === 0 ? (
           <div className="p-8 text-center text-sm text-gray-400 dark:text-gray-500">{t("admin.approvalQueueEmpty")}</div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+          <div className="overflow-x-auto -mx-4 sm:mx-0">
+            <table className="w-full text-sm min-w-[560px]">
               <thead>
                 <tr className="border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
                   <th className="text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">Title</th>
-                  <th className="text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.owner")}</th>
-                  <th className="text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.languages")}</th>
-                  <th className="text-right px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.sentences")}</th>
+                  <th className="hidden sm:table-cell text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.owner")}</th>
+                  <th className="hidden sm:table-cell text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.languages")}</th>
+                  <th className="hidden sm:table-cell text-right px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.sentences")}</th>
                   <th className="text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.submittedAt")}</th>
-                  <th className="text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.ownerNote")}</th>
+                  <th className="hidden md:table-cell text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.ownerNote")}</th>
                   <th className="text-right px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.actions")}</th>
                 </tr>
               </thead>
@@ -185,7 +185,7 @@ function ApprovalQueueSection() {
 
                   return (
                     <tr key={req.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors align-top">
-                      {/* Title */}
+                      {/* Title + owner on mobile */}
                       <td className="px-4 py-3">
                         <span className="font-medium text-gray-900 dark:text-gray-100 line-clamp-1">
                           {req.topic_title}
@@ -195,10 +195,16 @@ function ApprovalQueueSection() {
                             {req.topic_description}
                           </p>
                         )}
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 sm:hidden">
+                          {req.owner_name ?? "—"}
+                          {req.owner_email && (
+                            <span className="text-gray-400 dark:text-gray-500"> · {req.owner_email}</span>
+                          )}
+                        </p>
                       </td>
 
-                      {/* Owner */}
-                      <td className="px-4 py-3">
+                      {/* Owner — hidden on mobile */}
+                      <td className="hidden sm:table-cell px-4 py-3">
                         <p className="font-medium text-gray-800 dark:text-gray-200 truncate max-w-[120px]">
                           {req.owner_name ?? "—"}
                         </p>
@@ -209,13 +215,13 @@ function ApprovalQueueSection() {
                         )}
                       </td>
 
-                      {/* Languages */}
-                      <td className="px-4 py-3">
+                      {/* Languages — hidden on mobile */}
+                      <td className="hidden sm:table-cell px-4 py-3">
                         <LangPills codes={langCodes} />
                       </td>
 
-                      {/* Sentences */}
-                      <td className="px-4 py-3 text-right text-gray-600 dark:text-gray-400">
+                      {/* Sentences — hidden on mobile */}
+                      <td className="hidden sm:table-cell px-4 py-3 text-right text-gray-600 dark:text-gray-400">
                         {req.sentence_count}
                       </td>
 
@@ -224,8 +230,8 @@ function ApprovalQueueSection() {
                         {formatDate(req.created_at)}
                       </td>
 
-                      {/* Note */}
-                      <td className="px-4 py-3 text-gray-500 dark:text-gray-400 max-w-[160px]">
+                      {/* Note — hidden on mobile/tablet */}
+                      <td className="hidden md:table-cell px-4 py-3 text-gray-500 dark:text-gray-400 max-w-[160px]">
                         {req.note ? (
                           <span className="text-xs line-clamp-2">{req.note}</span>
                         ) : (
@@ -327,7 +333,7 @@ function AllTopicsSection() {
       {!collapsed && (
         <>
           {/* Filter bar */}
-          <div className="flex items-center gap-1 bg-gray-100 dark:bg-gray-800 rounded-lg p-1 w-fit mb-4 flex-wrap">
+          <div className="flex items-center gap-1 bg-gray-100 dark:bg-gray-800 rounded-lg p-1 w-fit mb-4 flex-wrap gap-y-1">
             {filterTabs.map(({ key, label }) => (
               <button
                 key={key}
@@ -350,14 +356,14 @@ function AllTopicsSection() {
             ) : filtered.length === 0 ? (
               <div className="p-8 text-center text-sm text-gray-400 dark:text-gray-500">{t("admin.noTopics")}</div>
             ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
+              <div className="overflow-x-auto -mx-4 sm:mx-0">
+                <table className="w-full text-sm min-w-[500px]">
                   <thead>
                     <tr className="border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
                       <th className="text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">Title</th>
-                      <th className="text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.owner")}</th>
-                      <th className="text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.languages")}</th>
-                      <th className="text-right px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.sentences")}</th>
+                      <th className="hidden sm:table-cell text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.owner")}</th>
+                      <th className="hidden sm:table-cell text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.languages")}</th>
+                      <th className="hidden md:table-cell text-right px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.sentences")}</th>
                       <th className="text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.status")}</th>
                       <th className="text-right px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.actions")}</th>
                     </tr>
@@ -368,7 +374,7 @@ function AllTopicsSection() {
 
                       return (
                         <tr key={topic.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors align-top">
-                          {/* Title */}
+                          {/* Title + owner on mobile */}
                           <td className="px-4 py-3">
                             <span className="font-medium text-gray-900 dark:text-gray-100 line-clamp-1">
                               {topic.title}
@@ -378,10 +384,13 @@ function AllTopicsSection() {
                                 {topic.description}
                               </p>
                             )}
+                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 sm:hidden truncate max-w-[160px]">
+                              {topic.owner_name ?? "—"}
+                            </p>
                           </td>
 
-                          {/* Owner */}
-                          <td className="px-4 py-3">
+                          {/* Owner — hidden on mobile */}
+                          <td className="hidden sm:table-cell px-4 py-3">
                             <p className="font-medium text-gray-800 dark:text-gray-200 truncate max-w-[120px]">
                               {topic.owner_name ?? "—"}
                             </p>
@@ -392,13 +401,13 @@ function AllTopicsSection() {
                             )}
                           </td>
 
-                          {/* Languages */}
-                          <td className="px-4 py-3">
+                          {/* Languages — hidden on mobile */}
+                          <td className="hidden sm:table-cell px-4 py-3">
                             <LangPills codes={langCodes} />
                           </td>
 
-                          {/* Sentences */}
-                          <td className="px-4 py-3 text-right text-gray-600 dark:text-gray-400">
+                          {/* Sentences — hidden on mobile/tablet */}
+                          <td className="hidden md:table-cell px-4 py-3 text-right text-gray-600 dark:text-gray-400">
                             {topic.sentence_count}
                           </td>
 
@@ -448,7 +457,7 @@ export function AdminTopicsPage() {
 
   if (currentUser?.role !== "admin") {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
         <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl p-8 text-center">
           <p className="text-lg font-semibold text-red-700 dark:text-red-400">403 — Forbidden</p>
           <p className="text-sm text-red-500 dark:text-red-500 mt-1">You do not have permission to access this page.</p>
@@ -458,7 +467,7 @@ export function AdminTopicsPage() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
       {/* Header */}
       <div className="mb-6">
         <Link

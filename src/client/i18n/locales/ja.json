@@ -500,7 +500,7 @@
     "noTopics": "トピックが見つかりません。",
     "manageTags": "タグ管理",
     "manageTagsHint": "グローバルトピックタグの作成と削除",
-    "backToAdmin": "← 管理",
+    "backToAdmin": "管理",
     "noTags": "タグがまだありません。",
     "quickActions": "クイックアクション"
   }

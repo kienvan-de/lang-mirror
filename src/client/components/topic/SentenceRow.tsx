@@ -5,7 +5,7 @@ import {
   ChevronUpIcon, ChevronDownIcon,
   PencilIcon, TrashIcon,
   ChevronDoubleUpIcon, ChevronDoubleDownIcon,
-  DocumentTextIcon, SpeakerWaveIcon, StopIcon,
+  DocumentTextIcon,
 } from "@heroicons/react/24/outline";
 import type { Sentence, Version } from "../../lib/api";
 import { api } from "../../lib/api";
@@ -39,31 +39,6 @@ export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onR
   // Edit only the UI-language slot; other language notes are preserved on save
   const [editNotes, setEditNotes] = useState(sentence.notes?.[uiLang] ?? "");
   const editRef = useRef<HTMLInputElement>(null);
-
-  // ── Recording playback ────────────────────────────────────────────────────
-  const [playingRecording, setPlayingRecording] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  const handlePlayRecording = () => {
-    // If already playing, stop it
-    if (playingRecording && audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current = null;
-      setPlayingRecording(false);
-      return;
-    }
-    const audio = new Audio(api.getRecordingUrl(sentence.id));
-    audioRef.current = audio;
-    setPlayingRecording(true);
-    audio.play().catch(() => setPlayingRecording(false)); // 404 = no recording, silent fail
-    audio.onended = () => { audioRef.current = null; setPlayingRecording(false); };
-    audio.onerror = () => { audioRef.current = null; setPlayingRecording(false); };
-  };
-
-  // Stop audio when component unmounts
-  useEffect(() => {
-    return () => { audioRef.current?.pause(); };
-  }, []);
 
   useEffect(() => {
     if (editing) editRef.current?.focus();
@@ -193,23 +168,6 @@ export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onR
                 <DocumentTextIcon className="w-3 h-3" /> {t("sentenceRow.showNote")}
               </button>
             )}
-
-            {/* Recording playback button — plays the user's latest recorded audio */}
-            <button
-              type="button"
-              onClick={(e) => { e.stopPropagation(); handlePlayRecording(); }}
-              title={playingRecording ? t("sentenceRow.stopRecording") : t("sentenceRow.playRecording")}
-              className={`cursor-pointer inline-flex items-center gap-0.5 text-xs transition-colors ${
-                playingRecording
-                  ? "text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300"
-                  : "text-blue-400 dark:text-blue-500 hover:text-blue-600 dark:hover:text-blue-300"
-              }`}
-            >
-              {playingRecording
-                ? <><StopIcon className="w-3 h-3" /> {t("sentenceRow.stopRecording")}</>
-                : <><SpeakerWaveIcon className="w-3 h-3" /> {t("sentenceRow.playRecording")}</>
-              }
-            </button>
           </div>
 
           {/* Sibling sentences — hidden on native language tab */}

@@ -179,9 +179,7 @@
     "textPlaceholder": "文のテキスト",
     "notesPlaceholder": "メモ（任意）",
     "new": "新規",
-    "practicedCount": "{{count}}回",
-    "playRecording": "自分の録音",
-    "stopRecording": "停止"
+    "practicedCount": "{{count}}回"
   },
   "versionSettings": {
     "title": "{{lang}} — 音声設定",

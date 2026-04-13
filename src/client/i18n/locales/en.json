@@ -179,9 +179,7 @@
     "textPlaceholder": "Sentence text",
     "notesPlaceholder": "Notes (optional)",
     "new": "New",
-    "practicedCount": "{{count}}×",
-    "playRecording": "my recording",
-    "stopRecording": "stop"
+    "practicedCount": "{{count}}×"
   },
   "versionSettings": {
     "title": "{{lang}} — Voice Settings",

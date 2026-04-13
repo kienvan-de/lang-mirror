@@ -179,7 +179,9 @@
     "textPlaceholder": "Nội dung câu",
     "notesPlaceholder": "Ghi chú (tùy chọn)",
     "new": "Mới",
-    "practicedCount": "{{count}}×"
+    "practicedCount": "{{count}}×",
+    "playRecording": "ghi âm của tôi",
+    "stopRecording": "dừng"
   },
   "versionSettings": {
     "title": "{{lang}} — Cài đặt giọng",

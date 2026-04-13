@@ -179,7 +179,9 @@
     "textPlaceholder": "Satztext",
     "notesPlaceholder": "Notizen (optional)",
     "new": "Neu",
-    "practicedCount": "{{count}}×"
+    "practicedCount": "{{count}}×",
+    "playRecording": "meine Aufnahme",
+    "stopRecording": "stopp"
   },
   "versionSettings": {
     "title": "{{lang}} — Spracheinstellungen",

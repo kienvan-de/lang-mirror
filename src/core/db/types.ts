@@ -63,7 +63,6 @@ export interface SentenceRow {
   /** JSON string: Record<uiLang, markdown> */
   notes: string | null;
   position: number;
-  tts_cache_key: string | null;
   created_at: string;
   updated_at: string;
 }

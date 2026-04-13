@@ -5,7 +5,6 @@ import { preloadProgress } from "../lib/preload-progress";
 interface SentenceRow {
   id: string;
   text: string;
-  tts_cache_key: string | null;
 }
 
 interface VersionRow {
@@ -55,7 +54,6 @@ function resolveVoice(version: VersionRow): string {
 /**
  * Pre-generate and cache TTS for every sentence in a language version.
  * Runs sequentially to avoid rate-limiting the Edge TTS API.
- * Updates tts_cache_key in DB for each sentence.
  * Does NOT throw — errors per sentence are logged and skipped.
  */
 export async function preloadVersionTTS(versionId: string): Promise<void> {
@@ -69,7 +67,7 @@ export async function preloadVersionTTS(versionId: string): Promise<void> {
   }
 
   const sentences = db
-    .prepare("SELECT id, text, tts_cache_key FROM sentences WHERE version_id = ? ORDER BY position ASC")
+    .prepare("SELECT id, text FROM sentences WHERE version_id = ? ORDER BY position ASC")
     .all(versionId) as SentenceRow[];
 
   const total = sentences.length;
@@ -81,14 +79,9 @@ export async function preloadVersionTTS(versionId: string): Promise<void> {
   const speed = version.speed ?? parseFloat(getSetting("tts.global.speed", "1.0"));
   const pitch = version.pitch ?? parseInt(getSetting("tts.global.pitch", "0"), 10);
 
-  const updateCacheKey = db.prepare(
-    "UPDATE sentences SET tts_cache_key = ? WHERE id = ?"
-  );
-
   for (const sentence of sentences) {
     try {
-      const result = await generateTTS({ text: sentence.text, voice, speed, pitch });
-      updateCacheKey.run(result.cacheKey, sentence.id);
+      await generateTTS({ text: sentence.text, voice, speed, pitch });
       done++;
       preloadProgress.set(versionId, { done, total, finished: false });
     } catch (err) {

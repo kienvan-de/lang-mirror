@@ -73,7 +73,6 @@ export interface Sentence {
   translation?: string | null;
   notes: Record<string, string> | null;
   position: number;
-  tts_cache_key: string | null;
   created_at: string;
   updated_at: string;
   // US-7.4 — populated by GET /api/topics/:id

@@ -35,19 +35,13 @@ export class SentencesService {
     const newText = data.text !== undefined ? data.text.trim() : current.text;
     if (data.text !== undefined && !newText) throw new ValidationError("text cannot be empty", "text");
 
-    // Text changed → invalidate TTS cache key (storage cleanup is adapter's responsibility)
-    const newCacheKey = (data.text !== undefined && data.text.trim() !== current.text)
-      ? null
-      : current.tts_cache_key;
-
     await this.db.run(
       `UPDATE sentences
-       SET text = ?, notes = ?, tts_cache_key = ?,
+       SET text = ?, notes = ?,
            updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
        WHERE id = ?`,
       newText,
       data.notes !== undefined ? JSON.stringify(data.notes) : current.notes,
-      newCacheKey,
       id
     );
 

@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { buildContext } from "../lib/context";
 import { adminGuard } from "./middleware/admin";
 import { validateUuidParam } from "./middleware/validate";
+import { rateLimitMiddleware } from "./middleware/rate-limit";
 import type { Env } from "../types";
 
 export const recordingsRouter = new Hono<{ Bindings: Env }>();
@@ -62,6 +63,18 @@ async function readBoundedStream(
   return out.buffer;
 }
 
+// ── Rate limiting ─────────────────────────────────────────────────────────────
+
+// Upload is the most expensive route (stream read + R2 write + DB update).
+// Apply a tighter limit than import: 30 uploads per 60 s per user.
+const recordingRateLimit = rateLimitMiddleware({
+  limit:      30,
+  windowSecs: 60,
+  keyPrefix:  "recording",
+});
+
+recordingsRouter.use("*", recordingRateLimit);
+
 // ── Routes ────────────────────────────────────────────────────────────────────
 
 // DELETE /api/recordings — delete all (admin only)
@@ -72,7 +85,12 @@ recordingsRouter.delete("/", adminGuard, async (c) => {
 
 // POST /api/recordings/:sentenceId
 recordingsRouter.post("/:sentenceId", validateUuidParam("sentenceId"), async (c) => {
-  // Validate MIME type
+  // Guard null body before attempting to stream — body is null for bodyless requests
+  if (!c.req.raw.body) {
+    return c.json({ error: "Request body is required" }, 400);
+  }
+
+  // Validate MIME type against allowlist
   const rawType  = (c.req.header("Content-Type") ?? "audio/webm").toLowerCase().trim();
   const baseType = rawType.split(";")[0]!.trim();
   if (!ALLOWED_AUDIO_TYPES.has(rawType) && !ALLOWED_AUDIO_TYPES.has(baseType)) {
@@ -80,14 +98,17 @@ recordingsRouter.post("/:sentenceId", validateUuidParam("sentenceId"), async (c)
   }
 
   // Read body with hard byte cap — cannot trust Content-Length header
-  const buf = await readBoundedStream(c.req.raw.body!, MAX_RECORDING_BYTES);
-  if (!buf) return c.json({ error: "Recording exceeds 10 MB limit" }, 413);
+  const buf = await readBoundedStream(c.req.raw.body, MAX_RECORDING_BYTES);
+  if (buf === null) return c.json({ error: "Recording exceeds 10 MB limit" }, 413);
+
+  // Reject zero-byte uploads — they would write an empty file to R2
+  if (buf.byteLength === 0) return c.json({ error: "Recording body is empty" }, 400);
 
   const { recordings } = await buildContext(c.env);
   const result = await recordings.upload(
     c.req.param("sentenceId")!,
-    buf,          // ArrayBuffer — safe, bounded
-    baseType,
+    buf,      // ArrayBuffer — safe, bounded, non-empty
+    baseType, // service will canonicalise before storing
   );
   return c.json(result, 201);
 });
@@ -98,8 +119,11 @@ recordingsRouter.get("/:sentenceId", validateUuidParam("sentenceId"), async (c) 
   const ref = await recordings.get(c.req.param("sentenceId")!);
   return new Response(ref.object.body, {
     headers: {
-      "Content-Type":  ref.contentType,
-      "Cache-Control": "no-store",
+      "Content-Type":        ref.contentType,
+      // inline: allow browser audio player to render it in-page;
+      // filename is opaque (UUID-based) so no information is leaked.
+      "Content-Disposition": `inline; filename="recording.${ref.contentType.split("/")[1]}"`,
+      "Cache-Control":       "no-store",
     },
   });
 });

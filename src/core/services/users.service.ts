@@ -1,5 +1,5 @@
 import type { IDatabase } from "../ports/db.port";
-import type { UserRow } from "../db/types";
+import type { UserRow, AdminUserRow } from "../db/types";
 import { requireAuth, isAdmin, getAuthContext } from "../auth/context";
 import { NotFoundError, ForbiddenError } from "../errors";
 import { SYSTEM_USER_ID } from "../db/schema";
@@ -18,12 +18,21 @@ export class UsersService {
   }
 
   /** List all users — admin only, excludes system user */
-  async listUsers(): Promise<UserRow[]> {
+  async listUsers(): Promise<AdminUserRow[]> {
     if (!isAdmin()) throw new ForbiddenError("Only admins can list users");
-    return this.db.queryAll<UserRow>(
-      "SELECT * FROM users WHERE id != ? ORDER BY created_at ASC",
-      SYSTEM_USER_ID
-    );
+    return this.db.queryAll<AdminUserRow>(`
+      SELECT
+        u.*,
+        MAX(pa.attempted_at)         AS last_active_at,
+        COUNT(DISTINCT t.id)         AS topic_count,
+        COUNT(DISTINCT pa.id)        AS attempt_count
+      FROM users u
+      LEFT JOIN practice_attempts pa ON pa.owner_id = u.id
+      LEFT JOIN topics t ON t.owner_id = u.id
+      WHERE u.id != ?
+      GROUP BY u.id
+      ORDER BY u.created_at ASC
+    `, SYSTEM_USER_ID);
   }
 
   /** Get a user by internal ID — admin only */

@@ -1,5 +1,7 @@
 import { Hono } from "hono";
 import { buildContext } from "../lib/context";
+import { adminGuard } from "./middleware/admin";
+import { validateUuidParam } from "./middleware/validate";
 import type { Env } from "../types";
 
 // ── /api/topics ───────────────────────────────────────────────────────────────
@@ -16,6 +18,24 @@ topicsRouter.post("/", async (c) => {
   const body = await c.req.json<{ title?: string; description?: string }>();
   const { topics } = await buildContext(c.env);
   return c.json(await topics.create(body.title ?? "", body.description), 201);
+});
+
+// GET /api/topics/admin/all — admin only, returns all topics with owner info
+topicsRouter.get("/admin/all", adminGuard, async (c) => {
+  const { topics } = await buildContext(c.env);
+  return c.json(await topics.adminList());
+});
+
+// PUT /api/topics/:id/publish — admin only
+topicsRouter.put("/:id/publish", adminGuard, validateUuidParam("id"), async (c) => {
+  const { topics } = await buildContext(c.env);
+  return c.json(await topics.publish(c.req.param("id")!));
+});
+
+// PUT /api/topics/:id/unpublish — admin only
+topicsRouter.put("/:id/unpublish", adminGuard, validateUuidParam("id"), async (c) => {
+  const { topics } = await buildContext(c.env);
+  return c.json(await topics.unpublish(c.req.param("id")!));
 });
 
 topicsRouter.get("/:id", async (c) => {

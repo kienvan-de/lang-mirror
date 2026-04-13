@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { ExclamationTriangleIcon, PlayIcon } from "@heroicons/react/24/outline";
-import { api, type Voice, type Tag } from "../lib/api";
+import { api, type Voice } from "../lib/api";
 import { langFlag, langName } from "../lib/lang";
 import { defaultVoiceForLang } from "../hooks/useTTS";
 import { useAuth } from "../hooks/useAuth";
@@ -175,50 +175,12 @@ export function SettingsPage() {
     (topics ?? []).flatMap((t) => (t.versions ?? []).map((v) => v.language_code.split("-")[0]!.toLowerCase()))
   )).sort();
 
-  const { data: tags, refetch: refetchTags } = useQuery({
-    queryKey: ["tags"],
-    queryFn: api.getTags,
-    enabled: isAdmin,
-  });
-
-  const createTagMutation = useMutation({ mutationFn: api.createTag, onSuccess: () => { refetchTags(); } });
-  const updateTagMutation = useMutation({ mutationFn: ({ id, ...body }: { id: string; name?: string; color?: string; type?: string }) => api.updateTag(id, body), onSuccess: () => refetchTags() });
-  const deleteTagMutation = useMutation({ mutationFn: api.deleteTag, onSuccess: () => refetchTags() });
-
-  const [newTagName, setNewTagName] = useState("");
-  const [newTagType, setNewTagType] = useState("custom");
-  const [newTagColor, setNewTagColor] = useState("#6366f1");
-  const [tagError, setTagError] = useState("");
-
-  const { data: cacheStats, refetch: refetchCache } = useQuery({
-    queryKey: ["cache", "stats"],
-    queryFn: () => api.getCacheStats(),
-    staleTime: 10_000,
-    enabled: isAdmin,
-  });
-
-  const clearCacheMutation = useMutation({
-    mutationFn: api.clearTTSCache,
-    onSuccess: () => { refetchCache(); showSaved("cache"); },
-  });
-
-  const clearRecordingsMutation = useMutation({
-    mutationFn: api.deleteAllRecordings,
-    onSuccess: () => showSaved("recordings"),
-  });
-
-  const [exporting, setExporting] = useState(false);
-  const [copiedPath, setCopiedPath] = useState(false);
-  const { data: dataPath } = useQuery({ queryKey: ["dataPath"], queryFn: api.getDataPath, enabled: isAdmin });
-
   const sections = [
     { id: "user", label: t("settings.sectionUser") }, // "Profile"
     { id: "playback", label: t("settings.sectionPlayback") },
     { id: "voices", label: t("settings.sectionVoices") },
     { id: "practice", label: t("settings.sectionPractice") },
     { id: "display", label: t("settings.sectionDisplay") },
-    ...(isAdmin ? [{ id: "tags", label: t("settings.sectionTags") }] : []),
-    ...(isAdmin ? [{ id: "data", label: t("settings.sectionData") }] : []),
   ];
 
   if (isLoading) {
@@ -467,190 +429,6 @@ export function SettingsPage() {
               </div>
             </div>
           </Section>
-
-          {/* ── Tags (admin only) ────────────────────────────────────── */}
-          {isAdmin && <Section id="tags" title={t("settings.sectionTags")}>
-            <div className="space-y-5">
-              {/* Existing tags grouped by type */}
-              {["level", "language", "custom"].map(type => {
-                const typeTags = (tags ?? []).filter(tag => tag.type === type);
-                if (typeTags.length === 0) return null;
-                return (
-                  <div key={type}>
-                    <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-2">{type}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {typeTags.map(tag => (
-                        <div key={tag.id} className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-sm font-medium border"
-                          style={{ backgroundColor: tag.color + "20", borderColor: tag.color, color: tag.color }}>
-                          <span>{tag.name}</span>
-                          <button
-                            onClick={() => { if (confirm(`Delete tag "${tag.name}"?`)) deleteTagMutation.mutate(tag.id); }}
-                            className="ml-1 opacity-60 hover:opacity-100 transition-opacity text-xs"
-                            title="Delete"
-                          >×</button>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                );
-              })}
-
-              {/* Create new tag form */}
-              <div className="border-t border-gray-100 dark:border-gray-800 pt-4">
-                <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">{t("settings.addTag")}</p>
-                <div className="flex items-start gap-2 flex-wrap">
-                  <input
-                    type="text"
-                    value={newTagName}
-                    onChange={e => { setNewTagName(e.target.value); setTagError(""); }}
-                    placeholder={t("settings.tagNamePlaceholder")}
-                    className="px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 w-36"
-                  />
-                  <select
-                    value={newTagType}
-                    onChange={e => setNewTagType(e.target.value)}
-                    className="px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  >
-                    <option value="level">level</option>
-                    <option value="language">language</option>
-                    <option value="custom">custom</option>
-                  </select>
-                  <div className="flex items-center gap-1.5">
-                    <input
-                      type="color"
-                      value={newTagColor}
-                      onChange={e => setNewTagColor(e.target.value)}
-                      className="w-8 h-8 rounded cursor-pointer border border-gray-300 dark:border-gray-600"
-                    />
-                    <span className="text-xs font-mono text-gray-500">{newTagColor}</span>
-                  </div>
-                  <button
-                    onClick={async () => {
-                      if (!newTagName.trim()) { setTagError(t("settings.tagNameRequired")); return; }
-                      await createTagMutation.mutateAsync({ name: newTagName.trim(), type: newTagType, color: newTagColor });
-                      setNewTagName(""); setNewTagType("custom"); setNewTagColor("#6366f1");
-                    }}
-                    disabled={createTagMutation.isPending}
-                    className="px-4 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-sm font-semibold text-white transition-colors disabled:opacity-60"
-                  >{createTagMutation.isPending ? t("common.saving") : t("settings.addTag")}</button>
-                </div>
-                {tagError && <p className="text-xs text-red-500 mt-1">{tagError}</p>}
-              </div>
-            </div>
-          </Section>}
-
-          {/* ── Data Management (admin only) ──────────────────────────── */}
-          {isAdmin && <Section id="data" title={t("settings.sectionData")}>
-            <div className="space-y-5">
-              {/* Cache stats */}
-              <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
-                <div>
-                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300">{t("settings.cacheSizeLabel")}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                    {cacheStats
-                      ? t("settings.cacheSize", { mb: cacheStats.totalMB, count: cacheStats.fileCount })
-                      : t("common.loading")}
-                  </p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <SavedBadge show={savedKey === "cache"} />
-                  <button
-                    onClick={() => {
-                      if (confirm("Delete all cached TTS audio? Audio will regenerate on next play.")) {
-                        clearCacheMutation.mutate();
-                      }
-                    }}
-                    disabled={clearCacheMutation.isPending || (cacheStats?.fileCount ?? 0) === 0}
-                    className="px-3 py-1.5 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 text-sm font-medium transition-colors disabled:opacity-40 border border-red-200 dark:border-red-800"
-                  >
-                    {clearCacheMutation.isPending ? t("settings.clearingCache") : t("settings.clearCache")}
-                  </button>
-                </div>
-              </div>
-
-              {/* Clear recordings */}
-              <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
-                <div>
-                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300">{t("settings.recordingsLabel")}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                    {t("settings.recordingsHint")}
-                  </p>
-                  {clearRecordingsMutation.isSuccess && clearRecordingsMutation.data && (
-                    <p className="text-xs text-green-600 dark:text-green-400 mt-1">
-                      {t("settings.deletedFiles", {
-                        count: clearRecordingsMutation.data.deletedFiles,
-                        mb: (clearRecordingsMutation.data.bytesFreed / 1_048_576).toFixed(2),
-                      })}
-                    </p>
-                  )}
-                </div>
-                <button
-                  onClick={() => {
-                    if (confirm(t("settings.clearRecordingsConfirm"))) {
-                      clearRecordingsMutation.mutate();
-                    }
-                  }}
-                  disabled={clearRecordingsMutation.isPending}
-                  className="px-3 py-1.5 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 text-sm font-medium transition-colors disabled:opacity-40 border border-red-200 dark:border-red-800"
-                >
-                  {clearRecordingsMutation.isPending ? t("settings.deletingRecordings") : t("settings.clearRecordings")}
-                </button>
-              </div>
-
-              {/* Export all data */}
-              <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
-                <div>
-                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300">{t("settings.exportAll")}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                    {t("settings.exportAllHint")}
-                  </p>
-                </div>
-                <button
-                  onClick={async () => {
-                    setExporting(true);
-                    try { await api.exportAll(); }
-                    catch { alert("Export failed. Please try again."); }
-                    finally { setExporting(false); }
-                  }}
-                  disabled={exporting}
-                  className="px-3 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 text-sm font-medium transition-colors disabled:opacity-40 border border-blue-200 dark:border-blue-800"
-                >
-                  {exporting ? (
-                    <span className="flex items-center gap-1.5">
-                      <span className="w-3.5 h-3.5 rounded-full border-2 border-blue-400/40 border-t-blue-500 animate-spin" />
-                      {t("settings.exportingZip")}
-                    </span>
-                  ) : t("settings.exportZip")}
-                </button>
-              </div>
-
-              {/* Data path */}
-              <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
-                <div>
-                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300">{t("settings.dataLocation")}</p>
-                  <p className="text-xs font-mono text-gray-500 dark:text-gray-400 mt-0.5 break-all">
-                    {dataPath?.path ?? t("common.loading")}
-                  </p>
-                  <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
-                    {t("settings.dataLocationHint")}
-                  </p>
-                </div>
-                <button
-                  onClick={async () => {
-                    if (dataPath?.path) {
-                      await navigator.clipboard.writeText(dataPath.path);
-                      setCopiedPath(true);
-                      setTimeout(() => setCopiedPath(false), 2000);
-                    }
-                  }}
-                  disabled={!dataPath}
-                  className="flex-shrink-0 px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm font-medium transition-colors disabled:opacity-40 border border-gray-200 dark:border-gray-700 ml-4"
-                >
-                  {copiedPath ? t("settings.copiedPath") : t("settings.copyPath")}
-                </button>
-              </div>
-            </div>
-          </Section>}
 
         </div>
       </div>

@@ -43,6 +43,9 @@ export const DDL_STATEMENTS: string[] = [
     owner_id    TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     title       TEXT NOT NULL,
     description TEXT,
+    published    INTEGER NOT NULL DEFAULT 0,
+    published_at TEXT,
+    published_by TEXT REFERENCES users(id) ON DELETE SET NULL,
     created_at  TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
     updated_at  TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
   )`,
@@ -133,6 +136,7 @@ export const DDL_STATEMENTS: string[] = [
   // Enforce uniqueness for real OIDC users only (system user has no oidc_provider_id)
   `CREATE UNIQUE INDEX IF NOT EXISTS idx_users_oidc ON users(oidc_provider_id, user_id) WHERE oidc_provider_id IS NOT NULL`,
   `CREATE INDEX IF NOT EXISTS idx_topics_owner         ON topics(owner_id)`,
+  `CREATE INDEX IF NOT EXISTS idx_topics_published ON topics(published)`,
   `CREATE INDEX IF NOT EXISTS idx_versions_topic_id    ON topic_language_versions(topic_id)`,
   `CREATE INDEX IF NOT EXISTS idx_sentences_version_id ON sentences(version_id)`,
   `CREATE INDEX IF NOT EXISTS idx_attempts_sentence_id ON practice_attempts(sentence_id)`,

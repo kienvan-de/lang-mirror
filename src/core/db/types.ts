@@ -38,6 +38,9 @@ export interface TopicRow {
   owner_id: string;
   title: string;
   description: string | null;
+  published: number;       // 0 = private, 1 = published
+  published_at: string | null;
+  published_by: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -163,4 +166,19 @@ export type TopicListItem = TopicRow & {
   version_count: number;
   versions: VersionMeta[];
   tags: TagRow[];
+};
+
+export type AdminTopicListItem = TopicRow & {
+  version_count: number;
+  versions: VersionMeta[];
+  tags: TagRow[];
+  owner_name: string | null;
+  owner_email: string | null;
+  sentence_count: number;
+};
+
+export type AdminUserRow = UserRow & {
+  last_active_at: string | null;
+  topic_count: number;
+  attempt_count: number;
 };

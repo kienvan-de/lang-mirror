@@ -1,12 +1,10 @@
 import { Link, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { SunIcon, MoonIcon, Bars3Icon, XMarkIcon, ArrowRightEndOnRectangleIcon } from "@heroicons/react/24/outline";
+import { SunIcon, MoonIcon, Bars3Icon, XMarkIcon, ArrowRightEndOnRectangleIcon, ShieldCheckIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "./hooks/useAuth";
 import { useUserLanguages } from "./hooks/useUserLanguages";
 import { langFlag } from "./lib/lang";
-
-
 
 const NAV_ITEMS = [
   { to: "/" as const,        labelKey: "nav.dashboard" },
@@ -88,6 +86,16 @@ export function RootLayout() {
                 {t(labelKey)}
               </Link>
             ))}
+            {/* Admin link — only visible to admin role */}
+            {user?.role === "admin" && (
+              <Link
+                to="/admin"
+                className="px-3 py-1.5 rounded-lg text-sm font-medium text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-200 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors [&.active]:bg-purple-50 dark:[&.active]:bg-purple-900/20 flex items-center gap-1"
+              >
+                <ShieldCheckIcon className="w-3.5 h-3.5" />
+                {t("nav.admin")}
+              </Link>
+            )}
           </div>
 
           {/* Spacer on mobile */}
@@ -154,6 +162,16 @@ export function RootLayout() {
                 {t(labelKey)}
               </Link>
             ))}
+            {/* Admin link — mobile, admin only */}
+            {user?.role === "admin" && (
+              <Link
+                to="/admin"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors [&.active]:bg-purple-50 dark:[&.active]:bg-purple-900/20"
+              >
+                <ShieldCheckIcon className="w-4 h-4" />
+                {t("nav.admin")}
+              </Link>
+            )}
 
             <div className="border-t border-gray-100 dark:border-gray-800 pt-3 mt-2 flex items-center justify-between gap-3">
               {/* Native language indicator */}

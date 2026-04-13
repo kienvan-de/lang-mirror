@@ -13,11 +13,33 @@ export interface Topic {
   owner_id: string;
   title: string;
   description: string | null;
+  published: number;         // 0 = private, 1 = published
+  published_at: string | null;
+  published_by: string | null;
   created_at: string;
   updated_at: string;
   version_count?: number;
   versions?: Version[];
   tags?: Tag[];
+}
+
+export interface AdminTopic extends Topic {
+  owner_name: string | null;
+  owner_email: string | null;
+  sentence_count: number;
+}
+
+export interface AdminUser {
+  id: string;
+  email: string | null;
+  name: string | null;
+  avatar_url: string | null;
+  role: "user" | "admin" | "readonly";
+  created_at: string;
+  updated_at: string;
+  last_active_at: string | null;
+  topic_count: number;
+  attempt_count: number;
 }
 
 export interface PathTopicVersion {
@@ -113,6 +135,18 @@ export const api = {
     apiFetch<{ deleted: boolean }>(`/topics/${id}`, { method: "DELETE" }),
   setTopicTags: (topicId: string, tagIds: string[]) =>
     apiFetch<Tag[]>(`/topics/${topicId}/tags`, { method: "PUT", body: JSON.stringify({ tagIds }) }),
+  publishTopic: (id: string) =>
+    apiFetch<Topic>(`/topics/${id}/publish`, { method: "PUT" }),
+  unpublishTopic: (id: string) =>
+    apiFetch<Topic>(`/topics/${id}/unpublish`, { method: "PUT" }),
+  adminListTopics: () =>
+    apiFetch<AdminTopic[]>("/topics/admin/all"),
+  adminListUsers: () =>
+    apiFetch<AdminUser[]>("/users"),
+  updateUserRole: (id: string, role: "user" | "admin") =>
+    apiFetch<AdminUser>(`/users/${id}/role`, { method: "PUT", body: JSON.stringify({ role }) }),
+  deleteUser: (id: string) =>
+    apiFetch<{ deleted: boolean }>(`/users/${id}`, { method: "DELETE" }),
 
   // Tags
   getTags: () => apiFetch<Tag[]>("/tags"),

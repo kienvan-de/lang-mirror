@@ -1,5 +1,5 @@
 import type { IDatabase } from "../ports/db.port";
-import type { TopicRow, TopicListItem, EnrichedTopic, EnrichedVersion, EnrichedSentence, VersionMeta, TagRow } from "../db/types";
+import type { TopicRow, TopicListItem, AdminTopicListItem, EnrichedTopic, EnrichedVersion, EnrichedSentence, VersionMeta, TagRow } from "../db/types";
 import { requireAuth, canAccess, isAdmin } from "../auth/context";
 import { NotFoundError, ValidationError, ForbiddenError } from "../errors";
 
@@ -35,13 +35,21 @@ export class TopicsService {
   async list(): Promise<TopicListItem[]> {
     const auth = requireAuth();
 
-    // Admin sees all topics; regular users see all topics (read access for everyone)
-    const topicRows = await this.db.queryAll<TopicRow & { version_count: number }>(`
-      SELECT t.*, COUNT(v.id) as version_count
-      FROM topics t
-      LEFT JOIN topic_language_versions v ON v.topic_id = t.id
-      GROUP BY t.id ORDER BY t.updated_at DESC
-    `);
+    // Admin sees all topics; regular users see only their own + published topics
+    const topicRows = isAdmin()
+      ? await this.db.queryAll<TopicRow & { version_count: number }>(`
+          SELECT t.*, COUNT(v.id) as version_count
+          FROM topics t
+          LEFT JOIN topic_language_versions v ON v.topic_id = t.id
+          GROUP BY t.id ORDER BY t.updated_at DESC
+        `)
+      : await this.db.queryAll<TopicRow & { version_count: number }>(`
+          SELECT t.*, COUNT(v.id) as version_count
+          FROM topics t
+          LEFT JOIN topic_language_versions v ON v.topic_id = t.id
+          WHERE t.owner_id = ? OR t.published = 1
+          GROUP BY t.id ORDER BY t.updated_at DESC
+        `, auth.id);
 
     const versionMeta = await this.db.queryAll<VersionMeta>(`
       SELECT id, topic_id, language_code, title, description, position
@@ -184,5 +192,80 @@ export class TopicsService {
     if (!canAccess(topic.owner_id)) throw new ForbiddenError("You do not own this topic");
 
     await this.db.run("DELETE FROM topics WHERE id = ?", id);
+  }
+
+  async publish(id: string): Promise<TopicRow> {
+    if (!isAdmin()) throw new ForbiddenError("Only admins can publish topics");
+    const auth = requireAuth();
+    const topic = await this.db.queryFirst<TopicRow>("SELECT * FROM topics WHERE id = ?", id);
+    if (!topic) throw new NotFoundError(`Topic '${id}' not found`);
+    await this.db.run(
+      `UPDATE topics SET published = 1, published_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now'),
+       published_by = ?, updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now') WHERE id = ?`,
+      auth.id, id
+    );
+    return (await this.db.queryFirst<TopicRow>("SELECT * FROM topics WHERE id = ?", id))!;
+  }
+
+  async unpublish(id: string): Promise<TopicRow> {
+    if (!isAdmin()) throw new ForbiddenError("Only admins can unpublish topics");
+    const topic = await this.db.queryFirst<TopicRow>("SELECT * FROM topics WHERE id = ?", id);
+    if (!topic) throw new NotFoundError(`Topic '${id}' not found`);
+    await this.db.run(
+      `UPDATE topics SET published = 0, published_at = NULL, published_by = NULL,
+       updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now') WHERE id = ?`,
+      id
+    );
+    return (await this.db.queryFirst<TopicRow>("SELECT * FROM topics WHERE id = ?", id))!;
+  }
+
+  async adminList(): Promise<AdminTopicListItem[]> {
+    if (!isAdmin()) throw new ForbiddenError("Only admins can list all topics");
+
+    const topicRows = await this.db.queryAll<TopicRow & {
+      version_count: number;
+      sentence_count: number;
+      owner_name: string | null;
+      owner_email: string | null;
+    }>(`
+      SELECT t.*,
+             COUNT(DISTINCT v.id) as version_count,
+             COUNT(DISTINCT s.id) as sentence_count,
+             u.name  as owner_name,
+             u.email as owner_email
+      FROM topics t
+      LEFT JOIN topic_language_versions v ON v.topic_id = t.id
+      LEFT JOIN sentences s ON s.version_id = v.id
+      LEFT JOIN users u ON u.id = t.owner_id
+      GROUP BY t.id ORDER BY t.updated_at DESC
+    `);
+
+    const versionMeta = await this.db.queryAll<VersionMeta>(`
+      SELECT id, topic_id, language_code, title, description, position
+      FROM topic_language_versions ORDER BY topic_id, position ASC
+    `);
+    const byTopic = new Map<string, VersionMeta[]>();
+    for (const v of versionMeta) {
+      if (!byTopic.has(v.topic_id)) byTopic.set(v.topic_id, []);
+      byTopic.get(v.topic_id)!.push(v);
+    }
+
+    const allTopicTags = await this.db.queryAll<{ topic_id: string } & TagRow>(`
+      SELECT tt.topic_id, t.* FROM tags t
+      JOIN topic_tags tt ON tt.tag_id = t.id
+      ORDER BY t.type ASC, t.name ASC
+    `);
+    const tagsByTopic = new Map<string, TagRow[]>();
+    for (const tt of allTopicTags) {
+      const { topic_id, ...tag } = tt;
+      if (!tagsByTopic.has(topic_id)) tagsByTopic.set(topic_id, []);
+      tagsByTopic.get(topic_id)!.push(tag as TagRow);
+    }
+
+    return topicRows.map(t => ({
+      ...t,
+      versions: byTopic.get(t.id) ?? [],
+      tags: tagsByTopic.get(t.id) ?? [],
+    }));
   }
 }

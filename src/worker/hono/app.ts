@@ -1,5 +1,4 @@
 import { Hono } from "hono";
-import { cors } from "hono/cors";
 import { topicsRouter }    from "./topics";
 import { versionsRouter }  from "./versions";
 import { sentencesRouter } from "./sentences";
@@ -11,10 +10,12 @@ import { importRouter }    from "./import";
 import { exportRouter }    from "./export";
 import { authRouter }      from "./auth";
 import { usersRouter }     from "./users";
-import { tagsRouter }     from "./tags";
-import { pathsRouter }    from "./paths";
-import { authMiddleware } from "./middleware/auth";
-import { authGuard }      from "./middleware/guard";
+import { tagsRouter }      from "./tags";
+import { pathsRouter }     from "./paths";
+import { authMiddleware }         from "./middleware/auth";
+import { authGuard }              from "./middleware/guard";
+import { corsMiddleware }         from "./middleware/cors";
+import { securityHeadersMiddleware } from "./middleware/security-headers";
 import {
   NotFoundError, ConflictError, ValidationError,
   UnauthorizedError, ForbiddenError,
@@ -25,27 +26,10 @@ export function createApp() {
   const app = new Hono<{ Bindings: Env }>();
 
   // ── Global CORS ─────────────────────────────────────────────────────────────
-  // Use explicit origin allowlist — never wildcard with credentials:true
-  app.use("*", cors({
-    origin: (origin, c) => {
-      const allowed = c.env.ALLOWED_ORIGINS
-        ? c.env.ALLOWED_ORIGINS.split(",").map((s: string) => s.trim())
-        : [];
-      if (!origin || allowed.includes(origin)) return origin ?? "";
-      return "";
-    },
-    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowHeaders: ["Content-Type"],
-    credentials: true,
-  }));
+  app.use("*", corsMiddleware);
 
-  // ── Security headers ─────────────────────────────────────────────────────────
-  app.use("*", async (c, next) => {
-    await next();
-    c.res.headers.set("X-Content-Type-Options", "nosniff");
-    c.res.headers.set("X-Frame-Options", "DENY");
-    c.res.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
-  });
+  // ── Security response headers ────────────────────────────────────────────────
+  app.use("*", securityHeadersMiddleware);
 
   // ── Health (public) ─────────────────────────────────────────────────────────
   app.get("/api/health", (c) =>

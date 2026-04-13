@@ -85,7 +85,7 @@ recordingsRouter.post("/:sentenceId", validateUuidParam("sentenceId"), async (c)
 
   const { recordings } = await buildContext(c.env);
   const result = await recordings.upload(
-    c.req.param("sentenceId"),
+    c.req.param("sentenceId")!,
     buf,          // ArrayBuffer — safe, bounded
     baseType,
   );
@@ -95,7 +95,7 @@ recordingsRouter.post("/:sentenceId", validateUuidParam("sentenceId"), async (c)
 // GET /api/recordings/:sentenceId
 recordingsRouter.get("/:sentenceId", validateUuidParam("sentenceId"), async (c) => {
   const { recordings } = await buildContext(c.env);
-  const ref = await recordings.get(c.req.param("sentenceId"));
+  const ref = await recordings.get(c.req.param("sentenceId")!);
   return new Response(ref.object.body, {
     headers: {
       "Content-Type":  ref.contentType,
@@ -107,6 +107,6 @@ recordingsRouter.get("/:sentenceId", validateUuidParam("sentenceId"), async (c) 
 // DELETE /api/recordings/:sentenceId
 recordingsRouter.delete("/:sentenceId", validateUuidParam("sentenceId"), async (c) => {
   const { recordings } = await buildContext(c.env);
-  await recordings.delete(c.req.param("sentenceId"));
+  await recordings.delete(c.req.param("sentenceId")!);
   return new Response(null, { status: 204 });
 });

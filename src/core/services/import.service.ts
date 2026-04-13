@@ -6,8 +6,8 @@
  * CF Worker passes undefined (JSON-only).
  */
 import type { IDatabase } from "../ports/db.port";
-import { NotFoundError, ConflictError, ValidationError as DomainValidationError } from "../errors";
-import { requireAuth } from "../auth/context";
+import { NotFoundError, ConflictError, ForbiddenError, ValidationError as DomainValidationError } from "../errors";
+import { requireAuth, canAccess } from "../auth/context";
 
 // ── Import types ──────────────────────────────────────────────────────────────
 
@@ -63,8 +63,19 @@ export interface ImportResult {
   skipped?: boolean;
 }
 
-const MAX_TAGS    = 20;
-const MAX_TAG_LEN = 100;
+const MAX_TAGS        = 20;
+const MAX_TAG_LEN     = 100;
+const MAX_VERSIONS    = 20;
+const MAX_NOTE_LANGS  = 20;
+
+// BCP-47: primary subtag (2–3 alpha) with optional extension subtags e.g. "en", "ja-JP", "zh-Hant-TW"
+const LANG_CODE_RE = /^[a-zA-Z]{2,3}(-[a-zA-Z0-9]{2,8})*$/;
+
+// Speed: 0.1 – 3.0×  |  Pitch: –100 – +100 Hz (Edge TTS range)
+const SPEED_MIN = 0.1;
+const SPEED_MAX = 3.0;
+const PITCH_MIN = -100;
+const PITCH_MAX = 100;
 
 // ── Validators ────────────────────────────────────────────────────────────────
 
@@ -80,6 +91,45 @@ function validateString(
   if (typeof val !== "string") { errors.push({ field, message: `${field} must be a string` }); return undefined; }
   if (opts.maxLen && val.length > opts.maxLen) {
     errors.push({ field, message: `${field} must be at most ${opts.maxLen} characters` });
+  }
+  return val;
+}
+
+/**
+ * Validate a language code field.
+ * Must be a non-empty string matching BCP-47 format (e.g. "en", "ja-JP").
+ */
+function validateLanguage(
+  val: unknown, field: string,
+  opts: { required?: boolean },
+  errors: ImportValidationError[]
+): string | undefined {
+  const s = validateString(val, field, { required: opts.required, maxLen: 10 }, errors);
+  if (s === undefined) return undefined;
+  if (!LANG_CODE_RE.test(s)) {
+    errors.push({ field, message: `${field} must be a valid BCP-47 code (e.g. "en", "ja-JP")` });
+    return undefined;
+  }
+  return s;
+}
+
+/**
+ * Validate a numeric speed/pitch value.
+ * Rejects NaN, Infinity, and out-of-range values.
+ */
+function validateNumber(
+  val: unknown, field: string,
+  opts: { min: number; max: number },
+  errors: ImportValidationError[]
+): number | undefined {
+  if (val === undefined || val === null) return undefined;
+  if (typeof val !== "number" || !isFinite(val)) {
+    errors.push({ field, message: `${field} must be a finite number` });
+    return undefined;
+  }
+  if (val < opts.min || val > opts.max) {
+    errors.push({ field, message: `${field} must be between ${opts.min} and ${opts.max}` });
+    return undefined;
   }
   return val;
 }
@@ -101,10 +151,16 @@ function validateSentences(raw: unknown, field: string, errors: ImportValidation
       if (typeof s["notes"] !== "object" || Array.isArray(s["notes"])) {
         errors.push({ field: `${field}[${i}].notes`, message: "notes must be an object" });
       } else {
-        notes = {};
-        for (const [lang, val] of Object.entries(s["notes"] as Record<string, unknown>)) {
-          const v = validateString(val, `${field}[${i}].notes.${lang}`, { maxLen: 4000 }, errors);
-          if (v !== undefined) notes[lang] = v;
+        const noteEntries = Object.entries(s["notes"] as Record<string, unknown>);
+        // Cap notes key count to prevent CPU exhaustion from huge objects
+        if (noteEntries.length > MAX_NOTE_LANGS) {
+          errors.push({ field: `${field}[${i}].notes`, message: `notes must have at most ${MAX_NOTE_LANGS} language keys` });
+        } else {
+          notes = {};
+          for (const [lang, val] of noteEntries) {
+            const v = validateString(val, `${field}[${i}].notes.${lang}`, { maxLen: 4000 }, errors);
+            if (v !== undefined) notes[lang] = v;
+          }
         }
       }
     }
@@ -126,13 +182,13 @@ export function validateSingle(data: unknown): { result: LessonImportSingle | nu
   if (typeof data !== "object" || data === null) return { result: null, errors: [{ field: "root", message: "Expected an object" }] };
   const obj = data as Record<string, unknown>;
 
-  const title = validateString(obj["title"], "title", { required: true, maxLen: 200 }, errors) ?? "";
+  const title       = validateString(obj["title"], "title", { required: true, maxLen: 200 }, errors) ?? "";
   const description = obj["description"] !== undefined ? validateString(obj["description"], "description", { maxLen: 500 }, errors) : undefined;
-  const language = validateString(obj["language"], "language", { required: true, maxLen: 10 }, errors) ?? "";
-  const voice_name = obj["voice_name"] !== undefined ? validateString(obj["voice_name"], "voice_name", { maxLen: 100 }, errors) : undefined;
-  const speed = typeof obj["speed"] === "number" ? obj["speed"] : undefined;
-  const pitch = typeof obj["pitch"] === "number" ? obj["pitch"] : undefined;
-  const sentences = validateSentences(obj["sentences"], "sentences", errors);
+  const language    = validateLanguage(obj["language"], "language", { required: true }, errors) ?? "";
+  const voice_name  = obj["voice_name"] !== undefined ? validateString(obj["voice_name"], "voice_name", { maxLen: 100 }, errors) : undefined;
+  const speed       = obj["speed"] !== undefined ? validateNumber(obj["speed"], "speed", { min: SPEED_MIN, max: SPEED_MAX }, errors) : undefined;
+  const pitch       = obj["pitch"] !== undefined ? validateNumber(obj["pitch"], "pitch", { min: PITCH_MIN, max: PITCH_MAX }, errors) : undefined;
+  const sentences   = validateSentences(obj["sentences"], "sentences", errors);
   const tags = Array.isArray(obj["tags"])
     ? (obj["tags"] as unknown[])
         .filter(t => typeof t === "string")
@@ -149,7 +205,7 @@ export function validateTopic(data: unknown): { result: LessonImportTopic | null
   if (typeof data !== "object" || data === null) return { result: null, errors: [{ field: "root", message: "Expected an object" }] };
   const obj = data as Record<string, unknown>;
 
-  const title = validateString(obj["title"], "title", { required: true, maxLen: 200 }, errors) ?? "";
+  const title       = validateString(obj["title"], "title", { required: true, maxLen: 200 }, errors) ?? "";
   const description = obj["description"] !== undefined ? validateString(obj["description"], "description", { maxLen: 500 }, errors) : undefined;
 
   if (!Array.isArray(obj["versions"]) || (obj["versions"] as unknown[]).length === 0) {
@@ -157,17 +213,23 @@ export function validateTopic(data: unknown): { result: LessonImportTopic | null
     return { result: null, errors };
   }
 
+  // Cap versions count to prevent batch write DoS
+  if ((obj["versions"] as unknown[]).length > MAX_VERSIONS) {
+    errors.push({ field: "versions", message: `versions must have at most ${MAX_VERSIONS} entries` });
+    return { result: null, errors };
+  }
+
   const versions: ImportVersion[] = [];
   for (let i = 0; i < (obj["versions"] as unknown[]).length; i++) {
     const v = (obj["versions"] as unknown[])[i] as Record<string, unknown>;
     if (typeof v !== "object" || v === null) { errors.push({ field: `versions[${i}]`, message: "Must be an object" }); continue; }
-    const lang = validateString(v["language"], `versions[${i}].language`, { required: true, maxLen: 10 }, errors) ?? "";
-    const versionTitle = v["title"] !== undefined ? validateString(v["title"], `versions[${i}].title`, { maxLen: 200 }, errors) : undefined;
+    const lang               = validateLanguage(v["language"], `versions[${i}].language`, { required: true }, errors) ?? "";
+    const versionTitle       = v["title"] !== undefined ? validateString(v["title"], `versions[${i}].title`, { maxLen: 200 }, errors) : undefined;
     const versionDescription = v["description"] !== undefined ? validateString(v["description"], `versions[${i}].description`, { maxLen: 500 }, errors) : undefined;
-    const voice_name = v["voice_name"] !== undefined ? validateString(v["voice_name"], `versions[${i}].voice_name`, { maxLen: 100 }, errors) : undefined;
-    const speed = typeof v["speed"] === "number" ? v["speed"] : undefined;
-    const pitch = typeof v["pitch"] === "number" ? v["pitch"] : undefined;
-    const sentences = validateSentences(v["sentences"], `versions[${i}].sentences`, errors);
+    const voice_name         = v["voice_name"] !== undefined ? validateString(v["voice_name"], `versions[${i}].voice_name`, { maxLen: 100 }, errors) : undefined;
+    const speed              = v["speed"] !== undefined ? validateNumber(v["speed"], `versions[${i}].speed`, { min: SPEED_MIN, max: SPEED_MAX }, errors) : undefined;
+    const pitch              = v["pitch"] !== undefined ? validateNumber(v["pitch"], `versions[${i}].pitch`, { min: PITCH_MIN, max: PITCH_MAX }, errors) : undefined;
+    const sentences          = validateSentences(v["sentences"], `versions[${i}].sentences`, errors);
     if (lang) versions.push({ language: lang, title: versionTitle, description: versionDescription, voice_name, speed, pitch, sentences });
   }
 
@@ -231,10 +293,13 @@ export class ImportService {
     // ── Resolve or create topic ID ─────────────────────────────────────────
     let topicId: string;
     if (existingTopicId) {
-      const t = await this.db.queryFirst<{ id: string }>(
-        "SELECT id FROM topics WHERE id = ?", existingTopicId
+      // Fetch owner_id alongside id to enforce ownership (BOLA prevention)
+      const t = await this.db.queryFirst<{ id: string; owner_id: string }>(
+        "SELECT id, owner_id FROM topics WHERE id = ?", existingTopicId
       );
       if (!t) throw new NotFoundError(`Topic '${existingTopicId}' not found`);
+      // Only the topic owner (or an admin) may append versions to it
+      if (!canAccess(t.owner_id)) throw new ForbiddenError("You do not own this topic");
       topicId = existingTopicId;
     } else {
       topicId = crypto.randomUUID();

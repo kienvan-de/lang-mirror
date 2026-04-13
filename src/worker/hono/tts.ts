@@ -30,7 +30,7 @@ ttsRouter.delete("/cache", adminGuard, async (c) => {
 // background while the streamed response is already on its way to the client.
 ttsRouter.get("/:sentenceId", validateUuidParam("sentenceId"), async (c) => {
   const { ttsService } = await buildContext(c.env, c.executionCtx);
-  const result = await ttsService.getBySentenceId(c.req.param("sentenceId"));
+  const result = await ttsService.getBySentenceId(c.req.param("sentenceId")!);
 
   return new Response(result.stream, {
     headers: {

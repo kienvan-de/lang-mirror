@@ -9,7 +9,7 @@ sentencesRouter.put("/:id", validateUuidParam("id"), async (c) => {
   const body = await c.req.json<{ text?: string; notes?: Record<string, string> }>();
   const { sentences } = await buildContext(c.env);
   // Explicitly allowlist fields — never pass raw body to service
-  return c.json(await sentences.update(c.req.param("id"), {
+  return c.json(await sentences.update(c.req.param("id")!, {
     text:  typeof body.text  === "string" ? body.text  : undefined,
     notes: body.notes && typeof body.notes === "object" && !Array.isArray(body.notes)
       ? body.notes as Record<string, string>
@@ -19,6 +19,6 @@ sentencesRouter.put("/:id", validateUuidParam("id"), async (c) => {
 
 sentencesRouter.delete("/:id", validateUuidParam("id"), async (c) => {
   const { sentences } = await buildContext(c.env);
-  await sentences.delete(c.req.param("id"));
+  await sentences.delete(c.req.param("id")!);
   return c.json({ deleted: true });
 });

@@ -78,3 +78,23 @@ export const importRateLimit = rateLimitMiddleware({
   windowSecs: 60,
   keyPrefix:  "import",
 });
+
+/** Pre-configured limiter for recording upload: 30 req / 60 s per user */
+export const recordingRateLimit = rateLimitMiddleware({
+  limit:      30,
+  windowSecs: 60,
+  keyPrefix:  "recording",
+});
+
+/**
+ * Strict limiter for TTS preview endpoint.
+ *
+ * Preview calls Edge TTS directly (no cache) and have real cost.
+ * 10 req / 60 s is generous enough for normal voice picker use
+ * (user tries a few voices) but blocks abuse loops.
+ */
+export const ttsPreviewRateLimit = rateLimitMiddleware({
+  limit:      10,
+  windowSecs: 60,
+  keyPrefix:  "tts-preview",
+});

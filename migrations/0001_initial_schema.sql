@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS topic_tags (
   );
 
 CREATE TABLE IF NOT EXISTS topic_approval_requests (
-    id             TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
+    id             TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(16)))),
     topic_id       TEXT NOT NULL REFERENCES topics(id) ON DELETE CASCADE,
     owner_id       TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     note           TEXT,

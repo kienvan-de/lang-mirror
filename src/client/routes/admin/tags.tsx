@@ -66,7 +66,7 @@ export function AdminTagsPage() {
       </div>
 
       {/* Tags card */}
-      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 shadow-sm space-y-5">
+      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800 p-6 shadow-sm space-y-5">
 
         {/* Existing tags grouped by type */}
         {["level", "language", "custom"].map(type => {

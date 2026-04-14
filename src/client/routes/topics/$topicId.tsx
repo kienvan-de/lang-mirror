@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams, Link, useSearch } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
@@ -408,7 +408,7 @@ export function TopicDetailPage() {
       {/* Submit for review dialog — triggered from the status icon popover */}
       {showSubmitForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm" onClick={() => { setShowSubmitForm(false); setSubmitNote(""); }}>
-          <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800 p-6 space-y-4" onClick={e => e.stopPropagation()}>
+          <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-300 dark:border-gray-800 p-6 space-y-4" onClick={e => e.stopPropagation()}>
             <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">
               {t("topics.submitForReview")}
             </h3>

@@ -111,7 +111,7 @@ export function AdminUsersPage() {
       </div>
 
       {/* Table */}
-      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden">
+      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800 shadow-sm overflow-hidden">
         {isLoading ? (
           <div className="p-8 text-center text-sm text-gray-400 dark:text-gray-500">{t("common.loading")}</div>
         ) : filtered.length === 0 ? (
@@ -120,7 +120,7 @@ export function AdminUsersPage() {
           <div className="overflow-x-auto -mx-4 sm:mx-0">
             <table className="w-full text-sm min-w-[600px]">
               <thead>
-                <tr className="border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
+                <tr className="border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
                   <th className="text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.name")}</th>
                   <th className="hidden sm:table-cell text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.email")}</th>
                   <th className="text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.role")}</th>
@@ -131,7 +131,7 @@ export function AdminUsersPage() {
                   <th className="text-right px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.actions")}</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+              <tbody className="divide-y divide-gray-200 dark:divide-gray-800">
                 {filtered.map((u) => {
                   const isSelf = u.id === currentUser?.id;
                   return (

@@ -58,7 +58,7 @@ export function DashboardPage() {
       {/* Top stats row */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         {/* Today's attempts */}
-        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5 shadow-sm">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800 p-5 shadow-sm">
           <div className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-2">{t("dashboard.today")}</div>
           {isLoading ? (
             <div className="space-y-2 animate-pulse">
@@ -82,7 +82,7 @@ export function DashboardPage() {
         </div>
 
         {/* Streak */}
-        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5 shadow-sm">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800 p-5 shadow-sm">
           <div className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-2">{t("dashboard.streak")}</div>
           {isLoading ? (
             <div className="space-y-2 animate-pulse">
@@ -106,7 +106,7 @@ export function DashboardPage() {
         </div>
 
         {/* This week */}
-        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5 shadow-sm">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800 p-5 shadow-sm">
           <div className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-2">{t("dashboard.thisWeek")}</div>
           {isLoading ? (
             <div className="space-y-1 animate-pulse">
@@ -132,7 +132,7 @@ export function DashboardPage() {
         {recentLoading ? (
           <div className="space-y-3">
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="h-20 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 animate-pulse" />
+              <div key={i} className="h-20 bg-white dark:bg-gray-900 rounded-xl border border-gray-300 dark:border-gray-800 animate-pulse" />
             ))}
           </div>
         ) : (recent ?? []).length === 0 ? (
@@ -156,7 +156,7 @@ export function DashboardPage() {
               return (
                 <div
                   key={`${item.topicId}-${item.versionId}`}
-                  className="flex items-center gap-4 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 px-5 py-4 shadow-sm hover:shadow-md transition-shadow"
+                  className="flex items-center gap-4 bg-white dark:bg-gray-900 rounded-xl border border-gray-300 dark:border-gray-800 px-5 py-4 shadow-sm hover:shadow-md transition-shadow"
                 >
                   {/* Lang badge */}
                   <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-900/30 flex flex-col items-center justify-center border border-blue-200 dark:border-blue-800">
@@ -211,7 +211,7 @@ export function DashboardPage() {
       </div>
 
       {/* Calendar heatmap */}
-      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 shadow-sm">
+      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800 p-6 shadow-sm">
         <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-5">{t("dashboard.practiceHistory")}</h2>
         {calendarLoading || streakLoading ? (
           <div className="h-32 animate-pulse bg-gray-50 dark:bg-gray-800 rounded-xl" />

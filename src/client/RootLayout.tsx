@@ -49,7 +49,7 @@ export function RootLayout() {
 
   if (PUBLIC_PATHS.has(location.pathname)) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+      <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
         <Outlet />
       </div>
     );
@@ -57,7 +57,7 @@ export function RootLayout() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950">
+      <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-950">
         <div className="w-8 h-8 rounded-full border-2 border-blue-400/40 border-t-blue-500 animate-spin" />
       </div>
     );
@@ -66,8 +66,8 @@ export function RootLayout() {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
-      <nav className="border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 sticky top-0 z-40 shadow-sm">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+      <nav className="border-b border-gray-300 dark:border-gray-800 bg-white dark:bg-gray-900 sticky top-0 z-40 shadow-sm">
         <div className="px-4 sm:px-6 py-3 flex items-center gap-3">
 
           {/* Logo */}

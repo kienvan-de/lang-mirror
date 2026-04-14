@@ -34,7 +34,7 @@ export function TopicCard({ topic }: Props) {
   const bestVersion = versions.find((v) => (v.progressToday ?? 0) === bestProgress && bestProgress > 0);
 
   return (
-    <div className="group relative flex flex-col bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5 shadow-sm hover:shadow-md hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-200">
+    <div className="group relative flex flex-col bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800 p-5 shadow-sm hover:shadow-md hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-200">
       {/* Title */}
       <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-1 leading-snug">
         {displayTitle}
@@ -133,7 +133,7 @@ export function TopicCard({ topic }: Props) {
 
 export function TopicCardSkeleton() {
   return (
-    <div className="flex flex-col bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5 shadow-sm animate-pulse">
+    <div className="flex flex-col bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800 p-5 shadow-sm animate-pulse">
       <div className="h-4 w-3/5 bg-gray-200 dark:bg-gray-700 rounded mb-2" />
       <div className="h-3 w-full bg-gray-100 dark:bg-gray-800 rounded mb-1" />
       <div className="h-3 w-4/5 bg-gray-100 dark:bg-gray-800 rounded mb-4" />

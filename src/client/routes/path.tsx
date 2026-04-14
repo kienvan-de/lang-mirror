@@ -89,7 +89,7 @@ export function PathPage() {
     return (
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 space-y-4 animate-pulse">
         {[...Array(3)].map((_, i) => (
-          <div key={i} className="h-20 bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800" />
+          <div key={i} className="h-20 bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800" />
         ))}
       </div>
     );
@@ -156,7 +156,7 @@ export function PathPage() {
 
       {/* Search other paths panel */}
       {showSearch && (
-        <div className="mb-6 p-4 bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm space-y-3">
+        <div className="mb-6 p-4 bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800 shadow-sm space-y-3">
           <div className="flex items-center gap-2">
             <input
               autoFocus
@@ -239,7 +239,7 @@ export function PathPage() {
 
       {/* Add topic panel */}
       {showAddTopic && (
-        <div className="mt-3 p-4 bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm space-y-2">
+        <div className="mt-3 p-4 bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800 shadow-sm space-y-2">
           <input
             autoFocus
             type="text"

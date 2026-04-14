@@ -142,11 +142,11 @@ function ReviewModal({
       onClick={onClose}
     >
       <div
-        className="w-full max-w-4xl max-h-[90vh] bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800 flex flex-col"
+        className="w-full max-w-4xl max-h-[90vh] bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-300 dark:border-gray-800 flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* ── Header ── */}
-        <div className="flex items-start justify-between px-6 pt-5 pb-4 border-b border-gray-100 dark:border-gray-800 flex-shrink-0">
+        <div className="flex items-start justify-between px-6 pt-5 pb-4 border-b border-gray-200 dark:border-gray-800 flex-shrink-0">
           <div className="flex-1 min-w-0 pr-4">
             <p className="text-xs font-semibold text-amber-600 dark:text-amber-400 mb-1 uppercase tracking-wide">
               {t("admin.approvalQueue")}
@@ -290,7 +290,7 @@ function ReviewModal({
 
         {/* ── Sticky footer: Approve / Reject ── */}
         {!showRejectForm && (
-          <div className="flex-shrink-0 px-6 py-4 border-t border-gray-100 dark:border-gray-800 flex gap-3">
+          <div className="flex-shrink-0 px-6 py-4 border-t border-gray-200 dark:border-gray-800 flex gap-3">
             <button
               disabled={rejectMutation.isPending || approveMutation.isPending}
               onClick={() => setShowRejectForm(true)}
@@ -338,7 +338,7 @@ function ApprovalQueueSection() {
       </div>
       <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{t("admin.approvalQueueSubtitle")}</p>
 
-      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden">
+      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800 shadow-sm overflow-hidden">
         {isLoading ? (
           <div className="p-8 text-center text-sm text-gray-400 dark:text-gray-500">{t("common.loading")}</div>
         ) : requests.length === 0 ? (
@@ -347,7 +347,7 @@ function ApprovalQueueSection() {
           <div className="overflow-x-auto -mx-4 sm:mx-0">
             <table className="w-full text-sm min-w-[400px]">
               <thead>
-                <tr className="border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
+                <tr className="border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
                   <th className="text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">
                     {t("admin.topics")}
                   </th>
@@ -362,7 +362,7 @@ function ApprovalQueueSection() {
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+              <tbody className="divide-y divide-gray-200 dark:divide-gray-800">
                 {requests.map((req) => (
                   <tr
                     key={req.id}
@@ -495,7 +495,7 @@ function AllTopicsSection() {
           </div>
 
           {/* Table */}
-          <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden">
+          <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800 shadow-sm overflow-hidden">
             {isLoading ? (
               <div className="p-8 text-center text-sm text-gray-400 dark:text-gray-500">{t("common.loading")}</div>
             ) : filtered.length === 0 ? (
@@ -504,7 +504,7 @@ function AllTopicsSection() {
               <div className="overflow-x-auto -mx-4 sm:mx-0">
                 <table className="w-full text-sm min-w-[500px]">
                   <thead>
-                    <tr className="border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
+                    <tr className="border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
                       <th className="text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">Title</th>
                       <th className="hidden sm:table-cell text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.owner")}</th>
                       <th className="hidden sm:table-cell text-left px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.languages")}</th>
@@ -513,7 +513,7 @@ function AllTopicsSection() {
                       <th className="text-right px-4 py-3 font-medium text-gray-600 dark:text-gray-400">{t("admin.actions")}</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+                  <tbody className="divide-y divide-gray-200 dark:divide-gray-800">
                     {filtered.map((topic) => {
                       const langCodes = (topic.versions ?? []).map((v) => v.language_code);
 

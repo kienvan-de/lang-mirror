@@ -36,7 +36,7 @@ function SavedBadge({ show }: { show: boolean }) {
 
 function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
   return (
-    <div id={id} className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 shadow-sm scroll-mt-8">
+    <div id={id} className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800 p-6 shadow-sm scroll-mt-8">
       <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-5">{title}</h2>
       {children}
     </div>
@@ -187,7 +187,7 @@ export function SettingsPage() {
     return (
       <div className="max-w-4xl mx-auto px-6 py-8 animate-pulse space-y-4">
         {[...Array(4)].map((_, i) => (
-          <div key={i} className="h-32 bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800" />
+          <div key={i} className="h-32 bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800" />
         ))}
       </div>
     );
@@ -298,7 +298,7 @@ export function SettingsPage() {
                     onSelect={(v) => setVoiceMap((m) => ({ ...m, [lang]: v }))}
                   />
                 ))}
-                <div className="flex items-center gap-3 justify-end pt-2 border-t border-gray-100 dark:border-gray-800">
+                <div className="flex items-center gap-3 justify-end pt-2 border-t border-gray-200 dark:border-gray-800">
                   <SavedBadge show={savedKey === "voices"} />
                   <button
                     onClick={async () => {
@@ -379,7 +379,7 @@ export function SettingsPage() {
                 </button>
               </div>
 
-              <div className="flex items-center gap-3 justify-end pt-2 border-t border-gray-100 dark:border-gray-800">
+              <div className="flex items-center gap-3 justify-end pt-2 border-t border-gray-200 dark:border-gray-800">
                 <SavedBadge show={savedKey === "practice"} />
                 <button
                   onClick={async () => {
@@ -420,7 +420,7 @@ export function SettingsPage() {
                   {t("settings.fontPreview")}
                 </p>
               </div>
-              <div className="flex items-center gap-3 justify-end pt-2 border-t border-gray-100 dark:border-gray-800">
+              <div className="flex items-center gap-3 justify-end pt-2 border-t border-gray-200 dark:border-gray-800">
                 <SavedBadge show={savedKey === "display"} />
                 <button
                   onClick={() => saveSetting("display.fontSize", defaultFontSize, "display")}
@@ -542,7 +542,7 @@ function UserLanguageSection({
           </div>
         </div>
 
-        <div className="flex items-center justify-end gap-3 pt-2 border-t border-gray-100 dark:border-gray-800">
+        <div className="flex items-center justify-end gap-3 pt-2 border-t border-gray-200 dark:border-gray-800">
           <span className={`text-xs font-medium text-green-600 dark:text-green-400 transition-opacity duration-300 ${saved ? "opacity-100" : "opacity-0"}`}>
             {t("settings.saved")}
           </span>
@@ -640,7 +640,7 @@ function VoicePicker({
 
       {open && (
         <div className="border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-900 shadow-lg overflow-hidden">
-          <div className="p-2 border-b border-gray-100 dark:border-gray-800">
+          <div className="p-2 border-b border-gray-200 dark:border-gray-800">
             <input
               autoFocus
               type="text"

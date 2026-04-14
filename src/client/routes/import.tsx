@@ -509,7 +509,7 @@ export function ImportPage() {
       {/* ── Step 3: Confirm & Import ── */}
       {step === 3 && preview && !importResult && (
         <div className="space-y-5">
-          <div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50 p-5 space-y-3">
+          <div className="rounded-xl border border-gray-300 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50 p-5 space-y-3">
             <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">{t("import.importSummary")}</p>
             <div className="space-y-1.5">
               <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">

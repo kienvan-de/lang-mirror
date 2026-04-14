@@ -50,7 +50,7 @@
       "binding": "SESSION_CACHE",
       "id": "1d5a1125805d423aaa510065fa99dccb"
     }
-  ]
+  ],
 
   // Secrets (set via `wrangler secret put` or CF dashboard — never committed):
   //   (none required — Edge TTS is free and unauthenticated)

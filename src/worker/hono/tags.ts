@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { buildContext } from "../lib/context";
 import { adminGuard } from "./middleware/admin";
+import { validateUuidParam } from "./middleware/validate";
 import type { Env } from "../types";
 
 export const tagsRouter = new Hono<{ Bindings: Env }>();
@@ -19,14 +20,14 @@ tagsRouter.post("/", adminGuard, async (c) => {
 });
 
 // PUT /api/tags/:id — admin only
-tagsRouter.put("/:id", adminGuard, async (c) => {
+tagsRouter.put("/:id", adminGuard, validateUuidParam("id"), async (c) => {
   const body = await c.req.json<{ name?: string; color?: string; type?: string }>();
   const { tags } = await buildContext(c.env);
   return c.json(await tags.update(c.req.param("id"), body));
 });
 
 // DELETE /api/tags/:id — admin only
-tagsRouter.delete("/:id", adminGuard, async (c) => {
+tagsRouter.delete("/:id", adminGuard, validateUuidParam("id"), async (c) => {
   const { tags } = await buildContext(c.env);
   await tags.delete(c.req.param("id"));
   return c.json({ deleted: true });

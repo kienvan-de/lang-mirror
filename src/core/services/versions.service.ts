@@ -12,7 +12,11 @@ async function assertTopicAccess(db: IDatabase, topicId: string): Promise<void> 
 }
 
 function parseNotes(row: SentenceRow): SentenceWithNotes {
-  return { ...row, notes: row.notes ? JSON.parse(row.notes) as Record<string, string> : null };
+  let notes: Record<string, string> | null = null;
+  if (row.notes) {
+    try { notes = JSON.parse(row.notes) as Record<string, string>; } catch { /* skip malformed JSON */ }
+  }
+  return { ...row, notes };
 }
 
 export class VersionsService {
@@ -22,6 +26,13 @@ export class VersionsService {
   ) {}
 
   async listByTopic(topicId: string): Promise<VersionRow[]> {
+    const topic = await this.db.queryFirst<TopicRow>("SELECT owner_id, status FROM topics WHERE id = ?", topicId);
+    if (!topic) throw new NotFoundError(`Topic '${topicId}' not found`);
+    // Allow access if caller owns the topic, is admin, or topic is published
+    requireAuth();
+    if (!canAccess(topic.owner_id) && topic.status !== "published") {
+      throw new NotFoundError(`Topic '${topicId}' not found`);
+    }
     return this.db.queryAll<VersionRow>(
       "SELECT * FROM topic_language_versions WHERE topic_id = ? ORDER BY position ASC",
       topicId

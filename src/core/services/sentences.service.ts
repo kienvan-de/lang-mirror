@@ -16,7 +16,11 @@ async function assertSentenceAccess(db: IDatabase, sentenceId: string): Promise<
 }
 
 function parseNotes(row: SentenceRow): SentenceWithNotes {
-  return { ...row, notes: row.notes ? JSON.parse(row.notes) as Record<string, string> : null };
+  let notes: Record<string, string> | null = null;
+  if (row.notes) {
+    try { notes = JSON.parse(row.notes) as Record<string, string>; } catch { /* skip malformed JSON */ }
+  }
+  return { ...row, notes };
 }
 
 export class SentencesService {

@@ -536,7 +536,13 @@
     "rejectNotePlaceholder": "Tell the owner what needs to be improved…",
     "rejectConfirm": "Reject",
     "submittedAt": "Submitted",
-    "ownerNote": "Note"
+    "ownerNote": "Note",
+    "promoteConfirmTitle": "Promote {{name}} to Admin?",
+    "promoteConfirmBody": "This user will gain full admin privileges including managing other users.",
+    "demoteConfirmTitle": "Remove Admin from {{name}}?",
+    "demoteConfirmBody": "This user will lose admin privileges and become a regular user.",
+    "deleteUserConfirmTitle": "Delete {{name}}?",
+    "deleteUserConfirmBody": "This will permanently delete the user and all their data including topics, sentences, recordings, and settings. This action cannot be undone."
   },
   "deactivated": {
     "title": "Account Deactivated",
@@ -585,5 +591,14 @@
     "successTitle": "You're all set!",
     "successHint": "Your profile is ready. Start practising now.",
     "practiceNow": "Start Practising"
+  },
+  "login": {
+    "errorMissingParams": "Login failed — missing parameters.",
+    "errorLoginFailed": "Login failed — please try again.",
+    "errorAccessDenied": "Access denied by the identity provider.",
+    "errorInvalidRequest": "Invalid login request.",
+    "errorServerError": "Server error — please try again later.",
+    "errorUnavailable": "Service temporarily unavailable.",
+    "errorGeneric": "Login failed — please try again."
   }
 }

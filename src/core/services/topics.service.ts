@@ -21,6 +21,9 @@ export class TopicsService {
     requireAuth();
     if (!canAccess(topic.owner_id)) throw new ForbiddenError("You do not own this topic");
 
+    // Cap tag count to prevent abuse via oversized batch inserts
+    if (tagIds.length > 50) throw new ValidationError("Cannot assign more than 50 tags to a topic", "tagIds");
+
     // Replace all tags
     await this.db.run("DELETE FROM topic_tags WHERE topic_id = ?", topicId);
     if (tagIds.length > 0) {

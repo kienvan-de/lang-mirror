@@ -537,7 +537,13 @@
     "manageTagsHint": "글로벌 주제 태그 생성 및 삭제",
     "backToAdmin": "관리자",
     "noTags": "태그가 없습니다.",
-    "quickActions": "빠른 작업"
+    "quickActions": "빠른 작업",
+    "promoteConfirmTitle": "{{name}}을(를) 관리자로 승격하시겠습니까?",
+    "promoteConfirmBody": "이 사용자는 다른 사용자 관리를 포함한 전체 관리자 권한을 얻게 됩니다.",
+    "demoteConfirmTitle": "{{name}}의 관리자 권한을 제거하시겠습니까?",
+    "demoteConfirmBody": "이 사용자는 관리자 권한을 잃고 일반 사용자가 됩니다.",
+    "deleteUserConfirmTitle": "{{name}}을(를) 삭제하시겠습니까?",
+    "deleteUserConfirmBody": "이 사용자와 주제, 문장, 녹음, 설정을 포함한 모든 데이터가 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다."
   },
   "deactivated": {
     "title": "계정이 비활성화되었습니다",
@@ -586,5 +592,14 @@
     "successTitle": "준비 완료!",
     "successHint": "프로필이 설정되었습니다. 지금 바로 연습을 시작하세요.",
     "practiceNow": "연습 시작"
+  },
+  "login": {
+    "errorMissingParams": "로그인 실패 — 매개변수가 누락되었습니다.",
+    "errorLoginFailed": "로그인 실패 — 다시 시도해 주세요.",
+    "errorAccessDenied": "ID 공급자에 의해 접근이 거부되었습니다.",
+    "errorInvalidRequest": "잘못된 로그인 요청입니다.",
+    "errorServerError": "서버 오류 — 나중에 다시 시도해 주세요.",
+    "errorUnavailable": "서비스를 일시적으로 사용할 수 없습니다.",
+    "errorGeneric": "로그인 실패 — 다시 시도해 주세요."
   }
 }

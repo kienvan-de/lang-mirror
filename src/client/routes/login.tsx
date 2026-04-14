@@ -28,12 +28,24 @@ export function LoginPage() {
     }
   }, [isLoggedIn, authLoading, navigate]);
 
-  // Check for error in query params (from OIDC callback)
+  // Check for error in query params (from OIDC callback).
+  // Map to predefined messages to prevent reflected content injection via crafted URLs.
   useEffect(() => {
+    const ERROR_MESSAGES: Record<string, string> = {
+      missing_params:    t("login.errorMissingParams", "Login failed — missing parameters"),
+      login_failed:      t("login.errorLoginFailed", "Login failed — please try again"),
+      access_denied:     t("login.errorAccessDenied", "Access denied by the identity provider"),
+      invalid_request:   t("login.errorInvalidRequest", "Invalid login request"),
+      server_error:      t("login.errorServerError", "Server error — please try again later"),
+      temporarily_unavailable: t("login.errorUnavailable", "Service temporarily unavailable"),
+    };
     const params = new URLSearchParams(window.location.search);
     const err = params.get("error");
-    if (err) setErrorMsg(decodeURIComponent(err));
-  }, []);
+    if (err) {
+      const code = decodeURIComponent(err).toLowerCase().replace(/\s+/g, "_");
+      setErrorMsg(ERROR_MESSAGES[code] ?? t("login.errorGeneric", "Login failed — please try again"));
+    }
+  }, [t]);
 
   // Fetch providers
   useEffect(() => {

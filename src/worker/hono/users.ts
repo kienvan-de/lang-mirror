@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { buildContext } from "../lib/context";
 import { adminGuard } from "./middleware/admin";
+import { validateUuidParam } from "./middleware/validate";
 import { deleteCookie } from "hono/cookie";
 import type { Env } from "../types";
 
@@ -43,33 +44,33 @@ usersRouter.get("/", adminGuard, async (c) => {
 });
 
 // GET /api/users/:id — admin only
-usersRouter.get("/:id", adminGuard, async (c) => {
+usersRouter.get("/:id", adminGuard, validateUuidParam("id"), async (c) => {
   const { users } = await buildContext(c.env);
   return c.json(await users.getUserById(c.req.param("id")));
 });
 
 // PUT /api/users/:id/role — admin only
-usersRouter.put("/:id/role", adminGuard, async (c) => {
+usersRouter.put("/:id/role", adminGuard, validateUuidParam("id"), async (c) => {
   const { role } = await c.req.json<{ role: "user" | "admin" }>();
   const { users } = await buildContext(c.env);
   return c.json(await users.updateRole(c.req.param("id"), role));
 });
 
 // PUT /api/users/:id/deactivate — admin only
-usersRouter.put("/:id/deactivate", adminGuard, async (c) => {
+usersRouter.put("/:id/deactivate", adminGuard, validateUuidParam("id"), async (c) => {
   const { reason } = await c.req.json<{ reason?: string }>().catch(() => ({ reason: undefined }));
   const { users } = await buildContext(c.env);
   return c.json(await users.deactivateUser(c.req.param("id"), reason ?? ""));
 });
 
 // PUT /api/users/:id/activate — admin only
-usersRouter.put("/:id/activate", adminGuard, async (c) => {
+usersRouter.put("/:id/activate", adminGuard, validateUuidParam("id"), async (c) => {
   const { users } = await buildContext(c.env);
   return c.json(await users.activateUser(c.req.param("id")));
 });
 
 // DELETE /api/users/:id — admin only
-usersRouter.delete("/:id", adminGuard, async (c) => {
+usersRouter.delete("/:id", adminGuard, validateUuidParam("id"), async (c) => {
   const { users } = await buildContext(c.env);
   await users.deleteUser(c.req.param("id"));
   return c.json({ deleted: true });

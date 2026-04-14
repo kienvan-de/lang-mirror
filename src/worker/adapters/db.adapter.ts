@@ -25,6 +25,12 @@ export class D1Adapter implements IDatabase {
     );
   }
 
+  /**
+   * Execute raw SQL without parameterised bindings.
+   * ⚠️  ONLY safe for static DDL (migrations). NEVER pass user-supplied input.
+   * All application queries must go through queryAll / queryFirst / run / batch
+   * which use `.prepare().bind()` for parameterised execution.
+   */
   async exec(sql: string): Promise<void> {
     await this.db.exec(sql);
   }

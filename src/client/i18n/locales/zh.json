@@ -537,7 +537,13 @@
     "manageTagsHint": "创建和删除全局主题标签",
     "backToAdmin": "管理",
     "noTags": "暂无标签。",
-    "quickActions": "快捷操作"
+    "quickActions": "快捷操作",
+    "promoteConfirmTitle": "将 {{name}} 提升为管理员？",
+    "promoteConfirmBody": "此用户将获得完整的管理员权限，包括管理其他用户。",
+    "demoteConfirmTitle": "移除 {{name}} 的管理员权限？",
+    "demoteConfirmBody": "此用户将失去管理员权限，变为普通用户。",
+    "deleteUserConfirmTitle": "删除 {{name}}？",
+    "deleteUserConfirmBody": "这将永久删除该用户及其所有数据，包括主题、句子、录音和设置。此操作无法撤销。"
   },
   "deactivated": {
     "title": "账户已停用",
@@ -586,5 +592,14 @@
     "successTitle": "一切就绪！",
     "successHint": "您的个人资料已设置完成。现在开始练习吧。",
     "practiceNow": "开始练习"
+  },
+  "login": {
+    "errorMissingParams": "登录失败 — 缺少参数。",
+    "errorLoginFailed": "登录失败 — 请重试。",
+    "errorAccessDenied": "身份提供商拒绝了访问。",
+    "errorInvalidRequest": "无效的登录请求。",
+    "errorServerError": "服务器错误 — 请稍后重试。",
+    "errorUnavailable": "服务暂时不可用。",
+    "errorGeneric": "登录失败 — 请重试。"
   }
 }

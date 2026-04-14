@@ -17,6 +17,7 @@ import { authMiddleware }         from "./middleware/auth";
 import { authGuard }              from "./middleware/guard";
 import { corsMiddleware }         from "./middleware/cors";
 import { securityHeadersMiddleware } from "./middleware/security-headers";
+import { bodyLimitMiddleware }    from "./middleware/body-limit";
 import {
   NotFoundError, ConflictError, ValidationError,
   UnauthorizedError, ForbiddenError,
@@ -45,6 +46,11 @@ export function createApp() {
 
   // ── Reject anonymous before reaching any protected route handler ─────────────
   app.use("/api/*", authGuard);
+
+  // ── Global body-size limit (1 MB) for JSON API routes ───────────────────────
+  // Import and recordings routes enforce their own stricter/looser limits via
+  // stream reading; this catches oversized JSON payloads on all other routes.
+  app.use("/api/*", bodyLimitMiddleware());
 
   // ── Protected API routes ─────────────────────────────────────────────────────
   app.route("/api/topics",    topicsRouter);   // /api/topics + /api/topics/:id/versions

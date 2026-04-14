@@ -538,7 +538,13 @@
     "manageTagsHint": "グローバルトピックタグの作成と削除",
     "backToAdmin": "管理",
     "noTags": "タグがまだありません。",
-    "quickActions": "クイックアクション"
+    "quickActions": "クイックアクション",
+    "promoteConfirmTitle": "{{name}} を管理者に昇格しますか？",
+    "promoteConfirmBody": "このユーザーは他のユーザーの管理を含む完全な管理者権限を取得します。",
+    "demoteConfirmTitle": "{{name}} の管理者権限を削除しますか？",
+    "demoteConfirmBody": "このユーザーは管理者権限を失い、一般ユーザーになります。",
+    "deleteUserConfirmTitle": "{{name}} を削除しますか？",
+    "deleteUserConfirmBody": "このユーザーとトピック、文、録音、設定を含むすべてのデータが完全に削除されます。この操作は元に戻せません。"
   },
   "deactivated": {
     "title": "アカウントが無効化されました",
@@ -587,5 +593,14 @@
     "successTitle": "準備完了！",
     "successHint": "プロフィールが設定されました。今すぐ練習を始めましょう。",
     "practiceNow": "練習を始める"
+  },
+  "login": {
+    "errorMissingParams": "ログイン失敗 — パラメータが不足しています。",
+    "errorLoginFailed": "ログイン失敗 — もう一度お試しください。",
+    "errorAccessDenied": "IDプロバイダーによりアクセスが拒否されました。",
+    "errorInvalidRequest": "無効なログインリクエストです。",
+    "errorServerError": "サーバーエラー — 後でもう一度お試しください。",
+    "errorUnavailable": "サービスが一時的に利用できません。",
+    "errorGeneric": "ログイン失敗 — もう一度お試しください。"
   }
 }

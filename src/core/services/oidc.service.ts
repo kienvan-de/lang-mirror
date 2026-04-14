@@ -165,6 +165,9 @@ export class OidcService {
     const tokens = await tokenRes.json() as { access_token: string; id_token?: string };
 
     // Validate nonce from ID token to prevent replay attacks
+    if (!tokens.id_token) {
+      console.warn("[oidc] No id_token in token response — nonce validation skipped. Consider requiring 'openid' scope.");
+    }
     if (tokens.id_token) {
       try {
         // JWT payload is the second base64url segment (no signature verification needed for nonce check
@@ -284,11 +287,12 @@ export class OidcService {
   async addProvider(data: OidcProviderInput): Promise<OidcProviderRow> {
     if (!isAdmin()) throw new ForbiddenError("Only admins can manage OIDC providers");
 
+    const id = crypto.randomUUID();
     await this.db.run(
       `INSERT INTO oidc_providers
        (id, provider, display_name, client_id, client_secret, redirect_uri, auth_url, token_url, userinfo_url, scope, enabled)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      crypto.randomUUID(),
+      id,
       data.provider, data.display_name, data.client_id,
       data.client_secret ?? null, data.redirect_uri,
       data.auth_url, data.token_url, data.userinfo_url,
@@ -297,7 +301,7 @@ export class OidcService {
     );
 
     return (await this.db.queryFirst<OidcProviderRow>(
-      "SELECT * FROM oidc_providers ORDER BY created_at DESC LIMIT 1"
+      "SELECT * FROM oidc_providers WHERE id = ?", id
     ))!;
   }
 

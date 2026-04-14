@@ -11,16 +11,23 @@ import {
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
 function RouteError({ error }: { error: Error }) {
+  const isDev = import.meta.env.DEV;
   return (
     <div className="max-w-2xl mx-auto px-6 py-12 text-center">
       <div className="flex justify-center mb-4">
         <ExclamationTriangleIcon className="w-12 h-12 text-red-500 dark:text-red-400" />
       </div>
       <h2 className="text-lg font-bold text-red-600 dark:text-red-400 mb-2">Page error</h2>
-      <pre className="text-xs text-left bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-4 overflow-auto text-red-700 dark:text-red-300 whitespace-pre-wrap">
-        {error?.message ?? String(error)}
-        {error?.stack ? `\n\n${error.stack}` : ""}
-      </pre>
+      {isDev ? (
+        <pre className="text-xs text-left bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-4 overflow-auto text-red-700 dark:text-red-300 whitespace-pre-wrap">
+          {error?.message ?? String(error)}
+          {error?.stack ? `\n\n${error.stack}` : ""}
+        </pre>
+      ) : (
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          Something went wrong. Please reload the page or try again later.
+        </p>
+      )}
     </div>
   );
 }

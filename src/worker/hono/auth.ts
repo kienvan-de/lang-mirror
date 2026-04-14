@@ -3,6 +3,7 @@ import { setCookie, deleteCookie, getCookie } from "hono/cookie";
 import { buildContext } from "../lib/context";
 import { getAuthContext } from "../../core/auth/context";
 import { adminGuard } from "./middleware/admin";
+import { validateUuidParam } from "./middleware/validate";
 import type { Env } from "../types";
 
 export const authRouter = new Hono<{ Bindings: Env }>();
@@ -79,13 +80,18 @@ authRouter.get("/callback/:providerId", async (c) => {
 
 // POST /api/auth/logout — clears session
 authRouter.post("/logout", async (c) => {
-  // CSRF guard — check Origin header only (Referer is suppressible via
-  // Referrer-Policy and uses substring match which is weaker).
+  // CSRF guard — require Origin header on state-changing requests.
   // SameSite=Lax on the cookie is the primary CSRF defence for modern browsers;
   // this Origin check is belt-and-suspenders for older ones.
   const origin = c.req.header("Origin");
   const host   = c.req.header("Host");
-  if (origin && host) {
+  if (!origin) {
+    // All modern browsers send Origin on POST requests. Its absence means
+    // either a non-browser client (curl/Postman — harmless, no cookies)
+    // or a privacy extension stripping it. Reject to be safe.
+    return c.json({ error: "Origin header required" }, 403);
+  }
+  if (host) {
     const allowedOrigins = new Set([
       `http://${host}`,
       `https://${host}`,
@@ -119,14 +125,14 @@ authRouter.post("/providers", adminGuard, async (c) => {
 });
 
 // PUT /api/auth/providers/:id
-authRouter.put("/providers/:id", adminGuard, async (c) => {
+authRouter.put("/providers/:id", adminGuard, validateUuidParam("id"), async (c) => {
   const body = await c.req.json();
   const { oidc } = await buildContext(c.env);
   return c.json(await oidc.updateProvider(c.req.param("id"), body));
 });
 
 // DELETE /api/auth/providers/:id
-authRouter.delete("/providers/:id", adminGuard, async (c) => {
+authRouter.delete("/providers/:id", adminGuard, validateUuidParam("id"), async (c) => {
   const { oidc } = await buildContext(c.env);
   await oidc.deleteProvider(c.req.param("id"));
   return c.json({ deleted: true });

@@ -22,10 +22,14 @@ export const authMiddleware = createMiddleware<{ Bindings: Env }>(async (c, next
   const sessionId  = getCookie(c, cookieName);
 
   if (sessionId) {
+    // SKIP_OIDC_URL_VALIDATION is for local dev only. As a safety net, never
+    // honour it on HTTPS origins (i.e. production) even if the var leaks.
+    const isSecureOrigin = c.req.url.startsWith("https://");
+    const skipValidation = c.env.SKIP_OIDC_URL_VALIDATION === "true" && !isSecureOrigin;
     const oidcSvc = new OidcService(
       new D1Adapter(c.env.DB),
       new KVCacheAdapter(c.env.SESSION_CACHE),
-      c.env.SKIP_OIDC_URL_VALIDATION === "true",
+      skipValidation,
     );
     const user = await oidcSvc.getSession(sessionId);
     if (user) {

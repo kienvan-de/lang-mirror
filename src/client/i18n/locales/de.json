@@ -539,7 +539,13 @@
     "manageTagsHint": "Globale Themen-Tags erstellen und löschen",
     "backToAdmin": "Admin",
     "noTags": "Noch keine Tags.",
-    "quickActions": "Schnellaktionen"
+    "quickActions": "Schnellaktionen",
+    "promoteConfirmTitle": "{{name}} zum Admin befördern?",
+    "promoteConfirmBody": "Dieser Benutzer erhält volle Admin-Rechte einschließlich der Verwaltung anderer Benutzer.",
+    "demoteConfirmTitle": "Admin-Rechte von {{name}} entfernen?",
+    "demoteConfirmBody": "Dieser Benutzer verliert Admin-Rechte und wird ein normaler Benutzer.",
+    "deleteUserConfirmTitle": "{{name}} löschen?",
+    "deleteUserConfirmBody": "Der Benutzer und alle zugehörigen Daten (Themen, Sätze, Aufnahmen, Einstellungen) werden dauerhaft gelöscht. Diese Aktion kann nicht rückgängig gemacht werden."
   },
   "deactivated": {
     "title": "Konto deaktiviert",
@@ -588,5 +594,14 @@
     "successTitle": "Alles bereit!",
     "successHint": "Ihr Profil ist eingerichtet. Fangen Sie jetzt an zu üben.",
     "practiceNow": "Jetzt üben"
+  },
+  "login": {
+    "errorMissingParams": "Anmeldung fehlgeschlagen — fehlende Parameter.",
+    "errorLoginFailed": "Anmeldung fehlgeschlagen — bitte versuchen Sie es erneut.",
+    "errorAccessDenied": "Zugriff vom Identitätsanbieter verweigert.",
+    "errorInvalidRequest": "Ungültige Anmeldeanfrage.",
+    "errorServerError": "Serverfehler — bitte versuchen Sie es später erneut.",
+    "errorUnavailable": "Dienst vorübergehend nicht verfügbar.",
+    "errorGeneric": "Anmeldung fehlgeschlagen — bitte versuchen Sie es erneut."
   }
 }

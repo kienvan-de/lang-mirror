@@ -65,12 +65,12 @@ topicsRouter.delete("/:id", validateUuidParam("id"), async (c) => {
 
 // ── /api/topics/:topicId/versions ─────────────────────────────────────────────
 
-topicsRouter.get("/:topicId/versions", async (c) => {
+topicsRouter.get("/:topicId/versions", validateUuidParam("topicId"), async (c) => {
   const { versions } = await buildContext(c.env);
-  return c.json(await versions.listByTopic(c.req.param("topicId")));
+  return c.json(await versions.listByTopic(c.req.param("topicId")!));
 });
 
-topicsRouter.post("/:topicId/versions", async (c) => {
+topicsRouter.post("/:topicId/versions", validateUuidParam("topicId"), async (c) => {
   const body = await c.req.json<{
     language_code?: string;
     title?: string;
@@ -80,7 +80,7 @@ topicsRouter.post("/:topicId/versions", async (c) => {
     pitch?: number;
   }>();
   const { versions } = await buildContext(c.env);
-  return c.json(await versions.create(c.req.param("topicId"), {
+  return c.json(await versions.create(c.req.param("topicId")!, {
     language_code: typeof body.language_code === "string" ? body.language_code : "",
     title:         typeof body.title         === "string" ? body.title         : undefined,
     description:   typeof body.description   === "string" ? body.description   : undefined,
@@ -90,17 +90,17 @@ topicsRouter.post("/:topicId/versions", async (c) => {
   }), 201);
 });
 
-topicsRouter.post("/:topicId/versions/reorder", async (c) => {
+topicsRouter.post("/:topicId/versions/reorder", validateUuidParam("topicId"), async (c) => {
   const { ids } = await c.req.json<{ ids: string[] }>();
   const { versions } = await buildContext(c.env);
-  return c.json(await versions.reorder(c.req.param("topicId"), ids));
+  return c.json(await versions.reorder(c.req.param("topicId")!, ids));
 });
 
 // ── /api/topics/:topicId/tags ─────────────────────────────────────────────────
 
 // PUT /api/topics/:topicId/tags — replace all tags on a topic (owner only)
-topicsRouter.put("/:topicId/tags", async (c) => {
+topicsRouter.put("/:topicId/tags", validateUuidParam("topicId"), async (c) => {
   const { tagIds } = await c.req.json<{ tagIds: string[] }>();
   const { topics } = await buildContext(c.env);
-  return c.json(await topics.setTags(c.req.param("topicId"), tagIds ?? []));
+  return c.json(await topics.setTags(c.req.param("topicId")!, tagIds ?? []));
 });

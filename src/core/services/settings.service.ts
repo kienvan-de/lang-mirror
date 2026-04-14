@@ -6,6 +6,23 @@ import { SYSTEM_USER_ID } from "../db/schema";
 
 
 
+/**
+ * Allowlist of keys that regular (non-admin) users may set.
+ * System-level keys (tts.edgeTTS.*, etc.) are only writable via setSystem().
+ */
+const USER_SETTABLE_KEYS = new Set([
+  "privacy.uploadRecordings",
+  "tts.global.speed",
+  "tts.global.pitch",
+  "tts.voices",
+  "practice.mode",
+  "practice.recordingMultiplier",
+  "practice.drillPause",
+  "practice.autoPlayback",
+  "user.nativeLanguage",
+  "user.learningLanguages",
+]);
+
 export class SettingsService {
   constructor(private db: IDatabase) {}
 
@@ -70,6 +87,11 @@ export class SettingsService {
   async set(key: string, value: string): Promise<{ key: string; value: string }> {
     if (value === undefined || value === null) throw new ValidationError("value is required", "value");
     const auth = requireAuth();
+
+    // Admins can write any key; regular users are restricted to the allowlist.
+    if (!isAdmin() && !USER_SETTABLE_KEYS.has(key)) {
+      throw new ForbiddenError(`Setting '${key}' is not user-configurable`);
+    }
 
     await this.db.run(
       `INSERT INTO settings (key, owner_id, value) VALUES (?, ?, ?)

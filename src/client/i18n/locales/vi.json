@@ -537,7 +537,13 @@
     "manageTagsHint": "Tạo và xóa nhãn chủ đề toàn cục",
     "backToAdmin": "Quản trị",
     "noTags": "Chưa có nhãn nào.",
-    "quickActions": "Thao tác nhanh"
+    "quickActions": "Thao tác nhanh",
+    "promoteConfirmTitle": "Thăng {{name}} lên Quản trị viên?",
+    "promoteConfirmBody": "Người dùng này sẽ có toàn quyền quản trị bao gồm quản lý người dùng khác.",
+    "demoteConfirmTitle": "Gỡ quyền Quản trị của {{name}}?",
+    "demoteConfirmBody": "Người dùng này sẽ mất quyền quản trị và trở thành người dùng thường.",
+    "deleteUserConfirmTitle": "Xóa {{name}}?",
+    "deleteUserConfirmBody": "Thao tác này sẽ xóa vĩnh viễn người dùng và toàn bộ dữ liệu bao gồm chủ đề, câu, bản ghi âm và cài đặt. Không thể hoàn tác."
   },
   "deactivated": {
     "title": "Tài khoản bị vô hiệu hóa",
@@ -586,5 +592,14 @@
     "successTitle": "Bạn đã sẵn sàng!",
     "successHint": "Hồ sơ của bạn đã được thiết lập. Bắt đầu luyện tập ngay.",
     "practiceNow": "Bắt đầu luyện tập"
+  },
+  "login": {
+    "errorMissingParams": "Đăng nhập thất bại — thiếu tham số.",
+    "errorLoginFailed": "Đăng nhập thất bại — vui lòng thử lại.",
+    "errorAccessDenied": "Nhà cung cấp danh tính từ chối truy cập.",
+    "errorInvalidRequest": "Yêu cầu đăng nhập không hợp lệ.",
+    "errorServerError": "Lỗi máy chủ — vui lòng thử lại sau.",
+    "errorUnavailable": "Dịch vụ tạm thời không khả dụng.",
+    "errorGeneric": "Đăng nhập thất bại — vui lòng thử lại."
   }
 }

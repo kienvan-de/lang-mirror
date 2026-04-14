@@ -34,7 +34,7 @@ export function DeactivatedPage() {
               {t("deactivated.reasonLabel")}
             </p>
             <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-              {decodeURIComponent(reason)}
+              {decodeURIComponent(reason).slice(0, 500)}
             </p>
           </div>
         )}

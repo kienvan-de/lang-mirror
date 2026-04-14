@@ -71,6 +71,8 @@ export function AdminUsersPage() {
 
   const [deactivateTarget, setDeactivateTarget] = useState<AdminUser | null>(null);
   const [deactivateReason, setDeactivateReason] = useState("");
+  const [roleChangeTarget, setRoleChangeTarget] = useState<AdminUser | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<AdminUser | null>(null);
 
   if (currentUser?.role !== "admin") {
     return (
@@ -222,10 +224,7 @@ export function AdminUsersPage() {
                           <button
                             disabled={isSelf || updateRoleMutation.isPending}
                             title={isSelf ? t("admin.cannotEditSelf") : u.role === "admin" ? t("admin.demote") : t("admin.promote")}
-                            onClick={() => {
-                              const newRole = u.role === "admin" ? "user" : "admin";
-                              updateRoleMutation.mutate({ id: u.id, role: newRole });
-                            }}
+                            onClick={() => setRoleChangeTarget(u)}
                             className={`px-2.5 py-1 rounded-lg text-xs font-medium border transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
                               u.role === "admin"
                                 ? "bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -260,11 +259,7 @@ export function AdminUsersPage() {
                           <button
                             disabled={isSelf || deleteUserMutation.isPending}
                             title={isSelf ? t("admin.cannotEditSelf") : t("admin.deleteUser")}
-                            onClick={() => {
-                              if (confirm(t("admin.deleteUserConfirm"))) {
-                                deleteUserMutation.mutate(u.id);
-                              }
-                            }}
+                            onClick={() => setDeleteTarget(u)}
                             className="px-2.5 py-1 rounded-lg text-xs font-medium border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                           >
                             {t("admin.deleteUser")}
@@ -320,6 +315,82 @@ export function AdminUsersPage() {
                 className="px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-sm font-semibold transition-colors disabled:opacity-40"
               >
                 {t("admin.deactivateConfirmOk")}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* Role change confirmation modal */}
+      {roleChangeTarget && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+          <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-2xl p-6 space-y-4">
+            <h3 className="text-base font-bold text-gray-900 dark:text-gray-100">
+              {roleChangeTarget.role === "admin"
+                ? t("admin.demoteConfirmTitle", { name: roleChangeTarget.name ?? roleChangeTarget.email ?? roleChangeTarget.id })
+                : t("admin.promoteConfirmTitle", { name: roleChangeTarget.name ?? roleChangeTarget.email ?? roleChangeTarget.id })}
+            </h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {roleChangeTarget.role === "admin"
+                ? t("admin.demoteConfirmBody", "This user will lose admin privileges and become a regular user.")
+                : t("admin.promoteConfirmBody", "This user will gain full admin privileges including managing other users.")}
+            </p>
+            <div className="flex gap-2 justify-end">
+              <button
+                onClick={() => setRoleChangeTarget(null)}
+                className="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              >
+                {t("common.cancel")}
+              </button>
+              <button
+                disabled={updateRoleMutation.isPending}
+                onClick={() => {
+                  const newRole = roleChangeTarget.role === "admin" ? "user" as const : "admin" as const;
+                  updateRoleMutation.mutate(
+                    { id: roleChangeTarget.id, role: newRole },
+                    { onSuccess: () => setRoleChangeTarget(null) }
+                  );
+                }}
+                className={`px-4 py-2 rounded-lg text-white text-sm font-semibold transition-colors disabled:opacity-40 ${
+                  roleChangeTarget.role === "admin"
+                    ? "bg-gray-600 hover:bg-gray-700"
+                    : "bg-blue-600 hover:bg-blue-700"
+                }`}
+              >
+                {roleChangeTarget.role === "admin" ? t("admin.demote") : t("admin.promote")}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete user confirmation modal */}
+      {deleteTarget && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+          <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-2xl p-6 space-y-4">
+            <h3 className="text-base font-bold text-red-600 dark:text-red-400">
+              {t("admin.deleteUserConfirmTitle", { name: deleteTarget.name ?? deleteTarget.email ?? deleteTarget.id })}
+            </h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {t("admin.deleteUserConfirmBody", "This will permanently delete the user and all their data including topics, sentences, recordings, and settings. This action cannot be undone.")}
+            </p>
+            <div className="flex gap-2 justify-end">
+              <button
+                onClick={() => setDeleteTarget(null)}
+                className="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              >
+                {t("common.cancel")}
+              </button>
+              <button
+                disabled={deleteUserMutation.isPending}
+                onClick={() => {
+                  deleteUserMutation.mutate(
+                    deleteTarget.id,
+                    { onSuccess: () => setDeleteTarget(null) }
+                  );
+                }}
+                className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-sm font-semibold transition-colors disabled:opacity-40"
+              >
+                {t("admin.deleteUser")}
               </button>
             </div>
           </div>

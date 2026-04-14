@@ -1,7 +1,7 @@
 import type { IDatabase } from "../ports/db.port";
 import type { IObjectStorage, StoredObject } from "../ports/storage.port";
 import type { SentenceRow, VersionRow } from "../db/types";
-import { requireAuth, canAccess } from "../auth/context";
+import { requireAuth, canAccess, isAdmin } from "../auth/context";
 import { NotFoundError, ForbiddenError, ValidationError } from "../errors";
 
 // ── Storage key helpers ───────────────────────────────────────────────────────
@@ -219,7 +219,9 @@ export class RecordingsService {
   }
 
   async deleteAll(): Promise<{ deletedFiles: number; bytesFreed: number }> {
-    // Admin-only — deletes all users' recordings (guarded at route level by adminGuard)
+    // Defense-in-depth: enforce admin check here in addition to route-level adminGuard
+    requireAuth();
+    if (!isAdmin()) throw new ForbiddenError("Only admins can delete all recordings");
     // Paginate through R2 to handle >1000 objects
     let cursor: string | undefined;
     let deletedFiles = 0;

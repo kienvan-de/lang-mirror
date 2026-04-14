@@ -433,7 +433,17 @@
     "tagNameRequired": "Tag-Name ist erforderlich",
     "sectionUser": "Profil",
     "nativeLanguage": "Muttersprache",
-    "learningLanguages": "Lernsprachen"
+    "learningLanguages": "Lernsprachen",
+    "sectionAccount": "Konto",
+    "accountDeleteHint": "Löschen Sie Ihr Konto und alle zugehörigen Daten dauerhaft. Diese Aktion kann nicht rückgängig gemacht werden.",
+    "accountDeleteItem1": "Alle Ihre Themen, Sprachversionen und Sätze",
+    "accountDeleteItem2": "Ihre Übungshistorie und Statistiken",
+    "accountDeleteItem3": "Ihre Sprachaufnahmen",
+    "accountDeleteItem4": "Ihre Einstellungen und Präferenzen",
+    "accountDeleteButton": "Mein Konto löschen",
+    "accountDeleteWarning": "Dies löscht alles dauerhaft. Ihre Daten können nach dem Löschen nicht wiederhergestellt werden.",
+    "accountDeleteConfirmLabel": "Geben Sie DELETE ein, um zu bestätigen",
+    "accountDeleteConfirm": "Mein Konto löschen"
   },
   "path": {
     "findPaths": "Pfade suchen",

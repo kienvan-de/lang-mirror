@@ -419,7 +419,17 @@
     "tagNameRequired": "Le nom de l'étiquette est requis",
     "sectionUser": "Profil",
     "nativeLanguage": "Langue maternelle",
-    "learningLanguages": "Langues en apprentissage"
+    "learningLanguages": "Langues en apprentissage",
+    "sectionAccount": "Compte",
+    "accountDeleteHint": "Supprimez définitivement votre compte et toutes les données associées. Cette action est irréversible.",
+    "accountDeleteItem1": "Tous vos sujets, versions linguistiques et phrases",
+    "accountDeleteItem2": "Votre historique de pratique et statistiques",
+    "accountDeleteItem3": "Vos enregistrements vocaux",
+    "accountDeleteItem4": "Vos paramètres et préférences",
+    "accountDeleteButton": "Supprimer mon compte",
+    "accountDeleteWarning": "Cela supprimera définitivement tout. Vos données ne pourront pas être récupérées après suppression.",
+    "accountDeleteConfirmLabel": "Tapez DELETE pour confirmer",
+    "accountDeleteConfirm": "Supprimer mon compte"
   },
   "path": {
     "findPaths": "Trouver des parcours",

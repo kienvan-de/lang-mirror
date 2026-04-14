@@ -419,7 +419,17 @@
     "tagNameRequired": "태그 이름은 필수입니다",
     "sectionUser": "프로필",
     "nativeLanguage": "모국어",
-    "learningLanguages": "학습 언어"
+    "learningLanguages": "학습 언어",
+    "sectionAccount": "계정",
+    "accountDeleteHint": "계정과 모든 관련 데이터를 영구적으로 삭제합니다. 이 작업은 취소할 수 없습니다.",
+    "accountDeleteItem1": "모든 주제, 언어 버전 및 문장",
+    "accountDeleteItem2": "연습 기록 및 통계",
+    "accountDeleteItem3": "음성 녹음",
+    "accountDeleteItem4": "설정 및 기본 설정",
+    "accountDeleteButton": "내 계정 삭제",
+    "accountDeleteWarning": "이렇게 하면 모든 것이 영구적으로 삭제됩니다. 삭제 후에는 데이터를 복구할 수 없습니다.",
+    "accountDeleteConfirmLabel": "확인하려면 DELETE를 입력하세요",
+    "accountDeleteConfirm": "내 계정 삭제"
   },
   "path": {
     "findPaths": "경로 찾기",

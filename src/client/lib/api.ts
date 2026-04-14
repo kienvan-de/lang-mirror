@@ -195,6 +195,8 @@ export const api = {
     apiFetch<AdminUser>(`/users/${id}/activate`, { method: "PUT" }),
   deleteUser: (id: string) =>
     apiFetch<{ deleted: boolean }>(`/users/${id}`, { method: "DELETE" }),
+  deleteMe: () =>
+    apiFetch<{ deleted: boolean }>("/users/me", { method: "DELETE" }),
 
   // Tags
   getTags: () => apiFetch<Tag[]>("/tags"),

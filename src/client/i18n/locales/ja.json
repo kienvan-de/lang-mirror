@@ -432,7 +432,17 @@
     "tagNameRequired": "タグ名は必須です",
     "sectionUser": "プロフィール",
     "nativeLanguage": "母国語",
-    "learningLanguages": "学習言語"
+    "learningLanguages": "学習言語",
+    "sectionAccount": "アカウント",
+    "accountDeleteHint": "アカウントと関連するすべてのデータを完全に削除します。この操作は元に戻せません。",
+    "accountDeleteItem1": "すべてのトピック、言語バージョン、文",
+    "accountDeleteItem2": "練習履歴と統計",
+    "accountDeleteItem3": "音声録音",
+    "accountDeleteItem4": "設定と環境設定",
+    "accountDeleteButton": "アカウントを削除する",
+    "accountDeleteWarning": "これにより、すべてが完全に削除されます。削除後にデータを復元することはできません。",
+    "accountDeleteConfirmLabel": "確認のためDELETEと入力してください",
+    "accountDeleteConfirm": "アカウントを削除する"
   },
   "path": {
     "findPaths": "パスを探す",

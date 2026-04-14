@@ -419,7 +419,17 @@
     "tagNameRequired": "标签名称为必填项",
     "sectionUser": "个人资料",
     "nativeLanguage": "母语",
-    "learningLanguages": "学习中的语言"
+    "learningLanguages": "学习中的语言",
+    "sectionAccount": "账户",
+    "accountDeleteHint": "永久删除您的账户和所有相关数据。此操作无法撤销。",
+    "accountDeleteItem1": "您的所有主题、语言版本和句子",
+    "accountDeleteItem2": "您的练习历史和统计数据",
+    "accountDeleteItem3": "您的语音录音",
+    "accountDeleteItem4": "您的设置和偏好",
+    "accountDeleteButton": "删除我的账户",
+    "accountDeleteWarning": "这将永久删除所有内容。删除后您的数据将无法恢复。",
+    "accountDeleteConfirmLabel": "输入 DELETE 确认",
+    "accountDeleteConfirm": "删除我的账户"
   },
   "path": {
     "findPaths": "查找路径",

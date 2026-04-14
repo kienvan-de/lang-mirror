@@ -419,7 +419,17 @@
     "tagNameRequired": "Tag name is required",
     "sectionUser": "Profile",
     "nativeLanguage": "Native Language",
-    "learningLanguages": "Learning Languages"
+    "learningLanguages": "Learning Languages",
+    "sectionAccount": "Account",
+    "accountDeleteHint": "Permanently delete your account and all associated data. This action cannot be undone.",
+    "accountDeleteItem1": "All your topics, language versions, and sentences",
+    "accountDeleteItem2": "Your practice history and statistics",
+    "accountDeleteItem3": "Your voice recordings",
+    "accountDeleteItem4": "Your settings and preferences",
+    "accountDeleteButton": "Delete my account",
+    "accountDeleteWarning": "This will permanently delete everything. Your data cannot be recovered after deletion.",
+    "accountDeleteConfirmLabel": "Type DELETE to confirm",
+    "accountDeleteConfirm": "Delete my account"
   },
   "path": {
     "findPaths": "Find paths",

@@ -431,7 +431,17 @@
     "tagNameRequired": "Tên nhãn là bắt buộc",
     "sectionUser": "Hồ sơ",
     "nativeLanguage": "Ngôn ngữ mẹ đẻ",
-    "learningLanguages": "Ngôn ngữ đang học"
+    "learningLanguages": "Ngôn ngữ đang học",
+    "sectionAccount": "Tài khoản",
+    "accountDeleteHint": "Xóa vĩnh viễn tài khoản và tất cả dữ liệu liên quan. Hành động này không thể hoàn tác.",
+    "accountDeleteItem1": "Tất cả chủ đề, phiên bản ngôn ngữ và câu của bạn",
+    "accountDeleteItem2": "Lịch sử luyện tập và thống kê của bạn",
+    "accountDeleteItem3": "Các bản ghi âm giọng nói của bạn",
+    "accountDeleteItem4": "Cài đặt và tùy chọn của bạn",
+    "accountDeleteButton": "Xóa tài khoản của tôi",
+    "accountDeleteWarning": "Điều này sẽ xóa vĩnh viễn mọi thứ. Dữ liệu của bạn không thể khôi phục sau khi xóa.",
+    "accountDeleteConfirmLabel": "Nhập DELETE để xác nhận",
+    "accountDeleteConfirm": "Xóa tài khoản của tôi"
   },
   "path": {
     "findPaths": "Tìm lộ trình",

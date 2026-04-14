@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { ExclamationTriangleIcon, PlayIcon, ShieldCheckIcon } from "@heroicons/react/24/outline";
+import { useNavigate } from "@tanstack/react-router";
+import { ExclamationTriangleIcon, PlayIcon, ShieldCheckIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { api, type Voice } from "../lib/api";
 import { langFlag, langName } from "../lib/lang";
 import { defaultVoiceForLang } from "../hooks/useTTS";
@@ -126,10 +127,22 @@ function playPreview(text: string, voice: string, speed: number, pitch: number) 
 export function SettingsPage() {
   const { t } = useTranslation();
   const qc = useQueryClient();
+  const navigate = useNavigate();
   const { savedKey, showSaved } = useSaveFeedback();
   const { user } = useAuth();
   const isAdmin = user?.role === "admin";
   const userId = user?.id ?? "";
+
+  // Account deletion state
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleteConfirmText, setDeleteConfirmText] = useState("");
+  const deleteMutation = useMutation({
+    mutationFn: api.deleteMe,
+    onSuccess: () => {
+      // Session cookie is cleared server-side; redirect to login
+      window.location.replace("/login");
+    },
+  });
   const { nativeLanguage, learningLanguages } = useUserLanguages();
 
   const { data: settings, isLoading } = useQuery({
@@ -180,11 +193,12 @@ export function SettingsPage() {
   )).sort();
 
   const sections = [
-    { id: "user", label: t("settings.sectionUser") }, // "Profile"
+    { id: "user", label: t("settings.sectionUser") },
     { id: "playback", label: t("settings.sectionPlayback") },
     { id: "voices", label: t("settings.sectionVoices") },
     { id: "practice", label: t("settings.sectionPractice") },
     { id: "display", label: t("settings.sectionDisplay") },
+    { id: "account", label: t("settings.sectionAccount") },
   ];
 
   if (isLoading) {
@@ -482,6 +496,75 @@ export function SettingsPage() {
                   className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-sm font-semibold text-white transition-colors"
                 >{t("common.save")}</button>
               </div>
+            </div>
+          </Section>
+
+          {/* Account section */}
+          <Section id="account" title={t("settings.sectionAccount")}>
+            <div className="space-y-4">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                {t("settings.accountDeleteHint")}
+              </p>
+
+              {/* What gets deleted */}
+              <ul className="text-sm text-gray-500 dark:text-gray-400 space-y-1 list-disc list-inside">
+                <li>{t("settings.accountDeleteItem1")}</li>
+                <li>{t("settings.accountDeleteItem2")}</li>
+                <li>{t("settings.accountDeleteItem3")}</li>
+                <li>{t("settings.accountDeleteItem4")}</li>
+              </ul>
+
+              {!showDeleteConfirm ? (
+                <button
+                  onClick={() => setShowDeleteConfirm(true)}
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg border border-red-300 dark:border-red-700 text-red-600 dark:text-red-400 text-sm font-medium hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                >
+                  <TrashIcon className="w-4 h-4" />
+                  {t("settings.accountDeleteButton")}
+                </button>
+              ) : (
+                <div className="rounded-xl border border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-900/10 p-4 space-y-3">
+                  <div className="flex items-start gap-2 text-sm text-red-700 dark:text-red-400">
+                    <ExclamationTriangleIcon className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                    <span>{t("settings.accountDeleteWarning")}</span>
+                  </div>
+                  <div>
+                    <label className="text-xs font-medium text-gray-700 dark:text-gray-300 block mb-1">
+                      {t("settings.accountDeleteConfirmLabel", { word: "DELETE" })}
+                    </label>
+                    <input
+                      type="text"
+                      value={deleteConfirmText}
+                      onChange={(e) => setDeleteConfirmText(e.target.value)}
+                      placeholder="DELETE"
+                      className="w-full px-3 py-2 text-sm rounded-lg border border-red-300 dark:border-red-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-red-500"
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => { setShowDeleteConfirm(false); setDeleteConfirmText(""); }}
+                      className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                    >
+                      {t("common.cancel")}
+                    </button>
+                    <button
+                      onClick={() => deleteMutation.mutate()}
+                      disabled={deleteConfirmText !== "DELETE" || deleteMutation.isPending}
+                      className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-sm font-semibold disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                    >
+                      {deleteMutation.isPending
+                        ? <span className="w-4 h-4 rounded-full border-2 border-white/40 border-t-white animate-spin" />
+                        : <><TrashIcon className="w-4 h-4" />{t("settings.accountDeleteConfirm")}</>
+                      }
+                    </button>
+                  </div>
+                  {deleteMutation.isError && (
+                    <p className="text-xs text-red-600 dark:text-red-400">
+                      {t("error.generic")}
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
           </Section>
 

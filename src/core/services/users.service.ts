@@ -117,12 +117,25 @@ export class UsersService {
       throw new ForbiddenError("Cannot delete the system user");
     }
     const auth = requireAuth();
-    if (id === auth.id) throw new ForbiddenError("Cannot delete yourself");
+    if (id === auth.id) throw new ForbiddenError("Cannot delete yourself via admin endpoint — use DELETE /api/users/me");
 
     const user = await this.db.queryFirst(
       "SELECT id FROM users WHERE id = ?", id
     );
     if (!user) throw new NotFoundError(`User '${id}' not found`);
     await this.db.run("DELETE FROM users WHERE id = ?", id);
+  }
+
+  /**
+   * Self-service account deletion — any authenticated user can delete their own account.
+   * Cascades via FK: topics, sentences, practice_attempts, settings, paths all deleted.
+   * Session deletion must be handled by the caller (route layer) after this returns.
+   */
+  async deleteMe(): Promise<void> {
+    const auth = requireAuth();
+    if (auth.id === SYSTEM_USER_ID) {
+      throw new ForbiddenError("Cannot delete the system user");
+    }
+    await this.db.run("DELETE FROM users WHERE id = ?", auth.id);
   }
 }

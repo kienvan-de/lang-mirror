@@ -196,6 +196,28 @@ export class RecordingsService {
     return sentenceIds;
   }
 
+  /**
+   * Delete all recordings belonging to the currently authenticated user.
+   * Called from the self-service "delete my data" flow in settings.
+   */
+  async deleteMyRecordings(): Promise<{ deletedFiles: number }> {
+    const { id: userId } = requireAuth();
+    const prefix = `recordings/${userId}/`;
+    let cursor: string | undefined;
+    let deletedFiles = 0;
+
+    do {
+      const page = await this.storage.list(prefix, { cursor, limit: 1000 });
+      if (page.objects.length > 0) {
+        await this.storage.deleteBatch(page.objects.map(o => o.key));
+        deletedFiles += page.objects.length;
+      }
+      cursor = page.truncated ? page.cursor : undefined;
+    } while (cursor);
+
+    return { deletedFiles };
+  }
+
   async deleteAll(): Promise<{ deletedFiles: number; bytesFreed: number }> {
     // Admin-only — deletes all users' recordings (guarded at route level by adminGuard)
     // Paginate through R2 to handle >1000 objects

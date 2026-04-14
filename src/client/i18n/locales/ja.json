@@ -497,6 +497,14 @@
     "demote": "管理者を解除",
     "deleteUser": "削除",
     "deleteUserConfirm": "ユーザー {{name}} を削除しますか？すべてのトピックとデータが削除されます。",
+    "deactivated": "無効化済み",
+    "deactivateUser": "無効化",
+    "activateUser": "有効化",
+    "deactivateConfirmTitle": "{{name}}を無効化しますか？",
+    "deactivateConfirmBody": "このユーザーはログインできなくなります。アクティブなセッションは次のリクエスト時に無効化されます。",
+    "deactivateReasonLabel": "理由（ユーザーに表示されます）",
+    "deactivateReasonPlaceholder": "例：利用規約違反",
+    "deactivateConfirmOk": "無効化する",
     "cannotEditSelf": "自分のアカウントは編集できません",
     "filterAll": "すべて",
     "filterActive": "アクティブ（30日）",
@@ -520,5 +528,12 @@
     "backToAdmin": "管理",
     "noTags": "タグがまだありません。",
     "quickActions": "クイックアクション"
+  },
+  "deactivated": {
+    "title": "アカウントが無効化されました",
+    "subtitle": "管理者によってアカウントが無効化されました。",
+    "reasonLabel": "理由",
+    "contactHint": "誤りだと思われる場合は、サポートにお問い合わせください。",
+    "backToLogin": "ログインに戻る"
   }
 }

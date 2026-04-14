@@ -13,6 +13,15 @@
 -- No new columns on users needed — last_active_at is computed at query time
 -- via MAX(practice_attempts.attempted_at).
 
+-- ── User deactivation ────────────────────────────────────────────────────────
+-- Admin can deactivate users with an optional reason. Deactivated users cannot
+-- log in and existing sessions are invalidated on next request.
+ALTER TABLE users ADD COLUMN is_active           INTEGER NOT NULL DEFAULT 1;
+ALTER TABLE users ADD COLUMN deactivated_at      TEXT;
+ALTER TABLE users ADD COLUMN deactivated_by      TEXT REFERENCES users(id) ON DELETE SET NULL;
+ALTER TABLE users ADD COLUMN deactivation_reason TEXT;
+
+-- ── Topic approval workflow ───────────────────────────────────────────────────
 ALTER TABLE topics ADD COLUMN status         TEXT NOT NULL DEFAULT 'private';
 ALTER TABLE topics ADD COLUMN status_updated_at TEXT;
 ALTER TABLE topics ADD COLUMN status_updated_by TEXT REFERENCES users(id) ON DELETE SET NULL;

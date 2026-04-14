@@ -498,6 +498,14 @@
     "demote": "Admin entfernen",
     "deleteUser": "Löschen",
     "deleteUserConfirm": "Benutzer {{name}} löschen? Alle Themen und Daten werden entfernt.",
+    "deactivated": "Deaktiviert",
+    "deactivateUser": "Deaktivieren",
+    "activateUser": "Aktivieren",
+    "deactivateConfirmTitle": "{{name}} deaktivieren?",
+    "deactivateConfirmBody": "Dieser Benutzer kann sich nicht mehr anmelden. Aktive Sitzungen werden bei der nächsten Anfrage ungültig.",
+    "deactivateReasonLabel": "Grund (wird dem Benutzer angezeigt)",
+    "deactivateReasonPlaceholder": "z.B. Verstoß gegen die Nutzungsbedingungen",
+    "deactivateConfirmOk": "Deaktivieren",
     "cannotEditSelf": "Eigenes Konto kann nicht bearbeitet werden",
     "filterAll": "Alle",
     "filterActive": "Aktiv (30T)",
@@ -521,5 +529,12 @@
     "backToAdmin": "Admin",
     "noTags": "Noch keine Tags.",
     "quickActions": "Schnellaktionen"
+  },
+  "deactivated": {
+    "title": "Konto deaktiviert",
+    "subtitle": "Ihr Konto wurde von einem Administrator deaktiviert.",
+    "reasonLabel": "Grund",
+    "contactHint": "Bitte kontaktieren Sie den Support, wenn Sie glauben, dass dies ein Fehler ist.",
+    "backToLogin": "Zurück zur Anmeldung"
   }
 }

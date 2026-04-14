@@ -59,6 +59,19 @@ export function AdminUsersPage() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ["admin-users"] }),
   });
 
+  const deactivateMutation = useMutation({
+    mutationFn: ({ id, reason }: { id: string; reason: string }) => api.deactivateUser(id, reason),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["admin-users"] }),
+  });
+
+  const activateMutation = useMutation({
+    mutationFn: (id: string) => api.activateUser(id),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["admin-users"] }),
+  });
+
+  const [deactivateTarget, setDeactivateTarget] = useState<AdminUser | null>(null);
+  const [deactivateReason, setDeactivateReason] = useState("");
+
   if (currentUser?.role !== "admin") {
     return (
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
@@ -163,17 +176,23 @@ export function AdminUsersPage() {
                         {u.email ?? "—"}
                       </td>
 
-                      {/* Role badge */}
+                      {/* Role + status badges */}
                       <td className="px-4 py-3">
-                        <span
-                          className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold ${
+                        <div className="flex flex-col gap-1">
+                          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold ${
                             u.role === "admin"
                               ? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
                               : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400"
-                          }`}
-                        >
-                          {u.role}
-                        </span>
+                          }`}>
+                            {u.role}
+                          </span>
+                          {u.is_active === 0 && (
+                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400"
+                              title={u.deactivation_reason ?? ""}>
+                              {t("admin.deactivated")}
+                            </span>
+                          )}
+                        </div>
                       </td>
 
                       {/* Joined — hidden on mobile */}
@@ -216,6 +235,27 @@ export function AdminUsersPage() {
                             {u.role === "admin" ? t("admin.demote") : t("admin.promote")}
                           </button>
 
+                          {/* Deactivate / Activate */}
+                          {u.is_active === 0 ? (
+                            <button
+                              disabled={activateMutation.isPending}
+                              onClick={() => activateMutation.mutate(u.id)}
+                              className="px-2.5 py-1 rounded-lg text-xs font-medium border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 hover:bg-green-100 transition-colors disabled:opacity-40"
+                              title={t("admin.activateUser")}
+                            >
+                              {t("admin.activateUser")}
+                            </button>
+                          ) : (
+                            <button
+                              disabled={isSelf || deactivateMutation.isPending}
+                              onClick={() => { setDeactivateTarget(u); setDeactivateReason(""); }}
+                              className="px-2.5 py-1 rounded-lg text-xs font-medium border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 hover:bg-amber-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                              title={isSelf ? t("admin.cannotEditSelf") : t("admin.deactivateUser")}
+                            >
+                              {t("admin.deactivateUser")}
+                            </button>
+                          )}
+
                           {/* Delete */}
                           <button
                             disabled={isSelf || deleteUserMutation.isPending}
@@ -239,6 +279,52 @@ export function AdminUsersPage() {
           </div>
         )}
       </div>
+
+      {/* Deactivate user modal */}
+      {deactivateTarget && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+          <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-2xl p-6 space-y-4">
+            <h3 className="text-base font-bold text-gray-900 dark:text-gray-100">
+              {t("admin.deactivateConfirmTitle", { name: deactivateTarget.name ?? deactivateTarget.email ?? deactivateTarget.id })}
+            </h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {t("admin.deactivateConfirmBody")}
+            </p>
+            <div>
+              <label className="text-xs font-semibold text-gray-600 dark:text-gray-400 block mb-1">
+                {t("admin.deactivateReasonLabel")}
+              </label>
+              <textarea
+                rows={3}
+                value={deactivateReason}
+                onChange={e => setDeactivateReason(e.target.value)}
+                placeholder={t("admin.deactivateReasonPlaceholder")}
+                className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-amber-500 resize-none"
+              />
+            </div>
+            <div className="flex gap-2 justify-end">
+              <button
+                onClick={() => { setDeactivateTarget(null); setDeactivateReason(""); }}
+                className="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              >
+                {t("common.cancel")}
+              </button>
+              <button
+                disabled={deactivateMutation.isPending}
+                onClick={() => {
+                  deactivateMutation.mutate(
+                    { id: deactivateTarget.id, reason: deactivateReason },
+                    { onSuccess: () => { setDeactivateTarget(null); setDeactivateReason(""); } }
+                  );
+                }}
+                className="px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-sm font-semibold transition-colors disabled:opacity-40"
+              >
+                {t("admin.deactivateConfirmOk")}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

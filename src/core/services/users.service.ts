@@ -72,6 +72,45 @@ export class UsersService {
   }
 
   /** Delete a user — admin only, cannot delete self, cannot delete system user */
+  async deactivateUser(id: string, reason: string): Promise<UserRow> {
+    if (!isAdmin()) throw new ForbiddenError();
+    if (id === SYSTEM_USER_ID) throw new ForbiddenError("Cannot deactivate the system user");
+    const auth = requireAuth();
+    if (id === auth.id) throw new ForbiddenError("Cannot deactivate yourself");
+
+    const user = await this.db.queryFirst<UserRow>("SELECT * FROM users WHERE id = ?", id);
+    if (!user) throw new NotFoundError(`User '${id}' not found`);
+
+    await this.db.run(
+      `UPDATE users SET
+        is_active = 0,
+        deactivated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now'),
+        deactivated_by = ?,
+        deactivation_reason = ?,
+        updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
+       WHERE id = ?`,
+      auth.id, reason.trim() || null, id
+    );
+    return (await this.db.queryFirst<UserRow>("SELECT * FROM users WHERE id = ?", id))!;
+  }
+
+  async activateUser(id: string): Promise<UserRow> {
+    if (!isAdmin()) throw new ForbiddenError();
+    const user = await this.db.queryFirst<UserRow>("SELECT * FROM users WHERE id = ?", id);
+    if (!user) throw new NotFoundError(`User '${id}' not found`);
+
+    await this.db.run(
+      `UPDATE users SET
+        is_active = 1,
+        deactivated_at = NULL,
+        deactivated_by = NULL,
+        deactivation_reason = NULL,
+        updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
+       WHERE id = ?`, id
+    );
+    return (await this.db.queryFirst<UserRow>("SELECT * FROM users WHERE id = ?", id))!;
+  }
+
   async deleteUser(id: string): Promise<void> {
     if (!isAdmin()) throw new ForbiddenError();
     if (id === SYSTEM_USER_ID) {

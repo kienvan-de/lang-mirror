@@ -34,6 +34,7 @@ import { DashboardPage } from "./routes/index";
 import { SettingsPage } from "./routes/settings";
 import { ImportPage } from "./routes/import";
 import { LoginPage } from "./routes/login";
+import { DeactivatedPage } from "./routes/deactivated";
 import { PathPage } from "./routes/path";
 import { AdminPage } from "./routes/admin/index";
 import { AdminUsersPage } from "./routes/admin/users";
@@ -53,10 +54,12 @@ export const pathRoute        = createRoute({ getParentRoute: () => rootRoute, p
 export const adminRoute       = createRoute({ getParentRoute: () => rootRoute, path: "/admin", component: AdminPage });
 export const adminUsersRoute  = createRoute({ getParentRoute: () => rootRoute, path: "/admin/users", component: AdminUsersPage });
 export const adminTopicsRoute = createRoute({ getParentRoute: () => rootRoute, path: "/admin/topics", component: AdminTopicsPage });
-export const adminTagsRoute   = createRoute({ getParentRoute: () => rootRoute, path: "/admin/tags", component: AdminTagsPage });
+export const adminTagsRoute      = createRoute({ getParentRoute: () => rootRoute, path: "/admin/tags", component: AdminTagsPage });
+export const deactivatedRoute    = createRoute({ getParentRoute: () => rootRoute, path: "/deactivated", component: DeactivatedPage });
 
 const routeTree = rootRoute.addChildren([
   loginRoute,
+  deactivatedRoute,
   indexRoute,
   topicsRoute,
   topicDetailRoute,

@@ -29,6 +29,10 @@ export interface UserRow {
   name: string | null;
   avatar_url: string | null;
   role: "user" | "admin" | "readonly"; // 'readonly' = system user, no privileges
+  is_active: number;               // 1 = active, 0 = deactivated
+  deactivated_at: string | null;
+  deactivated_by: string | null;
+  deactivation_reason: string | null;
   created_at: string;
   updated_at: string;
 }

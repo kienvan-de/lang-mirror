@@ -63,6 +63,9 @@ export interface AdminUser {
   name: string | null;
   avatar_url: string | null;
   role: "user" | "admin" | "readonly";
+  is_active: number;               // 1 = active, 0 = deactivated
+  deactivated_at: string | null;
+  deactivation_reason: string | null;
   created_at: string;
   updated_at: string;
   last_active_at: string | null;
@@ -186,6 +189,10 @@ export const api = {
     apiFetch<AdminUser[]>("/users"),
   updateUserRole: (id: string, role: "user" | "admin") =>
     apiFetch<AdminUser>(`/users/${id}/role`, { method: "PUT", body: JSON.stringify({ role }) }),
+  deactivateUser: (id: string, reason: string) =>
+    apiFetch<AdminUser>(`/users/${id}/deactivate`, { method: "PUT", body: JSON.stringify({ reason }) }),
+  activateUser: (id: string) =>
+    apiFetch<AdminUser>(`/users/${id}/activate`, { method: "PUT" }),
   deleteUser: (id: string) =>
     apiFetch<{ deleted: boolean }>(`/users/${id}`, { method: "DELETE" }),
 

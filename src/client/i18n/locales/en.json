@@ -481,6 +481,14 @@
     "demote": "Remove Admin",
     "deleteUser": "Delete",
     "deleteUserConfirm": "Delete user {{name}}? All their topics and data will be removed.",
+    "deactivated": "Deactivated",
+    "deactivateUser": "Deactivate",
+    "activateUser": "Activate",
+    "deactivateConfirmTitle": "Deactivate {{name}}?",
+    "deactivateConfirmBody": "This user will no longer be able to log in. Any active sessions will be invalidated on next request.",
+    "deactivateReasonLabel": "Reason (shown to user)",
+    "deactivateReasonPlaceholder": "e.g. Violation of terms of service",
+    "deactivateConfirmOk": "Deactivate",
     "cannotEditSelf": "Cannot edit yourself",
     "filterAll": "All",
     "filterActive": "Active (30d)",
@@ -518,5 +526,12 @@
     "rejectConfirm": "Reject",
     "submittedAt": "Submitted",
     "ownerNote": "Note"
+  },
+  "deactivated": {
+    "title": "Account Deactivated",
+    "subtitle": "Your account has been deactivated by an administrator.",
+    "reasonLabel": "Reason",
+    "contactHint": "Please contact support if you believe this is a mistake.",
+    "backToLogin": "Back to login"
   }
 }

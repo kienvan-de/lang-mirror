@@ -224,6 +224,12 @@ export class OidcService {
       throw new ForbiddenError("This account is not allowed to log in");
     }
 
+    // 6. Block login for deactivated users
+    if (user!.is_active === 0) {
+      const reason = user!.deactivation_reason ?? "";
+      throw new ForbiddenError(`DEACTIVATED:${reason}`);
+    }
+
     // 6. Create session
     const sessionId = crypto.randomUUID();
     const authUser: AuthUser = {
@@ -253,9 +259,19 @@ export class OidcService {
 
   async renewSession(sessionId: string): Promise<void> {
     const user = await this.cache.get<AuthUser>(`session:${sessionId}`);
-    if (user) {
-      await this.cache.set(`session:${sessionId}`, user, SESSION_TTL);
+    if (!user) return;
+
+    // Re-check is_active on every renewal — invalidates sessions immediately
+    // after an admin deactivates the user without waiting for session expiry.
+    const row = await this.db.queryFirst<{ is_active: number; deactivation_reason: string | null }>(
+      "SELECT is_active, deactivation_reason FROM users WHERE id = ?", user.id
+    );
+    if (!row || row.is_active === 0) {
+      await this.cache.delete(`session:${sessionId}`);
+      return;
     }
+
+    await this.cache.set(`session:${sessionId}`, user, SESSION_TTL);
   }
 
   async deleteSession(sessionId: string): Promise<void> {

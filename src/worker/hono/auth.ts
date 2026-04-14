@@ -46,9 +46,19 @@ authRouter.get("/callback/:providerId", async (c) => {
   if (error) return c.redirect(loginUrl(error), 302);
   if (!code || !state) return c.redirect(loginUrl("missing_params"), 302);
 
-  const { sessionId } = await oidc.handleCallback(
-    c.req.param("providerId"), code, state
-  );
+  let sessionId: string;
+  try {
+    ({ sessionId } = await oidc.handleCallback(
+      c.req.param("providerId"), code, state
+    ));
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : "";
+    if (msg.startsWith("DEACTIVATED:")) {
+      const reason = encodeURIComponent(msg.slice("DEACTIVATED:".length));
+      return c.redirect(`${base}/deactivated?reason=${reason}`, 302);
+    }
+    return c.redirect(loginUrl(msg || "login_failed"), 302);
+  }
 
   // Use __Host- prefix on HTTPS (production) for maximum cookie security.
   // Fall back to plain "session" on HTTP (local dev) — __Host- is silently

@@ -496,6 +496,14 @@
     "demote": "관리자 해제",
     "deleteUser": "삭제",
     "deleteUserConfirm": "사용자 {{name}}을(를) 삭제하시겠습니까? 모든 주제와 데이터가 삭제됩니다.",
+    "deactivated": "비활성화됨",
+    "deactivateUser": "비활성화",
+    "activateUser": "활성화",
+    "deactivateConfirmTitle": "{{name}}을 비활성화하시겠습니까?",
+    "deactivateConfirmBody": "이 사용자는 더 이상 로그인할 수 없습니다. 활성 세션은 다음 요청 시 무효화됩니다.",
+    "deactivateReasonLabel": "사유 (사용자에게 표시됨)",
+    "deactivateReasonPlaceholder": "예: 서비스 약관 위반",
+    "deactivateConfirmOk": "비활성화",
     "cannotEditSelf": "자신의 계정은 편집할 수 없습니다",
     "filterAll": "전체",
     "filterActive": "활성 (30일)",
@@ -519,5 +527,12 @@
     "backToAdmin": "관리자",
     "noTags": "태그가 없습니다.",
     "quickActions": "빠른 작업"
+  },
+  "deactivated": {
+    "title": "계정이 비활성화되었습니다",
+    "subtitle": "관리자에 의해 계정이 비활성화되었습니다.",
+    "reasonLabel": "사유",
+    "contactHint": "실수라고 생각되면 지원팀에 문의하세요.",
+    "backToLogin": "로그인으로 돌아가기"
   }
 }

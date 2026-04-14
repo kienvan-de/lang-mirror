@@ -496,6 +496,14 @@
     "demote": "取消管理员",
     "deleteUser": "删除",
     "deleteUserConfirm": "删除用户 {{name}}？其所有主题和数据将被删除。",
+    "deactivated": "已停用",
+    "deactivateUser": "停用",
+    "activateUser": "启用",
+    "deactivateConfirmTitle": "停用 {{name}}？",
+    "deactivateConfirmBody": "该用户将无法再登录。活跃会话将在下次请求时失效。",
+    "deactivateReasonLabel": "原因（显示给用户）",
+    "deactivateReasonPlaceholder": "例如：违反服务条款",
+    "deactivateConfirmOk": "停用",
     "cannotEditSelf": "无法编辑自己的账户",
     "filterAll": "全部",
     "filterActive": "活跃（30天）",
@@ -519,5 +527,12 @@
     "backToAdmin": "管理",
     "noTags": "暂无标签。",
     "quickActions": "快捷操作"
+  },
+  "deactivated": {
+    "title": "账户已停用",
+    "subtitle": "您的账户已被管理员停用。",
+    "reasonLabel": "原因",
+    "contactHint": "如果您认为这是错误，请联系支持团队。",
+    "backToLogin": "返回登录"
   }
 }

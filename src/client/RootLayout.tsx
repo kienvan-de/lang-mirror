@@ -14,7 +14,7 @@ const NAV_ITEMS = [
   { to: "/settings" as const, labelKey: "nav.settings" },
 ] as const;
 
-const PUBLIC_PATHS = new Set(["/login"]);
+const PUBLIC_PATHS = new Set(["/login", "/deactivated"]);
 
 export function RootLayout() {
   const { t, i18n } = useTranslation();

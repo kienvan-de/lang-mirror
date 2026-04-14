@@ -496,6 +496,14 @@
     "demote": "Révoquer admin",
     "deleteUser": "Supprimer",
     "deleteUserConfirm": "Supprimer {{name}} ? Tous ses sujets et données seront supprimés.",
+    "deactivated": "Désactivé",
+    "deactivateUser": "Désactiver",
+    "activateUser": "Activer",
+    "deactivateConfirmTitle": "Désactiver {{name}} ?",
+    "deactivateConfirmBody": "Cet utilisateur ne pourra plus se connecter. Les sessions actives seront invalidées à la prochaine requête.",
+    "deactivateReasonLabel": "Raison (affichée à l'utilisateur)",
+    "deactivateReasonPlaceholder": "Ex : Violation des conditions d'utilisation",
+    "deactivateConfirmOk": "Désactiver",
     "cannotEditSelf": "Impossible de modifier son propre compte",
     "filterAll": "Tous",
     "filterActive": "Actifs (30j)",
@@ -519,5 +527,12 @@
     "backToAdmin": "Admin",
     "noTags": "Aucune étiquette pour l'instant.",
     "quickActions": "Actions rapides"
+  },
+  "deactivated": {
+    "title": "Compte désactivé",
+    "subtitle": "Votre compte a été désactivé par un administrateur.",
+    "reasonLabel": "Raison",
+    "contactHint": "Veuillez contacter le support si vous pensez qu'il s'agit d'une erreur.",
+    "backToLogin": "Retour à la connexion"
   }
 }

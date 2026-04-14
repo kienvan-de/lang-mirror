@@ -496,6 +496,14 @@
     "demote": "Hạ cấp Admin",
     "deleteUser": "Xóa",
     "deleteUserConfirm": "Xóa người dùng {{name}}? Tất cả chủ đề và dữ liệu của họ sẽ bị xóa.",
+    "deactivated": "Đã vô hiệu hóa",
+    "deactivateUser": "Vô hiệu hóa",
+    "activateUser": "Kích hoạt",
+    "deactivateConfirmTitle": "Vô hiệu hóa {{name}}?",
+    "deactivateConfirmBody": "Người dùng này sẽ không thể đăng nhập nữa. Các phiên đang hoạt động sẽ bị vô hiệu hóa ở lần yêu cầu tiếp theo.",
+    "deactivateReasonLabel": "Lý do (hiển thị cho người dùng)",
+    "deactivateReasonPlaceholder": "Ví dụ: Vi phạm điều khoản dịch vụ",
+    "deactivateConfirmOk": "Vô hiệu hóa",
     "cannotEditSelf": "Không thể chỉnh sửa bản thân",
     "filterAll": "Tất cả",
     "filterActive": "Hoạt động (30 ngày)",
@@ -519,5 +527,12 @@
     "backToAdmin": "Quản trị",
     "noTags": "Chưa có nhãn nào.",
     "quickActions": "Thao tác nhanh"
+  },
+  "deactivated": {
+    "title": "Tài khoản bị vô hiệu hóa",
+    "subtitle": "Tài khoản của bạn đã bị quản trị viên vô hiệu hóa.",
+    "reasonLabel": "Lý do",
+    "contactHint": "Vui lòng liên hệ hỗ trợ nếu bạn cho rằng đây là nhầm lẫn.",
+    "backToLogin": "Quay lại đăng nhập"
   }
 }

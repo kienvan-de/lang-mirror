@@ -2,8 +2,7 @@
  * Platform-agnostic object storage interface.
  *
  * Implemented by:
- *   - FilesystemAdapter  (src/server/adapters/storage.adapter.ts)  — local disk (~/.lang-mirror/)
- *   - R2Adapter          (src/worker/adapters/storage.adapter.ts)  — Cloudflare R2
+ *   - R2Adapter  (src/worker/adapters/storage.adapter.ts)  — Cloudflare R2
  */
 
 export interface StoredObject {

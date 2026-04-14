@@ -48,18 +48,18 @@ topicsRouter.put("/:id/unpublish", adminGuard, validateUuidParam("id"), async (c
 
 topicsRouter.get("/:id", validateUuidParam("id"), async (c) => {
   const { topics } = await buildContext(c.env);
-  return c.json(await topics.get(c.req.param("id")));
+  return c.json(await topics.get(c.req.param("id")!));
 });
 
 topicsRouter.put("/:id", validateUuidParam("id"), async (c) => {
   const body = await c.req.json<{ title?: string; description?: string }>();
   const { topics } = await buildContext(c.env);
-  return c.json(await topics.update(c.req.param("id"), body));
+  return c.json(await topics.update(c.req.param("id")!, body));
 });
 
 topicsRouter.delete("/:id", validateUuidParam("id"), async (c) => {
   const { topics } = await buildContext(c.env);
-  await topics.delete(c.req.param("id"));
+  await topics.delete(c.req.param("id")!);
   return c.json({ deleted: true });
 });
 

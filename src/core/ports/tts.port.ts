@@ -2,8 +2,7 @@
  * Platform-agnostic TTS synthesis interface.
  *
  * Implemented by:
- *   - NodeEdgeTTSAdapter  (src/server/adapters/tts.adapter.ts)  — node-edge-tts (Bun/Node)
- *   - EdgeTTSAdapter      (src/worker/adapters/tts.adapter.ts)  — CF Workers fetch() WebSocket
+ *   - EdgeTTSAdapter  (src/worker/adapters/tts.adapter.ts)  — CF Workers fetch() + WebSocket
  */
 export interface ITTSProvider {
   /**

@@ -1,9 +1,6 @@
 /**
  * Core import service — parse/validate + DB write.
- *
- * Parsing supports JSON + YAML (via optional yamlParse callback injected by caller).
- * This keeps the core free of js-yaml dependency while desktop can inject it.
- * CF Worker passes undefined (JSON-only).
+ * Accepts JSON import files only.
  */
 import type { IDatabase } from "../ports/db.port";
 import { NotFoundError, ConflictError, ForbiddenError, ValidationError as DomainValidationError } from "../errors";
@@ -246,23 +243,15 @@ export function validateTopic(data: unknown): { result: LessonImportTopic | null
 
 /**
  * Parse file content to a LessonImport.
- * @param yamlParse  Optional YAML parser — pass `yaml.load` from js-yaml on desktop; omit/undefined on CF (JSON-only)
+ * JSON-only — YAML support was removed along with the desktop server.
  */
 export function parseAndValidate(
   content: string,
   filename: string,
-  yamlParse?: (s: string) => unknown
 ): ParseResult {
-  const ext = filename.split(".").pop()?.toLowerCase() ?? "";
   let data: unknown;
-
-  if ((ext === "yaml" || ext === "yml") && yamlParse) {
-    try { data = yamlParse(content); }
-    catch (e) { return { data: null, errors: [], parseError: `YAML parse error: ${(e as Error).message}` }; }
-  } else {
-    try { data = JSON.parse(content); }
-    catch (e) { return { data: null, errors: [], parseError: `JSON parse error: ${(e as Error).message}` }; }
-  }
+  try { data = JSON.parse(content); }
+  catch (e) { return { data: null, errors: [], parseError: `JSON parse error: ${(e as Error).message}` }; }
 
   const format = detectFormat(data);
   if (format === "invalid") {

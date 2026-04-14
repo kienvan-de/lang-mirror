@@ -3,7 +3,7 @@
  * Serves the bundled fallback list — no network refresh needed since
  * CF Workers are stateless and the bundle is always up to date at deploy time.
  */
-import voicesFallback from "../../server/data/voices-fallback.json";
+import voicesFallback from "../data/voices-fallback.json";
 
 export interface Voice {
   name: string;        // "ja-JP-NanamiNeural"

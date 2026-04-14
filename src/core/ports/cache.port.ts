@@ -6,8 +6,7 @@
  *   - Sessions (TTL 7 days, rolling)
  *
  * Implemented by:
- *   - MemoryCacheAdapter  (src/server/adapters/cache.adapter.ts)  — in-memory Map
- *   - KVCacheAdapter      (src/worker/adapters/cache.adapter.ts)  — Cloudflare KV
+ *   - KVCacheAdapter  (src/worker/adapters/cache.adapter.ts)  — Cloudflare KV
  */
 export interface ICache {
   /** Get a cached value. Returns null if not found or expired. */

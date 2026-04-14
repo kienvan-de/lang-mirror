@@ -40,8 +40,8 @@ ttsRouter.get("/preview", ttsPreviewRateLimit, async (c) => {
   if (!text || !voice) {
     return c.json({ error: "text and voice are required" }, 400);
   }
-  if (text.length > 500) {
-    return c.json({ error: "text must be 500 characters or less" }, 400);
+  if (text.length > 150) {
+    return c.json({ error: "text must be 150 characters or less" }, 400);
   }
 
   const { ttsService } = await buildContext(c.env);

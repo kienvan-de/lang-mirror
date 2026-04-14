@@ -14,7 +14,8 @@ const NAV_ITEMS = [
   { to: "/settings" as const, labelKey: "nav.settings" },
 ] as const;
 
-const PUBLIC_PATHS = new Set(["/login", "/deactivated", "/privacy", "/onboarding"]);
+const PUBLIC_PATHS    = new Set(["/login", "/deactivated", "/privacy"]);
+const FULL_PAGE_PATHS = new Set(["/onboarding"]); // auth required, but no sidebar
 
 export function RootLayout() {
   const { t, i18n } = useTranslation();
@@ -43,7 +44,8 @@ export function RootLayout() {
       !isLoading && user &&               // authenticated
       !isLoadingConfig &&                 // settings loaded
       !hasConfig &&                       // native language not set
-      !PUBLIC_PATHS.has(location.pathname) // not already on a public/onboarding page
+      !PUBLIC_PATHS.has(location.pathname) &&
+      !FULL_PAGE_PATHS.has(location.pathname) // not already on onboarding
     ) {
       navigate({ to: "/onboarding" });
     }
@@ -60,6 +62,23 @@ export function RootLayout() {
   if (dark) document.documentElement.classList.add("dark");
 
   if (PUBLIC_PATHS.has(location.pathname)) {
+    return (
+      <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+        <Outlet />
+      </div>
+    );
+  }
+
+  // Auth-required full-page routes (no sidebar) — onboarding, etc.
+  if (FULL_PAGE_PATHS.has(location.pathname)) {
+    if (isLoading) {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-950">
+          <div className="w-8 h-8 rounded-full border-2 border-blue-400/40 border-t-blue-500 animate-spin" />
+        </div>
+      );
+    }
+    if (!user) return null; // auth useEffect will redirect to /login
     return (
       <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
         <Outlet />

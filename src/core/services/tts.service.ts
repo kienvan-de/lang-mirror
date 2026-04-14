@@ -180,24 +180,22 @@ export class TTSService {
 
     // tee() splits the stream into two independent readers:
     //   branch[0] → returned to caller → piped to HTTP response
-    //   branch[1] → written to R2/filesystem cache in the background
+    //   branch[1] → buffered to ArrayBuffer then written to R2 cache
     const [responseStream, cacheStream] = audioStream.tee();
 
     // Schedule the R2 write as a background task.
     // On CF Workers: ctx.waitUntil() keeps the Worker alive until the write finishes
     // even after the HTTP response has been flushed to the client.
-    // On the desktop server: ctx is a no-op shim — the Bun process stays alive anyway.
     //
-    // ⚠️ Known CF Workers SDK bug: R2 put() rejects a ReadableStream from .tee() with
-    // "Provided readable stream must have a known length (FixedLengthStream)".
-    // The write silently fails on cache miss — audio still plays but is never cached.
-    // Tracked at: https://github.com/cloudflare/workers-sdk/issues/6425
-    // Fix: buffer to ArrayBuffer before put() once the bug is resolved upstream.
-    const writePromise = this.storage.put(cacheKey, cacheStream, { contentType: "audio/mpeg" });
+    // CF R2 put() requires a known-length body — a tee'd ReadableStream has no
+    // Content-Length so R2 rejects it. Buffer the cache branch to an ArrayBuffer
+    // first, which has a known byteLength that R2 can accept.
+    const writePromise = new Response(cacheStream).arrayBuffer()
+      .then(buf => this.storage.put(cacheKey, buf, { contentType: "audio/mpeg" }))
+      .catch(err => console.warn(`[tts] Cache write failed for ${cacheKey}:`, err));
     if (this.ctx) {
       this.ctx.waitUntil(writePromise);
     } else {
-      // No ctx (e.g. unit tests) — await directly so the put still completes
       await writePromise;
     }
 

@@ -6,10 +6,11 @@ import { CheckIcon, ChevronRightIcon, ShieldCheckIcon } from "@heroicons/react/2
 import { api } from "../lib/api";
 import { langFlag, langName } from "../lib/lang";
 import { Footer } from "../components/Footer";
+import { SUPPORTED_LANGS } from "../lib/supported-langs";
 
 const LANG_MIRROR_LANG_KEY = "lang-mirror-lang";
 
-const SUPPORTED_LANGS = ["en", "vi", "ja", "de", "fr", "zh", "ko"];
+
 
 type Step = 1 | 2 | 3 | 4;
 

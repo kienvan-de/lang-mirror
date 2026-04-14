@@ -1,6 +1,7 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
+import { SUPPORTED_LANGS } from "../lib/supported-langs";
 
 import en from "./locales/en.json";
 import vi from "./locales/vi.json";
@@ -24,7 +25,7 @@ i18n
       ko: { translation: ko },
     },
     fallbackLng: "en",
-    supportedLngs: ["en", "vi", "de", "ja", "fr", "zh", "ko"],
+    supportedLngs: [...SUPPORTED_LANGS],
     detection: {
       order: ["localStorage"],
       lookupLocalStorage: "lang-mirror-lang",

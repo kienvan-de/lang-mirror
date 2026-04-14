@@ -9,6 +9,7 @@ import { defaultVoiceForLang } from "../hooks/useTTS";
 import { useAuth } from "../hooks/useAuth";
 import { useUserLanguages } from "../hooks/useUserLanguages";
 import { Footer } from "../components/Footer";
+import { SUPPORTED_LANGS } from "../lib/supported-langs";
 
 // ── Reusable save feedback hook ───────────────────────────────────────────────
 
@@ -592,7 +593,7 @@ function UserLanguageSection({
   const { t } = useTranslation();
   // Supported UI languages — intentionally limited to the languages
   // the app is translated into and tested against.
-  const availableLangs = ["en", "vi", "ja", "de", "fr", "zh", "ko"].map(code => ({ langCode: code }));
+  const availableLangs = SUPPORTED_LANGS.map(code => ({ langCode: code }));
 
   const [native, setNative] = useState<string>(nativeLanguage ?? "");
   const [learning, setLearning] = useState<string[]>(learningLanguages);

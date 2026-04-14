@@ -85,10 +85,10 @@ export function PrivacyPage() {
             <p>
               {t("privacy.section7Body")}{" "}
               <a
-                href="mailto:privacy@kienvan.de"
+                href="mailto:support@langmirror.today"
                 className="text-blue-600 dark:text-blue-400 hover:underline"
               >
-                privacy@kienvan.de
+                support@langmirror.today
               </a>
             </p>
           </section>

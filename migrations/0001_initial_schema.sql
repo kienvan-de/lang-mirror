@@ -3,7 +3,7 @@
 -- To regenerate: bun run cf:schema:gen
 
 CREATE TABLE IF NOT EXISTS oidc_providers (
-    id            TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
+    id            TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(4))) || '-' || lower(hex(randomblob(2))) || '-4' || substr(lower(hex(randomblob(2))),2) || '-' || substr('89ab',abs(random()) % 4 + 1, 1) || substr(lower(hex(randomblob(2))),2) || '-' || lower(hex(randomblob(6)))),
     provider      TEXT NOT NULL,
     display_name  TEXT NOT NULL,
     client_id     TEXT NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS oidc_providers (
   );
 
 CREATE TABLE IF NOT EXISTS users (
-    id                TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
+    id                TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(4))) || '-' || lower(hex(randomblob(2))) || '-4' || substr(lower(hex(randomblob(2))),2) || '-' || substr('89ab',abs(random()) % 4 + 1, 1) || substr(lower(hex(randomblob(2))),2) || '-' || lower(hex(randomblob(6)))),
     oidc_provider_id  TEXT REFERENCES oidc_providers(id) ON DELETE RESTRICT,
     user_id           TEXT NOT NULL,
     email             TEXT,
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS users (
   );
 
 CREATE TABLE IF NOT EXISTS topics (
-    id          TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
+    id          TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(4))) || '-' || lower(hex(randomblob(2))) || '-4' || substr(lower(hex(randomblob(2))),2) || '-' || substr('89ab',abs(random()) % 4 + 1, 1) || substr(lower(hex(randomblob(2))),2) || '-' || lower(hex(randomblob(6)))),
     owner_id    TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     title       TEXT NOT NULL,
     description      TEXT,
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS topics (
   );
 
 CREATE TABLE IF NOT EXISTS topic_language_versions (
-    id            TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
+    id            TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(4))) || '-' || lower(hex(randomblob(2))) || '-4' || substr(lower(hex(randomblob(2))),2) || '-' || substr('89ab',abs(random()) % 4 + 1, 1) || substr(lower(hex(randomblob(2))),2) || '-' || lower(hex(randomblob(6)))),
     topic_id      TEXT NOT NULL REFERENCES topics(id) ON DELETE CASCADE,
     language_code TEXT NOT NULL,
     title         TEXT,
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS topic_language_versions (
   );
 
 CREATE TABLE IF NOT EXISTS sentences (
-    id            TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
+    id            TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(4))) || '-' || lower(hex(randomblob(2))) || '-4' || substr(lower(hex(randomblob(2))),2) || '-' || substr('89ab',abs(random()) % 4 + 1, 1) || substr(lower(hex(randomblob(2))),2) || '-' || lower(hex(randomblob(6)))),
     version_id    TEXT NOT NULL REFERENCES topic_language_versions(id) ON DELETE CASCADE,
     text          TEXT NOT NULL,
     notes         TEXT,
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS sentences (
   );
 
 CREATE TABLE IF NOT EXISTS practice_attempts (
-    id           TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
+    id           TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(4))) || '-' || lower(hex(randomblob(2))) || '-4' || substr(lower(hex(randomblob(2))),2) || '-' || substr('89ab',abs(random()) % 4 + 1, 1) || substr(lower(hex(randomblob(2))),2) || '-' || lower(hex(randomblob(6)))),
     owner_id     TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     sentence_id  TEXT NOT NULL REFERENCES sentences(id) ON DELETE CASCADE,
     version_id   TEXT NOT NULL REFERENCES topic_language_versions(id) ON DELETE CASCADE,
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS settings (
   );
 
 CREATE TABLE IF NOT EXISTS paths (
-    id          TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
+    id          TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(4))) || '-' || lower(hex(randomblob(2))) || '-4' || substr(lower(hex(randomblob(2))),2) || '-' || substr('89ab',abs(random()) % 4 + 1, 1) || substr(lower(hex(randomblob(2))),2) || '-' || lower(hex(randomblob(6)))),
     owner_id    TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     name        TEXT NOT NULL DEFAULT 'My Learning Path',
     description TEXT,
@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS path_topics (
   );
 
 CREATE TABLE IF NOT EXISTS tags (
-    id         TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
+    id         TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(4))) || '-' || lower(hex(randomblob(2))) || '-4' || substr(lower(hex(randomblob(2))),2) || '-' || substr('89ab',abs(random()) % 4 + 1, 1) || substr(lower(hex(randomblob(2))),2) || '-' || lower(hex(randomblob(6)))),
     type       TEXT NOT NULL DEFAULT 'custom',
     name       TEXT NOT NULL,
     color      TEXT NOT NULL DEFAULT '#6366f1',
@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS topic_tags (
   );
 
 CREATE TABLE IF NOT EXISTS topic_approval_requests (
-    id             TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(16)))),
+    id             TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(4))) || '-' || lower(hex(randomblob(2))) || '-4' || substr(lower(hex(randomblob(2))),2) || '-' || substr('89ab',abs(random()) % 4 + 1, 1) || substr(lower(hex(randomblob(2))),2) || '-' || lower(hex(randomblob(6)))),
     topic_id       TEXT NOT NULL REFERENCES topics(id) ON DELETE CASCADE,
     owner_id       TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     note           TEXT,

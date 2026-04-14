@@ -15,11 +15,12 @@ export class PathsService {
     );
 
     if (!path) {
+      const pathId = crypto.randomUUID();
       await this.db.run(
-        "INSERT INTO paths (owner_id, name) VALUES (?, 'My Learning Path')", userId
+        "INSERT INTO paths (id, owner_id, name) VALUES (?, ?, 'My Learning Path')", pathId, userId
       );
       path = (await this.db.queryFirst<PathRow>(
-        "SELECT * FROM paths WHERE owner_id = ? LIMIT 1", userId
+        "SELECT * FROM paths WHERE id = ?", pathId
       ))!;
     }
 
@@ -141,11 +142,12 @@ export class PathsService {
       "SELECT * FROM paths WHERE owner_id = ? LIMIT 1", userId
     );
     if (!myPath) {
+      const newPathId = crypto.randomUUID();
       await this.db.run(
-        "INSERT INTO paths (owner_id, name) VALUES (?, ?)", userId, source.name
+        "INSERT INTO paths (id, owner_id, name) VALUES (?, ?, ?)", newPathId, userId, source.name
       );
       myPath = (await this.db.queryFirst<PathRow>(
-        "SELECT * FROM paths WHERE owner_id = ? LIMIT 1", userId
+        "SELECT * FROM paths WHERE id = ?", newPathId
       ))!;
     }
 

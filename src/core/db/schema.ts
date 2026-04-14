@@ -9,7 +9,7 @@ export const DDL_STATEMENTS: string[] = [
 
   // ── OIDC providers ────────────────────────────────────────────────────────
   `CREATE TABLE IF NOT EXISTS oidc_providers (
-    id            TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
+    id            TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(4))) || '-' || lower(hex(randomblob(2))) || '-4' || substr(lower(hex(randomblob(2))),2) || '-' || substr('89ab',abs(random()) % 4 + 1, 1) || substr(lower(hex(randomblob(2))),2) || '-' || lower(hex(randomblob(6)))),
     provider      TEXT NOT NULL,
     display_name  TEXT NOT NULL,
     client_id     TEXT NOT NULL,
@@ -25,7 +25,7 @@ export const DDL_STATEMENTS: string[] = [
 
   // ── Users ─────────────────────────────────────────────────────────────────
   `CREATE TABLE IF NOT EXISTS users (
-    id                TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
+    id                TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(4))) || '-' || lower(hex(randomblob(2))) || '-4' || substr(lower(hex(randomblob(2))),2) || '-' || substr('89ab',abs(random()) % 4 + 1, 1) || substr(lower(hex(randomblob(2))),2) || '-' || lower(hex(randomblob(6)))),
     oidc_provider_id  TEXT REFERENCES oidc_providers(id) ON DELETE RESTRICT,
     user_id           TEXT NOT NULL,
     email             TEXT,
@@ -43,7 +43,7 @@ export const DDL_STATEMENTS: string[] = [
 
   // ── Topics ────────────────────────────────────────────────────────────────
   `CREATE TABLE IF NOT EXISTS topics (
-    id          TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
+    id          TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(4))) || '-' || lower(hex(randomblob(2))) || '-4' || substr(lower(hex(randomblob(2))),2) || '-' || substr('89ab',abs(random()) % 4 + 1, 1) || substr(lower(hex(randomblob(2))),2) || '-' || lower(hex(randomblob(6)))),
     owner_id    TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     title       TEXT NOT NULL,
     description      TEXT,
@@ -57,7 +57,7 @@ export const DDL_STATEMENTS: string[] = [
 
   // ── Topic language versions ───────────────────────────────────────────────
   `CREATE TABLE IF NOT EXISTS topic_language_versions (
-    id            TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
+    id            TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(4))) || '-' || lower(hex(randomblob(2))) || '-4' || substr(lower(hex(randomblob(2))),2) || '-' || substr('89ab',abs(random()) % 4 + 1, 1) || substr(lower(hex(randomblob(2))),2) || '-' || lower(hex(randomblob(6)))),
     topic_id      TEXT NOT NULL REFERENCES topics(id) ON DELETE CASCADE,
     language_code TEXT NOT NULL,
     title         TEXT,
@@ -73,7 +73,7 @@ export const DDL_STATEMENTS: string[] = [
 
   // ── Sentences ─────────────────────────────────────────────────────────────
   `CREATE TABLE IF NOT EXISTS sentences (
-    id            TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
+    id            TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(4))) || '-' || lower(hex(randomblob(2))) || '-4' || substr(lower(hex(randomblob(2))),2) || '-' || substr('89ab',abs(random()) % 4 + 1, 1) || substr(lower(hex(randomblob(2))),2) || '-' || lower(hex(randomblob(6)))),
     version_id    TEXT NOT NULL REFERENCES topic_language_versions(id) ON DELETE CASCADE,
     text          TEXT NOT NULL,
     notes         TEXT,
@@ -84,7 +84,7 @@ export const DDL_STATEMENTS: string[] = [
 
   // ── Practice attempts ─────────────────────────────────────────────────────
   `CREATE TABLE IF NOT EXISTS practice_attempts (
-    id           TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
+    id           TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(4))) || '-' || lower(hex(randomblob(2))) || '-4' || substr(lower(hex(randomblob(2))),2) || '-' || substr('89ab',abs(random()) % 4 + 1, 1) || substr(lower(hex(randomblob(2))),2) || '-' || lower(hex(randomblob(6)))),
     owner_id     TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     sentence_id  TEXT NOT NULL REFERENCES sentences(id) ON DELETE CASCADE,
     version_id   TEXT NOT NULL REFERENCES topic_language_versions(id) ON DELETE CASCADE,
@@ -103,7 +103,7 @@ export const DDL_STATEMENTS: string[] = [
 
   // ── Learning paths ────────────────────────────────────────────────────────
   `CREATE TABLE IF NOT EXISTS paths (
-    id          TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
+    id          TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(4))) || '-' || lower(hex(randomblob(2))) || '-4' || substr(lower(hex(randomblob(2))),2) || '-' || substr('89ab',abs(random()) % 4 + 1, 1) || substr(lower(hex(randomblob(2))),2) || '-' || lower(hex(randomblob(6)))),
     owner_id    TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     name        TEXT NOT NULL DEFAULT 'My Learning Path',
     description TEXT,
@@ -121,7 +121,7 @@ export const DDL_STATEMENTS: string[] = [
 
   // ── Tags ──────────────────────────────────────────────────────────────────
   `CREATE TABLE IF NOT EXISTS tags (
-    id         TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(8)))),
+    id         TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(4))) || '-' || lower(hex(randomblob(2))) || '-4' || substr(lower(hex(randomblob(2))),2) || '-' || substr('89ab',abs(random()) % 4 + 1, 1) || substr(lower(hex(randomblob(2))),2) || '-' || lower(hex(randomblob(6)))),
     type       TEXT NOT NULL DEFAULT 'custom',
     name       TEXT NOT NULL,
     color      TEXT NOT NULL DEFAULT '#6366f1',
@@ -139,7 +139,7 @@ export const DDL_STATEMENTS: string[] = [
 
   // ── Topic approval requests ───────────────────────────────────────────────
   `CREATE TABLE IF NOT EXISTS topic_approval_requests (
-    id             TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(16)))),
+    id             TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(4))) || '-' || lower(hex(randomblob(2))) || '-4' || substr(lower(hex(randomblob(2))),2) || '-' || substr('89ab',abs(random()) % 4 + 1, 1) || substr(lower(hex(randomblob(2))),2) || '-' || lower(hex(randomblob(6)))),
     topic_id       TEXT NOT NULL REFERENCES topics(id) ON DELETE CASCADE,
     owner_id       TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     note           TEXT,

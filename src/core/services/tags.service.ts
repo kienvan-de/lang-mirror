@@ -25,8 +25,8 @@ export class TagsService {
     const color = data.color?.trim() ?? "#6366f1";
 
     await this.db.run(
-      "INSERT INTO tags (type, name, color, created_by) VALUES (?, ?, ?, ?)",
-      type, name, color, auth.id
+      "INSERT INTO tags (id, type, name, color, created_by) VALUES (?, ?, ?, ?, ?)",
+      crypto.randomUUID(), type, name, color, auth.id
     );
 
     return (await this.db.queryFirst<TagRow>(

@@ -198,14 +198,15 @@ export class OidcService {
 
     // 4. Upsert user — always "user" role, promote to "admin" manually via UsersService
     await this.db.run(
-      `INSERT INTO users (oidc_provider_id, user_id, email, email_verified, name, avatar_url, role)
-       VALUES (?, ?, ?, ?, ?, ?, 'user')
+      `INSERT INTO users (id, oidc_provider_id, user_id, email, email_verified, name, avatar_url, role)
+       VALUES (?, ?, ?, ?, ?, ?, ?, 'user')
        ON CONFLICT(oidc_provider_id, user_id) WHERE oidc_provider_id IS NOT NULL DO UPDATE SET
          email          = excluded.email,
          email_verified = excluded.email_verified,
          name           = excluded.name,
          avatar_url     = excluded.avatar_url,
          updated_at     = strftime('%Y-%m-%dT%H:%M:%fZ', 'now')`,
+      crypto.randomUUID(),   // only used on first INSERT; ignored on conflict UPDATE
       providerId,
       userInfo.sub,
       userInfo.email ?? null,
@@ -285,8 +286,9 @@ export class OidcService {
 
     await this.db.run(
       `INSERT INTO oidc_providers
-       (provider, display_name, client_id, client_secret, redirect_uri, auth_url, token_url, userinfo_url, scope, enabled)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       (id, provider, display_name, client_id, client_secret, redirect_uri, auth_url, token_url, userinfo_url, scope, enabled)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      crypto.randomUUID(),
       data.provider, data.display_name, data.client_id,
       data.client_secret ?? null, data.redirect_uri,
       data.auth_url, data.token_url, data.userinfo_url,

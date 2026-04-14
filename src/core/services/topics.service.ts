@@ -83,13 +83,14 @@ export class TopicsService {
     if (!t) throw new ValidationError("title is required", "title");
     if (t.length > 200) throw new ValidationError("title must be 200 characters or fewer", "title");
 
+    const topicId = crypto.randomUUID();
     await this.db.run(
-      "INSERT INTO topics (owner_id, title, description) VALUES (?, ?, ?)",
-      auth.id, t, description?.trim() ?? null
+      "INSERT INTO topics (id, owner_id, title, description) VALUES (?, ?, ?, ?)",
+      topicId, auth.id, t, description?.trim() ?? null
     );
 
     const topic = (await this.db.queryFirst<TopicRow>(
-      "SELECT * FROM topics WHERE owner_id = ? ORDER BY created_at DESC LIMIT 1", auth.id
+      "SELECT * FROM topics WHERE id = ?", topicId
     ))!;
 
     if (tagIds && tagIds.length > 0) {

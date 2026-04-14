@@ -57,8 +57,9 @@ export class VersionsService {
 
     await this.db.run(
       `INSERT INTO topic_language_versions
-       (topic_id, language_code, title, description, voice_name, speed, pitch, position)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+       (id, topic_id, language_code, title, description, voice_name, speed, pitch, position)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      crypto.randomUUID(),
       topicId, lang,
       data.title?.trim() ?? null,
       data.description?.trim() ?? null,
@@ -215,7 +216,8 @@ export class VersionsService {
     const position = data.position !== undefined ? data.position : (maxPos?.m ?? -1) + 1;
 
     await this.db.run(
-      "INSERT INTO sentences (version_id, text, notes, position) VALUES (?, ?, ?, ?)",
+      "INSERT INTO sentences (id, version_id, text, notes, position) VALUES (?, ?, ?, ?, ?)",
+      crypto.randomUUID(),
       versionId, text,
       data.notes ? JSON.stringify(data.notes) : null,
       position

@@ -44,8 +44,8 @@ export class PracticeService {
     if (!sentence) throw new NotFoundError(`Sentence '${data.sentence_id}' not found`);
 
     await this.db.run(
-      "INSERT INTO practice_attempts (owner_id, sentence_id, version_id, topic_id) VALUES (?, ?, ?, ?)",
-      auth.id, data.sentence_id, data.version_id, data.topic_id
+      "INSERT INTO practice_attempts (id, owner_id, sentence_id, version_id, topic_id) VALUES (?, ?, ?, ?, ?)",
+      crypto.randomUUID(), auth.id, data.sentence_id, data.version_id, data.topic_id
     );
 
     return (await this.db.queryFirst<PracticeAttemptRow>(

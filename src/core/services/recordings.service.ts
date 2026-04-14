@@ -155,7 +155,9 @@ export class RecordingsService {
 
   /**
    * Returns the set of sentenceIds for which the current user has a recording
-   * in the given version. Probes R2 by listing the version's prefix.
+   * in the given version. Probes R2 by listing the caller's own prefix only —
+   * no ownership check needed since the R2 key is scoped to the caller's userId.
+   * Works for both owned and published (shared) topics.
    */
   async hasRecordingsForVersion(versionId: string): Promise<Set<string>> {
     const { id: userId } = requireAuth();
@@ -165,12 +167,9 @@ export class RecordingsService {
     );
     if (!version) throw new NotFoundError(`Version '${versionId}' not found`);
 
-    const topic = await this.db.queryFirst<{ owner_id: string }>(
-      "SELECT owner_id FROM topics WHERE id = ?", version.topic_id
-    );
-    if (!topic) throw new NotFoundError("Topic not found");
-    if (!canAccess(topic.owner_id)) throw new ForbiddenError("You do not own this topic");
-
+    // No topic ownership check — we only read from recordings/{userId}/... which
+    // is already scoped to the caller. Any authenticated user can check their own
+    // recordings for any version they can access (owned or published).
     const prefix = `recordings/${userId}/${version.topic_id}/${version.language_code}/`;
 
     const sentenceIds = new Set<string>();

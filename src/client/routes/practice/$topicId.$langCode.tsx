@@ -675,7 +675,10 @@ export function PracticePage() {
 
             {/* Sibling sentences (other-language versions at same position) */}
             {showTranslation && (() => {
-              const siblingVersions = allVersions.filter((v) => v.language_code !== langCode);
+              // Use ALL topic versions (not the practice-tab-filtered allVersions) so
+              // the native language version is included as a translation source even
+              // though it is excluded from practice tabs.
+              const siblingVersions = (topic?.versions ?? []).filter((v) => v.language_code !== langCode);
               const siblings = siblingVersions
                 .map((v) => ({
                   langCode: v.language_code,

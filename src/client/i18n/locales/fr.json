@@ -504,6 +504,7 @@
     "filterPrivate": "Privés",
     "noUsers": "Aucun utilisateur trouvé.",
     "noTopics": "Aucun sujet trouvé.",
+    "noVersions": "Aucune version trouvée.",
     "manageTags": "Gestion des étiquettes",
     "manageTagsHint": "Créer et supprimer des étiquettes de sujets globales",
     "backToAdmin": "Admin",

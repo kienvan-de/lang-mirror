@@ -1,13 +1,15 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Link } from "@tanstack/react-router";
 import {
   ArrowLeftIcon, ChevronDownIcon, ChevronUpIcon,
-  XMarkIcon, CheckIcon,
+  XMarkIcon, CheckIcon, ChevronLeftIcon, ChevronRightIcon,
 } from "@heroicons/react/24/outline";
-import { api, type AdminTopic, type ApprovalRequestWithTopic } from "../../lib/api";
+import { api, type AdminTopic, type ApprovalRequestWithTopic, type Topic, type Version } from "../../lib/api";
 import { useAuth } from "../../hooks/useAuth";
+import { SentenceList } from "../../components/topic/SentenceList";
+import { langFlag, langLabel } from "../../lib/lang";
 
 // ── helpers ───────────────────────────────────────────────────────────────────
 
@@ -70,11 +72,12 @@ function StatusBadge({ status, rejectionNote }: { status: AdminTopic["status"]; 
   );
 }
 
-// ── Review Drawer ─────────────────────────────────────────────────────────────
-// Full-detail panel that slides in from the right (desktop) / bottom (mobile).
-// Contains topic info + approve/reject form. No nested dialog.
+// ── Review Modal ──────────────────────────────────────────────────────────────
+// Full-topic review modal consistent with other modals in the app
+// (same fixed inset-0 z-50 flex items-center justify-center pattern).
+// Shows full topic content via SentenceList + approve/reject at the bottom.
 
-function ReviewDrawer({
+function ReviewModal({
   request,
   onClose,
   onApproved,
@@ -86,17 +89,23 @@ function ReviewDrawer({
   onRejected: () => void;
 }) {
   const { t } = useTranslation();
+  const qc = useQueryClient();
   const [rejectNote, setRejectNote] = useState("");
   const [showRejectForm, setShowRejectForm] = useState(false);
-  const panelRef = useRef<HTMLDivElement>(null);
+  const [activeVersionIdx, setActiveVersionIdx] = useState(0);
 
-  const qc = useQueryClient();
+  // Fetch full topic with versions + sentences
+  const { data: topic, isLoading } = useQuery<Topic>({
+    queryKey: ["topic", request.topic_id],
+    queryFn: () => api.getTopic(request.topic_id),
+  });
 
   const approveMutation = useMutation({
     mutationFn: () => api.approveRequest(request.id),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["admin-approvals"] });
       qc.invalidateQueries({ queryKey: ["admin-topics"] });
+      qc.invalidateQueries({ queryKey: ["topic", request.topic_id] });
       onApproved();
     },
   });
@@ -106,56 +115,66 @@ function ReviewDrawer({
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["admin-approvals"] });
       qc.invalidateQueries({ queryKey: ["admin-topics"] });
+      qc.invalidateQueries({ queryKey: ["topic", request.topic_id] });
       onRejected();
     },
   });
 
-  // Close on Escape
+  // Escape key closes
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
   }, [onClose]);
 
-  // Prevent body scroll while open
+  // Lock body scroll
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => { document.body.style.overflow = ""; };
   }, []);
 
-  const langCodes = request.language_codes
-    ? request.language_codes.split(",").map((s) => s.trim()).filter(Boolean)
-    : [];
+  const versions: Version[] = topic?.versions ?? [];
+  const activeVersion = versions[activeVersionIdx] ?? versions[0];
 
   return (
-    <>
-      {/* Backdrop */}
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
+      onClick={onClose}
+    >
       <div
-        className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
-        onClick={onClose}
-      />
-
-      {/* Panel — slides from right on md+, from bottom on mobile */}
-      <div
-        ref={panelRef}
-        className="fixed z-50 bg-white dark:bg-gray-900 shadow-2xl flex flex-col
-          bottom-0 left-0 right-0 max-h-[90vh] rounded-t-2xl
-          md:inset-y-0 md:right-0 md:left-auto md:w-[520px] md:max-h-full md:rounded-none md:rounded-l-2xl"
+        className="w-full max-w-4xl max-h-[90vh] bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800 flex flex-col"
+        onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
+        {/* ── Header ── */}
         <div className="flex items-start justify-between px-6 pt-5 pb-4 border-b border-gray-100 dark:border-gray-800 flex-shrink-0">
           <div className="flex-1 min-w-0 pr-4">
             <p className="text-xs font-semibold text-amber-600 dark:text-amber-400 mb-1 uppercase tracking-wide">
               {t("admin.approvalQueue")}
             </p>
-            <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 truncate">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 truncate">
               {request.topic_title}
             </h2>
             {request.topic_description && (
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-2">
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-1">
                 {request.topic_description}
               </p>
             )}
+            {/* Meta row */}
+            <div className="flex items-center flex-wrap gap-x-4 gap-y-1 mt-2 text-xs text-gray-500 dark:text-gray-400">
+              <span>
+                <span className="font-medium text-gray-700 dark:text-gray-300">{t("admin.owner")}:</span>{" "}
+                {request.owner_name ?? "—"}
+                {request.owner_email && ` (${request.owner_email})`}
+              </span>
+              <span>
+                <span className="font-medium text-gray-700 dark:text-gray-300">{t("admin.submittedAt")}:</span>{" "}
+                {formatDate(request.created_at)}
+              </span>
+              <span>
+                <span className="font-medium text-gray-700 dark:text-gray-300">{t("admin.sentences")}:</span>{" "}
+                {request.sentence_count}
+              </span>
+            </div>
           </div>
           <button
             onClick={onClose}
@@ -165,37 +184,12 @@ function ReviewDrawer({
           </button>
         </div>
 
-        {/* Scrollable body */}
-        <div className="flex-1 overflow-y-auto px-6 py-5 space-y-5">
-
-          {/* Meta grid */}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-3">
-              <p className="text-xs text-gray-400 dark:text-gray-500 mb-1">{t("admin.owner")}</p>
-              <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 truncate">
-                {request.owner_name ?? "—"}
-              </p>
-              {request.owner_email && (
-                <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{request.owner_email}</p>
-              )}
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-3">
-              <p className="text-xs text-gray-400 dark:text-gray-500 mb-1">{t("admin.submittedAt")}</p>
-              <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">{formatDate(request.created_at)}</p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-3">
-              <p className="text-xs text-gray-400 dark:text-gray-500 mb-1">{t("admin.languages")}</p>
-              <LangPills codes={langCodes} />
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-3">
-              <p className="text-xs text-gray-400 dark:text-gray-500 mb-1">{t("admin.sentences")}</p>
-              <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">{request.sentence_count}</p>
-            </div>
-          </div>
+        {/* ── Scrollable body ── */}
+        <div className="flex-1 overflow-y-auto">
 
           {/* Owner note */}
           {request.note && (
-            <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 px-4 py-3">
+            <div className="mx-6 mt-4 rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 px-4 py-3">
               <p className="text-xs font-semibold text-amber-700 dark:text-amber-400 mb-1">
                 {t("admin.ownerNote")}
               </p>
@@ -203,9 +197,69 @@ function ReviewDrawer({
             </div>
           )}
 
-          {/* Reject form — inline, no nested dialog */}
+          {/* Topic content */}
+          {isLoading ? (
+            <div className="p-10 text-center text-sm text-gray-400 dark:text-gray-500">{t("common.loading")}</div>
+          ) : versions.length === 0 ? (
+            <div className="p-10 text-center text-sm text-gray-400 dark:text-gray-500">{t("admin.noVersions")}</div>
+          ) : (
+            <div className="px-6 py-4">
+              {/* Version tabs */}
+              <div className="flex items-center gap-2 mb-4 flex-wrap">
+                {versions.map((v, idx) => (
+                  <button
+                    key={v.id}
+                    onClick={() => setActiveVersionIdx(idx)}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                      idx === activeVersionIdx
+                        ? "bg-blue-600 text-white"
+                        : "border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800"
+                    }`}
+                  >
+                    <span>{langFlag(v.language_code)}</span>
+                    <span>{langLabel(v.language_code)}</span>
+                    <span className="text-xs opacity-70">({v.sentences?.length ?? 0})</span>
+                  </button>
+                ))}
+                {/* Prev / Next for keyboard nav feel */}
+                {versions.length > 1 && (
+                  <div className="ml-auto flex gap-1">
+                    <button
+                      disabled={activeVersionIdx === 0}
+                      onClick={() => setActiveVersionIdx(i => Math.max(0, i - 1))}
+                      className="p-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-30 transition-colors"
+                    >
+                      <ChevronLeftIcon className="w-4 h-4" />
+                    </button>
+                    <button
+                      disabled={activeVersionIdx === versions.length - 1}
+                      onClick={() => setActiveVersionIdx(i => Math.min(versions.length - 1, i + 1))}
+                      className="p-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-30 transition-colors"
+                    >
+                      <ChevronRightIcon className="w-4 h-4" />
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* Sentence list — read-only */}
+              {activeVersion && (
+                <SentenceList
+                  key={activeVersion.id}
+                  sentences={activeVersion.sentences ?? []}
+                  versionId={activeVersion.id}
+                  topicId={request.topic_id}
+                  allVersions={versions}
+                  activeLangCode={activeVersion.language_code}
+                  canEdit={false}
+                />
+              )}
+            </div>
+          )}
+
+          {/* Reject form — inline in the modal body */}
           {showRejectForm && (
-            <div className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 px-4 py-4 space-y-3">
+            <div className="mx-6 mb-4 rounded-xl border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 px-4 py-4 space-y-3">
               <p className="text-sm font-semibold text-red-700 dark:text-red-400">{t("admin.rejectNote")}</p>
               <textarea
                 autoFocus
@@ -234,7 +288,7 @@ function ReviewDrawer({
           )}
         </div>
 
-        {/* Action footer — sticky at bottom */}
+        {/* ── Sticky footer: Approve / Reject ── */}
         {!showRejectForm && (
           <div className="flex-shrink-0 px-6 py-4 border-t border-gray-100 dark:border-gray-800 flex gap-3">
             <button
@@ -242,8 +296,7 @@ function ReviewDrawer({
               onClick={() => setShowRejectForm(true)}
               className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 font-semibold text-sm transition-colors disabled:opacity-40"
             >
-              <XMarkIcon className="w-4 h-4" />
-              {t("admin.reject")}
+              <XMarkIcon className="w-4 h-4" /> {t("admin.reject")}
             </button>
             <button
               disabled={approveMutation.isPending || rejectMutation.isPending}
@@ -256,7 +309,7 @@ function ReviewDrawer({
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }
 
@@ -360,9 +413,9 @@ function ApprovalQueueSection() {
         )}
       </div>
 
-      {/* Review drawer — rendered outside the table to avoid z-index issues */}
+      {/* Review modal */}
       {reviewing && (
-        <ReviewDrawer
+        <ReviewModal
           request={reviewing}
           onClose={() => setReviewing(null)}
           onApproved={() => setReviewing(null)}

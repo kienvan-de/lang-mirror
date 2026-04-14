@@ -506,6 +506,7 @@
     "filterPrivate": "Privat",
     "noUsers": "Keine Benutzer gefunden.",
     "noTopics": "Keine Themen gefunden.",
+    "noVersions": "Keine Versionen gefunden.",
     "manageTags": "Tag-Verwaltung",
     "manageTagsHint": "Globale Themen-Tags erstellen und löschen",
     "backToAdmin": "Admin",

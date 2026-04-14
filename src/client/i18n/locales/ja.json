@@ -505,6 +505,7 @@
     "filterPrivate": "非公開",
     "noUsers": "ユーザーが見つかりません。",
     "noTopics": "トピックが見つかりません。",
+    "noVersions": "バージョンが見つかりません。",
     "manageTags": "タグ管理",
     "manageTagsHint": "グローバルトピックタグの作成と削除",
     "backToAdmin": "管理",

@@ -504,6 +504,7 @@
     "filterPrivate": "私有",
     "noUsers": "未找到用户。",
     "noTopics": "未找到主题。",
+    "noVersions": "未找到版本。",
     "manageTags": "标签管理",
     "manageTagsHint": "创建和删除全局主题标签",
     "backToAdmin": "管理",

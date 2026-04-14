@@ -104,7 +104,7 @@ export function ImportPage() {
 
   const processFile = useCallback(async (f: File) => {
     const ext = f.name.split(".").pop()?.toLowerCase() ?? "";
-    if (!["json", "yaml", "yml"].includes(ext)) {
+    if (!["json"].includes(ext)) {
       setPreview({
         ok: false,
         parseError: t("import.unsupportedType", { ext }),
@@ -252,7 +252,7 @@ export function ImportPage() {
             <input
               ref={fileInputRef}
               type="file"
-              accept=".json,.yaml,.yml"
+              accept=".json"
               onChange={handleFileChange}
               className="sr-only"
             />

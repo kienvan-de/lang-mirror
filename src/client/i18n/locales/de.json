@@ -138,7 +138,13 @@
     "submitNote": "Hinweis an den Prüfer (optional)",
     "submitNotePlaceholder": "Beschreibe dieses Thema…",
     "submitConfirm": "Einreichen",
-    "rejectionNote": "Feedback: {{note}}"
+    "rejectionNote": "Feedback: {{note}}",
+    "privateHint": "Noch nicht für andere Benutzer sichtbar.",
+    "pendingHint": "Wartet auf die Überprüfung durch den Administrator.",
+    "publishedHint": "Für alle Benutzer sichtbar.",
+    "rejectedHint": "Deine Einreichung wurde nicht genehmigt.",
+    "reviewerFeedback": "Prüfer-Feedback",
+    "statusLabel": "Veröffentlichungsstatus"
   },
   "review": {
     "title": "Überprüfen",

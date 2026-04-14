@@ -138,7 +138,13 @@
     "submitNote": "レビュアーへのメモ（任意）",
     "submitNotePlaceholder": "このトピックについて説明してください…",
     "submitConfirm": "申請する",
-    "rejectionNote": "フィードバック: {{note}}"
+    "rejectionNote": "フィードバック: {{note}}",
+    "privateHint": "まだ他のユーザーには表示されていません。",
+    "pendingHint": "管理者の審査を待っています。",
+    "publishedHint": "すべてのユーザーに表示されています。",
+    "rejectedHint": "申請は承認されませんでした。",
+    "reviewerFeedback": "レビュアーのフィードバック",
+    "statusLabel": "公開ステータス"
   },
   "review": {
     "title": "復習",

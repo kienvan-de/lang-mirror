@@ -280,9 +280,15 @@ export function TopicDetailPage() {
             >
               {displayTitle}
               {canEdit && <PencilIcon className="w-4 h-4 opacity-0 group-hover:opacity-40 transition-opacity" />}
-              {/* Status icon — shown to owner only */}
+              {/* Clickable status icon — shown to owner only */}
               {canEdit && (
-                <TopicStatusIcon status={topic.status} rejectionNote={topic.rejection_note} />
+                <TopicStatusPopover
+                  status={topic.status}
+                  rejectionNote={topic.rejection_note}
+                  onSubmit={() => setShowSubmitForm(true)}
+                  onWithdraw={() => withdrawMutation.mutate()}
+                  isWithdrawing={withdrawMutation.isPending}
+                />
               )}
             </h1>
           )}
@@ -378,7 +384,7 @@ export function TopicDetailPage() {
           )}
         </div>
 
-        {/* Export + Approval request + Practice buttons */}
+        {/* Export + Practice buttons — clean toolbar, approval lives in the status icon */}
         <div className="flex items-center gap-2 flex-shrink-0 self-start">
           <button
             onClick={() => api.exportTopic(topicId, topic.title).catch(() => alert("Export failed"))}
@@ -387,25 +393,6 @@ export function TopicDetailPage() {
           >
             <ArrowDownTrayIcon className="w-4 h-4" /> {t("topics.export")}
           </button>
-          {/* Approval action button — owner only, not shown when published */}
-          {canEdit && topic.status !== "published" && (
-            topic.status === "pending" ? (
-              <button
-                onClick={() => withdrawMutation.mutate()}
-                disabled={withdrawMutation.isPending}
-                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-amber-300 dark:border-amber-700 text-sm font-medium text-amber-700 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/20 transition-colors disabled:opacity-40"
-              >
-                <XCircleIcon className="w-4 h-4" /> {t("topics.withdrawRequest")}
-              </button>
-            ) : (
-              <button
-                onClick={() => setShowSubmitForm(true)}
-                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-blue-300 dark:border-blue-700 text-sm font-medium text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
-              >
-                <PaperAirplaneIcon className="w-4 h-4" /> {t("topics.submitForReview")}
-              </button>
-            )
-          )}
           {activeVersion && !(nativeLanguage && activeVersion.language_code.split("-")[0]!.toLowerCase() === nativeLanguage) && (
             <Link
               to="/practice/$topicId/$langCode"
@@ -418,10 +405,10 @@ export function TopicDetailPage() {
         </div>
       </div>
 
-      {/* Submit for review dialog */}
+      {/* Submit for review dialog — triggered from the status icon popover */}
       {showSubmitForm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800 p-6 space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm" onClick={() => { setShowSubmitForm(false); setSubmitNote(""); }}>
+          <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800 p-6 space-y-4" onClick={e => e.stopPropagation()}>
             <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">
               {t("topics.submitForReview")}
             </h3>
@@ -729,22 +716,127 @@ export function TopicDetailPage() {
   );
 }
 
-/** Small icon shown inline in the topic title — indicates publish status to the owner */
-function TopicStatusIcon({ status, rejectionNote }: {
+/**
+ * Clickable status icon inline in the topic title.
+ * Opens a popover with status details and action buttons.
+ * Works on mobile (tap) and desktop (click) — no hover required.
+ */
+function TopicStatusPopover({ status, rejectionNote, onSubmit, onWithdraw, isWithdrawing }: {
   status: "private" | "pending" | "published" | "rejected";
   rejectionNote: string | null;
+  onSubmit: () => void;
+  onWithdraw: () => void;
+  isWithdrawing: boolean;
 }) {
   const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
-  const config = {
-    private:   { Icon: LockClosedIcon,       cls: "text-gray-400 dark:text-gray-500",           title: t("topics.private") },
-    pending:   { Icon: ClockIcon,             cls: "text-amber-500 dark:text-amber-400",         title: t("topics.pendingReview") },
-    published: { Icon: CheckCircleIcon,       cls: "text-green-500 dark:text-green-400",         title: t("topics.published") },
-    rejected:  { Icon: ExclamationCircleIcon, cls: "text-red-500 dark:text-red-400",             title: rejectionNote ? t("topics.rejectionNote", { note: rejectionNote }) : t("topics.rejected") },
+  // Close on outside click / touch
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e: MouseEvent | TouchEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    document.addEventListener("touchstart", handler);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+      document.removeEventListener("touchstart", handler);
+    };
+  }, [open]);
+
+  // Close on Escape
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, [open]);
+
+  const iconConfig = {
+    private:   { Icon: LockClosedIcon,       cls: "text-gray-400 dark:text-gray-500" },
+    pending:   { Icon: ClockIcon,             cls: "text-amber-500 dark:text-amber-400 animate-pulse" },
+    published: { Icon: CheckCircleIcon,       cls: "text-green-500 dark:text-green-400" },
+    rejected:  { Icon: ExclamationCircleIcon, cls: "text-red-500 dark:text-red-400" },
   };
 
-  const { Icon, cls, title } = config[status];
-  return <Icon className={`w-5 h-5 flex-shrink-0 ${cls}`} title={title} />;
+  const popoverConfig = {
+    private: {
+      border: "border-gray-200 dark:border-gray-700",
+      label:  <span className="text-xs font-semibold text-gray-500 dark:text-gray-400">{t("topics.private")}</span>,
+      body:   <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">{t("topics.privateHint")}</p>,
+      action: (
+        <button onClick={() => { setOpen(false); onSubmit(); }}
+          className="w-full mt-3 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition-colors">
+          <PaperAirplaneIcon className="w-3.5 h-3.5" /> {t("topics.submitForReview")}
+        </button>
+      ),
+    },
+    pending: {
+      border: "border-amber-200 dark:border-amber-800",
+      label:  <span className="text-xs font-semibold text-amber-600 dark:text-amber-400">{t("topics.pendingReview")}</span>,
+      body:   <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t("topics.pendingHint")}</p>,
+      action: (
+        <button onClick={() => { setOpen(false); onWithdraw(); }} disabled={isWithdrawing}
+          className="w-full mt-3 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/20 text-xs font-semibold transition-colors disabled:opacity-40">
+          <XCircleIcon className="w-3.5 h-3.5" /> {t("topics.withdrawRequest")}
+        </button>
+      ),
+    },
+    published: {
+      border: "border-green-200 dark:border-green-800",
+      label:  <span className="text-xs font-semibold text-green-600 dark:text-green-400">{t("topics.published")}</span>,
+      body:   <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t("topics.publishedHint")}</p>,
+      action: null,
+    },
+    rejected: {
+      border: "border-red-200 dark:border-red-800",
+      label:  <span className="text-xs font-semibold text-red-600 dark:text-red-400">{t("topics.rejected")}</span>,
+      body: rejectionNote
+        ? <p className="text-xs text-gray-600 dark:text-gray-300 mt-1 leading-relaxed">
+            <span className="font-medium text-gray-500 dark:text-gray-400">{t("topics.reviewerFeedback")}: </span>
+            {rejectionNote}
+          </p>
+        : <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">{t("topics.rejectedHint")}</p>,
+      action: (
+        <button onClick={() => { setOpen(false); onSubmit(); }}
+          className="w-full mt-3 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition-colors">
+          <PaperAirplaneIcon className="w-3.5 h-3.5" /> {t("topics.submitForReview")}
+        </button>
+      ),
+    },
+  };
+
+  const { Icon, cls } = iconConfig[status];
+  const { border, label, body, action } = popoverConfig[status];
+
+  return (
+    <div ref={ref} className="relative inline-flex flex-shrink-0" onClick={e => e.stopPropagation()}>
+      {/* The icon button */}
+      <button
+        type="button"
+        onClick={() => setOpen(v => !v)}
+        className={`p-0.5 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-400 transition-transform hover:scale-110 ${cls}`}
+        aria-label={t("topics.statusLabel")}
+      >
+        <Icon className="w-6 h-6" />
+      </button>
+
+      {/* Popover panel */}
+      {open && (
+        <div className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 bg-white dark:bg-gray-900 rounded-xl border ${border} shadow-xl z-50 p-4`}>
+          {/* Arrow tip */}
+          <div className={`absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-white dark:bg-gray-900 border-l border-t ${border}`} />
+          {label}
+          {body}
+          {action}
+        </div>
+      )}
+    </div>
+  );
 }
 
 function TopicDetailSkeleton() {

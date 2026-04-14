@@ -138,7 +138,13 @@
     "submitNote": "검토자에게 메모 (선택)",
     "submitNotePlaceholder": "이 주제에 대해 설명하세요…",
     "submitConfirm": "제출",
-    "rejectionNote": "피드백: {{note}}"
+    "rejectionNote": "피드백: {{note}}",
+    "privateHint": "아직 다른 사용자에게 표시되지 않습니다.",
+    "pendingHint": "관리자 검토를 기다리고 있습니다.",
+    "publishedHint": "모든 사용자에게 표시됩니다.",
+    "rejectedHint": "제출이 승인되지 않았습니다.",
+    "reviewerFeedback": "검토자 피드백",
+    "statusLabel": "게시 상태"
   },
   "topicCard": {
     "open": "열기",

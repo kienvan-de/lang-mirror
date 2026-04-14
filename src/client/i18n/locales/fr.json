@@ -138,7 +138,13 @@
     "submitNote": "Note au réviseur (facultatif)",
     "submitNotePlaceholder": "Décrivez ce sujet…",
     "submitConfirm": "Soumettre",
-    "rejectionNote": "Retour : {{note}}"
+    "rejectionNote": "Retour : {{note}}",
+    "privateHint": "Pas encore visible par les autres utilisateurs.",
+    "pendingHint": "En attente de la révision de l'administrateur.",
+    "publishedHint": "Visible par tous les utilisateurs.",
+    "rejectedHint": "Votre soumission n'a pas été approuvée.",
+    "reviewerFeedback": "Retour du réviseur",
+    "statusLabel": "Statut de publication"
   },
   "topicCard": {
     "open": "Ouvrir",

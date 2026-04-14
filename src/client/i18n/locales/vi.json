@@ -138,7 +138,13 @@
     "submitNote": "Ghi chú gửi đến người duyệt (tùy chọn)",
     "submitNotePlaceholder": "Mô tả chủ đề này…",
     "submitConfirm": "Gửi",
-    "rejectionNote": "Phản hồi: {{note}}"
+    "rejectionNote": "Phản hồi: {{note}}",
+    "privateHint": "Chưa hiển thị với người dùng khác.",
+    "pendingHint": "Đang chờ quản trị viên xét duyệt.",
+    "publishedHint": "Hiển thị với tất cả người dùng.",
+    "rejectedHint": "Yêu cầu của bạn chưa được chấp thuận.",
+    "reviewerFeedback": "Phản hồi từ người duyệt",
+    "statusLabel": "Trạng thái xuất bản"
   },
   "review": {
     "title": "Xem lại",

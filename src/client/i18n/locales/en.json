@@ -138,7 +138,13 @@
     "submitNote": "Note to reviewer (optional)",
     "submitNotePlaceholder": "Describe what this topic is about…",
     "submitConfirm": "Submit",
-    "rejectionNote": "Feedback: {{note}}"
+    "rejectionNote": "Feedback: {{note}}",
+    "privateHint": "Not visible to other users yet.",
+    "pendingHint": "Waiting for admin review.",
+    "publishedHint": "Visible to all users.",
+    "rejectedHint": "Your submission was not approved.",
+    "reviewerFeedback": "Reviewer feedback",
+    "statusLabel": "Publication status"
   },
   "topicCard": {
     "open": "Open",

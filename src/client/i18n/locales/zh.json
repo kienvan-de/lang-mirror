@@ -138,7 +138,13 @@
     "submitNote": "给审核者的备注（可选）",
     "submitNotePlaceholder": "描述此主题…",
     "submitConfirm": "提交",
-    "rejectionNote": "反馈：{{note}}"
+    "rejectionNote": "反馈：{{note}}",
+    "privateHint": "尚未对其他用户可见。",
+    "pendingHint": "等待管理员审核。",
+    "publishedHint": "对所有用户可见。",
+    "rejectedHint": "您的提交未获批准。",
+    "reviewerFeedback": "审核者反馈",
+    "statusLabel": "发布状态"
   },
   "topicCard": {
     "open": "打开",

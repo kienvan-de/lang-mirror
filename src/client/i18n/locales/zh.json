@@ -29,7 +29,8 @@
     "error": "错误",
     "confirm": "确认",
     "moveUp": "上移",
-    "moveDown": "下移"
+    "moveDown": "下移",
+    "next": "下一步"
   },
   "dashboard": {
     "title": "仪表盘",
@@ -556,5 +557,21 @@
     "section6Body": "您可以随时从设置页面删除您的账户和所有相关数据。删除您的账户将永久删除您的所有主题、句子、练习历史和录音。",
     "section7Title": "联系方式",
     "section7Body": "如有任何隐私相关问题，请通过以下方式联系我们"
+  },
+  "onboarding": {
+    "welcome": "欢迎使用 Lang Mirror",
+    "subtitle": "让我们设置您的个人资料以开始使用",
+    "step1Title": "您的母语是什么？",
+    "step1Hint": "这是您已经能流利说的语言",
+    "step2Title": "您正在学习哪些语言？",
+    "step2Hint": "选择一种或多种 — 您可以稍后在设置中更改",
+    "step3Title": "录音偏好",
+    "step3Hint": "选择您希望我们如何处理您的练习录音",
+    "recordingOptionSave": "保存我的录音",
+    "recordingOptionSaveHint": "您的录音将私密存储，仅用于您个人的复习",
+    "recordingOptionSkip": "不保存录音",
+    "recordingOptionSkipHint": "录音保留在本地不会上传。复习模式将不可用",
+    "privacyNote": "您的录音绝不会被共享或用于您个人复习以外的任何目的",
+    "finish": "开始"
   }
 }

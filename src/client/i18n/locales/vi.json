@@ -29,7 +29,8 @@
     "error": "Lỗi",
     "confirm": "Xác nhận",
     "moveUp": "Di chuyển lên",
-    "moveDown": "Di chuyển xuống"
+    "moveDown": "Di chuyển xuống",
+    "next": "Tiếp theo"
   },
   "dashboard": {
     "title": "Bảng điều khiển",
@@ -556,5 +557,21 @@
     "section6Body": "Bạn có thể xóa tài khoản và tất cả dữ liệu liên quan bất cứ lúc nào từ trang Cài đặt. Việc xóa tài khoản của bạn sẽ xóa vĩnh viễn tất cả chủ đề, câu, lịch sử luyện tập và bản ghi âm của bạn.",
     "section7Title": "Liên hệ",
     "section7Body": "Đối với bất kỳ câu hỏi liên quan đến quyền riêng tư, vui lòng liên hệ với chúng tôi tại"
+  },
+  "onboarding": {
+    "welcome": "Chào mừng đến với Lang Mirror",
+    "subtitle": "Hãy thiết lập hồ sơ của bạn để bắt đầu",
+    "step1Title": "Ngôn ngữ mẹ đẻ của bạn là gì?",
+    "step1Hint": "Đây là ngôn ngữ bạn đã nói thành thạo",
+    "step2Title": "Bạn đang học những ngôn ngữ nào?",
+    "step2Hint": "Chọn một hoặc nhiều — bạn có thể thay đổi điều này sau trong Cài đặt",
+    "step3Title": "Tùy chọn ghi âm",
+    "step3Hint": "Chọn cách bạn muốn chúng tôi xử lý các bản ghi âm luyện tập của bạn",
+    "recordingOptionSave": "Lưu bản ghi âm của tôi",
+    "recordingOptionSaveHint": "Bản ghi âm của bạn được lưu trữ riêng tư và chỉ sử dụng cho việc ôn tập cá nhân",
+    "recordingOptionSkip": "Không lưu bản ghi âm",
+    "recordingOptionSkipHint": "Bản ghi âm chỉ lưu cục bộ và không được tải lên. Chế độ ôn tập sẽ không khả dụng",
+    "privacyNote": "Bản ghi âm của bạn không bao giờ được chia sẻ hoặc sử dụng cho bất kỳ mục đích nào khác ngoài ôn tập của bạn",
+    "finish": "Bắt đầu"
   }
 }

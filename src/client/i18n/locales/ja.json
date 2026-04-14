@@ -29,7 +29,8 @@
     "error": "エラー",
     "confirm": "確認",
     "moveUp": "上へ",
-    "moveDown": "下へ"
+    "moveDown": "下へ",
+    "next": "次へ"
   },
   "dashboard": {
     "title": "ダッシュボード",
@@ -557,5 +558,21 @@
     "section6Body": "設定ページからいつでもアカウントと関連するすべてのデータを削除できます。アカウントを削除すると、すべてのトピック、文、練習履歴、録音が完全に削除されます。",
     "section7Title": "お問い合わせ",
     "section7Body": "プライバシーに関するご質問は、以下までお問い合わせください"
+  },
+  "onboarding": {
+    "welcome": "Lang Mirrorへようこそ",
+    "subtitle": "プロフィールを設定して始めましょう",
+    "step1Title": "母国語は何ですか？",
+    "step1Hint": "すでに流暢に話せる言語です",
+    "step2Title": "どの言語を学んでいますか？",
+    "step2Hint": "1つ以上選択してください — 設定で後から変更できます",
+    "step3Title": "録音設定",
+    "step3Hint": "練習録音の取り扱い方法を選択してください",
+    "recordingOptionSave": "録音を保存する",
+    "recordingOptionSaveHint": "録音はプライベートに保存され、個人の復習のみに使用されます",
+    "recordingOptionSkip": "録音を保存しない",
+    "recordingOptionSkipHint": "録音はローカルに留まりアップロードされません。レビューモードは利用できません",
+    "privacyNote": "あなたの録音は、自分の復習以外の目的で共有または使用されることはありません",
+    "finish": "始める"
   }
 }

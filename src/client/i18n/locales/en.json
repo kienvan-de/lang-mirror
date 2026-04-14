@@ -29,7 +29,8 @@
     "error": "Error",
     "confirm": "Confirm",
     "moveUp": "Move up",
-    "moveDown": "Move down"
+    "moveDown": "Move down",
+    "next": "Next"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -555,5 +556,21 @@
     "section6Body": "You can delete your account and all associated data at any time from the Settings page. Deleting your account permanently removes all your topics, sentences, practice history, and recordings.",
     "section7Title": "Contact",
     "section7Body": "For any privacy-related questions, please contact us at"
+  },
+  "onboarding": {
+    "welcome": "Welcome to Lang Mirror",
+    "subtitle": "Let's set up your profile to get started",
+    "step1Title": "What is your native language?",
+    "step1Hint": "This is the language you already speak fluently",
+    "step2Title": "Which languages are you learning?",
+    "step2Hint": "Select one or more — you can change this later in Settings",
+    "step3Title": "Recording preference",
+    "step3Hint": "Choose how you'd like us to handle your practice recordings",
+    "recordingOptionSave": "Save my recordings",
+    "recordingOptionSaveHint": "Your recordings are stored privately and used only for your personal review",
+    "recordingOptionSkip": "Don't save recordings",
+    "recordingOptionSkipHint": "Recordings stay local and are not uploaded. Review mode will be unavailable",
+    "privacyNote": "Your recordings are never shared or used for any purpose other than your own review",
+    "finish": "Get started"
   }
 }

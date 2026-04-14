@@ -29,7 +29,8 @@
     "error": "Erreur",
     "confirm": "Confirmer",
     "moveUp": "Monter",
-    "moveDown": "Descendre"
+    "moveDown": "Descendre",
+    "next": "Suivant"
   },
   "dashboard": {
     "title": "Tableau de bord",
@@ -556,5 +557,21 @@
     "section6Body": "Vous pouvez supprimer votre compte et toutes les données associées à tout moment depuis la page Paramètres. La suppression de votre compte supprime définitivement tous vos sujets, phrases, historique de pratique et enregistrements.",
     "section7Title": "Contact",
     "section7Body": "Pour toute question relative à la confidentialité, veuillez nous contacter à"
+  },
+  "onboarding": {
+    "welcome": "Bienvenue sur Lang Mirror",
+    "subtitle": "Configurons votre profil pour commencer",
+    "step1Title": "Quelle est votre langue maternelle ?",
+    "step1Hint": "C'est la langue que vous parlez déjà couramment",
+    "step2Title": "Quelles langues apprenez-vous ?",
+    "step2Hint": "Sélectionnez-en une ou plusieurs — vous pouvez modifier cela plus tard dans les Paramètres",
+    "step3Title": "Préférence d'enregistrement",
+    "step3Hint": "Choisissez comment vous souhaitez que nous gérions vos enregistrements de pratique",
+    "recordingOptionSave": "Sauvegarder mes enregistrements",
+    "recordingOptionSaveHint": "Vos enregistrements sont stockés de manière privée et utilisés uniquement pour votre révision personnelle",
+    "recordingOptionSkip": "Ne pas sauvegarder les enregistrements",
+    "recordingOptionSkipHint": "Les enregistrements restent locaux et ne sont pas téléchargés. Le mode révision sera indisponible",
+    "privacyNote": "Vos enregistrements ne sont jamais partagés ni utilisés à d'autres fins que votre propre révision",
+    "finish": "Commencer"
   }
 }

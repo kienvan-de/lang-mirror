@@ -14,7 +14,7 @@ const NAV_ITEMS = [
   { to: "/settings" as const, labelKey: "nav.settings" },
 ] as const;
 
-const PUBLIC_PATHS = new Set(["/login", "/deactivated", "/privacy"]);
+const PUBLIC_PATHS = new Set(["/login", "/deactivated", "/privacy", "/onboarding"]);
 
 export function RootLayout() {
   const { t, i18n } = useTranslation();
@@ -23,19 +23,31 @@ export function RootLayout() {
   );
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, isLoading, logout } = useAuth();
-  const { nativeLanguage } = useUserLanguages();
+  const { nativeLanguage, hasConfig, isLoadingConfig } = useUserLanguages();
   const location = useLocation();
   const navigate  = useNavigate();
 
   // Close menu on route change
   useEffect(() => { setMenuOpen(false); }, [location.pathname]);
 
-  // Route protection
+  // Route protection — unauthenticated users go to /login
   useEffect(() => {
     if (!isLoading && !user && !PUBLIC_PATHS.has(location.pathname)) {
       navigate({ to: "/login" });
     }
   }, [isLoading, user, location.pathname, navigate]);
+
+  // Onboarding redirect — new users who haven't set native language
+  useEffect(() => {
+    if (
+      !isLoading && user &&               // authenticated
+      !isLoadingConfig &&                 // settings loaded
+      !hasConfig &&                       // native language not set
+      !PUBLIC_PATHS.has(location.pathname) // not already on a public/onboarding page
+    ) {
+      navigate({ to: "/onboarding" });
+    }
+  }, [isLoading, user, isLoadingConfig, hasConfig, location.pathname, navigate]);
 
   const toggleDark = () => {
     setDark((prev) => {

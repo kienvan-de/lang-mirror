@@ -29,7 +29,8 @@
     "error": "Fehler",
     "confirm": "Bestätigen",
     "moveUp": "Nach oben",
-    "moveDown": "Nach unten"
+    "moveDown": "Nach unten",
+    "next": "Weiter"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -558,5 +559,21 @@
     "section6Body": "Sie können Ihr Konto und alle zugehörigen Daten jederzeit über die Einstellungsseite löschen. Das Löschen Ihres Kontos entfernt dauerhaft alle Ihre Themen, Sätze, den Übungsverlauf und Aufnahmen.",
     "section7Title": "Kontakt",
     "section7Body": "Bei datenschutzbezogenen Fragen kontaktieren Sie uns bitte unter"
+  },
+  "onboarding": {
+    "welcome": "Willkommen bei Lang Mirror",
+    "subtitle": "Richten Sie Ihr Profil ein, um loszulegen",
+    "step1Title": "Was ist Ihre Muttersprache?",
+    "step1Hint": "Das ist die Sprache, die Sie bereits fließend sprechen",
+    "step2Title": "Welche Sprachen lernen Sie?",
+    "step2Hint": "Wählen Sie eine oder mehrere — Sie können dies später in den Einstellungen ändern",
+    "step3Title": "Aufnahmeeinstellungen",
+    "step3Hint": "Wählen Sie, wie wir mit Ihren Übungsaufnahmen umgehen sollen",
+    "recordingOptionSave": "Meine Aufnahmen speichern",
+    "recordingOptionSaveHint": "Ihre Aufnahmen werden privat gespeichert und nur für Ihre persönliche Überprüfung verwendet",
+    "recordingOptionSkip": "Aufnahmen nicht speichern",
+    "recordingOptionSkipHint": "Aufnahmen bleiben lokal und werden nicht hochgeladen. Der Überprüfungsmodus ist nicht verfügbar",
+    "privacyNote": "Ihre Aufnahmen werden niemals geteilt oder für andere Zwecke als Ihre eigene Überprüfung verwendet",
+    "finish": "Loslegen"
   }
 }

@@ -29,7 +29,8 @@
     "error": "오류",
     "confirm": "확인",
     "moveUp": "위로 이동",
-    "moveDown": "아래로 이동"
+    "moveDown": "아래로 이동",
+    "next": "다음"
   },
   "dashboard": {
     "title": "대시보드",
@@ -556,5 +557,21 @@
     "section6Body": "설정 페이지에서 언제든지 계정과 관련된 모든 데이터를 삭제할 수 있습니다. 계정 삭제 시 모든 주제, 문장, 연습 기록 및 녹음이 영구적으로 삭제됩니다.",
     "section7Title": "문의",
     "section7Body": "개인정보 관련 문의사항은 다음 주소로 연락해 주세요"
+  },
+  "onboarding": {
+    "welcome": "Lang Mirror에 오신 것을 환영합니다",
+    "subtitle": "시작하려면 프로필을 설정하세요",
+    "step1Title": "모국어가 무엇인가요?",
+    "step1Hint": "이미 유창하게 말할 수 있는 언어입니다",
+    "step2Title": "어떤 언어를 배우고 있나요?",
+    "step2Hint": "하나 이상 선택하세요 — 설정에서 나중에 변경할 수 있습니다",
+    "step3Title": "녹음 설정",
+    "step3Hint": "연습 녹음을 어떻게 처리할지 선택하세요",
+    "recordingOptionSave": "내 녹음 저장",
+    "recordingOptionSaveHint": "녹음은 비공개로 저장되며 개인 복습에만 사용됩니다",
+    "recordingOptionSkip": "녹음 저장 안 함",
+    "recordingOptionSkipHint": "녹음은 로컬에 유지되며 업로드되지 않습니다. 복습 모드를 사용할 수 없습니다",
+    "privacyNote": "귀하의 녹음은 개인 복습 외의 목적으로 공유되거나 사용되지 않습니다",
+    "finish": "시작하기"
   }
 }

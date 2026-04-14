@@ -215,14 +215,25 @@ export function PracticePage() {
     if (countdownRef.current) { clearInterval(countdownRef.current); countdownRef.current = null; }
   }, []);
 
-  const playRecordingBack = useCallback(async (sentenceId: string): Promise<void> => {
+  const playRecordingBack = useCallback(async (sentenceId: string, localBlob?: Blob | null): Promise<void> => {
     store.setPhase("playingBack");
+    // Always prefer the local blob — instant, works offline, and works when upload is disabled.
+    // Fall back to the API URL only when no local blob is available (e.g. manual playback
+    // after navigating away and back, where the blob is no longer in memory).
+    const src = localBlob
+      ? URL.createObjectURL(localBlob)
+      : `/api/recordings/${sentenceId}?t=${Date.now()}`;
+    const isObjectUrl = !!localBlob;
+
     return new Promise((resolve) => {
-      const audio = new Audio(`/api/recordings/${sentenceId}?t=${Date.now()}`);
+      const audio = new Audio(src);
       playbackAudioRef.current = audio;
-      audio.onended = () => { store.setPhase("done"); resolve(); };
-      audio.onerror = () => { store.setPhase("done"); resolve(); };
-      audio.play().catch(() => { store.setPhase("done"); resolve(); });
+      const cleanup = () => {
+        if (isObjectUrl) URL.revokeObjectURL(src);
+      };
+      audio.onended = () => { store.setPhase("done"); cleanup(); resolve(); };
+      audio.onerror = () => { store.setPhase("done"); cleanup(); resolve(); };
+      audio.play().catch(() => { store.setPhase("done"); cleanup(); resolve(); });
     });
   }, [store]);
 
@@ -281,7 +292,8 @@ export function PracticePage() {
           await api.uploadRecording(sentence.id, recorder.recordingBlob!);
           store.setHasRecording(true);
         }
-        await playRecordingBack(sentence.id);
+        // Always play back the local blob — instant, works even when upload is skipped
+        await playRecordingBack(sentence.id, recorder.recordingBlob);
         await logAttempt();
       } catch { store.setPhase("idle"); }
 
@@ -344,8 +356,9 @@ export function PracticePage() {
       try {
         if (shouldUpload) {
           await api.uploadRecording(sentence.id, recorder.recordingBlob!);
-          store.setHasRecording(true);
         }
+        // Mark as having a recording regardless of upload — enables the playback button
+        store.setHasRecording(true);
       } catch { /* non-fatal */ }
       store.setPhase("idle");
     })();

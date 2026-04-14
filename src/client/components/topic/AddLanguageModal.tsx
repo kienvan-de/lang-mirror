@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { api, type Voice } from "../../lib/api";
 import { langFlag, langName } from "../../lib/lang";
+import { SUPPORTED_LANGS } from "../../lib/supported-langs";
 
 interface Props {
   topicId: string;
@@ -37,6 +38,8 @@ export function AddLanguageModal({ topicId, onClose }: Props) {
   const langOptions = useMemo<LangOption[]>(() => {
     const map = new Map<string, LangOption>();
     for (const v of voices) {
+      // Only include voices whose langCode matches a supported language
+      if (!SUPPORTED_LANGS.includes(v.langCode as typeof SUPPORTED_LANGS[number])) continue;
       if (!map.has(v.langCode)) {
         map.set(v.langCode, {
           langCode: v.langCode,

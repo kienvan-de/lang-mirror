@@ -6,16 +6,26 @@ import { api } from "../lib/api";
 import { langFlag, langName } from "../lib/lang";
 import { Footer } from "../components/Footer";
 
+const LANG_MIRROR_LANG_KEY = "lang-mirror-lang";
+
 const SUPPORTED_LANGS = ["en", "vi", "ja", "de", "fr", "zh", "ko"];
 
 type Step = 1 | 2 | 3;
 
 export function OnboardingPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
   const [step, setStep] = useState<Step>(1);
   const [native, setNative] = useState<string | null>(null);
+
+  const selectNative = (code: string) => {
+    setNative(code);
+    // Switch UI language immediately so the rest of the wizard
+    // renders in the user's chosen language
+    i18n.changeLanguage(code);
+    localStorage.setItem(LANG_MIRROR_LANG_KEY, code);
+  };
   const [learning, setLearning] = useState<string[]>([]);
   const [uploadRecordings, setUploadRecordings] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -94,7 +104,7 @@ export function OnboardingPage() {
                   {SUPPORTED_LANGS.map((code) => (
                     <button
                       key={code}
-                      onClick={() => setNative(code)}
+                      onClick={() => selectNative(code)}
                       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium border transition-colors ${
                         native === code
                           ? "bg-blue-600 border-blue-600 text-white"

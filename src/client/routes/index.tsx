@@ -48,7 +48,7 @@ export function DashboardPage() {
   const isLoading = dailyLoading || streakLoading || recentLoading || calendarLoading;
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-8">
+    <div className="max-w-5xl mx-auto px-6 py-8">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{t("dashboard.title")}</h1>

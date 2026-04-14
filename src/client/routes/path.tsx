@@ -87,7 +87,7 @@ export function PathPage() {
 
   if (isLoading) {
     return (
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 space-y-4 animate-pulse">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 space-y-4 animate-pulse">
         {[...Array(3)].map((_, i) => (
           <div key={i} className="h-20 bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800" />
         ))}
@@ -102,7 +102,7 @@ export function PathPage() {
   const overallPct = totalCount > 0 ? Math.round((doneCount / totalCount) * 100) : 0;
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
       {/* Header */}
       <div className="flex items-start justify-between gap-4 mb-6">
         <div className="flex-1 min-w-0">

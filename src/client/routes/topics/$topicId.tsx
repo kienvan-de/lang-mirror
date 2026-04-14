@@ -157,7 +157,7 @@ export function TopicDetailPage() {
   if (isLoading) return <TopicDetailSkeleton />;
   if (isError || !topic) {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <div className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 p-6 text-center">
           <p className="text-red-600 dark:text-red-400 font-medium">{t("topics.notFound")}</p>
           <Link to="/topics" className="mt-3 inline-block text-sm text-blue-600 dark:text-blue-400 hover:underline">{t("topics.backToTopics")}</Link>
@@ -172,7 +172,7 @@ export function TopicDetailPage() {
     const qualifies = requiredLanguages.every(lang => topicLangs.includes(lang));
     if (!qualifies) {
       return (
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
           <Link to={backTo} className="text-sm text-gray-400 hover:text-blue-500 transition-colors mb-4 inline-flex items-center gap-1">
             <ChevronLeftIcon className="w-4 h-4" /> {backLabel}
           </Link>
@@ -254,7 +254,7 @@ export function TopicDetailPage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
       {/* Breadcrumb */}
       <Link to={backTo} className="text-sm text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors mb-4 inline-flex items-center gap-1">
         <ChevronLeftIcon className="w-4 h-4" /> {backLabel}
@@ -841,7 +841,7 @@ function TopicStatusPopover({ status, rejectionNote, onSubmit, onWithdraw, isWit
 
 function TopicDetailSkeleton() {
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8 animate-pulse">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8 animate-pulse">
       <div className="h-3 w-20 bg-gray-200 dark:bg-gray-700 rounded mb-6" />
       <div className="h-8 w-56 bg-gray-200 dark:bg-gray-700 rounded mb-2" />
       <div className="h-4 w-80 bg-gray-100 dark:bg-gray-800 rounded mb-6" />

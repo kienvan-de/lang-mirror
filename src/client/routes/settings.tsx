@@ -185,7 +185,7 @@ export function SettingsPage() {
 
   if (isLoading) {
     return (
-      <div className="max-w-4xl mx-auto px-6 py-8 animate-pulse space-y-4">
+      <div className="max-w-5xl mx-auto px-6 py-8 animate-pulse space-y-4">
         {[...Array(4)].map((_, i) => (
           <div key={i} className="h-32 bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800" />
         ))}
@@ -194,7 +194,7 @@ export function SettingsPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{t("settings.title")}</h1>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{t("settings.subtitle")}</p>

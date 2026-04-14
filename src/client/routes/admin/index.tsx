@@ -80,7 +80,7 @@ export function AdminPage() {
 
   if (user?.role !== "admin") {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
         <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl p-8 text-center">
           <p className="text-lg font-semibold text-red-700 dark:text-red-400">403 — Forbidden</p>
           <p className="text-sm text-red-500 dark:text-red-500 mt-1">You do not have permission to access this page.</p>
@@ -96,7 +96,7 @@ export function AdminPage() {
   const pendingCount = pendingApprovals.length;
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{t("admin.title")}</h1>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{t("admin.subtitle")}</p>

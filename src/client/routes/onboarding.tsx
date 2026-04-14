@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
+import { useQueryClient } from "@tanstack/react-query";
 import { CheckIcon, ChevronRightIcon, ShieldCheckIcon } from "@heroicons/react/24/outline";
 import { api } from "../lib/api";
 import { langFlag, langName } from "../lib/lang";
@@ -15,6 +16,7 @@ type Step = 1 | 2 | 3 | 4;
 export function OnboardingPage() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const qc = useQueryClient();
 
   const [step, setStep] = useState<Step>(1);
   const [native, setNative] = useState<string | null>(null);
@@ -45,7 +47,10 @@ export function OnboardingPage() {
         api.setSetting("user.learningLanguages", JSON.stringify(learning)),
         api.setSetting("privacy.uploadRecordings", String(uploadRecordings)),
       ]);
-      setStep(4); // show success step
+      // Invalidate settings cache so useUserLanguages re-fetches and
+      // hasConfig becomes true before we navigate — prevents redirect loop
+      await qc.invalidateQueries({ queryKey: ["settings"] });
+      setStep(4);
     } finally {
       setSaving(false);
     }

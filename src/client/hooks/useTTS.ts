@@ -3,6 +3,7 @@ import { useState, useRef, useCallback } from "react";
 const DEFAULT_VOICES: Record<string, string> = {
   en: "en-US-JennyNeural",
   ja: "ja-JP-NanamiNeural",
+  vi: "vi-VN-HoaiMyNeural",
   es: "es-ES-ElviraNeural",
   fr: "fr-FR-DeniseNeural",
   de: "de-DE-KatjaNeural",

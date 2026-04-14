@@ -26,11 +26,22 @@ export function langLabel(langCode: string): string {
   return langCode.split("-")[0]!.toUpperCase();
 }
 
-/** Human-readable language name for a BCP-47 code */
+/**
+ * Human-readable language name for a BCP-47 code, displayed in its own language.
+ * e.g. "vi" → "Tiếng Việt", "ja" → "日本語", "de" → "Deutsch"
+ * Falls back to English display name, then the raw code.
+ */
 export function langName(langCode: string): string {
+  const base = langCode.split("-")[0]!;
   try {
-    return new Intl.DisplayNames(["en"], { type: "language" }).of(langCode) ?? langCode;
+    // Display the language name in its own language (e.g. "vi" rendered in Vietnamese)
+    return new Intl.DisplayNames([base], { type: "language" }).of(base) ?? langCode;
   } catch {
-    return langCode;
+    try {
+      // Fallback: display in English
+      return new Intl.DisplayNames(["en"], { type: "language" }).of(base) ?? langCode;
+    } catch {
+      return langCode;
+    }
   }
 }

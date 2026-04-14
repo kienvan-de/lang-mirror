@@ -121,7 +121,7 @@ export function PathPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
       {/* Header */}
-      <div className="flex items-start justify-between gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-6">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
             <AcademicCapIcon className="w-6 h-6 text-blue-500 flex-shrink-0" />
@@ -135,7 +135,7 @@ export function PathPage() {
                   if (e.key === "Enter") e.currentTarget.blur();
                   if (e.key === "Escape") setEditingName(false);
                 }}
-                className="text-2xl font-bold bg-transparent border-b-2 border-blue-500 text-gray-900 dark:text-gray-100 focus:outline-none flex-1"
+                className="text-2xl font-bold bg-transparent border-b-2 border-blue-500 text-gray-900 dark:text-gray-100 focus:outline-none w-full"
               />
             ) : (
               <h1
@@ -155,7 +155,7 @@ export function PathPage() {
         </div>
         <button
           onClick={() => setShowSearch(v => !v)}
-          className="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+          className="flex-shrink-0 self-start inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
         >
           <MagnifyingGlassIcon className="w-4 h-4" /> {t("path.findPaths")}
         </button>

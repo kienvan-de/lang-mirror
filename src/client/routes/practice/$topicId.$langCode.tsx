@@ -675,10 +675,18 @@ export function PracticePage() {
 
             {/* Sibling sentences (other-language versions at same position) */}
             {showTranslation && (() => {
-              // Use ALL topic versions (not the practice-tab-filtered allVersions) so
-              // the native language version is included as a translation source even
-              // though it is excluded from practice tabs.
-              const siblingVersions = (topic?.versions ?? []).filter((v) => v.language_code !== langCode);
+              // Translation source filter:
+              //   - Always exclude the active langCode (that's what is being practised)
+              //   - Own topic: show all versions (no restriction)
+              //   - Others' topic: show only native language + learning languages
+              const siblingVersions = (topic?.versions ?? []).filter((v) => {
+                if (v.language_code === langCode) return false;
+                if (isOwnTopic) return true;
+                const base = v.language_code.split("-")[0]!.toLowerCase();
+                const isNative = nativeLanguage && base === nativeLanguage;
+                const isLearning = !hasConfig || requiredLanguages.includes(base);
+                return isNative || isLearning;
+              });
               const siblings = siblingVersions
                 .map((v) => ({
                   langCode: v.language_code,

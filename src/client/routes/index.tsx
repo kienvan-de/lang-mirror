@@ -124,8 +124,8 @@ export function DashboardPage() {
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">{t("dashboard.recentPractice")}</h2>
-          <Link to="/topics" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
-            {t("dashboard.viewAllTopics")} →
+          <Link to="/path" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
+            {t("dashboard.viewPath")} →
           </Link>
         </div>
 

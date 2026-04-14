@@ -448,7 +448,7 @@ export function TopicDetailPage() {
       {versions.length > 0 && (
         <>
           {/* ── Mobile: dropdown selector (< sm) ─────────────────────── */}
-          <div className="sm:hidden mb-0">
+          <div className="sm:hidden mb-3">
             <div className="flex items-center gap-2">
               <select
                 value={activeVersion?.id ?? ""}

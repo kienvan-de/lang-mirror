@@ -26,6 +26,10 @@ CREATE TABLE IF NOT EXISTS users (
     name              TEXT,
     avatar_url        TEXT,
     role              TEXT NOT NULL DEFAULT 'user',
+    is_active         INTEGER NOT NULL DEFAULT 1,
+    deactivated_at    TEXT,
+    deactivated_by    TEXT REFERENCES users(id) ON DELETE SET NULL,
+    deactivation_reason TEXT,
     created_at        TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
     updated_at        TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
   );

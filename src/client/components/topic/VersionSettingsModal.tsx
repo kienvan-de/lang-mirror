@@ -3,7 +3,7 @@ import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { XMarkIcon, GlobeAltIcon, ExclamationTriangleIcon, PlayIcon } from "@heroicons/react/24/outline";
 import { api, type Version, type Voice } from "../../lib/api";
-import { langFlag, langLabel } from "../../lib/lang";
+import { langFlag, langLabel, samplePhraseForLang } from "../../lib/lang";
 import { defaultVoiceForLang } from "../../hooks/useTTS";
 
 // ── Slider ────────────────────────────────────────────────────────────────────
@@ -158,7 +158,7 @@ export function VersionSettingsModal({ version, onClose }: Props) {
               <label className="text-sm font-medium text-gray-700 dark:text-gray-300">{t("versionSettings.voiceLabel")}</label>
               <button
                 onClick={() => {
-                  const params = new URLSearchParams({ text: "Hello, this is a preview.", voice, speed: String(speed), pitch: String(pitch) });
+                  const params = new URLSearchParams({ text: samplePhraseForLang(version.language_code), voice, speed: String(speed), pitch: String(pitch) });
                   new Audio(`/api/tts/preview?${params}`).play().catch(() => {});
                 }}
                 className="px-2 py-1 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-xs font-medium text-gray-600 dark:text-gray-400 transition-colors flex items-center gap-1"

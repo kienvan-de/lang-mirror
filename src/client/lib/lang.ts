@@ -27,6 +27,29 @@ export function langLabel(langCode: string): string {
 }
 
 /**
+ * A short native-language sample phrase for TTS preview, keyed by BCP-47 base code.
+ * Falls back to English if the language is not in the map.
+ */
+const SAMPLE_PHRASES: Record<string, string> = {
+  en: "Hello, how are you doing today?",
+  vi: "Xin chào, bạn có khỏe không?",
+  ja: "こんにちは、元気ですか？",
+  de: "Guten Tag, wie geht es Ihnen?",
+  fr: "Bonjour, comment allez-vous ?",
+  zh: "你好，你好吗？",
+  ko: "안녕하세요, 잘 지내세요?",
+  es: "Hola, ¿cómo estás?",
+  pt: "Olá, como você está?",
+  it: "Ciao, come stai?",
+  ru: "Привет, как дела?",
+};
+
+export function samplePhraseForLang(langCode: string): string {
+  const base = langCode.split("-")[0]!.toLowerCase();
+  return SAMPLE_PHRASES[base] ?? SAMPLE_PHRASES["en"]!;
+}
+
+/**
  * Human-readable language name for a BCP-47 code, displayed in its own language.
  * e.g. "vi" → "Tiếng Việt", "ja" → "日本語", "de" → "Deutsch"
  * Falls back to English display name, then the raw code.

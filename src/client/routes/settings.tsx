@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "@tanstack/react-router";
 import { ExclamationTriangleIcon, PlayIcon, ShieldCheckIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { api, type Voice } from "../lib/api";
-import { langFlag, langName } from "../lib/lang";
+import { langFlag, langName, samplePhraseForLang } from "../lib/lang";
 import { defaultVoiceForLang } from "../hooks/useTTS";
 import { useAuth } from "../hooks/useAuth";
 import { useUserLanguages } from "../hooks/useUserLanguages";
@@ -97,26 +97,7 @@ function Slider({
   );
 }
 
-// ── Sample phrases for TTS preview ───────────────────────────────────────────
-
-const SAMPLE_PHRASES: Record<string, string> = {
-  ja: "こんにちは、元気ですか？",
-  es: "Hola, ¿cómo estás?",
-  fr: "Bonjour, comment allez-vous ?",
-  de: "Guten Tag, wie geht es Ihnen?",
-  zh: "你好，你好吗？",
-  ko: "안녕하세요, 잘 지내세요?",
-  vi: "Xin chào, bạn có khỏe không?",
-  pt: "Olá, como você está?",
-  it: "Ciao, come stai?",
-  ru: "Привет, как дела?",
-  en: "Hello, how are you doing today?",
-};
-
-function sampleForLang(langCode: string): string {
-  const base = langCode.split("-")[0]!.toLowerCase();
-  return SAMPLE_PHRASES[base] ?? SAMPLE_PHRASES["en"]!;
-}
+// ── TTS preview helper ────────────────────────────────────────────────────────
 
 function playPreview(text: string, voice: string, speed: number, pitch: number) {
   const params = new URLSearchParams({ text, voice, speed: String(speed), pitch: String(pitch) });
@@ -305,7 +286,7 @@ export function SettingsPage() {
                   min={0.5} max={2.0} step={0.05}
                   format={(v) => `${v.toFixed(2)}×`}
                   onChange={setSpeed}
-                  onPreview={() => playPreview(sampleForLang(nativeLanguage ?? "en"), defaultVoiceForLang(nativeLanguage ?? "en"), speed, pitch)}
+                  onPreview={() => playPreview(samplePhraseForLang(nativeLanguage ?? "en"), defaultVoiceForLang(nativeLanguage ?? "en"), speed, pitch)}
                 />
                 <div className="flex items-center gap-2 flex-wrap">
                   {[0.5, 0.75, 1.0, 1.25, 1.5, 2.0].map((s) => (
@@ -805,9 +786,9 @@ function VoicePicker({
         </div>
         <div className="flex items-center gap-2">
           <button
-            onClick={() => playPreview(sampleForLang(langCode), selectedVoice, speed, pitch)}
+            onClick={() => playPreview(samplePhraseForLang(langCode), selectedVoice, speed, pitch)}
             className="px-2.5 py-1 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-xs font-medium text-gray-600 dark:text-gray-400 transition-colors flex-shrink-0"
-            title={`Preview "${sampleForLang(langCode)}"`}
+            title={`Preview "${samplePhraseForLang(langCode)}"`}
           >▶ {t("settings.preview")}</button>
           <button
             onClick={() => setOpen((v) => !v)}

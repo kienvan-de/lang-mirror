@@ -393,7 +393,7 @@ export function TopicDetailPage() {
           >
             <ArrowDownTrayIcon className="w-4 h-4" /> {t("topics.export")}
           </button>
-          {activeVersion && !(nativeLanguage && activeVersion.language_code.split("-")[0]!.toLowerCase() === nativeLanguage) && (
+          {activeVersion && (
             <Link
               to="/practice/$topicId/$langCode"
               params={{ topicId, langCode: activeVersion.language_code }}

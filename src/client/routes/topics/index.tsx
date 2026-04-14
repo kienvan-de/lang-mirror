@@ -26,10 +26,20 @@ export function TopicsPage() {
     queryFn: api.getTags,
   });
 
+  const isAdminUser = user?.role === "admin";
+
   const filteredTopics = (topics ?? []).filter(t => {
-    // Owned topics are always shown
+    // Admins see everything the backend returned — no client-side filtering
+    if (isAdminUser) {
+      // Still apply tag filter if admin has selected tags
+      if (selectedTagIds.length > 0) {
+        return t.tags?.some(tag => selectedTagIds.includes(tag.id)) ?? false;
+      }
+      return true;
+    }
+    // Owned topics are always shown to regular users
     if (user && t.owner_id === user.id) return true;
-    // Language config filter
+    // Language config filter — only for non-owners
     if (hasConfig && requiredLanguages.length > 0) {
       const topicLangs = (t.versions ?? []).map(v => v.language_code.split("-")[0]!.toLowerCase());
       if (!requiredLanguages.every(lang => topicLangs.includes(lang))) return false;

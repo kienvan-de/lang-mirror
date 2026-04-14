@@ -106,6 +106,7 @@ const SAMPLE_PHRASES: Record<string, string> = {
   de: "Guten Tag, wie geht es Ihnen?",
   zh: "你好，你好吗？",
   ko: "안녕하세요, 잘 지내세요?",
+  vi: "Xin chào, bạn có khỏe không?",
   pt: "Olá, como você está?",
   it: "Ciao, come stai?",
   ru: "Привет, как дела?",
@@ -304,7 +305,7 @@ export function SettingsPage() {
                   min={0.5} max={2.0} step={0.05}
                   format={(v) => `${v.toFixed(2)}×`}
                   onChange={setSpeed}
-                  onPreview={() => playPreview("Hello, this is a preview.", "en-US-JennyNeural", speed, pitch)}
+                  onPreview={() => playPreview(sampleForLang(nativeLanguage ?? "en"), defaultVoiceForLang(nativeLanguage ?? "en"), speed, pitch)}
                 />
                 <div className="flex items-center gap-2 flex-wrap">
                   {[0.5, 0.75, 1.0, 1.25, 1.5, 2.0].map((s) => (

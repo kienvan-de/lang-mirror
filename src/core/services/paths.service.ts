@@ -110,13 +110,15 @@ export class PathsService {
   }
 
   /** Search other users' paths by name */
-  async search(q: string): Promise<(PathRow & { topic_count: number })[]> {
+  async search(q: string): Promise<(PathRow & { topic_count: number; owner_name: string | null; owner_email: string | null })[]> {
     const { id: userId } = requireAuth();
     const query = `%${q.trim()}%`;
-    return this.db.queryAll<PathRow & { topic_count: number }>(
-      `SELECT p.*, COUNT(pt.topic_id) as topic_count
+    return this.db.queryAll<PathRow & { topic_count: number; owner_name: string | null; owner_email: string | null }>(
+      `SELECT p.*, COUNT(pt.topic_id) as topic_count,
+              u.name as owner_name, u.email as owner_email
        FROM paths p
        LEFT JOIN path_topics pt ON pt.path_id = p.id
+       LEFT JOIN users u ON u.id = p.owner_id
        WHERE p.owner_id != ? AND p.name LIKE ?
        GROUP BY p.id
        ORDER BY p.name ASC LIMIT 20`,

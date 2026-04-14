@@ -417,6 +417,7 @@
     "findPaths": "Trouver des parcours",
     "searchPlaceholder": "Rechercher des parcours par nom…",
     "copy": "Copier",
+    "topicsCount": "sujets",
     "noPathsFound": "Aucun parcours trouvé",
     "noTopicsYet": "Aucun sujet pour l'instant",
     "noTopicsSubtitle": "Ajoutez des sujets pour construire votre parcours d'apprentissage",

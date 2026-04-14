@@ -191,14 +191,22 @@ export function PathPage() {
             <div className="space-y-2">
               {searchResults.map(p => (
                 <div key={p.id} className="flex items-center justify-between gap-2 px-3 py-2 rounded-xl bg-gray-50 dark:bg-gray-800">
-                  <div>
-                    <p className="text-sm font-medium text-gray-800 dark:text-gray-200">{p.name}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">{(p as any).topic_count ?? 0} topics</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-medium text-gray-800 dark:text-gray-200 truncate">{p.name}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1.5 flex-wrap">
+                      {p.owner_name && (
+                        <span className="font-medium text-gray-600 dark:text-gray-300 truncate max-w-[140px]">
+                          {p.owner_name}
+                        </span>
+                      )}
+                      {p.owner_name && <span className="text-gray-300 dark:text-gray-600">·</span>}
+                      <span>{(p as any).topic_count ?? 0} {t("path.topicsCount", { count: (p as any).topic_count ?? 0 })}</span>
+                    </p>
                   </div>
                   <button
                     onClick={() => copyMutation.mutate(p.id)}
                     disabled={copyMutation.isPending}
-                    className="px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-xs font-semibold text-white transition-colors disabled:opacity-60"
+                    className="flex-shrink-0 px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-xs font-semibold text-white transition-colors disabled:opacity-60"
                   >
                     {t("path.copy")}
                   </button>

@@ -430,6 +430,7 @@
     "findPaths": "パスを探す",
     "searchPlaceholder": "パス名で検索…",
     "copy": "コピー",
+    "topicsCount": "トピック",
     "noPathsFound": "パスが見つかりません",
     "noTopicsYet": "トピックがまだありません",
     "noTopicsSubtitle": "トピックを追加して学習パスを作成しましょう",

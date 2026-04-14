@@ -94,6 +94,9 @@ export interface LearningPath {
   created_at: string;
   updated_at: string;
   topics: PathTopic[];
+  // Populated only on search results (not on own path)
+  owner_name?: string | null;
+  owner_email?: string | null;
 }
 
 export interface Version {

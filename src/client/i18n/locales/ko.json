@@ -417,6 +417,7 @@
     "findPaths": "경로 찾기",
     "searchPlaceholder": "이름으로 경로 검색…",
     "copy": "복사",
+    "topicsCount": "주제",
     "noPathsFound": "경로를 찾을 수 없습니다",
     "noTopicsYet": "아직 주제가 없습니다",
     "noTopicsSubtitle": "학습 경로를 만들려면 주제를 추가하세요",

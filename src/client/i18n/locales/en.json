@@ -417,6 +417,7 @@
     "findPaths": "Find paths",
     "searchPlaceholder": "Search paths by name…",
     "copy": "Copy",
+    "topicsCount": "topics",
     "noPathsFound": "No paths found",
     "noTopicsYet": "No topics yet",
     "noTopicsSubtitle": "Add topics to build your learning path",

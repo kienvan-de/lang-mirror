@@ -81,12 +81,19 @@ export class RecordingsService {
     );
     if (!version) throw new NotFoundError("Version not found");
 
-    // Ownership check — join up to the topic's owner_id
-    const topic = await this.db.queryFirst<{ owner_id: string }>(
-      "SELECT owner_id FROM topics WHERE id = ?", version.topic_id
+    // Access check — topic must be owned by the caller OR published (shared).
+    // canAccess() is intentionally NOT used here: that checks topic ownership,
+    // but recordings belong to the caller regardless of who owns the topic.
+    // A user can record any topic they can access (own or published).
+    const auth = requireAuth();
+    const topic = await this.db.queryFirst<{ owner_id: string; status: string }>(
+      "SELECT owner_id, status FROM topics WHERE id = ?", version.topic_id
     );
     if (!topic) throw new NotFoundError("Topic not found");
-    if (!canAccess(topic.owner_id)) throw new ForbiddenError("You do not own this recording");
+    const canAccessTopic = topic.owner_id === auth.id
+      || topic.status === "published"
+      || auth.role === "admin";
+    if (!canAccessTopic) throw new ForbiddenError("You do not have access to this topic");
 
     return { sentence, version };
   }
@@ -100,10 +107,8 @@ export class RecordingsService {
       throw new ValidationError("Content-Type must be an audio/* type");
     }
 
-    // requireAuth() must be called before resolveAndAuthorise so auth.id is available
+    // resolveAndAuthorise calls requireAuth() internally — userId comes from there
     const { id: userId } = requireAuth();
-
-    // Ownership: ensures the sentence belongs to a topic the caller owns
     const { version } = await this.resolveAndAuthorise(sentenceId);
 
     // Normalise to a canonical MIME type — never store the raw client-supplied value

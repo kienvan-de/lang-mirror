@@ -761,6 +761,34 @@ function TopicStatusPopover({ status, rejectionNote, onSubmit, onWithdraw, isWit
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+
+  // Clamp popover so it never overflows the viewport edges
+  useEffect(() => {
+    if (!open || !popoverRef.current) return;
+    const el = popoverRef.current;
+    const rect = el.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+    const MARGIN = 8; // px gap from screen edge
+
+    // Reset any previous inline adjustments
+    el.style.left = "";
+    el.style.right = "";
+    el.style.transform = "";
+
+    const freshRect = el.getBoundingClientRect();
+
+    if (freshRect.right > viewportWidth - MARGIN) {
+      // Overflows right — anchor to right edge of icon instead
+      el.style.left = "auto";
+      el.style.right = "0";
+      el.style.transform = "none";
+    } else if (freshRect.left < MARGIN) {
+      // Overflows left — anchor to left edge of icon
+      el.style.left = "0";
+      el.style.transform = "none";
+    }
+  }, [open]);
 
   // Close on outside click / touch
   useEffect(() => {
@@ -857,7 +885,10 @@ function TopicStatusPopover({ status, rejectionNote, onSubmit, onWithdraw, isWit
 
       {/* Popover panel */}
       {open && (
-        <div className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 bg-white dark:bg-gray-900 rounded-xl border ${border} shadow-xl z-50 p-4`}>
+        <div
+          ref={popoverRef}
+          className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 bg-white dark:bg-gray-900 rounded-xl border ${border} shadow-xl z-50 p-4`}
+        >
           {/* Arrow tip */}
           <div className={`absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-white dark:bg-gray-900 border-l border-t ${border}`} />
           {label}

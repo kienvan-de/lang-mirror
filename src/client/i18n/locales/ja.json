@@ -583,6 +583,9 @@
     "recordingOptionSkip": "録音を保存しない",
     "recordingOptionSkipHint": "録音はローカルに留まりアップロードされません。レビューモードは利用できません",
     "privacyNote": "あなたの録音は、自分の復習以外の目的で共有または使用されることはありません",
-    "finish": "始める"
+    "finish": "始める",
+    "successTitle": "準備完了！",
+    "successHint": "プロフィールが設定されました。今すぐ練習を始めましょう。",
+    "practiceNow": "練習を始める"
   }
 }

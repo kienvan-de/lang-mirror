@@ -582,6 +582,9 @@
     "recordingOptionSkip": "Không lưu bản ghi âm",
     "recordingOptionSkipHint": "Bản ghi âm chỉ lưu cục bộ và không được tải lên. Chế độ ôn tập sẽ không khả dụng",
     "privacyNote": "Bản ghi âm của bạn không bao giờ được chia sẻ hoặc sử dụng cho bất kỳ mục đích nào khác ngoài ôn tập của bạn",
-    "finish": "Bắt đầu"
+    "finish": "Bắt đầu",
+    "successTitle": "Bạn đã sẵn sàng!",
+    "successHint": "Hồ sơ của bạn đã được thiết lập. Bắt đầu luyện tập ngay.",
+    "practiceNow": "Bắt đầu luyện tập"
   }
 }

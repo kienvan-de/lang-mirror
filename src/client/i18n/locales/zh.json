@@ -582,6 +582,9 @@
     "recordingOptionSkip": "不保存录音",
     "recordingOptionSkipHint": "录音保留在本地不会上传。复习模式将不可用",
     "privacyNote": "您的录音绝不会被共享或用于您个人复习以外的任何目的",
-    "finish": "开始"
+    "finish": "开始",
+    "successTitle": "一切就绪！",
+    "successHint": "您的个人资料已设置完成。现在开始练习吧。",
+    "practiceNow": "开始练习"
   }
 }

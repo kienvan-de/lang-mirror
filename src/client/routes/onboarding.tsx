@@ -10,7 +10,7 @@ const LANG_MIRROR_LANG_KEY = "lang-mirror-lang";
 
 const SUPPORTED_LANGS = ["en", "vi", "ja", "de", "fr", "zh", "ko"];
 
-type Step = 1 | 2 | 3;
+type Step = 1 | 2 | 3 | 4;
 
 export function OnboardingPage() {
   const { t, i18n } = useTranslation();
@@ -45,7 +45,7 @@ export function OnboardingPage() {
         api.setSetting("user.learningLanguages", JSON.stringify(learning)),
         api.setSetting("privacy.uploadRecordings", String(uploadRecordings)),
       ]);
-      navigate({ to: "/" });
+      setStep(4); // show success step
     } finally {
       setSaving(false);
     }
@@ -66,25 +66,27 @@ export function OnboardingPage() {
             </p>
           </div>
 
-          {/* Step indicator */}
-          <div className="flex items-center justify-center gap-2 mb-8">
-            {([1, 2, 3] as Step[]).map((s) => (
-              <div key={s} className="flex items-center gap-2">
-                <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold transition-colors ${
-                  step > s
-                    ? "bg-green-500 text-white"
-                    : step === s
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-200 dark:bg-gray-700 text-gray-400"
-                }`}>
-                  {step > s ? <CheckIcon className="w-3.5 h-3.5" /> : s}
+          {/* Step indicator — only show for steps 1–3 */}
+          {step !== 4 && (
+            <div className="flex items-center justify-center gap-2 mb-8">
+              {([1, 2, 3] as number[]).map((s) => (
+                <div key={s} className="flex items-center gap-2">
+                  <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold transition-colors ${
+                    step > s
+                      ? "bg-green-500 text-white"
+                      : step === s
+                      ? "bg-blue-600 text-white"
+                      : "bg-gray-200 dark:bg-gray-700 text-gray-400"
+                  }`}>
+                    {step > s ? <CheckIcon className="w-3.5 h-3.5" /> : s}
+                  </div>
+                  {s < 3 && (
+                    <div className={`w-8 h-0.5 rounded ${step > s ? "bg-green-400" : "bg-gray-200 dark:bg-gray-700"}`} />
+                  )}
                 </div>
-                {s < 3 && (
-                  <div className={`w-8 h-0.5 rounded ${step > s ? "bg-green-400" : "bg-gray-200 dark:bg-gray-700"}`} />
-                )}
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
 
           {/* Card */}
           <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800 shadow-xl p-6 space-y-5">
@@ -256,6 +258,32 @@ export function OnboardingPage() {
                   </button>
                 </div>
               </>
+            )}
+
+            {/* Step 4 — Success */}
+            {step === 4 && (
+              <div className="text-center space-y-5 py-4">
+                <div className="flex justify-center">
+                  <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                    <CheckIcon className="w-8 h-8 text-green-600 dark:text-green-400" />
+                  </div>
+                </div>
+                <div>
+                  <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">
+                    {t("onboarding.successTitle")}
+                  </h2>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                    {t("onboarding.successHint")}
+                  </p>
+                </div>
+                <button
+                  onClick={() => navigate({ to: "/" })}
+                  className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-green-600 hover:bg-green-700 text-white text-sm font-semibold transition-colors"
+                >
+                  {t("onboarding.practiceNow")}
+                  <ChevronRightIcon className="w-4 h-4" />
+                </button>
+              </div>
             )}
 
           </div>

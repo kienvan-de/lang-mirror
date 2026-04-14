@@ -581,6 +581,9 @@
     "recordingOptionSkip": "Don't save recordings",
     "recordingOptionSkipHint": "Recordings stay local and are not uploaded. Review mode will be unavailable",
     "privacyNote": "Your recordings are never shared or used for any purpose other than your own review",
-    "finish": "Get started"
+    "finish": "Get started",
+    "successTitle": "You're all set!",
+    "successHint": "Your profile is ready. Start practising now.",
+    "practiceNow": "Start Practising"
   }
 }

@@ -582,6 +582,9 @@
     "recordingOptionSkip": "Ne pas sauvegarder les enregistrements",
     "recordingOptionSkipHint": "Les enregistrements restent locaux et ne sont pas téléchargés. Le mode révision sera indisponible",
     "privacyNote": "Vos enregistrements ne sont jamais partagés ni utilisés à d'autres fins que votre propre révision",
-    "finish": "Commencer"
+    "finish": "Commencer",
+    "successTitle": "Vous êtes prêt !",
+    "successHint": "Votre profil est configuré. Commencez à pratiquer maintenant.",
+    "practiceNow": "Commencer à pratiquer"
   }
 }

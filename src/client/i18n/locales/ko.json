@@ -582,6 +582,9 @@
     "recordingOptionSkip": "녹음 저장 안 함",
     "recordingOptionSkipHint": "녹음은 로컬에 유지되며 업로드되지 않습니다. 복습 모드를 사용할 수 없습니다",
     "privacyNote": "귀하의 녹음은 개인 복습 외의 목적으로 공유되거나 사용되지 않습니다",
-    "finish": "시작하기"
+    "finish": "시작하기",
+    "successTitle": "준비 완료!",
+    "successHint": "프로필이 설정되었습니다. 지금 바로 연습을 시작하세요.",
+    "practiceNow": "연습 시작"
   }
 }

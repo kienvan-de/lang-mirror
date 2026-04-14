@@ -584,6 +584,9 @@
     "recordingOptionSkip": "Aufnahmen nicht speichern",
     "recordingOptionSkipHint": "Aufnahmen bleiben lokal und werden nicht hochgeladen. Der Überprüfungsmodus ist nicht verfügbar",
     "privacyNote": "Ihre Aufnahmen werden niemals geteilt oder für andere Zwecke als Ihre eigene Überprüfung verwendet",
-    "finish": "Loslegen"
+    "finish": "Loslegen",
+    "successTitle": "Alles bereit!",
+    "successHint": "Ihr Profil ist eingerichtet. Fangen Sie jetzt an zu üben.",
+    "practiceNow": "Jetzt üben"
   }
 }

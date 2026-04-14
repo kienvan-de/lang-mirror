@@ -534,5 +534,27 @@
     "reasonLabel": "原因",
     "contactHint": "如果您认为这是错误，请联系支持团队。",
     "backToLogin": "返回登录"
+  },
+  "footer": {
+    "allRightsReserved": "版权所有。",
+    "privacyPolicy": "隐私政策"
+  },
+  "privacy": {
+    "title": "隐私政策",
+    "lastUpdated": "最后更新：{{year}}年",
+    "section1Title": "我们收集的信息",
+    "section1Body": "当您通过第三方提供商（如Google）登录时，我们会收到您的姓名、电子邮件地址和头像。我们存储您创建的内容（主题、句子、笔记）、您的练习历史和个人设置。",
+    "section2Title": "语音录音",
+    "section2Body": "如果您选择在练习时录制自己的声音，您的录音将私密存储在您的账户中。它们仅用于您个人的复习回放，绝不会与其他用户共享、用于训练，或被您和系统管理员以外的任何人访问。",
+    "section3Title": "Cookie",
+    "section3Body": "我们使用单个会话Cookie进行身份验证。它是httpOnly、Secure的，并在7天不活动后过期。不使用广告或跟踪Cookie。",
+    "section4Title": "第三方",
+    "section4Body": "我们使用Cloudflare托管此应用程序。您的数据根据Cloudflare的隐私政策在其基础设施上处理。我们不与任何其他第三方共享您的数据。",
+    "section5Title": "文字转语音",
+    "section5Body": "句子文本被发送到Microsoft的Edge TTS服务以生成音频。仅传输文本内容——不包含任何个人身份信息。生成的音频会被缓存以提高性能。",
+    "section6Title": "您的权利",
+    "section6Body": "您可以随时从设置页面删除您的账户和所有相关数据。删除您的账户将永久删除您的所有主题、句子、练习历史和录音。",
+    "section7Title": "联系方式",
+    "section7Body": "如有任何隐私相关问题，请通过以下方式联系我们"
   }
 }

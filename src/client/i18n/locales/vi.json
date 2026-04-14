@@ -534,5 +534,27 @@
     "reasonLabel": "Lý do",
     "contactHint": "Vui lòng liên hệ hỗ trợ nếu bạn cho rằng đây là nhầm lẫn.",
     "backToLogin": "Quay lại đăng nhập"
+  },
+  "footer": {
+    "allRightsReserved": "Bảo lưu mọi quyền.",
+    "privacyPolicy": "Chính sách bảo mật"
+  },
+  "privacy": {
+    "title": "Chính sách bảo mật",
+    "lastUpdated": "Cập nhật lần cuối: {{year}}",
+    "section1Title": "Dữ liệu chúng tôi thu thập",
+    "section1Body": "Khi bạn đăng nhập qua nhà cung cấp bên thứ ba (ví dụ: Google), chúng tôi nhận được tên, địa chỉ email và ảnh đại diện của bạn. Chúng tôi lưu trữ nội dung bạn tạo (chủ đề, câu, ghi chú), lịch sử luyện tập và cài đặt cá nhân của bạn.",
+    "section2Title": "Bản ghi âm giọng nói",
+    "section2Body": "Nếu bạn chọn tự ghi âm trong khi luyện tập, bản ghi âm của bạn được lưu trữ riêng tư trong tài khoản của bạn. Chúng chỉ được sử dụng cho việc phát lại để ôn tập cá nhân và không bao giờ được chia sẻ với người dùng khác, sử dụng để đào tạo hoặc truy cập bởi bất kỳ ai ngoài bạn và quản trị viên hệ thống.",
+    "section3Title": "Cookie",
+    "section3Body": "Chúng tôi sử dụng một cookie phiên duy nhất để xác thực. Cookie này là httpOnly, Secure và hết hạn sau 7 ngày không hoạt động. Không sử dụng cookie quảng cáo hoặc theo dõi.",
+    "section4Title": "Bên thứ ba",
+    "section4Body": "Chúng tôi sử dụng Cloudflare để lưu trữ ứng dụng này. Dữ liệu của bạn được xử lý trên cơ sở hạ tầng của Cloudflare theo chính sách bảo mật của họ. Chúng tôi không chia sẻ dữ liệu của bạn với bất kỳ bên thứ ba nào khác.",
+    "section5Title": "Chuyển văn bản thành giọng nói",
+    "section5Body": "Nội dung câu được gửi đến dịch vụ Edge TTS của Microsoft để tạo âm thanh. Chỉ có nội dung văn bản được truyền đi — không có thông tin nhận dạng cá nhân nào được đưa vào. Âm thanh được tạo ra được lưu vào bộ nhớ đệm để tăng hiệu suất.",
+    "section6Title": "Quyền của bạn",
+    "section6Body": "Bạn có thể xóa tài khoản và tất cả dữ liệu liên quan bất cứ lúc nào từ trang Cài đặt. Việc xóa tài khoản của bạn sẽ xóa vĩnh viễn tất cả chủ đề, câu, lịch sử luyện tập và bản ghi âm của bạn.",
+    "section7Title": "Liên hệ",
+    "section7Body": "Đối với bất kỳ câu hỏi liên quan đến quyền riêng tư, vui lòng liên hệ với chúng tôi tại"
   }
 }

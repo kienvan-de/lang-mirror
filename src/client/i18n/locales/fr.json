@@ -534,5 +534,27 @@
     "reasonLabel": "Raison",
     "contactHint": "Veuillez contacter le support si vous pensez qu'il s'agit d'une erreur.",
     "backToLogin": "Retour à la connexion"
+  },
+  "footer": {
+    "allRightsReserved": "Tous droits réservés.",
+    "privacyPolicy": "Politique de confidentialité"
+  },
+  "privacy": {
+    "title": "Politique de confidentialité",
+    "lastUpdated": "Dernière mise à jour : {{year}}",
+    "section1Title": "Ce que nous collectons",
+    "section1Body": "Lorsque vous vous connectez via un fournisseur tiers (ex. Google), nous recevons votre nom, adresse e-mail et photo de profil. Nous stockons le contenu que vous créez (sujets, phrases, notes), votre historique de pratique et vos paramètres personnels.",
+    "section2Title": "Enregistrements vocaux",
+    "section2Body": "Si vous choisissez de vous enregistrer pendant la pratique, vos enregistrements sont stockés de manière privée dans votre compte. Ils sont utilisés uniquement pour votre lecture personnelle et ne sont jamais partagés avec d'autres utilisateurs, utilisés pour l'entraînement ou accessibles par quiconque autre que vous et les administrateurs système.",
+    "section3Title": "Cookies",
+    "section3Body": "Nous utilisons un seul cookie de session pour l'authentification. Il est httpOnly, Secure et expire après 7 jours d'inactivité. Aucun cookie publicitaire ou de suivi n'est utilisé.",
+    "section4Title": "Tiers",
+    "section4Body": "Nous utilisons Cloudflare pour héberger cette application. Vos données sont traitées sur l'infrastructure de Cloudflare conformément à leur politique de confidentialité. Nous ne partageons pas vos données avec d'autres tiers.",
+    "section5Title": "Synthèse vocale",
+    "section5Body": "Le texte des phrases est envoyé au service Edge TTS de Microsoft pour générer de l'audio. Seul le contenu textuel est transmis — aucune information personnellement identifiable n'est incluse. L'audio généré est mis en cache pour les performances.",
+    "section6Title": "Vos droits",
+    "section6Body": "Vous pouvez supprimer votre compte et toutes les données associées à tout moment depuis la page Paramètres. La suppression de votre compte supprime définitivement tous vos sujets, phrases, historique de pratique et enregistrements.",
+    "section7Title": "Contact",
+    "section7Body": "Pour toute question relative à la confidentialité, veuillez nous contacter à"
   }
 }

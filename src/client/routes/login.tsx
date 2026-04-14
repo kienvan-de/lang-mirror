@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { ArrowRightEndOnRectangleIcon, ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "../hooks/useAuth";
 import { api } from "../lib/api";
+import { Footer } from "../components/Footer";
 
 interface OidcProvider {
   id: string;
@@ -58,7 +59,8 @@ export function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-950 px-4">
+    <div className="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-950 px-4">
+      <div className="flex-1 flex items-center justify-center">
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="text-center mb-8">
@@ -107,6 +109,8 @@ export function LoginPage() {
           )}
         </div>
       </div>
+      </div>
+      <Footer />
     </div>
   );
 }

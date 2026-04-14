@@ -536,5 +536,27 @@
     "reasonLabel": "Grund",
     "contactHint": "Bitte kontaktieren Sie den Support, wenn Sie glauben, dass dies ein Fehler ist.",
     "backToLogin": "Zurück zur Anmeldung"
+  },
+  "footer": {
+    "allRightsReserved": "Alle Rechte vorbehalten.",
+    "privacyPolicy": "Datenschutzrichtlinie"
+  },
+  "privacy": {
+    "title": "Datenschutzrichtlinie",
+    "lastUpdated": "Zuletzt aktualisiert: {{year}}",
+    "section1Title": "Was wir sammeln",
+    "section1Body": "Wenn Sie sich über einen Drittanbieter (z.B. Google) anmelden, erhalten wir Ihren Namen, Ihre E-Mail-Adresse und Ihr Profilbild. Wir speichern die von Ihnen erstellten Inhalte (Themen, Sätze, Notizen), Ihren Übungsverlauf und Ihre persönlichen Einstellungen.",
+    "section2Title": "Sprachaufnahmen",
+    "section2Body": "Wenn Sie sich während des Übens aufnehmen möchten, werden Ihre Aufnahmen privat in Ihrem Konto gespeichert. Sie werden ausschließlich für Ihre persönliche Wiedergabe zur Überprüfung verwendet und niemals mit anderen Benutzern geteilt, für Training verwendet oder von anderen als Ihnen und Systemadministratoren aufgerufen.",
+    "section3Title": "Cookies",
+    "section3Body": "Wir verwenden ein einziges Sitzungs-Cookie zur Authentifizierung. Es ist httpOnly, Secure und läuft nach 7 Tagen Inaktivität ab. Es werden keine Werbe- oder Tracking-Cookies verwendet.",
+    "section4Title": "Drittparteien",
+    "section4Body": "Wir verwenden Cloudflare zum Hosten dieser Anwendung. Ihre Daten werden auf der Infrastruktur von Cloudflare gemäß deren Datenschutzrichtlinie verarbeitet. Wir geben Ihre Daten nicht an Dritte weiter.",
+    "section5Title": "Text-zu-Sprache",
+    "section5Body": "Satztext wird an Microsofts Edge TTS-Dienst gesendet, um Audio zu generieren. Nur der Textinhalt wird übertragen — keine persönlich identifizierbaren Informationen sind enthalten. Generiertes Audio wird zur Leistungsverbesserung zwischengespeichert.",
+    "section6Title": "Ihre Rechte",
+    "section6Body": "Sie können Ihr Konto und alle zugehörigen Daten jederzeit über die Einstellungsseite löschen. Das Löschen Ihres Kontos entfernt dauerhaft alle Ihre Themen, Sätze, den Übungsverlauf und Aufnahmen.",
+    "section7Title": "Kontakt",
+    "section7Body": "Bei datenschutzbezogenen Fragen kontaktieren Sie uns bitte unter"
   }
 }

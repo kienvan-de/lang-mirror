@@ -533,5 +533,27 @@
     "reasonLabel": "Reason",
     "contactHint": "Please contact support if you believe this is a mistake.",
     "backToLogin": "Back to login"
+  },
+  "footer": {
+    "allRightsReserved": "All rights reserved.",
+    "privacyPolicy": "Privacy Policy"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: {{year}}",
+    "section1Title": "What we collect",
+    "section1Body": "When you sign in via a third-party provider (e.g. Google), we receive your name, email address, and profile picture. We store the content you create (topics, sentences, notes), your practice history, and your personal settings.",
+    "section2Title": "Voice recordings",
+    "section2Body": "If you choose to record yourself during practice, your recordings are stored privately in your account. They are used solely for your personal review playback and are never shared with other users, used for training, or accessed by anyone other than you and system administrators.",
+    "section3Title": "Cookies",
+    "section3Body": "We use a single session cookie for authentication. It is httpOnly, Secure, and expires after 7 days of inactivity. No advertising or tracking cookies are used.",
+    "section4Title": "Third parties",
+    "section4Body": "We use Cloudflare to host this application. Your data is processed on Cloudflare's infrastructure in accordance with their privacy policy. We do not share your data with any other third parties.",
+    "section5Title": "Text-to-speech",
+    "section5Body": "Sentence text is sent to Microsoft's Edge TTS service to generate audio. Only the text content is transmitted — no personally identifiable information is included. Generated audio is cached for performance.",
+    "section6Title": "Your rights",
+    "section6Body": "You can delete your account and all associated data at any time from the Settings page. Deleting your account permanently removes all your topics, sentences, practice history, and recordings.",
+    "section7Title": "Contact",
+    "section7Body": "For any privacy-related questions, please contact us at"
   }
 }

@@ -7,6 +7,7 @@ import { langFlag, langName } from "../lib/lang";
 import { defaultVoiceForLang } from "../hooks/useTTS";
 import { useAuth } from "../hooks/useAuth";
 import { useUserLanguages } from "../hooks/useUserLanguages";
+import { Footer } from "../components/Footer";
 
 // ── Reusable save feedback hook ───────────────────────────────────────────────
 
@@ -197,7 +198,8 @@ export function SettingsPage() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+    <div className="flex flex-col min-h-full">
+    <div className="max-w-5xl mx-auto w-full px-4 sm:px-6 py-6 sm:py-8">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{t("settings.title")}</h1>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{t("settings.subtitle")}</p>
@@ -485,6 +487,8 @@ export function SettingsPage() {
 
         </div>
       </div>
+    </div>
+    <Footer />
     </div>
   );
 }

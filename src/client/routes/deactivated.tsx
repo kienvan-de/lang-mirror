@@ -2,6 +2,7 @@ import { useSearch } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { ShieldExclamationIcon } from "@heroicons/react/24/outline";
 import { api } from "../lib/api";
+import { Footer } from "../components/Footer";
 
 export function DeactivatedPage() {
   const { t } = useTranslation();
@@ -9,7 +10,8 @@ export function DeactivatedPage() {
   const { reason } = useSearch({ strict: false }) as { reason?: string };
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-950 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-950 flex flex-col p-4">
+      <div className="flex-1 flex items-center justify-center">
       <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800 shadow-xl p-8 text-center space-y-5">
         <div className="flex justify-center">
           <div className="w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
@@ -48,6 +50,8 @@ export function DeactivatedPage() {
           {t("deactivated.backToLogin")}
         </button>
       </div>
+      </div>
+      <Footer />
     </div>
   );
 }

@@ -7,11 +7,28 @@ import {
   ChevronUpIcon, ChevronDownIcon,
   MagnifyingGlassIcon, PencilIcon, CheckIcon, XMarkIcon, ArrowRightIcon,
 } from "@heroicons/react/24/outline";
-import { api, type PathTopic } from "../lib/api";
+import { api, type PathTopic, type Topic } from "../lib/api";
+import { useUserLanguages } from "../hooks/useUserLanguages";
+
+/** Resolve the best display title for a topic given the user's native language.
+ *  Priority: native-lang version title → native-lang version topic title →
+ *            first version title → raw topic title */
+function resolveTopicTitle(topic: Topic, nativeLanguage: string | null): string {
+  if (nativeLanguage && topic.versions) {
+    const match = topic.versions.find(
+      v => v.language_code.split("-")[0]!.toLowerCase() === nativeLanguage
+    );
+    if (match?.title) return match.title;
+  }
+  // Fallback: first version title, then raw topic title
+  const firstTitle = topic.versions?.find(v => v.title)?.title;
+  return firstTitle ?? topic.title;
+}
 
 export function PathPage() {
   const { t } = useTranslation();
   const qc = useQueryClient();
+  const { nativeLanguage } = useUserLanguages();
 
   const { data: path, isLoading } = useQuery({
     queryKey: ["path"],
@@ -80,9 +97,9 @@ export function PathPage() {
 
   // Topics not yet in path
   const pathTopicIds = new Set((path?.topics ?? []).map(t => t.topic_id));
-  const availableTopics = (allTopics ?? []).filter(t =>
-    !pathTopicIds.has(t.id) &&
-    t.title.toLowerCase().includes(topicSearch.toLowerCase())
+  const availableTopics = (allTopics ?? []).filter(topic =>
+    !pathTopicIds.has(topic.id) &&
+    resolveTopicTitle(topic, nativeLanguage).toLowerCase().includes(topicSearch.toLowerCase())
   );
 
   if (isLoading) {
@@ -215,6 +232,7 @@ export function PathPage() {
               topic={topic}
               index={index}
               total={path.topics.length}
+              nativeLanguage={nativeLanguage}
               onMoveUp={() => moveUp(index)}
               onMoveDown={() => moveDown(index)}
               onRemove={() => {
@@ -254,14 +272,14 @@ export function PathPage() {
                 {topicSearch ? t("path.noTopicsMatch") : t("path.allTopicsInPath")}
               </p>
             ) : (
-              availableTopics.map(t => (
+              availableTopics.map(topic => (
                 <button
-                  key={t.id}
-                  onClick={() => addTopicMutation.mutate(t.id)}
+                  key={topic.id}
+                  onClick={() => addTopicMutation.mutate(topic.id)}
                   disabled={addTopicMutation.isPending}
                   className="w-full text-left px-3 py-2 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 text-sm text-gray-700 dark:text-gray-300 transition-colors flex items-center justify-between gap-2"
                 >
-                  <span className="truncate">{t.title}</span>
+                  <span className="truncate">{resolveTopicTitle(topic, nativeLanguage)}</span>
                   <PlusIcon className="w-3.5 h-3.5 flex-shrink-0 text-blue-500" />
                 </button>
               ))
@@ -275,18 +293,26 @@ export function PathPage() {
 
 // ── Path topic card ───────────────────────────────────────────────────────────
 
-function PathTopicCard({ topic, index, total, onMoveUp, onMoveDown, onRemove }: {
+function PathTopicCard({ topic, index, total, onMoveUp, onMoveDown, onRemove, nativeLanguage }: {
   topic: PathTopic;
   index: number;
   total: number;
   onMoveUp: () => void;
   onMoveDown: () => void;
   onRemove: () => void;
+  nativeLanguage: string | null;
 }) {
-  const { t, i18n } = useTranslation();
-  const uiLang = i18n.language.split("-")[0]!.toLowerCase();
-  const matchedVersion = topic.topic_versions?.find(v => v.language_code.split("-")[0]!.toLowerCase() === uiLang);
-  const displayTitle = matchedVersion?.title ?? topic.topic_versions?.[0]?.title ?? topic.topic_title;
+  const { t } = useTranslation();
+  // Resolve display title: prefer native-language version title, fallback to first version title, then topic title
+  const displayTitle = (() => {
+    if (nativeLanguage && topic.topic_versions) {
+      const match = topic.topic_versions.find(
+        v => v.language_code.split("-")[0]!.toLowerCase() === nativeLanguage
+      );
+      if (match?.title) return match.title;
+    }
+    return topic.topic_versions?.find(v => v.title)?.title ?? topic.topic_title;
+  })();
   const pct = topic.totalSentences > 0
     ? Math.round((topic.practicedSentences / topic.totalSentences) * 100)
     : 0;

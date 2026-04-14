@@ -134,7 +134,7 @@ export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onR
 
   return (
     <>
-      <div className="group flex items-start gap-3 px-4 py-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+      <div className="group flex items-start gap-2 sm:gap-3 px-2 sm:px-4 py-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
         {/* Position number */}
         <span className="flex-shrink-0 w-6 text-center text-xs font-mono text-gray-400 dark:text-gray-600 pt-0.5">
           {sentence.position + 1}
@@ -184,8 +184,8 @@ export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onR
           )}
         </div>
 
-        {/* Attempt count badge */}
-        <div className="flex-shrink-0 self-center">
+        {/* Attempt count badge — hidden on mobile to give text more room */}
+        <div className="hidden sm:flex flex-shrink-0 self-center">
           {sentence.attempt_count === undefined || sentence.attempt_count === 0 ? (
             <span className="text-xs px-1.5 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 font-medium">
               {t("sentenceRow.new")}
@@ -203,7 +203,7 @@ export function SentenceRow({ sentence, topicId, versionId, siblingVersions, onR
 
         {/* Actions (visible on hover, owner/admin only) */}
         {canEdit && (
-          <div className="flex-shrink-0 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+          <div className="flex-shrink-0 hidden sm:flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
             {/* Reorder */}
             <button
               onClick={onReorderUp}

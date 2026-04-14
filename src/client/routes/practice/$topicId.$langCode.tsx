@@ -273,10 +273,14 @@ export function PracticePage() {
     if (!recorder.recordingBlob || !sentence) return;
     if (phase !== "uploading") return;
 
+    const shouldUpload = (settings?.["privacy.uploadRecordings"] ?? "true") === "true";
+
     (async () => {
       try {
-        await api.uploadRecording(sentence.id, recorder.recordingBlob!);
-        store.setHasRecording(true);
+        if (shouldUpload) {
+          await api.uploadRecording(sentence.id, recorder.recordingBlob!);
+          store.setHasRecording(true);
+        }
         await playRecordingBack(sentence.id);
         await logAttempt();
       } catch { store.setPhase("idle"); }
@@ -334,10 +338,14 @@ export function PracticePage() {
     if (phase !== "uploading") return;
     if (practiceMode !== "manual") return;
 
+    const shouldUpload = (settings?.["privacy.uploadRecordings"] ?? "true") === "true";
+
     (async () => {
       try {
-        await api.uploadRecording(sentence.id, recorder.recordingBlob!);
-        store.setHasRecording(true);
+        if (shouldUpload) {
+          await api.uploadRecording(sentence.id, recorder.recordingBlob!);
+          store.setHasRecording(true);
+        }
       } catch { /* non-fatal */ }
       store.setPhase("idle");
     })();

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { ExclamationTriangleIcon, PlayIcon } from "@heroicons/react/24/outline";
+import { ExclamationTriangleIcon, PlayIcon, ShieldCheckIcon } from "@heroicons/react/24/outline";
 import { api, type Voice } from "../lib/api";
 import { langFlag, langName } from "../lib/lang";
 import { defaultVoiceForLang } from "../hooks/useTTS";
@@ -149,6 +149,8 @@ export function SettingsPage() {
   const [autoPlayback, setAutoPlayback] = useState(true);
   const [defaultFontSize, setDefaultFontSize] = useState<"xs" | "sm" | "md" | "lg" | "xl">("lg");
   const [voiceMap, setVoiceMap] = useState<Record<string, string>>({});
+  const [uploadRecordings, setUploadRecordings] = useState(true);
+  const [showPrivacyConfirm, setShowPrivacyConfirm] = useState(false);
 
   useEffect(() => {
     if (!settings) return;
@@ -159,6 +161,7 @@ export function SettingsPage() {
     setDrillPause(parseFloat(settings["practice.drillPause"] ?? "1"));
     setAutoPlayback((settings["practice.autoPlayback"] ?? "true") === "true");
     setDefaultFontSize((settings["display.fontSize"] as typeof defaultFontSize) ?? "lg");
+    setUploadRecordings((settings["privacy.uploadRecordings"] ?? "true") === "true");
     try {
       const saved = JSON.parse(settings["tts.voices"] ?? "{}");
       setVoiceMap(saved);
@@ -223,7 +226,57 @@ export function SettingsPage() {
             nativeLanguage={nativeLanguage}
             learningLanguages={learningLanguages}
             onSaved={() => qc.invalidateQueries({ queryKey: ["settings", userId] })}
+            uploadRecordings={uploadRecordings}
+            onUploadRecordingsChange={(val) => {
+              if (!val) {
+                // Turning OFF → show confirmation first
+                setShowPrivacyConfirm(true);
+              } else {
+                // Turning ON → save immediately, no confirmation needed
+                setUploadRecordings(true);
+                api.setSetting("privacy.uploadRecordings", "true")
+                  .then(() => qc.invalidateQueries({ queryKey: ["settings"] }));
+              }
+            }}
           />
+
+          {/* Privacy confirmation modal */}
+          {showPrivacyConfirm && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+              <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800 p-6 space-y-4">
+                <div className="flex items-start gap-3">
+                  <ShieldCheckIcon className="w-6 h-6 text-blue-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h3 className="text-base font-bold text-gray-900 dark:text-gray-100">
+                      {t("settings.privacyConfirmTitle")}
+                    </h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">
+                      {t("settings.privacyConfirmBody")}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex gap-2 justify-end pt-2">
+                  <button
+                    onClick={() => setShowPrivacyConfirm(false)}
+                    className="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                  >
+                    {t("common.cancel")}
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowPrivacyConfirm(false);
+                      setUploadRecordings(false);
+                      api.setSetting("privacy.uploadRecordings", "false")
+                        .then(() => qc.invalidateQueries({ queryKey: ["settings"] }));
+                    }}
+                    className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold transition-colors"
+                  >
+                    {t("settings.privacyConfirmOk")}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
 
           <Section id="playback" title={t("settings.sectionPlayback")}>
             <div className="space-y-6">
@@ -441,11 +494,13 @@ export function SettingsPage() {
 // ── User Language Section ─────────────────────────────────────────────────────
 
 function UserLanguageSection({
-  nativeLanguage, learningLanguages, onSaved,
+  nativeLanguage, learningLanguages, onSaved, uploadRecordings, onUploadRecordingsChange,
 }: {
   nativeLanguage: string | null;
   learningLanguages: string[];
   onSaved: () => void;
+  uploadRecordings: boolean;
+  onUploadRecordingsChange: (val: boolean) => void;
 }) {
   const { t } = useTranslation();
   // Supported UI languages — intentionally limited to the languages
@@ -540,6 +595,43 @@ function UserLanguageSection({
               );
             })}
           </div>
+        </div>
+
+        {/* Privacy — recording upload toggle */}
+        <div className="pt-4 border-t border-gray-200 dark:border-gray-800 space-y-3">
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-1.5">
+                <ShieldCheckIcon className="w-4 h-4 text-blue-500 flex-shrink-0" />
+                {t("settings.uploadRecordingsLabel")}
+              </p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 leading-relaxed">
+                {uploadRecordings
+                  ? t("settings.uploadRecordingsHintOn")
+                  : t("settings.uploadRecordingsHintOff")}
+              </p>
+            </div>
+            {/* Toggle switch */}
+            <button
+              type="button"
+              role="switch"
+              aria-checked={uploadRecordings}
+              onClick={() => onUploadRecordingsChange(!uploadRecordings)}
+              className={`relative flex-shrink-0 mt-0.5 inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+                uploadRecordings ? "bg-blue-600" : "bg-gray-300 dark:bg-gray-600"
+              }`}
+            >
+              <span className={`inline-block h-4 w-4 rounded-full bg-white shadow-sm transition-transform ${
+                uploadRecordings ? "translate-x-6" : "translate-x-1"
+              }`} />
+            </button>
+          </div>
+          {!uploadRecordings && (
+            <p className="text-xs text-amber-600 dark:text-amber-400 flex items-start gap-1.5">
+              <ExclamationTriangleIcon className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
+              {t("settings.uploadRecordingsOffWarning")}
+            </p>
+          )}
         </div>
 
         <div className="flex items-center justify-end gap-3 pt-2 border-t border-gray-200 dark:border-gray-800">

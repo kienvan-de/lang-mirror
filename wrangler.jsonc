@@ -58,4 +58,20 @@
   // To set ALLOWED_ORIGINS for CORS after deploy:
   //   wrangler secret put ALLOWED_ORIGINS
   //   → enter: https://lang-mirror.<your-subdomain>.workers.dev
+
+  "observability": {
+    "enabled": false,
+    "head_sampling_rate": 1,
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "persist": true,
+      "invocation_logs": true
+    },
+    "traces": {
+      "enabled": false,
+      "persist": true,
+      "head_sampling_rate": 1
+    }
+  }
 }

@@ -2,7 +2,7 @@ import type { IDatabase } from "../ports/db.port";
 import type { IObjectStorage } from "../ports/storage.port";
 import type { ITTSProvider } from "../ports/tts.port";
 import type { IExecutionContext } from "../ports/execution.port";
-import { getAuthContext } from "../auth/context";
+import { getAuthContext, requireAuth } from "../auth/context";
 import { SYSTEM_USER_ID } from "../db/schema";
 import { NotFoundError } from "../errors";
 

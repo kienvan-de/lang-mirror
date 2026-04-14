@@ -159,7 +159,7 @@ export function VersionSettingsModal({ version, onClose }: Props) {
               <button
                 onClick={() => {
                   const params = new URLSearchParams({ text: "Hello, this is a preview.", voice, speed: String(speed), pitch: String(pitch) });
-                  new Audio(`/api/tts?${params}`).play().catch(() => {});
+                  new Audio(`/api/tts/preview?${params}`).play().catch(() => {});
                 }}
                 className="px-2 py-1 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-xs font-medium text-gray-600 dark:text-gray-400 transition-colors flex items-center gap-1"
               >

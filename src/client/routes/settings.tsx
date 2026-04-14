@@ -119,7 +119,7 @@ function sampleForLang(langCode: string): string {
 
 function playPreview(text: string, voice: string, speed: number, pitch: number) {
   const params = new URLSearchParams({ text, voice, speed: String(speed), pitch: String(pitch) });
-  const audio = new Audio(`/api/tts?${params}`);
+  const audio = new Audio(`/api/tts/preview?${params}`);
   audio.play().catch(() => {});
 }
 

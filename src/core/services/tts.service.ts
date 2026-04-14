@@ -71,6 +71,20 @@ export class TTSService {
 
   // ── Public API ─────────────────────────────────────────────────────────────
 
+  /**
+   * Synthesise audio from raw params without DB lookup or cache.
+   * Used by the /api/tts/preview endpoint for voice picker previews.
+   */
+  async synthesizeRaw(
+    text: string,
+    voice: string,
+    speed: number,
+    pitch: number,
+  ): Promise<ReadableStream> {
+    requireAuth();
+    return this.tts.synthesize(text, voice, speed, pitch);
+  }
+
   async getBySentenceId(sentenceId: string): Promise<TTSResult> {
     const params = await this.resolveParams(sentenceId);
     return this.synthesize(params);

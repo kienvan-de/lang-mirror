@@ -431,7 +431,11 @@
     "accountDeleteButton": "Supprimer mon compte",
     "accountDeleteWarning": "Cela supprimera définitivement tout. Vos données ne pourront pas être récupérées après suppression.",
     "accountDeleteConfirmLabel": "Tapez DELETE pour confirmer",
-    "accountDeleteConfirm": "Supprimer mon compte"
+    "accountDeleteConfirm": "Supprimer mon compte",
+    "sectionAssistant": "Assistant",
+    "assistantNameLabel": "Nom de l'assistant",
+    "assistantNamePlaceholder": "ex : Luna, Sensei, Coach…",
+    "assistantNameHint": "Donnez un nom personnalisé à votre assistant IA. Il se présentera avec ce nom dans les conversations."
   },
   "path": {
     "findPaths": "Trouver des parcours",
@@ -608,5 +612,14 @@
     "redirecting": "Redirection…",
     "noProviders": "Aucun fournisseur de connexion configuré.",
     "contactAdmin": "Contactez votre administrateur."
+  },
+  "chat": {
+    "title": "Assistant IA",
+    "placeholder": "Saisissez un message…",
+    "emptyHint": "Posez-moi vos questions sur vos sujets, statistiques ou parcours d'apprentissage.",
+    "open": "Ouvrir le chat",
+    "close": "Fermer le chat",
+    "send": "Envoyer le message",
+    "stop": "Arrêter la génération"
   }
 }

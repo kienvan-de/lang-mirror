@@ -13,8 +13,10 @@
  */
 import { useState, useRef, useEffect, type FormEvent } from "react";
 import { useLocation } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 import { useAgent } from "agents/react";
 import { useAgentChat } from "@cloudflare/ai-chat/react";
+import ReactMarkdown from "react-markdown";
 import {
   ChatBubbleLeftRightIcon,
   XMarkIcon,
@@ -38,6 +40,7 @@ function isHiddenRoute(pathname: string): boolean {
 }
 
 export function ChatWidget() {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -80,31 +83,29 @@ export function ChatWidget() {
 
   return (
     <>
-      {/* ── Toggle Button ──────────────────────────────────────── */}
-      <button
-        onClick={() => setOpen((o) => !o)}
-        className={`
-          fixed bottom-6 right-6 z-[9999]
-          w-13 h-13 rounded-full
-          bg-orange-500 hover:bg-orange-600
-          text-white shadow-lg hover:shadow-xl
-          transition-all duration-200
-          flex items-center justify-center
-          cursor-pointer
-        `}
-        aria-label={open ? "Close chat" : "Open chat"}
-      >
-        {open ? (
-          <XMarkIcon className="w-6 h-6" />
-        ) : (
+      {/* ── Toggle Button (hidden when panel is open) ──────── */}
+      {!open && (
+        <button
+          onClick={() => setOpen(true)}
+          className="
+            fixed bottom-6 right-6 z-[9999]
+            w-13 h-13 rounded-full
+            bg-orange-500 hover:bg-orange-600
+            text-white shadow-lg hover:shadow-xl
+            transition-all duration-200
+            flex items-center justify-center
+            cursor-pointer
+          "
+          aria-label={t("chat.open")}
+        >
           <ChatBubbleLeftRightIcon className="w-6 h-6" />
-        )}
-      </button>
+        </button>
+      )}
 
-      {/* ── Chat Panel ─────────────────────────────────────────── */}
+      {/* ── Chat Panel ─────────────────────────────────────── */}
       {open && (
         <div
-          className={`
+          className="
             fixed z-[9998]
             bg-white dark:bg-gray-900
             border border-gray-200 dark:border-gray-700
@@ -113,21 +114,20 @@ export function ChatWidget() {
             /* Mobile: full screen */
             inset-0
             /* Desktop: floating panel */
-            sm:inset-auto sm:bottom-22 sm:right-6
+            sm:inset-auto sm:bottom-6 sm:right-6
             sm:w-[360px] sm:h-[520px] sm:rounded-2xl
-          `}
+          "
         >
           {/* Header */}
           <div className="flex items-center gap-2 px-4 py-3 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 shrink-0">
             <ChatBubbleLeftRightIcon className="w-5 h-5 text-orange-500" />
-            <span className="font-semibold text-sm text-gray-900 dark:text-gray-100">
-              AI Assistant
+            <span className="font-semibold text-sm text-gray-900 dark:text-gray-100 flex-1">
+              {t("chat.title")}
             </span>
-            {/* Close button — mobile only (desktop uses the FAB) */}
             <button
               onClick={() => setOpen(false)}
-              className="sm:hidden ml-auto p-1 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-              aria-label="Close chat"
+              className="p-1 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              aria-label={t("chat.close")}
             >
               <XMarkIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
             </button>
@@ -139,8 +139,7 @@ export function ChatWidget() {
               <div className="text-center py-8">
                 <ChatBubbleLeftRightIcon className="w-10 h-10 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Ask me anything about your topics, practice stats, or learning
-                  path.
+                  {t("chat.emptyHint")}
                 </p>
               </div>
             )}
@@ -159,16 +158,34 @@ export function ChatWidget() {
                     }
                   `}
                 >
-                  {m.parts
-                    .filter(
-                      (p): p is Extract<typeof p, { type: "text" }> =>
-                        p.type === "text",
-                    )
-                    .map((p, i) => (
-                      <span key={i} className="whitespace-pre-wrap">
-                        {p.text}
-                      </span>
-                    ))}
+                  {m.role === "user" ? (
+                    // User messages: plain text
+                    m.parts
+                      .filter(
+                        (p): p is Extract<typeof p, { type: "text" }> =>
+                          p.type === "text",
+                      )
+                      .map((p, i) => (
+                        <span key={i} className="whitespace-pre-wrap">
+                          {p.text}
+                        </span>
+                      ))
+                  ) : (
+                    // Assistant messages: render as markdown
+                    <div className="prose prose-sm dark:prose-invert max-w-none
+                      prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5
+                      prose-headings:my-2 prose-pre:my-2 prose-code:text-xs
+                      prose-a:text-orange-600 dark:prose-a:text-orange-400">
+                      {m.parts
+                        .filter(
+                          (p): p is Extract<typeof p, { type: "text" }> =>
+                            p.type === "text",
+                        )
+                        .map((p, i) => (
+                          <ReactMarkdown key={i}>{p.text}</ReactMarkdown>
+                        ))}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -195,7 +212,7 @@ export function ChatWidget() {
               ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Type a message…"
+              placeholder={t("chat.placeholder")}
               className="
                 flex-1 px-3 py-2 rounded-lg text-sm
                 bg-white dark:bg-gray-800
@@ -218,7 +235,7 @@ export function ChatWidget() {
                   transition-colors cursor-pointer
                   flex items-center justify-center
                 "
-                aria-label="Stop generating"
+                aria-label={t("chat.stop")}
               >
                 <StopIcon className="w-4 h-4" />
               </button>
@@ -234,7 +251,7 @@ export function ChatWidget() {
                   disabled:opacity-50 disabled:cursor-not-allowed
                   flex items-center justify-center
                 "
-                aria-label="Send message"
+                aria-label={t("chat.send")}
               >
                 <PaperAirplaneIcon className="w-4 h-4" />
               </button>

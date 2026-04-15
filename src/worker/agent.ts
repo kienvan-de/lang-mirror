@@ -22,7 +22,7 @@ import { runWithAuth } from "../core/auth/context";
 import type { AuthUser } from "../core/auth/context";
 import { buildContext } from "./lib/context";
 import { buildAgentTools } from "./agent-tools/index";
-import { SYSTEM_PROMPT, DEFAULT_MODEL } from "./agent-prompt";
+import { buildSystemPrompt, DEFAULT_ASSISTANT_NAME, DEFAULT_MODEL } from "./agent-prompt";
 import type { Env } from "./types";
 import type { Connection, ConnectionContext } from "agents";
 
@@ -100,9 +100,12 @@ export class ChatAgent extends AIChatAgent<Env> {
 
     const { topics, practice, paths, settings, importer } = await buildContext(this.env);
 
-    // Read model from settings (admin-configurable)
-    const modelName = await runWithAuth(user, () =>
-      settings.getValue("ai.model", DEFAULT_MODEL),
+    // Read configurable settings
+    const [modelName, assistantName] = await runWithAuth(user, () =>
+      Promise.all([
+        settings.getValue("ai.model", DEFAULT_MODEL),
+        settings.getValue("ai.assistant.name", DEFAULT_ASSISTANT_NAME),
+      ]),
     );
 
     const workersai = createWorkersAI({ binding: this.env.AI });
@@ -120,7 +123,7 @@ export class ChatAgent extends AIChatAgent<Env> {
 
     const result = streamText({
       model: workersai(modelName),
-      system: SYSTEM_PROMPT,
+      system: buildSystemPrompt(assistantName),
       messages: modelMessages,
       tools: agentTools,
       stopWhen: stepCountIs(5),

@@ -444,7 +444,11 @@
     "accountDeleteButton": "アカウントを削除する",
     "accountDeleteWarning": "これにより、すべてが完全に削除されます。削除後にデータを復元することはできません。",
     "accountDeleteConfirmLabel": "確認のためDELETEと入力してください",
-    "accountDeleteConfirm": "アカウントを削除する"
+    "accountDeleteConfirm": "アカウントを削除する",
+    "sectionAssistant": "アシスタント",
+    "assistantNameLabel": "アシスタント名",
+    "assistantNamePlaceholder": "例：Luna、先生、コーチ…",
+    "assistantNameHint": "AIアシスタントにカスタム名を付けましょう。会話でこの名前で自己紹介します。"
   },
   "path": {
     "findPaths": "パスを探す",
@@ -609,5 +613,14 @@
     "redirecting": "リダイレクト中…",
     "noProviders": "ログインプロバイダーが設定されていません。",
     "contactAdmin": "管理者に連絡してください。"
+  },
+  "chat": {
+    "title": "AIアシスタント",
+    "placeholder": "メッセージを入力…",
+    "emptyHint": "トピック、練習統計、学習パスについて何でも聞いてください。",
+    "open": "チャットを開く",
+    "close": "チャットを閉じる",
+    "send": "メッセージを送信",
+    "stop": "生成を停止"
   }
 }

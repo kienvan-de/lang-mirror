@@ -208,3 +208,4 @@ INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('language', '
 INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('language', 'ko', '#06b6d4', 'system');
 INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('language', 'pt', '#10b981', 'system');
 INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('language', 'ru', '#64748b', 'system');
+INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('ai.assistant.name', 'system', 'AI Assistant');

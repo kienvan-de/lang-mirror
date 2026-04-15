@@ -21,6 +21,7 @@ const USER_SETTABLE_KEYS = new Set([
   "practice.autoPlayback",
   "user.nativeLanguage",
   "user.learningLanguages",
+  "ai.assistant.name",
 ]);
 
 export class SettingsService {

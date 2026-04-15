@@ -148,6 +148,7 @@ export function SettingsPage() {
   const [voiceMap, setVoiceMap] = useState<Record<string, string>>({});
   const [uploadRecordings, setUploadRecordings] = useState(true);
   const [showPrivacyConfirm, setShowPrivacyConfirm] = useState(false);
+  const [assistantName, setAssistantName] = useState("AI Assistant");
 
   useEffect(() => {
     if (!settings) return;
@@ -159,6 +160,7 @@ export function SettingsPage() {
     setAutoPlayback((settings["practice.autoPlayback"] ?? "true") === "true");
     setDefaultFontSize((settings["display.fontSize"] as typeof defaultFontSize) ?? "lg");
     setUploadRecordings((settings["privacy.uploadRecordings"] ?? "true") === "true");
+    setAssistantName(settings["ai.assistant.name"] ?? "AI Assistant");
     try {
       const saved = JSON.parse(settings["tts.voices"] ?? "{}");
       setVoiceMap(saved);
@@ -177,6 +179,7 @@ export function SettingsPage() {
 
   const sections = [
     { id: "user", label: t("settings.sectionUser") },
+    { id: "assistant", label: t("settings.sectionAssistant") },
     { id: "playback", label: t("settings.sectionPlayback") },
     { id: "voices", label: t("settings.sectionVoices") },
     { id: "practice", label: t("settings.sectionPractice") },
@@ -277,6 +280,36 @@ export function SettingsPage() {
             </div>
           )}
 
+          {/* ── Assistant ─────────────────────────────────────────────── */}
+          <Section id="assistant" title={t("settings.sectionAssistant")}>
+            <div className="space-y-4">
+              <div>
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-2">
+                  {t("settings.assistantNameLabel")}
+                </label>
+                <input
+                  type="text"
+                  value={assistantName}
+                  onChange={(e) => setAssistantName(e.target.value)}
+                  maxLength={50}
+                  placeholder={t("settings.assistantNamePlaceholder")}
+                  className="w-full max-w-xs px-3 py-2 rounded-lg text-sm border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500"
+                />
+                <p className="text-xs text-gray-400 dark:text-gray-500 mt-1.5">
+                  {t("settings.assistantNameHint")}
+                </p>
+              </div>
+              <div className="flex items-center gap-3 justify-end pt-2 border-t border-gray-200 dark:border-gray-800">
+                <SavedBadge show={savedKey === "assistant"} />
+                <button
+                  onClick={() => saveSetting("ai.assistant.name", assistantName.trim() || "AI Assistant", "assistant")}
+                  className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-sm font-semibold text-white transition-colors"
+                >{t("common.save")}</button>
+              </div>
+            </div>
+          </Section>
+
+          {/* ── Playback ──────────────────────────────────────────────── */}
           <Section id="playback" title={t("settings.sectionPlayback")}>
             <div className="space-y-6">
               <div className="space-y-3">

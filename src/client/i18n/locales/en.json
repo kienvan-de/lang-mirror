@@ -431,7 +431,11 @@
     "accountDeleteButton": "Delete my account",
     "accountDeleteWarning": "This will permanently delete everything. Your data cannot be recovered after deletion.",
     "accountDeleteConfirmLabel": "Type DELETE to confirm",
-    "accountDeleteConfirm": "Delete my account"
+    "accountDeleteConfirm": "Delete my account",
+    "sectionAssistant": "Assistant",
+    "assistantNameLabel": "Assistant name",
+    "assistantNamePlaceholder": "e.g. Luna, Sensei, Coach…",
+    "assistantNameHint": "Give your AI assistant a custom name. It will introduce itself with this name in conversations."
   },
   "path": {
     "findPaths": "Find paths",
@@ -607,5 +611,14 @@
     "redirecting": "Redirecting…",
     "noProviders": "No login providers configured.",
     "contactAdmin": "Contact your administrator."
+  },
+  "chat": {
+    "title": "AI Assistant",
+    "placeholder": "Type a message…",
+    "emptyHint": "Ask me anything about your topics, practice stats, or learning path.",
+    "open": "Open chat",
+    "close": "Close chat",
+    "send": "Send message",
+    "stop": "Stop generating"
   }
 }

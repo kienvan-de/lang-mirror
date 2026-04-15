@@ -431,7 +431,11 @@
     "accountDeleteButton": "删除我的账户",
     "accountDeleteWarning": "这将永久删除所有内容。删除后您的数据将无法恢复。",
     "accountDeleteConfirmLabel": "输入 DELETE 确认",
-    "accountDeleteConfirm": "删除我的账户"
+    "accountDeleteConfirm": "删除我的账户",
+    "sectionAssistant": "助手",
+    "assistantNameLabel": "助手名称",
+    "assistantNamePlaceholder": "如：Luna、老师、教练…",
+    "assistantNameHint": "为您的AI助手起一个自定义名字。它会在对话中用这个名字自我介绍。"
   },
   "path": {
     "findPaths": "查找路径",
@@ -608,5 +612,14 @@
     "redirecting": "正在跳转…",
     "noProviders": "未配置登录提供商。",
     "contactAdmin": "请联系管理员。"
+  },
+  "chat": {
+    "title": "AI 助手",
+    "placeholder": "输入消息…",
+    "emptyHint": "关于您的主题、练习统计或学习路径，随时问我。",
+    "open": "打开聊天",
+    "close": "关闭聊天",
+    "send": "发送消息",
+    "stop": "停止生成"
   }
 }

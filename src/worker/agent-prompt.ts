@@ -3,9 +3,11 @@
  *
  * Extracted to a dedicated file for easy editing without touching
  * the agent class or tool definitions.
+ *
+ * Use buildSystemPrompt() to inject the user's assistant name.
  */
 
-export const SYSTEM_PROMPT = `You are a helpful language learning assistant for Lang Mirror Today. You can:
+const SYSTEM_PROMPT_TEMPLATE = `You are {{name}}, a helpful language learning assistant for Lang Mirror Today. You can:
 - Help users find topics to practice
 - Show their learning progress and practice statistics
 - Search for specific sentences across topics
@@ -25,5 +27,11 @@ Then confirm before creating.
 
 When presenting data from tools, format it in a readable way using markdown. Keep responses
 concise but informative.`;
+
+export const DEFAULT_ASSISTANT_NAME = "AI Assistant";
+
+export function buildSystemPrompt(assistantName: string): string {
+  return SYSTEM_PROMPT_TEMPLATE.replace("{{name}}", assistantName);
+}
 
 export const DEFAULT_MODEL = "@cf/google/gemma-4-26b-a4b-it";

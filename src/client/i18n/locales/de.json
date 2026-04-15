@@ -445,7 +445,11 @@
     "accountDeleteButton": "Mein Konto löschen",
     "accountDeleteWarning": "Dies löscht alles dauerhaft. Ihre Daten können nach dem Löschen nicht wiederhergestellt werden.",
     "accountDeleteConfirmLabel": "Geben Sie DELETE ein, um zu bestätigen",
-    "accountDeleteConfirm": "Mein Konto löschen"
+    "accountDeleteConfirm": "Mein Konto löschen",
+    "sectionAssistant": "Assistent",
+    "assistantNameLabel": "Name des Assistenten",
+    "assistantNamePlaceholder": "z.B. Luna, Sensei, Coach…",
+    "assistantNameHint": "Geben Sie Ihrem KI-Assistenten einen eigenen Namen. Er wird sich in Gesprächen mit diesem Namen vorstellen."
   },
   "path": {
     "findPaths": "Pfade suchen",
@@ -610,5 +614,14 @@
     "redirecting": "Weiterleitung…",
     "noProviders": "Keine Anmeldeanbieter konfiguriert.",
     "contactAdmin": "Kontaktieren Sie Ihren Administrator."
+  },
+  "chat": {
+    "title": "KI-Assistent",
+    "placeholder": "Nachricht eingeben…",
+    "emptyHint": "Fragen Sie mich zu Ihren Themen, Übungsstatistiken oder Lernpfad.",
+    "open": "Chat öffnen",
+    "close": "Chat schließen",
+    "send": "Nachricht senden",
+    "stop": "Generierung stoppen"
   }
 }

@@ -443,7 +443,11 @@
     "accountDeleteButton": "Xóa tài khoản của tôi",
     "accountDeleteWarning": "Điều này sẽ xóa vĩnh viễn mọi thứ. Dữ liệu của bạn không thể khôi phục sau khi xóa.",
     "accountDeleteConfirmLabel": "Nhập DELETE để xác nhận",
-    "accountDeleteConfirm": "Xóa tài khoản của tôi"
+    "accountDeleteConfirm": "Xóa tài khoản của tôi",
+    "sectionAssistant": "Trợ lý",
+    "assistantNameLabel": "Tên trợ lý",
+    "assistantNamePlaceholder": "VD: Luna, Thầy, Huấn luyện viên…",
+    "assistantNameHint": "Đặt tên tùy chỉnh cho trợ lý AI. Trợ lý sẽ tự giới thiệu bằng tên này trong cuộc trò chuyện."
   },
   "path": {
     "findPaths": "Tìm lộ trình",
@@ -608,5 +612,14 @@
     "redirecting": "Đang chuyển hướng…",
     "noProviders": "Chưa cấu hình nhà cung cấp đăng nhập.",
     "contactAdmin": "Liên hệ quản trị viên."
+  },
+  "chat": {
+    "title": "Trợ lý AI",
+    "placeholder": "Nhập tin nhắn…",
+    "emptyHint": "Hỏi tôi bất cứ điều gì về chủ đề, thống kê luyện tập hoặc lộ trình học của bạn.",
+    "open": "Mở trò chuyện",
+    "close": "Đóng trò chuyện",
+    "send": "Gửi tin nhắn",
+    "stop": "Dừng tạo phản hồi"
   }
 }

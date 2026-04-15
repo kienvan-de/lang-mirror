@@ -190,6 +190,7 @@ export const DEFAULT_SETTINGS: [string, string][] = [
   // Set explicitly for local CF dev via: bun run cf:seed:mock
   // AI chat agent — model used by Workers AI for the floating chat
   ["ai.model",                       "@cf/google/gemma-4-26b-a4b-it"],
+  ["ai.assistant.name",              "AI Assistant"],   // User-configurable assistant display name
 ];
 
 /** Well-known system user — owns all default settings. Role 'readonly' = no privileges. */

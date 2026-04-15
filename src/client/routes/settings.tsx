@@ -133,9 +133,9 @@ export function SettingsPage() {
     queryFn: api.getSettings,
   });
 
-  const { data: topics } = useQuery({
-    queryKey: ["topics"],
-    queryFn: api.getTopics,
+  const { data: topicLanguages } = useQuery({
+    queryKey: ["topic-languages"],
+    queryFn: api.getTopicLanguages,
   });
 
   const [speed, setSpeed] = useState(1.0);
@@ -172,7 +172,7 @@ export function SettingsPage() {
   }, [qc, showSaved]);
 
   const langCodesInUse = Array.from(new Set(
-    (topics ?? []).flatMap((t) => (t.versions ?? []).map((v) => v.language_code.split("-")[0]!.toLowerCase()))
+    (topicLanguages ?? []).map((lc) => lc.split("-")[0]!.toLowerCase())
   )).sort();
 
   const sections = [

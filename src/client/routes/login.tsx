@@ -76,7 +76,7 @@ export function LoginPage() {
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="text-4xl mb-3">🪞</div>
+          <img src="/logo.png" alt="Lang Mirror" className="w-16 h-16 mx-auto mb-3 object-contain" />
           <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Lang Mirror Today</h1>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
             Sign in to continue

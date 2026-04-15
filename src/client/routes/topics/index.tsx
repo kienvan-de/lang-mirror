@@ -1,25 +1,32 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
-import { PlusIcon } from "@heroicons/react/24/outline";
+import { PlusIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { api } from "../../lib/api";
 import { TopicCard, TopicCardSkeleton } from "../../components/topic/TopicCard";
 import { CreateTopicModal } from "../../components/topic/CreateTopicModal";
 import { useAuth } from "../../hooks/useAuth";
 import { useUserLanguages } from "../../hooks/useUserLanguages";
 
+const PAGE_SIZE = 20;
+
 export function TopicsPage() {
   const { t } = useTranslation();
   const [showCreate, setShowCreate] = useState(false);
   const [selectedTagIds, setSelectedTagIds] = useState<string[]>([]);
+  const [page, setPage] = useState(1);
   const { user } = useAuth();
   const { hasConfig, requiredLanguages } = useUserLanguages();
 
-  const { data: topics, isLoading, isError } = useQuery({
-    queryKey: ["topics"],
-    queryFn: api.getTopics,
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["topics", page],
+    queryFn: () => api.getTopics({ page, limit: PAGE_SIZE }),
   });
+
+  const topics = data?.items ?? [];
+  const totalPages = data?.totalPages ?? 1;
+  const total = data?.total ?? 0;
 
   const { data: tags } = useQuery({
     queryKey: ["tags"],
@@ -28,7 +35,13 @@ export function TopicsPage() {
 
   const isAdminUser = user?.role === "admin";
 
-  const filteredTopics = (topics ?? []).filter(t => {
+  // Only show tags that are associated with at least one visible topic
+  const usedTags = useMemo(() => {
+    const usedIds = new Set(topics.flatMap(t => t.tags?.map(tag => tag.id) ?? []));
+    return (tags ?? []).filter(tag => usedIds.has(tag.id));
+  }, [topics, tags]);
+
+  const filteredTopics = topics.filter(t => {
     // Admins see everything the backend returned — no client-side filtering
     if (isAdminUser) {
       // Still apply tag filter if admin has selected tags
@@ -58,8 +71,8 @@ export function TopicsPage() {
         <div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{t("topics.title")}</h1>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
-            {topics
-              ? t("topics.subtitleCount", { count: topics.length })
+            {data
+              ? t("topics.subtitleCount", { count: total })
               : t("topics.subtitle")}
           </p>
         </div>
@@ -72,9 +85,9 @@ export function TopicsPage() {
       </div>
 
       {/* Tag filter */}
-      {tags && tags.length > 0 && (
+      {usedTags.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-6">
-          {tags.map(tag => {
+          {usedTags.map(tag => {
             const active = selectedTagIds.includes(tag.id);
             return (
               <button
@@ -115,9 +128,9 @@ export function TopicsPage() {
       )}
 
       {/* Empty state */}
-      {!isLoading && !isError && topics?.length === 0 && (
+      {!isLoading && !isError && total === 0 && (
         <div className="rounded-2xl border-2 border-dashed border-gray-200 dark:border-gray-700 p-12 text-center">
-          <div className="text-5xl mb-4">🪞</div>
+          <img src="/logo.png" alt="Lang Mirror" className="w-16 h-16 mx-auto mb-4 object-contain" />
           <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-1">{t("topics.empty")}</h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
             {t("topics.emptySubtitle")}
@@ -140,11 +153,36 @@ export function TopicsPage() {
       )}
 
       {/* Topic grid */}
-      {!isLoading && !isError && topics && topics.length > 0 && (
+      {!isLoading && !isError && topics.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredTopics.map((topic) => (
             <TopicCard key={topic.id} topic={topic} />
           ))}
+        </div>
+      )}
+
+      {/* Pagination */}
+      {!isLoading && !isError && totalPages > 1 && (
+        <div className="flex items-center justify-center gap-2 mt-8">
+          <button
+            disabled={page <= 1}
+            onClick={() => setPage(p => p - 1)}
+            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-700 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            <ChevronLeftIcon className="w-4 h-4" />
+            {t("common.previous", "Previous")}
+          </button>
+          <span className="text-sm text-gray-500 dark:text-gray-400 px-3">
+            {t("common.pageOf", { page, totalPages })}
+          </span>
+          <button
+            disabled={page >= totalPages}
+            onClick={() => setPage(p => p + 1)}
+            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-700 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            {t("common.next", "Next")}
+            <ChevronRightIcon className="w-4 h-4" />
+          </button>
         </div>
       )}
 

@@ -137,7 +137,7 @@ export function DashboardPage() {
           </div>
         ) : (recent ?? []).length === 0 ? (
           <div className="rounded-2xl border-2 border-dashed border-gray-200 dark:border-gray-700 p-8 text-center">
-            <div className="text-4xl mb-3">🪞</div>
+            <img src="/logo.png" alt="Lang Mirror" className="w-14 h-14 mx-auto mb-3 object-contain" />
             <p className="text-gray-600 dark:text-gray-400 font-medium mb-1">{t("dashboard.noPracticeYet")}</p>
             <p className="text-sm text-gray-500 dark:text-gray-500 mb-4">{t("dashboard.noPracticeSubtitle")}</p>
             <Link

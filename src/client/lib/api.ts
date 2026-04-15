@@ -156,10 +156,26 @@ async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
   return data;
 }
 
+export interface PaginatedResult<T> {
+  items: T[];
+  total: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
+}
+
 // Topics
 export const api = {
   // Topics
-  getTopics: () => apiFetch<Topic[]>("/topics"),
+  getTopics: (opts?: { page?: number; limit?: number; q?: string }) => {
+    const params = new URLSearchParams();
+    if (opts?.page) params.set("page", String(opts.page));
+    if (opts?.limit) params.set("limit", String(opts.limit));
+    if (opts?.q) params.set("q", opts.q);
+    const qs = params.toString();
+    return apiFetch<PaginatedResult<Topic>>(`/topics${qs ? `?${qs}` : ""}`);
+  },
+  getTopicLanguages: () => apiFetch<string[]>("/topics/languages"),
   getTopic: (id: string) => apiFetch<Topic>(`/topics/${id}`),
   createTopic: (body: { title: string; description?: string; tagIds?: string[] }) =>
     apiFetch<Topic>("/topics", { method: "POST", body: JSON.stringify(body) }),

@@ -186,6 +186,14 @@ export type TopicListItem = TopicRow & {
   tags: TagRow[];
 };
 
+export interface PaginatedResult<T> {
+  items: T[];
+  total: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
+}
+
 export type AdminTopicListItem = TopicRow & {
   version_count: number;
   versions: VersionMeta[];

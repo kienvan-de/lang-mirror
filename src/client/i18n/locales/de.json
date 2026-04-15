@@ -30,7 +30,9 @@
     "confirm": "Bestätigen",
     "moveUp": "Nach oben",
     "moveDown": "Nach unten",
-    "next": "Weiter"
+    "next": "Weiter",
+    "previous": "Zurück",
+    "pageOf": "Seite {{page}} von {{totalPages}}"
   },
   "dashboard": {
     "title": "Dashboard",

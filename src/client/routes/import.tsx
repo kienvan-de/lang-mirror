@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
@@ -88,19 +88,27 @@ export function ImportPage() {
   } | null>(null);
   const [importError, setImportError] = useState<string | null>(null);
 
-  const { data: topics } = useQuery({
-    queryKey: ["topics"],
-    queryFn: api.getTopics,
+  // Debounced server-side topic search
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedSearch(topicSearch), 300);
+    return () => clearTimeout(timer);
+  }, [topicSearch]);
+
+  const { data: topicsResult, isLoading: topicsLoading } = useQuery({
+    queryKey: ["topics", "search", debouncedSearch],
+    queryFn: () => api.getTopics({ q: debouncedSearch || undefined, limit: 20 }),
   });
+  const filteredTopics = topicsResult?.items ?? [];
+  const hasTopics = (topicsResult?.total ?? 0) > 0;
+
+  // Keep a reference to the selected topic (may not be in current search results)
+  const [selectedTopic, setSelectedTopic] = useState<{ id: string; title: string; versions: { language_code: string }[] } | null>(null);
 
   const { data: allTags } = useQuery({
     queryKey: ["tags"],
     queryFn: api.getTags,
   });
-
-  const filteredTopics = (topics ?? []).filter((t) =>
-    t.title.toLowerCase().includes(topicSearch.toLowerCase())
-  );
 
   const processFile = useCallback(async (f: File) => {
     const ext = f.name.split(".").pop()?.toLowerCase() ?? "";
@@ -123,7 +131,7 @@ export function ImportPage() {
       const result = await api.importPreview(f);
       setPreview(result);
       if (result.ok) {
-        if (!topics || topics.length === 0) setTarget("new");
+        if (!hasTopics) setTarget("new");
         setStep(2);
       }
     } catch (e) {
@@ -139,7 +147,7 @@ export function ImportPage() {
     } finally {
       setPreviewing(false);
     }
-  }, [topics, t]);
+  }, [hasTopics, t]);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -187,11 +195,9 @@ export function ImportPage() {
   };
 
   const getConflicts = (): string[] => {
-    if (target !== "existing" || !selectedTopicId || !preview?.versions) return [];
-    const selected = topics?.find((t) => t.id === selectedTopicId);
-    if (!selected) return [];
+    if (target !== "existing" || !selectedTopic || !preview?.versions) return [];
     const existingLangs = new Set(
-      (selected.versions ?? []).map((v) => v.language_code.split("-")[0]!.toLowerCase())
+      (selectedTopic.versions ?? []).map((v) => v.language_code.split("-")[0]!.toLowerCase())
     );
     return preview.versions
       .filter((v) => existingLangs.has(v.language.split("-")[0]!.toLowerCase()))
@@ -422,7 +428,7 @@ export function ImportPage() {
                 </div>
               </label>
 
-              {topics && topics.length > 0 && (
+              {hasTopics && (
                 <label className={`flex items-start gap-3 p-3 rounded-xl border-2 cursor-pointer transition-colors ${
                   target === "existing"
                     ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20"
@@ -449,25 +455,32 @@ export function ImportPage() {
                           onClick={(e) => e.stopPropagation()}
                         />
                         <div className="max-h-48 overflow-y-auto space-y-1">
-                          {filteredTopics.map((t) => (
+                          {topicsLoading && (
+                            <p className="text-xs text-gray-400 dark:text-gray-500 px-2 py-2">{t("common.loading")}</p>
+                          )}
+                          {!topicsLoading && filteredTopics.map((tp) => (
                             <button
-                              key={t.id}
-                              onClick={(e) => { e.preventDefault(); setSelectedTopicId(t.id); }}
+                              key={tp.id}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setSelectedTopicId(tp.id);
+                                setSelectedTopic({ id: tp.id, title: tp.title, versions: tp.versions ?? [] });
+                              }}
                               className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
-                                selectedTopicId === t.id
+                                selectedTopicId === tp.id
                                   ? "bg-blue-600 text-white"
                                   : "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-blue-400"
                               }`}
                             >
-                              <span className="font-medium">{t.title}</span>
-                              {(t.versions ?? []).length > 0 && (
+                              <span className="font-medium">{tp.title}</span>
+                              {(tp.versions ?? []).length > 0 && (
                                 <span className="ml-2 text-xs opacity-70">
-                                  {(t.versions ?? []).map((v) => langFlag(v.language_code)).join(" ")}
+                                  {(tp.versions ?? []).map((v) => langFlag(v.language_code)).join(" ")}
                                 </span>
                               )}
                             </button>
                           ))}
-                          {filteredTopics.length === 0 && (
+                          {!topicsLoading && filteredTopics.length === 0 && (
                             <p className="text-xs text-gray-400 dark:text-gray-600 px-2 py-2">{t("import.noTopicsMatch")}</p>
                           )}
                         </div>
@@ -523,7 +536,7 @@ export function ImportPage() {
                   <span className="font-medium text-gray-800 dark:text-gray-200">
                     {target === "new"
                       ? `Create "${preview.title}"`
-                      : `Add to "${topics?.find((t) => t.id === selectedTopicId)?.title ?? selectedTopicId}"`}
+                      : `Add to "${selectedTopic?.title ?? selectedTopicId}"`}
                   </span>
                 </span>
               </div>

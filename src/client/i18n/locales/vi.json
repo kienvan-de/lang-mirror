@@ -30,7 +30,9 @@
     "confirm": "Xác nhận",
     "moveUp": "Di chuyển lên",
     "moveDown": "Di chuyển xuống",
-    "next": "Tiếp theo"
+    "next": "Tiếp theo",
+    "previous": "Trước",
+    "pageOf": "Trang {{page}} / {{totalPages}}"
   },
   "dashboard": {
     "title": "Bảng điều khiển",

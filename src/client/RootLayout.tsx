@@ -102,8 +102,9 @@ export function RootLayout() {
         <div className="px-4 sm:px-6 py-3 flex items-center gap-3">
 
           {/* Logo */}
-          <Link to="/" className="font-bold text-lg tracking-tight select-none text-gray-900 dark:text-gray-100 flex-shrink-0">
-            🪞 Lang Mirror Today
+          <Link to="/" className="font-bold text-lg tracking-tight select-none text-gray-900 dark:text-gray-100 flex-shrink-0 flex items-center gap-2">
+            <img src="/logo.png" alt="Lang Mirror" className="w-7 h-7 object-contain" />
+            Lang Mirror Today
           </Link>
 
           {/* Desktop nav links */}

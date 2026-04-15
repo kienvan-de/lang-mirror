@@ -30,7 +30,9 @@
     "confirm": "Confirmer",
     "moveUp": "Monter",
     "moveDown": "Descendre",
-    "next": "Suivant"
+    "next": "Suivant",
+    "previous": "Précédent",
+    "pageOf": "Page {{page}} sur {{totalPages}}"
   },
   "dashboard": {
     "title": "Tableau de bord",

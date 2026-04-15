@@ -1,7 +1,11 @@
 import type { IDatabase } from "../ports/db.port";
-import type { TopicRow, TopicListItem, AdminTopicListItem, EnrichedTopic, EnrichedVersion, EnrichedSentence, VersionMeta, TagRow, ApprovalRequestRow } from "../db/types";
+import type { TopicRow, TopicListItem, AdminTopicListItem, EnrichedTopic, EnrichedVersion, EnrichedSentence, VersionMeta, TagRow, ApprovalRequestRow, PaginatedResult } from "../db/types";
 import { requireAuth, canAccess, isAdmin } from "../auth/context";
 import { NotFoundError, ValidationError, ForbiddenError, ConflictError } from "../errors";
+import { buildSearchPattern, buildTopicSearchClause } from "./search.utils";
+
+const MAX_PAGE_SIZE = 100;
+const DEFAULT_PAGE_SIZE = 20;
 
 export class TopicsService {
   constructor(private db: IDatabase) {}
@@ -35,29 +39,93 @@ export class TopicsService {
     return this.loadTags(topicId);
   }
 
-  async list(): Promise<TopicListItem[]> {
+  async list(opts?: { page?: number; limit?: number; q?: string }): Promise<PaginatedResult<TopicListItem>> {
     const auth = requireAuth();
+    const page = Math.max(1, opts?.page ?? 1);
+    const pageSize = Math.max(1, Math.min(opts?.limit ?? DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE));
+    const offset = (page - 1) * pageSize;
 
-    // Admin sees all topics; regular users see only their own + published topics
-    const topicRows = isAdmin()
-      ? await this.db.queryAll<TopicRow & { version_count: number }>(`
-          SELECT t.*, COUNT(v.id) as version_count
-          FROM topics t
-          LEFT JOIN topic_language_versions v ON v.topic_id = t.id
-          GROUP BY t.id ORDER BY t.updated_at DESC
-        `)
-      : await this.db.queryAll<TopicRow & { version_count: number }>(`
-          SELECT t.*, COUNT(v.id) as version_count
-          FROM topics t
-          LEFT JOIN topic_language_versions v ON v.topic_id = t.id
-          WHERE t.owner_id = ? OR t.status = 'published'
-          GROUP BY t.id ORDER BY t.updated_at DESC
-        `, auth.id);
+    // ── Optional title search (matches base title + all version titles) ────
+    const searchPattern = buildSearchPattern(opts?.q ?? "");
 
-    const versionMeta = await this.db.queryAll<VersionMeta>(`
-      SELECT id, topic_id, language_code, title, description, position
-      FROM topic_language_versions ORDER BY topic_id, position ASC
-    `);
+    // ── Count total visible topics ──────────────────────────────────────────
+    const countParams: unknown[] = [];
+    let countSql: string;
+
+    if (isAdmin()) {
+      countSql = "SELECT COUNT(*) as total FROM topics";
+      if (searchPattern) {
+        const s = buildTopicSearchClause(searchPattern, "");
+        countSql += ` WHERE ${s.clause}`;
+        countParams.push(...s.params);
+      }
+    } else {
+      countSql = "SELECT COUNT(*) as total FROM topics WHERE (owner_id = ? OR status = 'published')";
+      countParams.push(auth.id);
+      if (searchPattern) {
+        const s = buildTopicSearchClause(searchPattern, "");
+        countSql += ` AND ${s.clause}`;
+        countParams.push(...s.params);
+      }
+    }
+
+    const { total } = (await this.db.queryFirst<{ total: number }>(countSql, ...countParams))!;
+
+    // ── Paginated topic rows — owned topics first, then by updated_at DESC ──
+    const rowParams: unknown[] = [];
+    let rowSql: string;
+
+    if (isAdmin()) {
+      rowSql = `
+        SELECT t.*, COUNT(v.id) as version_count
+        FROM topics t
+        LEFT JOIN topic_language_versions v ON v.topic_id = t.id`;
+      if (searchPattern) {
+        const s = buildTopicSearchClause(searchPattern, "t.");
+        rowSql += ` WHERE ${s.clause}`;
+        rowParams.push(...s.params);
+      }
+      rowSql += `
+        GROUP BY t.id
+        ORDER BY (t.owner_id = ?) DESC, t.updated_at DESC
+        LIMIT ? OFFSET ?`;
+      rowParams.push(auth.id, pageSize, offset);
+    } else {
+      rowSql = `
+        SELECT t.*, COUNT(v.id) as version_count
+        FROM topics t
+        LEFT JOIN topic_language_versions v ON v.topic_id = t.id
+        WHERE (t.owner_id = ? OR t.status = 'published')`;
+      rowParams.push(auth.id);
+      if (searchPattern) {
+        const s = buildTopicSearchClause(searchPattern, "t.");
+        rowSql += ` AND ${s.clause}`;
+        rowParams.push(...s.params);
+      }
+      rowSql += `
+        GROUP BY t.id
+        ORDER BY (t.owner_id = ?) DESC, t.updated_at DESC
+        LIMIT ? OFFSET ?`;
+      rowParams.push(auth.id, pageSize, offset);
+    }
+
+    const topicRows = await this.db.queryAll<TopicRow & { version_count: number }>(rowSql, ...rowParams);
+
+    if (topicRows.length === 0) {
+      return { items: [], total, page, pageSize, totalPages: Math.ceil(total / pageSize) };
+    }
+
+    // ── Load version meta + tags only for the topics on this page ───────────
+    const topicIds = topicRows.map(t => t.id);
+    const placeholders = topicIds.map(() => "?").join(",");
+
+    const versionMeta = await this.db.queryAll<VersionMeta>(
+      `SELECT id, topic_id, language_code, title, description, position
+       FROM topic_language_versions
+       WHERE topic_id IN (${placeholders})
+       ORDER BY topic_id, position ASC`,
+      ...topicIds,
+    );
 
     const byTopic = new Map<string, VersionMeta[]>();
     for (const v of versionMeta) {
@@ -65,11 +133,13 @@ export class TopicsService {
       byTopic.get(v.topic_id)!.push(v);
     }
 
-    const allTopicTags = await this.db.queryAll<{ topic_id: string } & TagRow>(`
-      SELECT tt.topic_id, t.* FROM tags t
-      JOIN topic_tags tt ON tt.tag_id = t.id
-      ORDER BY t.type ASC, t.name ASC
-    `);
+    const allTopicTags = await this.db.queryAll<{ topic_id: string } & TagRow>(
+      `SELECT tt.topic_id, t.* FROM tags t
+       JOIN topic_tags tt ON tt.tag_id = t.id
+       WHERE tt.topic_id IN (${placeholders})
+       ORDER BY t.type ASC, t.name ASC`,
+      ...topicIds,
+    );
     const tagsByTopic = new Map<string, TagRow[]>();
     for (const tt of allTopicTags) {
       const { topic_id, ...tag } = tt;
@@ -77,7 +147,13 @@ export class TopicsService {
       tagsByTopic.get(topic_id)!.push(tag as TagRow);
     }
 
-    return topicRows.map(t => ({ ...t, versions: byTopic.get(t.id) ?? [], tags: tagsByTopic.get(t.id) ?? [] }));
+    const items = topicRows.map(t => ({
+      ...t,
+      versions: byTopic.get(t.id) ?? [],
+      tags: tagsByTopic.get(t.id) ?? [],
+    }));
+
+    return { items, total, page, pageSize, totalPages: Math.ceil(total / pageSize) };
   }
 
   async create(title: string, description?: string, tagIds?: string[]): Promise<TopicRow> {
@@ -275,6 +351,27 @@ export class TopicsService {
       auth.id, topicId
     );
     return (await this.db.queryFirst<TopicRow>("SELECT * FROM topics WHERE id = ?", topicId))!;
+  }
+
+  /** Return distinct language codes across the current user's visible topics. */
+  async listLanguagesInUse(): Promise<string[]> {
+    const auth = requireAuth();
+
+    const rows = isAdmin()
+      ? await this.db.queryAll<{ language_code: string }>(`
+          SELECT DISTINCT v.language_code
+          FROM topic_language_versions v
+          ORDER BY v.language_code ASC
+        `)
+      : await this.db.queryAll<{ language_code: string }>(`
+          SELECT DISTINCT v.language_code
+          FROM topic_language_versions v
+          JOIN topics t ON t.id = v.topic_id
+          WHERE t.owner_id = ? OR t.status = 'published'
+          ORDER BY v.language_code ASC
+        `, auth.id);
+
+    return rows.map(r => r.language_code);
   }
 
   async adminList(): Promise<AdminTopicListItem[]> {

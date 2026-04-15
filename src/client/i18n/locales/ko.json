@@ -30,7 +30,9 @@
     "confirm": "확인",
     "moveUp": "위로 이동",
     "moveDown": "아래로 이동",
-    "next": "다음"
+    "next": "다음",
+    "previous": "이전",
+    "pageOf": "{{page}} / {{totalPages}} 페이지"
   },
   "dashboard": {
     "title": "대시보드",

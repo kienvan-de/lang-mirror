@@ -11,7 +11,16 @@ export const topicsRouter = new Hono<{ Bindings: Env }>();
 
 topicsRouter.get("/", async (c) => {
   const { topics } = await buildContext(c.env);
-  return c.json(await topics.list());
+  const page  = parseInt(c.req.query("page")  ?? "", 10) || undefined;
+  const limit = parseInt(c.req.query("limit") ?? "", 10) || undefined;
+  const q     = c.req.query("q") || undefined;
+  return c.json(await topics.list({ page, limit, q }));
+});
+
+// GET /api/topics/languages — distinct language codes across user's visible topics
+topicsRouter.get("/languages", async (c) => {
+  const { topics } = await buildContext(c.env);
+  return c.json(await topics.listLanguagesInUse());
 });
 
 topicsRouter.post("/", async (c) => {

@@ -30,7 +30,9 @@
     "confirm": "確認",
     "moveUp": "上へ",
     "moveDown": "下へ",
-    "next": "次へ"
+    "next": "次へ",
+    "previous": "前へ",
+    "pageOf": "{{page}} / {{totalPages}} ページ"
   },
   "dashboard": {
     "title": "ダッシュボード",

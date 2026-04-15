@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
@@ -35,17 +35,25 @@ export function PathPage() {
     queryFn: api.getPath,
   });
 
-  const { data: allTopics } = useQuery({
-    queryKey: ["topics"],
-    queryFn: api.getTopics,
-  });
-
   const [editingName, setEditingName] = useState(false);
   const [nameDraft, setNameDraft] = useState("");
   const [showAddTopic, setShowAddTopic] = useState(false);
   const [topicSearch, setTopicSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+
+  // Debounced server-side topic search for "Add topic" panel
+  const [debouncedTopicSearch, setDebouncedTopicSearch] = useState("");
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedTopicSearch(topicSearch), 300);
+    return () => clearTimeout(timer);
+  }, [topicSearch]);
+
+  const { data: topicSearchResult, isLoading: topicSearchLoading } = useQuery({
+    queryKey: ["topics", "search", debouncedTopicSearch],
+    queryFn: () => api.getTopics({ q: debouncedTopicSearch || undefined, limit: 20 }),
+    enabled: showAddTopic,
+  });
 
   const invalidate = () => qc.invalidateQueries({ queryKey: ["path"] });
 
@@ -95,11 +103,10 @@ export function PathPage() {
     reorderMutation.mutate(ids);
   };
 
-  // Topics not yet in path
+  // Topics not yet in path — filter out already-added topics from search results
   const pathTopicIds = new Set((path?.topics ?? []).map(t => t.topic_id));
-  const availableTopics = (allTopics ?? []).filter(topic =>
-    !pathTopicIds.has(topic.id) &&
-    resolveTopicTitle(topic, nativeLanguage).toLowerCase().includes(topicSearch.toLowerCase())
+  const availableTopics = (topicSearchResult?.items ?? []).filter(topic =>
+    !pathTopicIds.has(topic.id)
   );
 
   if (isLoading) {
@@ -275,7 +282,9 @@ export function PathPage() {
             className="w-full px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <div className="max-h-48 overflow-y-auto space-y-1">
-            {availableTopics.length === 0 ? (
+            {topicSearchLoading ? (
+              <p className="text-sm text-gray-400 text-center py-3">{t("common.loading")}</p>
+            ) : availableTopics.length === 0 ? (
               <p className="text-sm text-gray-400 text-center py-3">
                 {topicSearch ? t("path.noTopicsMatch") : t("path.allTopicsInPath")}
               </p>

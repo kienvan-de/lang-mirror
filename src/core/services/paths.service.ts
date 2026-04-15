@@ -2,6 +2,7 @@ import type { IDatabase } from "../ports/db.port";
 import type { PathRow, PathWithTopics, PathTopicItem, TagRow } from "../db/types";
 import { requireAuth, canAccess, isAdmin } from "../auth/context";
 import { NotFoundError, ForbiddenError, ValidationError } from "../errors";
+import { buildSearchPattern, buildSearchClause } from "./search.utils";
 
 export class PathsService {
   constructor(private db: IDatabase) {}
@@ -113,22 +114,19 @@ export class PathsService {
   /** Search other users' paths by name */
   async search(q: string): Promise<(PathRow & { topic_count: number; owner_name: string | null; owner_email: string | null })[]> {
     const { id: userId } = requireAuth();
-    // Truncate to prevent expensive pattern matching on very long strings
-    const trimmed = q.trim().slice(0, 200);
-    if (!trimmed) return [];
-    // Escape SQL LIKE metacharacters so user input is treated as literal text
-    const escaped = trimmed.replace(/[%_\\]/g, "\\$&");
-    const query = `%${escaped}%`;
+    const pattern = buildSearchPattern(q);
+    if (!pattern) return [];
+    const { clause, params } = buildSearchClause(pattern, ["p.name"]);
     return this.db.queryAll<PathRow & { topic_count: number; owner_name: string | null; owner_email: string | null }>(
       `SELECT p.*, COUNT(pt.topic_id) as topic_count,
               u.name as owner_name, u.email as owner_email
        FROM paths p
        LEFT JOIN path_topics pt ON pt.path_id = p.id
        LEFT JOIN users u ON u.id = p.owner_id
-       WHERE p.owner_id != ? AND p.name LIKE ? ESCAPE '\\'
+       WHERE p.owner_id != ? AND ${clause}
        GROUP BY p.id
        ORDER BY p.name ASC LIMIT 20`,
-      userId, query
+      userId, ...params
     );
   }
 

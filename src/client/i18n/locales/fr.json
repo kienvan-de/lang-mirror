@@ -602,6 +602,11 @@
     "errorInvalidRequest": "Requête de connexion invalide.",
     "errorServerError": "Erreur serveur — veuillez réessayer plus tard.",
     "errorUnavailable": "Service temporairement indisponible.",
-    "errorGeneric": "Échec de la connexion — veuillez réessayer."
+    "errorGeneric": "Échec de la connexion — veuillez réessayer.",
+    "title": "Connectez-vous pour continuer",
+    "continueWith": "Continuer avec {{provider}}",
+    "redirecting": "Redirection…",
+    "noProviders": "Aucun fournisseur de connexion configuré.",
+    "contactAdmin": "Contactez votre administrateur."
   }
 }

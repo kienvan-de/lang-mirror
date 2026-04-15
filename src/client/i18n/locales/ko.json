@@ -602,6 +602,11 @@
     "errorInvalidRequest": "잘못된 로그인 요청입니다.",
     "errorServerError": "서버 오류 — 나중에 다시 시도해 주세요.",
     "errorUnavailable": "서비스를 일시적으로 사용할 수 없습니다.",
-    "errorGeneric": "로그인 실패 — 다시 시도해 주세요."
+    "errorGeneric": "로그인 실패 — 다시 시도해 주세요.",
+    "title": "계속하려면 로그인하세요",
+    "continueWith": "{{provider}}(으)로 계속",
+    "redirecting": "리디렉션 중…",
+    "noProviders": "로그인 공급자가 구성되지 않았습니다.",
+    "contactAdmin": "관리자에게 문의하세요."
   }
 }

@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
-import { ArrowRightEndOnRectangleIcon, ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import { ArrowRightEndOnRectangleIcon, ExclamationCircleIcon, GlobeAltIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "../hooks/useAuth";
 import { api } from "../lib/api";
+import { langFlag, langName } from "../lib/lang";
+import { SUPPORTED_LANGS } from "../lib/supported-langs";
 import { Footer } from "../components/Footer";
+
+const LANG_MIRROR_LANG_KEY = "lang-mirror-lang";
 
 interface OidcProvider {
   id: string;
@@ -13,13 +17,14 @@ interface OidcProvider {
 }
 
 export function LoginPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const { isLoggedIn, isLoading: authLoading } = useAuth();
   const [providers, setProviders] = useState<OidcProvider[]>([]);
   const [loadingProviders, setLoadingProviders] = useState(true);
   const [loggingIn, setLoggingIn] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [langOpen, setLangOpen] = useState(false);
 
   // If already logged in, redirect home
   useEffect(() => {
@@ -62,6 +67,20 @@ export function LoginPage() {
     window.location.href = `/api/auth/login/${providerId}`;
   };
 
+  const switchLang = (code: string) => {
+    i18n.changeLanguage(code);
+    localStorage.setItem(LANG_MIRROR_LANG_KEY, code);
+    setLangOpen(false);
+  };
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    if (!langOpen) return;
+    const handler = () => setLangOpen(false);
+    document.addEventListener("click", handler);
+    return () => document.removeEventListener("click", handler);
+  }, [langOpen]);
+
   if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-950">
@@ -70,8 +89,53 @@ export function LoginPage() {
     );
   }
 
+  const currentLang = i18n.language.split("-")[0] ?? "en";
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-950 px-4">
+      {/* Language switcher — top right */}
+      <div className="flex justify-end pt-4 pr-1">
+        <div className="relative">
+          <button
+            onClick={(e) => { e.stopPropagation(); setLangOpen((v) => !v); }}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm
+              bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700
+              text-gray-700 dark:text-gray-300
+              hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors shadow-sm"
+            aria-label="Change language"
+          >
+            <GlobeAltIcon className="w-4 h-4 text-gray-400" />
+            <span>{langFlag(currentLang)}</span>
+            <span>{langName(currentLang)}</span>
+          </button>
+
+          {langOpen && (
+            <div
+              className="absolute right-0 mt-1 w-48 bg-white dark:bg-gray-900
+                border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg
+                py-1 z-50 max-h-64 overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {SUPPORTED_LANGS.map((code) => (
+                <button
+                  key={code}
+                  onClick={() => switchLang(code)}
+                  className={`w-full text-left px-3 py-2 text-sm flex items-center gap-2
+                    hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors
+                    ${code === currentLang
+                      ? "text-orange-600 dark:text-orange-400 font-medium bg-orange-50 dark:bg-orange-900/10"
+                      : "text-gray-700 dark:text-gray-300"
+                    }`}
+                >
+                  <span>{langFlag(code)}</span>
+                  <span>{langName(code)}</span>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
       <div className="flex-1 flex items-center justify-center">
       <div className="w-full max-w-sm">
         {/* Logo */}
@@ -79,7 +143,7 @@ export function LoginPage() {
           <img src="/logo.png" alt="Lang Mirror" className="w-16 h-16 mx-auto mb-3 object-contain" />
           <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Lang Mirror Today</h1>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-            Sign in to continue
+            {t("login.title", "Sign in to continue")}
           </p>
         </div>
 
@@ -99,8 +163,8 @@ export function LoginPage() {
             </div>
           ) : providers.length === 0 ? (
             <div className="text-center py-8 text-sm text-gray-500 dark:text-gray-400">
-              <p>No login providers configured.</p>
-              <p className="mt-1 text-xs">Contact your administrator.</p>
+              <p>{t("login.noProviders", "No login providers configured.")}</p>
+              <p className="mt-1 text-xs">{t("login.contactAdmin", "Contact your administrator.")}</p>
             </div>
           ) : (
             providers.map(p => (
@@ -115,7 +179,9 @@ export function LoginPage() {
                 ) : (
                   <ArrowRightEndOnRectangleIcon className="w-4 h-4 flex-shrink-0 text-gray-400" />
                 )}
-                {loggingIn === p.id ? "Redirecting..." : `Continue with ${p.display_name}`}
+                {loggingIn === p.id
+                  ? t("login.redirecting", "Redirecting…")
+                  : t("login.continueWith", { provider: p.display_name, defaultValue: `Continue with ${p.display_name}` })}
               </button>
             ))
           )}

@@ -602,6 +602,11 @@
     "errorInvalidRequest": "Yêu cầu đăng nhập không hợp lệ.",
     "errorServerError": "Lỗi máy chủ — vui lòng thử lại sau.",
     "errorUnavailable": "Dịch vụ tạm thời không khả dụng.",
-    "errorGeneric": "Đăng nhập thất bại — vui lòng thử lại."
+    "errorGeneric": "Đăng nhập thất bại — vui lòng thử lại.",
+    "title": "Đăng nhập để tiếp tục",
+    "continueWith": "Tiếp tục với {{provider}}",
+    "redirecting": "Đang chuyển hướng…",
+    "noProviders": "Chưa cấu hình nhà cung cấp đăng nhập.",
+    "contactAdmin": "Liên hệ quản trị viên."
   }
 }

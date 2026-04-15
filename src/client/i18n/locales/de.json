@@ -604,6 +604,11 @@
     "errorInvalidRequest": "Ungültige Anmeldeanfrage.",
     "errorServerError": "Serverfehler — bitte versuchen Sie es später erneut.",
     "errorUnavailable": "Dienst vorübergehend nicht verfügbar.",
-    "errorGeneric": "Anmeldung fehlgeschlagen — bitte versuchen Sie es erneut."
+    "errorGeneric": "Anmeldung fehlgeschlagen — bitte versuchen Sie es erneut.",
+    "title": "Anmelden um fortzufahren",
+    "continueWith": "Weiter mit {{provider}}",
+    "redirecting": "Weiterleitung…",
+    "noProviders": "Keine Anmeldeanbieter konfiguriert.",
+    "contactAdmin": "Kontaktieren Sie Ihren Administrator."
   }
 }

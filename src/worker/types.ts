@@ -4,6 +4,8 @@ export interface Env {
   TTS_CACHE: R2Bucket;
   RECORDINGS: R2Bucket;
   SESSION_CACHE: KVNamespace;
+  CHAT_AGENT: DurableObjectNamespace;
+  AI: Ai;
 
   ALLOWED_ORIGINS?: string;
   /** Set to "true" in wrangler.toml [vars] for local dev only.

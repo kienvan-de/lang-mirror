@@ -5,6 +5,7 @@ import { SunIcon, MoonIcon, Bars3Icon, XMarkIcon, ArrowRightEndOnRectangleIcon, 
 import { useAuth } from "./hooks/useAuth";
 import { useUserLanguages } from "./hooks/useUserLanguages";
 import { langFlag } from "./lib/lang";
+import { ChatWidget } from "./components/ChatWidget";
 
 const NAV_ITEMS = [
   { to: "/" as const,        labelKey: "nav.dashboard" },
@@ -240,6 +241,8 @@ export function RootLayout() {
       <main>
         <Outlet />
       </main>
+
+      <ChatWidget />
     </div>
   );
 }

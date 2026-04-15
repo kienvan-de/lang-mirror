@@ -16,30 +16,35 @@
     "clean:cf": "lsof -ti :7842 2>/dev/null | xargs kill -9 2>/dev/null; lsof -ti :7843 2>/dev/null | xargs kill -9 2>/dev/null; rm -rf .wrangler/state && echo '✓ CF local state cleared (D1 + R2 + KV + ports)'"
   },
   "dependencies": {
+    "@ai-sdk/react": "^3.0.163",
+    "@cloudflare/ai-chat": "^0.4.3",
     "@heroicons/react": "^2.2.0",
+    "@tailwindcss/typography": "^0.5.19",
+    "@tailwindcss/vite": "^4.2.2",
     "@tanstack/react-query": "^5",
     "@tanstack/react-router": "^1",
+    "agents": "^0.11.0",
+    "ai": "^6.0.161",
     "hono": "^4.12.12",
     "i18next": "^26.0.3",
     "i18next-browser-languagedetector": "^8.2.1",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
     "react-i18next": "^17.0.2",
     "react-markdown": "^10.1.0",
-    "zustand": "^4"
+    "workers-ai-provider": "^3.1.10",
+    "zod": "^4.3.6",
+    "zustand": "^5.0.12"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260409.1",
-    "@tailwindcss/typography": "^0.5.19",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "@vitejs/plugin-react": "^4",
-    "autoprefixer": "^10",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.2.0",
     "concurrently": "^8",
-    "postcss": "^8",
-    "tailwindcss": "^3",
+    "tailwindcss": "^4.2.2",
     "typescript": "^5",
-    "vite": "^5",
+    "vite": "^8.0.8",
     "wrangler": "^4.81.0"
   }
 }

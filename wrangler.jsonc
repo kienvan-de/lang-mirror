@@ -14,13 +14,26 @@
     "not_found_handling": "single-page-application",
     // Always route /api/* to the Worker first — skip the asset lookup entirely
     // for API requests so static files can never shadow API routes
-    "run_worker_first": ["/api/*"]
+    "run_worker_first": ["/api/*", "/agents/*"]
   },
 
   // Local dev port — matches the Vite proxy target so `bun run cf:dev` works
   "dev": {
     "port": 7842
   },
+
+  // Durable Object — AI chat agent (one instance per user, persistent SQLite)
+  "durable_objects": {
+    "bindings": [
+      { "name": "CHAT_AGENT", "class_name": "ChatAgent" }
+    ]
+  },
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["ChatAgent"] }
+  ],
+
+  // Workers AI — LLM inference for chat agent
+  "ai": { "binding": "AI" },
 
   // Cloudflare D1 — SQLite-compatible database
   "d1_databases": [

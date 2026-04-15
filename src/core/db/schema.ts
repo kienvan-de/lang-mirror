@@ -188,6 +188,8 @@ export const DEFAULT_SETTINGS: [string, string][] = [
   ["tts.edgeTTS.origin",             "chrome-extension://jdiccldimpdaibmpdkjnbmckianbfold"],
   // Note: app.baseUrl is intentionally NOT seeded here — it is dev-only.
   // Set explicitly for local CF dev via: bun run cf:seed:mock
+  // AI chat agent — model used by Workers AI for the floating chat
+  ["ai.model",                       "@cf/google/gemma-4-26b-a4b-it"],
 ];
 
 /** Well-known system user — owns all default settings. Role 'readonly' = no privileges. */

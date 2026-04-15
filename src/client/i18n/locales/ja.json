@@ -603,6 +603,11 @@
     "errorInvalidRequest": "無効なログインリクエストです。",
     "errorServerError": "サーバーエラー — 後でもう一度お試しください。",
     "errorUnavailable": "サービスが一時的に利用できません。",
-    "errorGeneric": "ログイン失敗 — もう一度お試しください。"
+    "errorGeneric": "ログイン失敗 — もう一度お試しください。",
+    "title": "続行するにはサインイン",
+    "continueWith": "{{provider}}で続行",
+    "redirecting": "リダイレクト中…",
+    "noProviders": "ログインプロバイダーが設定されていません。",
+    "contactAdmin": "管理者に連絡してください。"
   }
 }

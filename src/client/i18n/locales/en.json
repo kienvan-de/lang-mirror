@@ -601,6 +601,11 @@
     "errorInvalidRequest": "Invalid login request.",
     "errorServerError": "Server error — please try again later.",
     "errorUnavailable": "Service temporarily unavailable.",
-    "errorGeneric": "Login failed — please try again."
+    "errorGeneric": "Login failed — please try again.",
+    "title": "Sign in to continue",
+    "continueWith": "Continue with {{provider}}",
+    "redirecting": "Redirecting…",
+    "noProviders": "No login providers configured.",
+    "contactAdmin": "Contact your administrator."
   }
 }

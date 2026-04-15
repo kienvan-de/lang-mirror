@@ -1,6 +1,6 @@
 {
   "title": "Day 02: Ordering at a Café",
-  "description": "Polyglot Mastery — Week 1: Daily Life & Habits",
+  "description": "Polyglot Mastery — Daily Life & Habits",
   "tags": [
     "vi",
     "B1"
@@ -9,7 +9,7 @@
     {
       "language": "en",
       "title": "Ordering at a Café",
-      "description": "Week 1: Daily Life & Habits",
+      "description": "Daily Life & Habits",
       "voice_name": "en-US-JennyNeural",
       "speed": 0.9,
       "sentences": [
@@ -63,7 +63,7 @@
     {
       "language": "de",
       "title": "Im Café bestellen",
-      "description": "Woche 1: Alltag & Gewohnheiten",
+      "description": "Alltag & Gewohnheiten",
       "voice_name": "de-DE-KatjaNeural",
       "speed": 0.85,
       "sentences": [
@@ -117,7 +117,7 @@
     {
       "language": "ja",
       "title": "カフェで注文する",
-      "description": "第1週：日常生活と習慣",
+      "description": "日常生活と習慣",
       "voice_name": "ja-JP-NanamiNeural",
       "speed": 0.8,
       "sentences": [
@@ -171,7 +171,7 @@
     {
       "language": "vi",
       "title": "Gọi Đồ Ở Quán Cà Phê",
-      "description": "Tuần 1: Đời Sống & Thói Quen Hằng Ngày",
+      "description": "Đời Sống & Thói Quen Hằng Ngày",
       "voice_name": "vi-VN-HoaiMyNeural",
       "speed": 1,
       "sentences": [

@@ -161,7 +161,8 @@ const topicDetailSharedTemplate = (vars: {
     vars.versions.length
       ? `
 
-Use these sentence IDs when the user refers to a sentence by number or text for explanations.`
+Use these sentence IDs when the user refers to a sentence by number or text for explanations.
+Use the version ID when fetching version detail.`
       : ""
   }
 

@@ -19,7 +19,6 @@ import { api } from "../lib/api";
 import { useAgent } from "agents/react";
 import { useAgentChat } from "@cloudflare/ai-chat/react";
 import ReactMarkdown from "react-markdown";
-import { buildClientTools } from "../chat-tools";
 import { buildPageContext } from "../chat-tools/page-context";
 import { useAuth } from "../hooks/useAuth";
 import {
@@ -66,19 +65,76 @@ export function ChatWidget() {
   });
   const assistantName = settings?.["ai.assistant.name"] || t("chat.title");
 
-  const clientTools = buildClientTools({ navigate, queryClient, closeChat });
-
   const agent = useAgent({
     agent: "ChatAgent",
     // No name — server rewrites "default" to userId
   });
 
+  const ROUTES: Record<string, string> = {
+    dashboard: "/",
+    topics: "/topics",
+    path: "/path",
+    import: "/import",
+    settings: "/settings",
+  };
+
   const { messages, sendMessage, stop, status, isStreaming, clearHistory } = useAgentChat({
     agent,
-    tools: clientTools,
     body: () => ({
       pageContext: buildPageContext(location.pathname, queryClient, user?.id),
     }),
+    onToolCall: async ({ toolCall, addToolOutput }) => {
+      const { toolCallId, toolName, input } = toolCall;
+      try {
+        switch (toolName) {
+          case "navigateTo": {
+            const { page } = input as { page: string };
+            const to = ROUTES[page];
+            if (to) {
+              closeChat();
+              navigate({ to });
+              addToolOutput({ toolCallId, output: { navigated: page } });
+            } else {
+              addToolOutput({ toolCallId, output: { error: `Unknown page: ${page}` } });
+            }
+            break;
+          }
+          case "refreshData": {
+            await queryClient.invalidateQueries();
+            addToolOutput({ toolCallId, output: { refreshed: true } });
+            break;
+          }
+          case "startPractice": {
+            const { topicId, langCode } = input as { topicId: string; langCode: string };
+            closeChat();
+            navigate({ to: `/practice/${topicId}/${langCode}` });
+            addToolOutput({ toolCallId, output: { started: true, topicId, langCode } });
+            break;
+          }
+          case "openTopicDetail": {
+            const { topicId } = input as { topicId: string };
+            closeChat();
+            navigate({ to: `/topics/${topicId}` });
+            addToolOutput({ toolCallId, output: { opened: topicId } });
+            break;
+          }
+          case "toggleDarkMode": {
+            document.documentElement.classList.toggle("dark");
+            const isDark = document.documentElement.classList.contains("dark");
+            localStorage.setItem("theme", isDark ? "dark" : "light");
+            addToolOutput({ toolCallId, output: { darkMode: isDark } });
+            break;
+          }
+          default:
+            addToolOutput({ toolCallId, output: { error: `Unknown tool: ${toolName}` } });
+        }
+      } catch (err) {
+        addToolOutput({
+          toolCallId,
+          output: { error: String(err) },
+        });
+      }
+    },
   });
 
   const isLoading = status === "streaming" || status === "submitted" || isStreaming;

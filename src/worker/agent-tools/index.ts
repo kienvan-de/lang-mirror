@@ -35,6 +35,13 @@ import { addToPath } from "./add-to-path";
 // ── Utility tools ─────────────────────────────────────────
 import { getAppGuide } from "./get-app-guide";
 
+// ── Client tools (no execute — handled browser-side via onToolCall) ──
+import { navigateToTool } from "./navigate-to";
+import { refreshDataTool } from "./refresh-data";
+import { startPracticeTool } from "./start-practice";
+import { openTopicDetailTool } from "./open-topic-detail";
+import { toggleDarkModeTool } from "./toggle-dark-mode";
+
 export type { ToolDeps };
 
 export function buildAgentTools(deps: ToolDeps): ToolSet {
@@ -57,5 +64,11 @@ export function buildAgentTools(deps: ToolDeps): ToolSet {
     addToPath: addToPath(deps),
     // Utility
     getAppGuide: getAppGuide(),
+    // Client (no execute — routed to browser via onToolCall)
+    navigateTo: navigateToTool(),
+    refreshData: refreshDataTool(),
+    startPractice: startPracticeTool(),
+    openTopicDetail: openTopicDetailTool(),
+    toggleDarkMode: toggleDarkModeTool(),
   };
 }

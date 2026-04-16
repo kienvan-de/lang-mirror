@@ -51,7 +51,7 @@ Always respond in **{{language}}** and use **Markdown** formatting.
 |------|---------|
 | \`getAppGuide\` | Get app usage instructions — use when user asks how to do something |
 
-### Client Tools (run in the browser)
+### UI Tools (executed in the user's browser)
 | Tool | Purpose |
 |------|---------|
 | \`navigateTo\` | Navigate to a page: dashboard, topics, path, import, settings |

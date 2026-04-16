@@ -13,12 +13,7 @@ createRoot(root).render(
   </StrictMode>
 );
 
-// Dismiss the inline splash screen after React has painted.
-// The CSS transition (opacity 0.3s) handles the fade-out.
-requestAnimationFrame(() => {
-  const splash = document.getElementById("splash");
-  if (splash) {
-    splash.classList.add("hide");
-    splash.addEventListener("transitionend", () => splash.remove());
-  }
-});
+// NOTE: The inline splash screen (#splash) is dismissed by RootLayout once
+// auth resolves and real content is ready — NOT here. Dismissing here via
+// requestAnimationFrame fires before React has committed to the DOM, causing
+// a white flash between the splash and the first meaningful paint.

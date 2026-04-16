@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { SunIcon, MoonIcon, Bars3Icon, XMarkIcon, ArrowRightEndOnRectangleIcon, ShieldCheckIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "./hooks/useAuth";
@@ -62,15 +62,22 @@ export function RootLayout() {
 
   if (dark) document.documentElement.classList.add("dark");
 
-  // Shared auth-loading placeholder — matches the splash screen style
-  // so the transition from splash → auth check → content feels seamless.
-  const authLoading = (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-950">
-      <img src="/logo.png" alt="Lang Mirror" className="w-14 h-14 object-contain" />
-      <p className="mt-3 text-sm text-gray-500 dark:text-gray-400 font-medium">Lang Mirror Today</p>
-      <div className="mt-5 w-6 h-6 rounded-full border-2 border-gray-300 dark:border-gray-700 border-t-blue-500 dark:border-t-blue-400 animate-spin" />
-    </div>
-  );
+  // Dismiss the HTML splash screen once we have a definitive auth answer.
+  // The splash stays visible during the entire auth check — no intermediate
+  // spinner, no layout shift. It fades out to reveal the actual page content.
+  const splashDismissed = useRef(false);
+  useEffect(() => {
+    // Wait until auth has resolved (not loading) and we know what to show
+    if (isLoading) return;
+    if (splashDismissed.current) return;
+    splashDismissed.current = true;
+
+    const splash = document.getElementById("splash");
+    if (splash) {
+      splash.classList.add("hide");
+      splash.addEventListener("transitionend", () => splash.remove());
+    }
+  }, [isLoading]);
 
   if (PUBLIC_PATHS.has(location.pathname)) {
     return (
@@ -81,7 +88,8 @@ export function RootLayout() {
   }
 
   if (FULL_PAGE_PATHS.has(location.pathname)) {
-    if (isLoading) return authLoading;
+    // While auth is loading, return nothing — the HTML splash is still visible
+    if (isLoading) return null;
     if (!user) return null;
     return (
       <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
@@ -90,7 +98,8 @@ export function RootLayout() {
     );
   }
 
-  if (isLoading) return authLoading;
+  // While auth is loading, return nothing — the HTML splash is still visible
+  if (isLoading) return null;
   if (!user) return null;
 
   return (
@@ -234,7 +243,7 @@ export function RootLayout() {
         )}
       </nav>
 
-      <main key={location.pathname} className="animate-fade-in">
+      <main>
         <Outlet />
       </main>
 

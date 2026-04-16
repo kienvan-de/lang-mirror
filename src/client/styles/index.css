@@ -6,18 +6,6 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /*
- * Page content fade-in — applied to the main content area so route
- * transitions don't flash from blank to content.
- */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-.animate-fade-in {
-  animation: fadeIn 0.15s ease-out;
-}
-
-/*
  * Prevent iOS Safari from auto-zooming when tapping inputs.
  * Safari zooms in on any input with font-size < 16px, then does NOT zoom
  * back out after blur — leaving the user stuck at a zoomed scale.

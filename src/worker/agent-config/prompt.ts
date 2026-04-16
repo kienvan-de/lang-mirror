@@ -121,19 +121,18 @@ Follow these steps in order:
 export const DEFAULT_ASSISTANT_NAME = "AI Assistant";
 export const DEFAULT_LANGUAGE = "English";
 
+/**
+ * Page context sent from the client with every message.
+ * Each page builder produces a self-contained `prompt` string — the prompt
+ * builder just appends it as-is without interpreting individual fields.
+ */
 export interface PageContext {
+  /** Machine-readable page identifier */
   page: string;
+  /** Current URL path */
   path: string;
-  description: string;
-  topicId?: string;
-  topicTitle?: string;
-  topicLanguages?: string[];
-  topicTags?: string[];
-  topicSentenceCount?: number;
-  langCode?: string;
-  langName?: string;
-  pathName?: string;
-  pathTopicCount?: number;
+  /** Self-contained prompt text — appended as-is to the system prompt */
+  prompt: string;
 }
 
 export function buildSystemPrompt(
@@ -152,28 +151,8 @@ export function buildSystemPrompt(
     .replaceAll("{{language}}", nativeLanguage)
     .replaceAll("{{learningLanguages}}", learningList);
 
-  // Append dynamic page context
-  if (pageContext) {
-    prompt += `\n\n---\n\n## Current Context\n${pageContext.description}`;
-    if (pageContext.topicId) {
-      prompt += `\nWhen the user says "this topic", "current topic", or "here", they mean topic ID: \`${pageContext.topicId}\``;
-      if (pageContext.topicTitle) prompt += ` ("${pageContext.topicTitle}")`;
-      prompt += ".";
-    }
-    if (pageContext.topicLanguages?.length) {
-      prompt += `\nExisting languages in this topic: ${pageContext.topicLanguages.join(", ")}.`;
-    }
-    // Render version summaries with sentence IDs
-    if (pageContext.versions?.length) {
-      prompt += "\n\n### Versions & Sentences";
-      for (const v of pageContext.versions) {
-        prompt += `\n**${v.languageName}** (${v.language}) — version ID: \`${v.id}\`, ${v.sentences.length} sentences:`;
-        for (const s of v.sentences) {
-          prompt += `\n  ${s.position + 1}. [id:\`${s.id}\`] "${s.preview}"`;
-        }
-      }
-      prompt += `\n\nUse these sentence IDs directly when the user refers to a sentence by number or text. Use the version ID when adding sentences or a new language version.`;
-    }
+  if (pageContext?.prompt) {
+    prompt += `\n\n---\n\n## Current Context\n${pageContext.prompt}`;
   }
 
   return prompt;

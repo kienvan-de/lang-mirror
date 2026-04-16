@@ -24,7 +24,7 @@ export function DashboardPage() {
   const { data: dashboard, isLoading } = useQuery({
     queryKey: ["stats", "dashboard"],
     queryFn: () => api.getDashboard(12),
-    refetchInterval: 30_000,
+    refetchInterval: 15 * 60_000, // 15 minutes
   });
 
   const daily  = dashboard?.daily;

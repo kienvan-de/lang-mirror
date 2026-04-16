@@ -65,6 +65,13 @@
     }
   ],
 
+  // Environment variables
+  "vars": {
+    // Maximum number of active users. New registrations are blocked once this
+    // limit is reached. Existing users can always log in. Default: 20.
+    "MAX_USERS": "20"
+  },
+
   // Secrets (set via `wrangler secret put` or CF dashboard — never committed):
   //   (none required — Edge TTS is free and unauthenticated)
   //

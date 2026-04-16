@@ -6,6 +6,9 @@
  * with the pages where they're relevant, so the LLM only sees applicable
  * instructions per page.
  *
+ * Write workflows are only included for topics the user owns.
+ * Practice and review pages are read-only — no write workflows.
+ *
  * To add context for a new page:
  *   1. Create a template function
  *   2. Create a builder function
@@ -27,6 +30,7 @@ type PageBuilder = (
   pathname: string,
   queryClient: QueryClient,
   params: Record<string, string>,
+  userId?: string,
 ) => PageContext;
 
 interface RouteEntry {
@@ -36,11 +40,10 @@ interface RouteEntry {
 }
 
 // ── Shared workflow instructions ─────────────────────────
-// Referenced from the User Profile section in the system prompt, the agent
-// already knows the user's native and learning languages.
+// The agent already knows native/learning languages from the User Profile
+// section in the system prompt, so workflows reference them generically.
 
-const WORKFLOW_CREATE_TOPIC = `
-### Workflow: Create a New Topic
+const WORKFLOW_CREATE_TOPIC = `### Workflow: Create a New Topic
 Follow these steps in order:
 1. Ask the user to describe the topic they want to create
 2. Present the user's learning languages (from their profile) and ask which ones to include
@@ -54,34 +57,36 @@ Follow these steps in order:
 7. Present the complete topic for final review
 8. On confirmation, call \`createTopic\` with the full structure`;
 
-const WORKFLOW_ADD_LANGUAGE_VERSION = `
-### Workflow: Add a Language Version
-1. Present the user's learning languages that are **not yet** in this topic, and ask which one to add
-2. **If the topic has existing versions:**
+const WORKFLOW_ADD_LANGUAGE_VERSION = `### Workflow: Add a Language Version
+1. If version info is not available in the current context, use \`getTopicDetail\` to see what language versions already exist
+2. Present the user's learning languages that are **not yet** in this topic, and ask which one to add
+3. **If the topic has existing versions:**
    - Use the existing version's sentences as reference to generate translations
    - Generate notes for grammar and vocabulary in the native language and all existing version languages
    - Present for review, then call \`addLanguageVersion\` followed by \`addSentences\`
-3. **If the topic has no versions yet:**
+4. **If the topic has no versions yet:**
    - Ask the user to describe the content
    - Generate sentences in the native language first with notes in the chosen learning language
    - Present for review, generate the learning language version
    - Call \`addLanguageVersion\` + \`addSentences\` for each language`;
 
-const WORKFLOW_ADD_SENTENCES = `
-### Workflow: Add Sentences
+const WORKFLOW_ADD_SENTENCES = `### Workflow: Add Sentences
 1. Ask the user which language version to add sentences to (or use the one from context)
 2. Ask the user to describe the content for the new sentences
 3. Generate sentences in the target language based on the described content
 4. For each sentence, generate notes with grammar and vocabulary in the native language and all other language versions of the topic
 5. Present for review, then call \`addSentences\``;
 
-const WORKFLOW_UPDATE_SENTENCE = `
-### Workflow: Update a Sentence
+const WORKFLOW_UPDATE_SENTENCE = `### Workflow: Update a Sentence
 1. Use \`getSentenceDetail\` to get the sentence's current text and notes (sentence ID from context)
 2. Ask the user what they want to change
 3. Generate the updated sentence based on current content and requested changes
 4. Generate updated notes with grammar and vocabulary in the native language and all other language versions
 5. Present for review, then call \`updateSentence\``;
+
+const OWNERSHIP_NOTE =
+  "**Note:** Write workflows (add version, add sentences, update sentence) only apply to topics you own. " +
+  "For shared/public topics, the user can only read and practice.";
 
 // ── View types ───────────────────────────────────────────
 
@@ -117,14 +122,9 @@ ${WORKFLOW_CREATE_TOPIC}`;
 const topicNotCachedTemplate = (topicId: string) =>
   `User is viewing a **topic** (ID: \`${topicId}\`). Data not yet cached.
 When the user says "this topic" or "current topic", they mean topic ID \`${topicId}\`.
-Use \`getTopicDetail\` to load full information.
+Use \`getTopicDetail\` to load full information before performing any action.`;
 
-## Available Workflows
-${WORKFLOW_ADD_LANGUAGE_VERSION}
-${WORKFLOW_ADD_SENTENCES}
-${WORKFLOW_UPDATE_SENTENCE}`;
-
-const topicDetailTemplate = (vars: {
+const topicDetailOwnedTemplate = (vars: {
   topicId: string;
   title: string;
   languages: string;
@@ -133,33 +133,25 @@ const topicDetailTemplate = (vars: {
   status: string;
   versions: VersionView[];
 }) =>
-  `User is viewing topic **"${vars.title}"** (ID: \`${vars.topicId}\`).
-Languages: ${vars.languages}. Total sentences: ${vars.sentenceCount}. Tags: ${vars.tags}.
-Status: ${vars.status}.
-
-When the user says "this topic", "current topic", or "here", they mean topic ID \`${vars.topicId}\` ("${vars.title}").${
-    vars.versions.length
-      ? `
-
-### Versions & Sentences
-${vars.versions
-  .map(
-    (v) =>
-      `**${v.langName}** (${v.langCode}) — version ID: \`${v.id}\`, ${v.sentences.length} sentences:
-${v.sentences.map((s) => `  ${s.num}. [id:\`${s.id}\`] "${s.preview}"`).join("\n")}`,
-  )
-  .join("\n")}
-
-Use these sentence IDs directly when the user refers to a sentence by number or text.
-Use the version ID when adding sentences or fetching version detail.
-Use the topic ID when adding a new language version.`
-      : ""
-  }
+  `${topicDetailHeader(vars)}
 
 ## Available Workflows
 ${WORKFLOW_ADD_LANGUAGE_VERSION}
 ${WORKFLOW_ADD_SENTENCES}
 ${WORKFLOW_UPDATE_SENTENCE}`;
+
+const topicDetailSharedTemplate = (vars: {
+  topicId: string;
+  title: string;
+  languages: string;
+  sentenceCount: number;
+  tags: string;
+  status: string;
+  versions: VersionView[];
+}) =>
+  `${topicDetailHeader(vars)}
+
+${OWNERSHIP_NOTE}`;
 
 const practiceTemplate = (vars: {
   topicId: string;
@@ -183,11 +175,12 @@ When the user asks about "this sentence" or "current sentence", use the sentence
 
 When the user says "this topic", they mean topic ID \`${vars.topicId}\` ("${vars.title}").
 
-## Available Workflows
-${WORKFLOW_UPDATE_SENTENCE}`;
+Practice mode is read-only. The user can ask about grammar, vocabulary, or sentence explanations, but content editing should be done from the topic detail page.`;
 
 const reviewTemplate = () =>
-  `User is on the **Practice Review** page, comparing their recordings with the original TTS audio sentence by sentence.`;
+  `User is on the **Practice Review** page, comparing their recordings with the original TTS audio sentence by sentence.
+
+Review mode is read-only. The user can ask about pronunciation, grammar, or request explanations.`;
 
 const pathTemplate = (vars: {
   name: string;
@@ -222,6 +215,45 @@ ${WORKFLOW_CREATE_TOPIC}`;
 
 const fallbackTemplate = (path: string) =>
   `User is on \`${path}\`.`;
+
+// ── Shared template parts ────────────────────────────────
+
+function topicDetailHeader(vars: {
+  topicId: string;
+  title: string;
+  languages: string;
+  sentenceCount: number;
+  tags: string;
+  status: string;
+  versions: VersionView[];
+}): string {
+  const lines: string[] = [
+    `User is viewing topic **"${vars.title}"** (ID: \`${vars.topicId}\`).`,
+    `Languages: ${vars.languages}. Total sentences: ${vars.sentenceCount}. Tags: ${vars.tags}.`,
+    `Status: ${vars.status}.`,
+    "",
+    `When the user says "this topic", "current topic", or "here", they mean topic ID \`${vars.topicId}\` ("${vars.title}").`,
+  ];
+
+  if (vars.versions.length) {
+    lines.push(
+      "",
+      "### Versions & Sentences",
+      ...vars.versions.flatMap((v) => [
+        `**${v.langName}** (${v.langCode}) — version ID: \`${v.id}\`, ${v.sentences.length} sentences:`,
+        ...v.sentences.map(
+          (s) => `  ${s.num}. [id:\`${s.id}\`] "${s.preview}"`,
+        ),
+      ]),
+      "",
+      "Use these sentence IDs directly when the user refers to a sentence by number or text.",
+      "Use the version ID when adding sentences or fetching version detail.",
+      "Use the topic ID when adding a new language version.",
+    );
+  }
+
+  return lines.join("\n");
+}
 
 // ── Helpers ──────────────────────────────────────────────
 
@@ -261,11 +293,12 @@ const PAGE_ROUTES: RouteEntry[] = [
 export function buildPageContext(
   pathname: string,
   queryClient: QueryClient,
+  userId?: string,
 ): PageContext {
   for (const route of PAGE_ROUTES) {
     const match = pathname.match(route.pattern);
     if (match) {
-      return route.builder(pathname, queryClient, match.groups ?? {});
+      return route.builder(pathname, queryClient, match.groups ?? {}, userId);
     }
   }
   return { page: "unknown", path: pathname, prompt: fallbackTemplate(pathname) };
@@ -285,6 +318,7 @@ function buildTopicDetail(
   pathname: string,
   queryClient: QueryClient,
   params: Record<string, string>,
+  userId?: string,
 ): PageContext {
   const { topicId } = params;
   const topic = queryClient.getQueryData<Topic>(["topic", topicId]);
@@ -303,19 +337,20 @@ function buildTopicDetail(
     ) ?? 0;
   const tags = topic.tags?.map((tg) => tg.name).join(", ") || "none";
 
-  return {
-    page: "topicDetail",
-    path: pathname,
-    prompt: topicDetailTemplate({
-      topicId,
-      title: topic.title,
-      languages,
-      sentenceCount,
-      tags,
-      status: topic.status,
-      versions: toVersionViews(topic.versions ?? []),
-    }),
+  const vars = {
+    topicId,
+    title: topic.title,
+    languages,
+    sentenceCount,
+    tags,
+    status: topic.status,
+    versions: toVersionViews(topic.versions ?? []),
   };
+
+  const isOwner = userId != null && topic.owner_id === userId;
+  const template = isOwner ? topicDetailOwnedTemplate : topicDetailSharedTemplate;
+
+  return { page: "topicDetail", path: pathname, prompt: template(vars) };
 }
 
 function buildPractice(

@@ -21,6 +21,7 @@ import { useAgentChat } from "@cloudflare/ai-chat/react";
 import ReactMarkdown from "react-markdown";
 import { buildClientTools } from "../chat-tools";
 import { buildPageContext } from "../chat-tools/page-context";
+import { useAuth } from "../hooks/useAuth";
 import {
   ChatBubbleLeftRightIcon,
   XMarkIcon,
@@ -52,6 +53,7 @@ export function ChatWidget() {
   const location = useLocation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { user } = useAuth();
 
   const closeChat = useCallback(() => setOpen(false), []);
 
@@ -74,7 +76,7 @@ export function ChatWidget() {
     agent,
     tools: clientTools,
     body: () => ({
-      pageContext: buildPageContext(location.pathname, queryClient),
+      pageContext: buildPageContext(location.pathname, queryClient, user?.id),
     }),
   });
 

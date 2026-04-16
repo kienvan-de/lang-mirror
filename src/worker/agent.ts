@@ -17,6 +17,7 @@
  */
 import { AIChatAgent } from "@cloudflare/ai-chat";
 import { streamText, stepCountIs, convertToModelMessages } from "ai";
+import type { ModelMessage } from "ai";
 import { createWorkersAI } from "workers-ai-provider";
 import { runWithAuth } from "../core/auth/context";
 import type { AuthUser } from "../core/auth/context";
@@ -32,7 +33,27 @@ import {
 import type { Env } from "./types";
 import type { Connection, ConnectionContext } from "agents";
 
+/**
+ * Rough token estimate: ~4 chars per token for mixed-language content.
+ * Conservative — better to undercount and keep more headroom.
+ */
+const CHARS_PER_TOKEN = 4;
+
+/**
+ * Maximum tokens for conversation history in the context window.
+ * Workers AI models typically have 8,192 token context windows.
+ * Reserve ~3,000 for system prompt (incl. page context + workflows)
+ * and ~1,000 for the model's response.
+ */
+const MAX_HISTORY_TOKENS = 4000;
+
 export class ChatAgent extends AIChatAgent<Env> {
+
+  /**
+   * Limit persisted messages to prevent unbounded SQLite growth.
+   * AIChatAgent deletes oldest messages when this limit is exceeded.
+   */
+  maxPersistedMessages = 100;
 
   // ── Auth persistence (survives hibernation) ──────────────
 
@@ -144,7 +165,8 @@ export class ChatAgent extends AIChatAgent<Env> {
     // Read page context from client body
     const pageContext = options?.body?.pageContext as PageContext | undefined;
 
-    const modelMessages = await convertToModelMessages(this.messages);
+    const allMessages = await convertToModelMessages(this.messages);
+    const modelMessages = slidingWindow(allMessages, MAX_HISTORY_TOKENS);
 
     const result = streamText({
       model: workersai(modelName),
@@ -158,6 +180,71 @@ export class ChatAgent extends AIChatAgent<Env> {
 
     return result.toUIMessageStreamResponse();
   }
+}
+
+/**
+ * Sliding window: keep the most recent messages that fit within the token budget.
+ *
+ * Walks backward from the latest message, estimating tokens by character count.
+ * Always includes at least the last message (even if it exceeds the budget alone).
+ * Preserves message ordering — slices from the front.
+ *
+ * This is a rough heuristic. A proper implementation would use a tokenizer,
+ * but char-based estimation is sufficient for staying under the context limit.
+ */
+function slidingWindow(
+  messages: ModelMessage[],
+  maxTokens: number,
+): ModelMessage[] {
+  let tokenCount = 0;
+  let cutIndex = messages.length;
+
+  for (let i = messages.length - 1; i >= 0; i--) {
+    const msg = messages[i];
+    const chars = estimateMessageChars(msg);
+    const tokens = Math.ceil(chars / CHARS_PER_TOKEN);
+
+    if (tokenCount + tokens > maxTokens && cutIndex < messages.length) {
+      // Would exceed budget — stop here, but always include at least one message
+      break;
+    }
+
+    tokenCount += tokens;
+    cutIndex = i;
+  }
+
+  return messages.slice(cutIndex);
+}
+
+/**
+ * Estimate the character count of a ModelMessage.
+ * Handles text content (string or structured parts) and tool calls/results.
+ */
+function estimateMessageChars(msg: ModelMessage): number {
+  let chars = 0;
+
+  if ("content" in msg) {
+    if (typeof msg.content === "string") {
+      chars += msg.content.length;
+    } else if (Array.isArray(msg.content)) {
+      for (const part of msg.content) {
+        if ("text" in part && typeof part.text === "string") {
+          chars += part.text.length;
+        } else if ("toolCallId" in part) {
+          // Tool result — estimate from stringified result
+          chars += JSON.stringify(part).length;
+        } else {
+          // Other part types (image, file, etc.)
+          chars += 100; // rough estimate
+        }
+      }
+    }
+  }
+
+  // Role + overhead
+  chars += 20;
+
+  return chars;
 }
 
 /**

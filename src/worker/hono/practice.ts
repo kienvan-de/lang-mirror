@@ -27,6 +27,17 @@ practiceRouter.post("/attempts", practiceAttemptRateLimit, async (c) => {
   }), 201);
 });
 
+// ── Consolidated dashboard endpoint (4-in-1) ─────────────────────────────────
+// Replaces the four individual stats endpoints with a single Worker invocation.
+// Saves ~4× Worker requests on every auto-refresh (free tier quota friendly).
+practiceRouter.get("/stats/dashboard", async (c) => {
+  const raw = parseInt(c.req.query("weeks") ?? "12", 10);
+  const weeks = Number.isFinite(raw) ? Math.max(1, Math.min(raw, 52)) : 12;
+  const { practice } = await buildContext(c.env);
+  return c.json(await practice.getDashboard(weeks));
+});
+
+// ── Individual endpoints kept for backward-compat (agent tools, etc.) ────────
 practiceRouter.get("/stats/daily", async (c) => {
   const { practice } = await buildContext(c.env);
   return c.json(await practice.getDailyStats());
@@ -44,7 +55,6 @@ practiceRouter.get("/stats/recent", async (c) => {
 
 practiceRouter.get("/stats/calendar", async (c) => {
   const raw = parseInt(c.req.query("weeks") ?? "12", 10);
-  // Cap weeks to 1–52 to prevent expensive full-table scans
   const weeks = Number.isFinite(raw) ? Math.max(1, Math.min(raw, 52)) : 12;
   const { practice } = await buildContext(c.env);
   return c.json(await practice.getCalendar(weeks));

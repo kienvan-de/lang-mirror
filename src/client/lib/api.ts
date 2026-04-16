@@ -310,7 +310,30 @@ export const api = {
     setTimeout(() => URL.revokeObjectURL(url), 5000);
   },
 
-  // Practice stats
+  // Practice stats — consolidated (1 Worker request = 4× savings on free tier)
+  getDashboard: (weeks = 12) => apiFetch<{
+    daily: {
+      today: { attempts: number; topics: number; sentences: number };
+      week: Array<{ date: string; attempts: number }>;
+    };
+    streak: {
+      currentStreak: number;
+      longestStreak: number;
+      lastPracticeDate: string | null;
+    };
+    recent: Array<{
+      topicId: string;
+      topicTitle: string;
+      versionId: string;
+      langCode: string;
+      lastAttemptAt: string;
+      sentencesAttemptedToday: number;
+      totalSentences: number;
+    }>;
+    calendar: Array<{ date: string; attempts: number }>;
+  }>(`/practice/stats/dashboard?weeks=${weeks}`),
+
+  // Individual endpoints — kept for agent tools and other consumers
   getDailyStats: () => apiFetch<{
     today: { attempts: number; topics: number; sentences: number };
     week: Array<{ date: string; attempts: number }>;

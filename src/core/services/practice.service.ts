@@ -156,6 +156,22 @@ export class PracticeService {
     );
   }
 
+  async getDashboard(weeks = 12): Promise<{
+    daily: DailyStats;
+    streak: StreakStats;
+    recent: RecentItem[];
+    calendar: Array<{ date: string; attempts: number }>;
+  }> {
+    // Run all four queries concurrently — single Worker invocation, same D1 reads
+    const [daily, streak, recent, calendar] = await Promise.all([
+      this.getDailyStats(),
+      this.getStreak(),
+      this.getRecent(),
+      this.getCalendar(weeks),
+    ]);
+    return { daily, streak, recent, calendar };
+  }
+
   async getCalendar(weeks: number): Promise<Array<{ date: string; attempts: number }>> {
     const { id: ownerId } = requireAuth();
     const days = weeks * 7;

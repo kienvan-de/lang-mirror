@@ -21,31 +21,16 @@ export function DashboardPage() {
   const { t } = useTranslation();
   const qc = useQueryClient();
 
-  const { data: daily, isLoading: dailyLoading } = useQuery({
-    queryKey: ["stats", "daily"],
-    queryFn: api.getDailyStats,
+  const { data: dashboard, isLoading } = useQuery({
+    queryKey: ["stats", "dashboard"],
+    queryFn: () => api.getDashboard(12),
     refetchInterval: 30_000,
   });
 
-  const { data: streak, isLoading: streakLoading } = useQuery({
-    queryKey: ["stats", "streak"],
-    queryFn: api.getStreak,
-    refetchInterval: 60_000,
-  });
-
-  const { data: recent, isLoading: recentLoading } = useQuery({
-    queryKey: ["stats", "recent"],
-    queryFn: api.getRecentPractice,
-    refetchInterval: 30_000,
-  });
-
-  const { data: calendar, isLoading: calendarLoading } = useQuery({
-    queryKey: ["stats", "calendar"],
-    queryFn: () => api.getCalendar(12),
-    refetchInterval: 60_000,
-  });
-
-  const isLoading = dailyLoading || streakLoading || recentLoading || calendarLoading;
+  const daily  = dashboard?.daily;
+  const streak = dashboard?.streak;
+  const recent = dashboard?.recent;
+  const calendar = dashboard?.calendar;
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-8">
@@ -129,7 +114,7 @@ export function DashboardPage() {
           </Link>
         </div>
 
-        {recentLoading ? (
+        {isLoading ? (
           <div className="space-y-3">
             {[...Array(3)].map((_, i) => (
               <div key={i} className="h-20 bg-white dark:bg-gray-900 rounded-xl border border-gray-300 dark:border-gray-800 animate-pulse" />
@@ -197,7 +182,7 @@ export function DashboardPage() {
                     to="/practice/$topicId/$langCode"
                     params={{ topicId: item.topicId, langCode: item.langCode }}
                     onClick={() => {
-                      qc.invalidateQueries({ queryKey: ["stats"] });
+                      qc.invalidateQueries({ queryKey: ["stats", "dashboard"] });
                     }}
                     className="flex-shrink-0 px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-xs font-semibold text-white transition-colors shadow-sm"
                   >
@@ -213,7 +198,7 @@ export function DashboardPage() {
       {/* Calendar heatmap */}
       <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800 p-6 shadow-sm">
         <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-5">{t("dashboard.practiceHistory")}</h2>
-        {calendarLoading || streakLoading ? (
+        {isLoading ? (
           <div className="h-32 animate-pulse bg-gray-50 dark:bg-gray-800 rounded-xl" />
         ) : (
           <div className="overflow-x-auto">

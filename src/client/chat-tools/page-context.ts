@@ -92,15 +92,17 @@ const practiceTemplate = (vars: {
   language: string;
   langCode: string;
   versionId?: string;
-  sentenceCount?: number;
+  sentences: Array<{ id: string; num: number; preview: string }>;
 }) =>
   `User is **practicing** ${vars.language} (${vars.langCode}) in topic "${vars.title}" (ID: \`${vars.topicId}\`).
 The practice flow is: TTS playback → countdown → record → upload → playback comparison.${
     vars.versionId
       ? `
 
-Practicing version \`${vars.versionId}\` with ${vars.sentenceCount} sentences.
-When the user asks about "this sentence" or "current sentence", they likely mean one of these.`
+Practicing version \`${vars.versionId}\` with ${vars.sentences.length} sentences:
+${vars.sentences.map((s) => `  ${s.num}. [id:\`${s.id}\`] "${s.preview}"`).join("\n")}
+
+When the user asks about "this sentence" or "current sentence", use the sentence ID above.`
       : ""
   }
 
@@ -248,6 +250,14 @@ function buildPractice(
   const title = topic?.title ?? topicId;
   const version = topic?.versions?.find((v) => v.language_code === langCode);
 
+  const sentences = (version?.sentences ?? [])
+    .sort((a, b) => a.position - b.position)
+    .map((s) => ({
+      id: s.id,
+      num: s.position + 1,
+      preview: sentencePreview(s.text),
+    }));
+
   return {
     page: "practice",
     path: pathname,
@@ -257,7 +267,7 @@ function buildPractice(
       language,
       langCode,
       versionId: version?.id,
-      sentenceCount: version?.sentences?.length,
+      sentences,
     }),
   };
 }

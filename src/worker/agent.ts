@@ -94,6 +94,8 @@ export class ChatAgent extends AIChatAgent<Env> {
   // ── WebSocket lifecycle ──────────────────────────────────
 
   async onConnect(connection: Connection, ctx: ConnectionContext) {
+    console.log("[ChatAgent] onConnect", { url: ctx.request.url });
+
     // Read AuthUser from trusted header (set by routeAuthenticatedAgent)
     const authHeader = ctx.request.headers.get("X-Agent-Auth");
     if (!authHeader) {
@@ -119,11 +121,23 @@ export class ChatAgent extends AIChatAgent<Env> {
     onFinish: Parameters<AIChatAgent<Env>["onChatMessage"]>[0],
     options?: Parameters<AIChatAgent<Env>["onChatMessage"]>[1],
   ) {
+    console.log("[ChatAgent] onChatMessage called", {
+      messageCount: this.messages.length,
+      hasBody: !!options?.body,
+      pageContext: options?.body?.pageContext
+        ? (options.body.pageContext as { page: string }).page
+        : "none",
+      continuation: options?.continuation,
+    });
+
     // Always load from SQLite — safe after hibernation
     const user = this.loadUser();
     if (!user) {
+      console.error("[ChatAgent] No user context in SQLite");
       throw new Error("Unauthorized — no user context");
     }
+
+    console.log("[ChatAgent] User loaded:", { id: user.id, role: user.role });
 
     const { topics, versions, sentences, practice, paths, settings, importer } =
       await buildContext(this.env);
@@ -149,6 +163,8 @@ export class ChatAgent extends AIChatAgent<Env> {
       learningLanguages = [];
     }
 
+    console.log("[ChatAgent] Settings:", { modelName, assistantName, nativeLangCode });
+
     const workersai = createWorkersAI({ binding: this.env.AI });
 
     const agentTools = buildAgentTools({
@@ -167,6 +183,14 @@ export class ChatAgent extends AIChatAgent<Env> {
 
     const allMessages = await convertToModelMessages(this.messages);
     const modelMessages = slidingWindow(allMessages, MAX_HISTORY_TOKENS);
+
+    console.log("[ChatAgent] Sending to LLM:", {
+      model: modelName,
+      systemPromptLength: buildSystemPrompt(assistantName, nativeLanguage, learningLanguages, pageContext).length,
+      messageCount: modelMessages.length,
+      totalMessages: allMessages.length,
+      toolCount: Object.keys(agentTools).length,
+    });
 
     const result = streamText({
       model: workersai(modelName),

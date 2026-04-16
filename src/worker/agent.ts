@@ -181,6 +181,19 @@ export class ChatAgent extends AIChatAgent<Env> {
     // Read page context from client body
     const pageContext = options?.body?.pageContext as PageContext | undefined;
 
+    console.log("[ChatAgent] this.messages:", JSON.stringify(
+      this.messages.map(m => ({
+        role: m.role,
+        parts: m.parts?.map(p => ({
+          type: (p as { type: string }).type,
+          ...(("toolCallId" in p) ? { toolCallId: (p as { toolCallId: string }).toolCallId } : {}),
+          ...(("toolName" in p) ? { toolName: (p as { toolName: string }).toolName } : {}),
+          ...(("state" in p) ? { state: (p as { state: string }).state } : {}),
+          ...(("text" in p) ? { text: String((p as { text: string }).text).slice(0, 50) } : {}),
+        })),
+      }))
+    ));
+
     // Filter out messages with incomplete tool calls before conversion.
     // The AI SDK validates that every tool call has a matching tool result.
     // Stale messages from failed/cancelled tool calls can cause

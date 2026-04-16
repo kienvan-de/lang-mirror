@@ -85,8 +85,8 @@ const WORKFLOW_UPDATE_SENTENCE = `### Workflow: Update a Sentence
 5. Present for review, then call \`updateSentence\``;
 
 const OWNERSHIP_NOTE =
-  "**Note:** Write workflows (add version, add sentences, update sentence) only apply to topics you own. " +
-  "For shared/public topics, the user can only read and practice.";
+  "**Note:** This is not the user's own topic. Write operations (add version, add sentences, update sentence) " +
+  "are not available. The user can only read, practice, and ask for explanations.";
 
 // ── View types ───────────────────────────────────────────
 

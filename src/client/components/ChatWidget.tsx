@@ -415,18 +415,24 @@ export function ChatWidget() {
             ref={formRef}
             onSubmit={handleSubmit}
             className="
-              px-3 py-2
+              shrink-0 px-3 py-2
               border-t border-gray-200 dark:border-gray-700
-              bg-white/90 dark:bg-gray-900/90 backdrop-blur-md
+              bg-gray-50 dark:bg-gray-800/50
               flex items-end gap-2
-              /* Mobile: fixed, floats above keyboard */
-              fixed left-0 right-0 z-[9999]
-              /* Desktop: static inside the panel */
-              sm:static sm:z-auto sm:backdrop-blur-none
-              sm:bg-gray-50 sm:dark:bg-gray-800/50
-              transition-[bottom] duration-100 ease-out
             "
-            style={isMobile ? { bottom: inputBottom } : undefined}
+            style={
+              isMobile
+                ? {
+                    position: "fixed",
+                    left: 0,
+                    right: 0,
+                    bottom: inputBottom,
+                    zIndex: 9999,
+                    backdropFilter: "blur(12px)",
+                    WebkitBackdropFilter: "blur(12px)",
+                  }
+                : undefined
+            }
           >
             <textarea
               ref={inputRef}

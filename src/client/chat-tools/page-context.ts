@@ -82,7 +82,8 @@ ${v.sentences.map((s) => `  ${s.num}. [id:\`${s.id}\`] "${s.preview}"`).join("\n
   .join("\n")}
 
 Use these sentence IDs directly when the user refers to a sentence by number or text.
-Use the version ID when adding sentences or a new language version.`
+Use the version ID when adding sentences or fetching version detail.
+Use the topic ID when adding a new language version.`
       : ""
   }`;
 

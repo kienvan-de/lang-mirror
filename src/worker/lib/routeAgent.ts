@@ -30,7 +30,7 @@ export async function routeAuthenticatedAgent(
   // Only handle /agents/* paths
   if (!url.pathname.startsWith("/agents/")) return null;
 
-  console.log("[routeAgent] Intercepted:", { path: url.pathname, method: request.method });
+
 
   // ── Parse session cookie ─────────────────────────────────
   const isSecure = url.protocol === "https:";
@@ -68,7 +68,7 @@ export async function routeAuthenticatedAgent(
   }
   url.pathname = "/" + segments.join("/");
 
-  console.log("[routeAgent] Rewritten:", { path: url.pathname, userId: user.id });
+
 
   // ── Build new request with auth header ───────────────────
   // Clone headers, strip any client-sent auth header, inject verified user

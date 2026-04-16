@@ -17,7 +17,7 @@
  */
 import { AIChatAgent } from "@cloudflare/ai-chat";
 import { streamText, convertToModelMessages } from "ai";
-import type { ModelMessage, UIMessage } from "ai";
+import type { ModelMessage } from "ai";
 import { createWorkersAI } from "workers-ai-provider";
 import { runWithAuth } from "../core/auth/context";
 import type { AuthUser } from "../core/auth/context";
@@ -94,8 +94,6 @@ export class ChatAgent extends AIChatAgent<Env> {
   // ── WebSocket lifecycle ──────────────────────────────────
 
   async onConnect(connection: Connection, ctx: ConnectionContext) {
-    console.log("[ChatAgent] onConnect", { url: ctx.request.url });
-
     // Read AuthUser from trusted header (set by routeAuthenticatedAgent)
     const authHeader = ctx.request.headers.get("X-Agent-Auth");
     if (!authHeader) {
@@ -121,23 +119,11 @@ export class ChatAgent extends AIChatAgent<Env> {
     onFinish: Parameters<AIChatAgent<Env>["onChatMessage"]>[0],
     options?: Parameters<AIChatAgent<Env>["onChatMessage"]>[1],
   ) {
-    console.log("[ChatAgent] onChatMessage called", {
-      messageCount: this.messages.length,
-      hasBody: !!options?.body,
-      pageContext: options?.body?.pageContext
-        ? (options.body.pageContext as { page: string }).page
-        : "none",
-      continuation: options?.continuation,
-    });
-
     // Always load from SQLite — safe after hibernation
     const user = this.loadUser();
     if (!user) {
-      console.error("[ChatAgent] No user context in SQLite");
       throw new Error("Unauthorized — no user context");
     }
-
-    console.log("[ChatAgent] User loaded:", { id: user.id, role: user.role });
 
     const { topics, versions, sentences, practice, paths, settings, importer } =
       await buildContext(this.env);
@@ -163,8 +149,6 @@ export class ChatAgent extends AIChatAgent<Env> {
       learningLanguages = [];
     }
 
-    console.log("[ChatAgent] Settings:", { modelName, assistantName, nativeLangCode });
-
     const workersai = createWorkersAI({ binding: this.env.AI });
 
     const agentTools = buildAgentTools({
@@ -181,39 +165,8 @@ export class ChatAgent extends AIChatAgent<Env> {
     // Read page context from client body
     const pageContext = options?.body?.pageContext as PageContext | undefined;
 
-    console.log("[ChatAgent] this.messages:", JSON.stringify(
-      this.messages.map(m => ({
-        role: m.role,
-        parts: m.parts?.map(p => ({
-          type: (p as { type: string }).type,
-          ...(("toolCallId" in p) ? { toolCallId: (p as { toolCallId: string }).toolCallId } : {}),
-          ...(("toolName" in p) ? { toolName: (p as { toolName: string }).toolName } : {}),
-          ...(("state" in p) ? { state: (p as { state: string }).state } : {}),
-          ...(("text" in p) ? { text: String((p as { text: string }).text).slice(0, 50) } : {}),
-        })),
-      }))
-    ));
-
-    // Filter out messages with incomplete tool calls before conversion.
-    // The AI SDK validates that every tool call has a matching tool result.
-    // Stale messages from failed/cancelled tool calls can cause
-    // AI_MissingToolResultsError. We strip those to keep the history clean.
-    const cleanMessages = stripIncompleteToolCalls(this.messages);
-    const allMessages = await convertToModelMessages(cleanMessages);
+    const allMessages = await convertToModelMessages(this.messages);
     const modelMessages = slidingWindow(allMessages, MAX_HISTORY_TOKENS);
-
-    console.log("[ChatAgent] Sending to LLM:", {
-      model: modelName,
-      systemPromptLength: buildSystemPrompt(assistantName, nativeLanguage, learningLanguages, pageContext).length,
-      messageCount: modelMessages.length,
-      totalMessages: allMessages.length,
-      toolCount: Object.keys(agentTools).length,
-    });
-
-    console.log("[ChatAgent] Tools:", {
-      tools: Object.keys(agentTools),
-      totalTools: Object.keys(agentTools).length,
-    });
 
     const result = streamText({
       model: workersai(modelName),
@@ -233,65 +186,6 @@ export class ChatAgent extends AIChatAgent<Env> {
 
     return result.toUIMessageStreamResponse();
   }
-}
-
-/**
- * Strip incomplete tool calls from UIMessage history.
- *
- * The AI SDK validates that every tool-call in assistant messages has a
- * matching tool-result in the subsequent messages. Incomplete tool calls
- * (from failed executions, cancelled requests, or client tools that never
- * returned) cause AI_MissingToolResultsError.
- *
- * This function collects all tool-call IDs that have results, then removes
- * any tool-call parts from assistant messages that don't have results.
- * If an assistant message ends up with no parts, it's removed entirely.
- */
-function stripIncompleteToolCalls(messages: UIMessage[]): UIMessage[] {
-  // Collect all tool-call IDs that have results
-  const resolvedToolCallIds = new Set<string>();
-  for (const msg of messages) {
-    if (msg.role !== "assistant") continue;
-    for (const part of msg.parts) {
-      if (
-        "type" in part &&
-        (part as { type: string }).type.startsWith("tool-") &&
-        "state" in part
-      ) {
-        const state = (part as { state: string }).state;
-        const toolCallId = (part as { toolCallId?: string }).toolCallId;
-        if (
-          toolCallId &&
-          (state === "output-available" || state === "output-error" || state === "output-denied")
-        ) {
-          resolvedToolCallIds.add(toolCallId);
-        }
-      }
-    }
-  }
-
-  return messages
-    .map((msg) => {
-      if (msg.role !== "assistant") return msg;
-
-      const filteredParts = msg.parts.filter((part) => {
-        if (
-          "type" in part &&
-          (part as { type: string }).type.startsWith("tool-") &&
-          "toolCallId" in part
-        ) {
-          const toolCallId = (part as { toolCallId: string }).toolCallId;
-          // Keep only tool parts that have been resolved
-          return resolvedToolCallIds.has(toolCallId);
-        }
-        // Keep all non-tool parts (text, reasoning, etc.)
-        return true;
-      });
-
-      if (filteredParts.length === 0) return null;
-      return { ...msg, parts: filteredParts };
-    })
-    .filter((msg): msg is UIMessage => msg !== null);
 }
 
 /**

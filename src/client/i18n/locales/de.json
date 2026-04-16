@@ -623,7 +623,7 @@
     "close": "Chat schließen",
     "send": "Nachricht senden",
     "stop": "Generierung stoppen",
-    "clear": "Chat löschen",
-    "clearConfirm": "Alle Nachrichten löschen? Dies kann nicht rückgängig gemacht werden."
+    "clearConfirm": "Neue Unterhaltung starten? Aktuelle Nachrichten werden gelöscht.",
+    "newConversation": "Neu"
   }
 }

@@ -620,7 +620,7 @@
     "close": "Close chat",
     "send": "Send message",
     "stop": "Stop generating",
-    "clear": "Clear chat",
-    "clearConfirm": "Clear all chat messages? This cannot be undone."
+    "clearConfirm": "Start a new conversation? Current messages will be cleared.",
+    "newConversation": "New"
   }
 }

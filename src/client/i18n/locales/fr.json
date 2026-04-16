@@ -621,7 +621,7 @@
     "close": "Fermer le chat",
     "send": "Envoyer le message",
     "stop": "Arrêter la génération",
-    "clear": "Effacer le chat",
-    "clearConfirm": "Effacer tous les messages ? Cette action est irréversible."
+    "clearConfirm": "Démarrer une nouvelle conversation ? Les messages actuels seront effacés.",
+    "newConversation": "Nouveau"
   }
 }

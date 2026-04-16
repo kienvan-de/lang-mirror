@@ -621,7 +621,7 @@
     "close": "关闭聊天",
     "send": "发送消息",
     "stop": "停止生成",
-    "clear": "清除聊天",
-    "clearConfirm": "清除所有消息？此操作无法撤销。"
+    "clearConfirm": "开始新对话？当前消息将被清除。",
+    "newConversation": "新建"
   }
 }

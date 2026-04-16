@@ -27,7 +27,7 @@ import {
   XMarkIcon,
   PaperAirplaneIcon,
   StopIcon,
-  TrashIcon,
+  PlusCircleIcon,
 } from "@heroicons/react/24/outline";
 
 /** Routes where the chat widget should be hidden */
@@ -140,7 +140,7 @@ export function ChatWidget() {
             inset-0
             /* Desktop: floating panel */
             sm:inset-auto sm:bottom-6 sm:right-6
-            sm:w-[360px] sm:h-[520px] sm:rounded-2xl
+            sm:w-[440px] sm:h-[640px] sm:rounded-2xl
           "
         >
           {/* Header */}
@@ -155,11 +155,12 @@ export function ChatWidget() {
                   clearHistory();
                 }
               }}
-              className="p-1 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-              aria-label={t("chat.clear")}
-              title={t("chat.clear")}
+              className="flex items-center gap-1 px-2 py-1 rounded-lg text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              aria-label={t("chat.newConversation")}
+              title={t("chat.newConversation")}
             >
-              <TrashIcon className="w-4 h-4 text-gray-400 dark:text-gray-500" />
+              <PlusCircleIcon className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">{t("chat.newConversation")}</span>
             </button>
             <button
               onClick={() => setOpen(false)}

@@ -621,7 +621,7 @@
     "close": "Đóng trò chuyện",
     "send": "Gửi tin nhắn",
     "stop": "Dừng tạo phản hồi",
-    "clear": "Xóa cuộc trò chuyện",
-    "clearConfirm": "Xóa tất cả tin nhắn? Không thể hoàn tác."
+    "clearConfirm": "Bắt đầu cuộc trò chuyện mới? Tin nhắn hiện tại sẽ bị xóa.",
+    "newConversation": "Mới"
   }
 }

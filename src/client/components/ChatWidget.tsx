@@ -175,10 +175,9 @@ export function ChatWidget() {
   const isLoading = status === "streaming" || status === "submitted" || isStreaming || lastAssistantHasNoText;
   const showTypingIndicator = isLoading && !hasVisibleText(lastMsg);
 
-  // Measure form height for messages area bottom padding (mobile only).
-  // On desktop the form is a shrink-0 flex child inside the panel — no extra
-  // padding needed. On mobile the form floats outside the panel so the messages
-  // area needs paddingBottom to keep content above the floating bar.
+  // Measure form height for messages area bottom padding on mobile.
+  // On desktop the form is a shrink-0 flex child — no extra padding needed.
+  // On mobile the form floats fixed, so messages need paddingBottom to compensate.
   useEffect(() => {
     const el = formRef.current;
     if (!el) return;
@@ -186,7 +185,7 @@ export function ChatWidget() {
     ro.observe(el);
     setFormHeight(el.offsetHeight);
     return () => ro.disconnect();
-  }, [isMobile]); // re-attach when mobile/desktop switches (form remounts)
+  }, []);
 
   // Auto-grow textarea (max ~5 rows / 120px)
   useEffect(() => {
@@ -217,54 +216,7 @@ export function ChatWidget() {
 
   if (isHiddenRoute(location.pathname)) return null;
 
-  // ── Shared form content (textarea + buttons) ────────────────────────────────
-  const formContent = (
-    <>
-      <textarea
-        ref={inputRef}
-        value={input}
-        rows={1}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault();
-            handleSubmit(e as unknown as FormEvent);
-          }
-        }}
-        placeholder={t("chat.placeholder")}
-        className="
-          flex-1 px-3 py-2 rounded-lg
-          text-base sm:text-sm
-          bg-white dark:bg-gray-800
-          border border-gray-300 dark:border-gray-600
-          text-gray-900 dark:text-gray-100
-          placeholder-gray-400 dark:placeholder-gray-500
-          focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500
-          disabled:opacity-50 resize-none overflow-y-auto leading-normal
-        "
-        disabled={isLoading}
-      />
-      {isLoading ? (
-        <button
-          type="button"
-          onClick={stop}
-          className="p-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition-colors cursor-pointer flex items-center justify-center shrink-0"
-          aria-label={t("chat.stop")}
-        >
-          <StopIcon className="w-4 h-4" />
-        </button>
-      ) : (
-        <button
-          type="submit"
-          disabled={!input.trim()}
-          className="p-2 rounded-lg bg-orange-500 hover:bg-orange-600 text-white transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center shrink-0"
-          aria-label={t("chat.send")}
-        >
-          <PaperAirplaneIcon className="w-4 h-4" />
-        </button>
-      )}
-    </>
-  );
+
 
   return (
     <>
@@ -379,16 +331,71 @@ export function ChatWidget() {
                 <div ref={bottomRef} />
               </div>
 
-              {/* Desktop input bar — sits inside the panel, normal flow */}
-              {!isMobile && (
-                <form
-                  ref={formRef}
-                  onSubmit={handleSubmit}
-                  className="shrink-0 px-3 py-2 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 flex items-end gap-2"
-                >
-                  {formContent}
-                </form>
-              )}
+              {/* Input bar — single form for both mobile & desktop.
+                   Desktop: normal shrink-0 flex child inside the panel.
+                   Mobile: position:fixed via inline style, floats above the keyboard. */}
+              <form
+                ref={formRef}
+                onSubmit={handleSubmit}
+                className="shrink-0 px-3 py-2 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 flex items-end gap-2"
+                style={
+                  isMobile
+                    ? {
+                        position: "fixed",
+                        left: 0,
+                        right: 0,
+                        bottom: keyboardOffset,
+                        zIndex: 9999,
+                        backdropFilter: "blur(12px)",
+                        WebkitBackdropFilter: "blur(12px)",
+                      }
+                    : undefined
+                }
+              >
+                <textarea
+                  ref={inputRef}
+                  value={input}
+                  rows={1}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault();
+                      handleSubmit(e as unknown as FormEvent);
+                    }
+                  }}
+                  placeholder={t("chat.placeholder")}
+                  className="
+                    flex-1 px-3 py-2 rounded-lg
+                    text-base sm:text-sm
+                    bg-white dark:bg-gray-800
+                    border border-gray-300 dark:border-gray-600
+                    text-gray-900 dark:text-gray-100
+                    placeholder-gray-400 dark:placeholder-gray-500
+                    focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500
+                    disabled:opacity-50 resize-none overflow-y-auto leading-normal
+                  "
+                  disabled={isLoading}
+                />
+                {isLoading ? (
+                  <button
+                    type="button"
+                    onClick={stop}
+                    className="p-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition-colors cursor-pointer flex items-center justify-center self-center shrink-0"
+                    aria-label={t("chat.stop")}
+                  >
+                    <StopIcon className="w-4 h-4" />
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    disabled={!input.trim()}
+                    className="p-2 rounded-lg bg-orange-500 hover:bg-orange-600 text-white transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center self-center shrink-0"
+                    aria-label={t("chat.send")}
+                  >
+                    <PaperAirplaneIcon className="w-4 h-4" />
+                  </button>
+                )}
+              </form>
 
               {/* Clear-history overlay — uses absolute positioning against the relative inner wrapper */}
               {showClearConfirm && (
@@ -421,23 +428,7 @@ export function ChatWidget() {
             </div>
           </div>
 
-          {/* Mobile input bar — OUTSIDE the panel, fixed above keyboard */}
-          {isMobile && (
-            <form
-              ref={formRef}
-              onSubmit={handleSubmit}
-              className="
-                fixed left-0 right-0 z-[9999]
-                px-3 py-2
-                border-t border-gray-200 dark:border-gray-700
-                bg-white/95 dark:bg-gray-900/95
-                flex items-end gap-2
-              "
-              style={{ bottom: keyboardOffset }}
-            >
-              {formContent}
-            </form>
-          )}
+
         </>
       )}
     </>

@@ -365,8 +365,7 @@ export function ChatWidget() {
                   }}
                   placeholder={t("chat.placeholder")}
                   className="
-                    flex-1 px-3 py-2 rounded-lg
-                    text-base sm:text-sm
+                    flex-1 px-3 py-2 rounded-lg text-sm
                     bg-white dark:bg-gray-800
                     border border-gray-300 dark:border-gray-600
                     text-gray-900 dark:text-gray-100

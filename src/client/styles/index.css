@@ -4,3 +4,17 @@
 @source "../../client";
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Prevent iOS Safari from auto-zooming when tapping inputs.
+ * Safari zooms in on any input with font-size < 16px, then does NOT zoom
+ * back out after blur — leaving the user stuck at a zoomed scale.
+ * Force 16px on mobile; desktop keeps whatever the component specifies.
+ */
+@media (max-width: 639px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}

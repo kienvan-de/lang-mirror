@@ -624,6 +624,10 @@
     "send": "Nachricht senden",
     "stop": "Generierung stoppen",
     "clearConfirm": "Neue Unterhaltung starten? Aktuelle Nachrichten werden gelöscht.",
-    "newConversation": "Neu"
+    "newConversation": "Neu",
+    "clearConfirmTitle": "Neue Unterhaltung starten?",
+    "clearConfirmBody": "Alle aktuellen Nachrichten werden gelöscht. Dies kann nicht rückgängig gemacht werden.",
+    "clearConfirmOk": "Löschen",
+    "clearConfirmCancel": "Abbrechen"
   }
 }

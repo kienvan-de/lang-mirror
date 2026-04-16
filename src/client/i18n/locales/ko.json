@@ -622,6 +622,10 @@
     "send": "메시지 보내기",
     "stop": "생성 중지",
     "clearConfirm": "새 대화를 시작하시겠습니까? 현재 메시지가 삭제됩니다.",
-    "newConversation": "새로"
+    "newConversation": "새로",
+    "clearConfirmTitle": "새 대화를 시작하시겠습니까?",
+    "clearConfirmBody": "현재 메시지가 모두 삭제됩니다. 이 작업은 되돌릴 수 없습니다.",
+    "clearConfirmOk": "삭제",
+    "clearConfirmCancel": "취소"
   }
 }

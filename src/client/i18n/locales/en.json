@@ -621,6 +621,10 @@
     "send": "Send message",
     "stop": "Stop generating",
     "clearConfirm": "Start a new conversation? Current messages will be cleared.",
-    "newConversation": "New"
+    "newConversation": "New",
+    "clearConfirmTitle": "Start new conversation?",
+    "clearConfirmBody": "All current messages will be cleared. This cannot be undone.",
+    "clearConfirmOk": "Clear",
+    "clearConfirmCancel": "Cancel"
   }
 }

@@ -622,6 +622,10 @@
     "send": "Gửi tin nhắn",
     "stop": "Dừng tạo phản hồi",
     "clearConfirm": "Bắt đầu cuộc trò chuyện mới? Tin nhắn hiện tại sẽ bị xóa.",
-    "newConversation": "Mới"
+    "newConversation": "Mới",
+    "clearConfirmTitle": "Bắt đầu cuộc trò chuyện mới?",
+    "clearConfirmBody": "Tất cả tin nhắn hiện tại sẽ bị xóa. Hành động này không thể hoàn tác.",
+    "clearConfirmOk": "Xóa",
+    "clearConfirmCancel": "Hủy"
   }
 }

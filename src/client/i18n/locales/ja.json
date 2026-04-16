@@ -623,6 +623,10 @@
     "send": "メッセージを送信",
     "stop": "生成を停止",
     "clearConfirm": "新しい会話を始めますか？現在のメッセージは削除されます。",
-    "newConversation": "新規"
+    "newConversation": "新規",
+    "clearConfirmTitle": "新しい会話を始めますか？",
+    "clearConfirmBody": "現在のメッセージはすべて削除されます。この操作は元に戻せません。",
+    "clearConfirmOk": "削除",
+    "clearConfirmCancel": "キャンセル"
   }
 }

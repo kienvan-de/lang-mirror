@@ -27,7 +27,39 @@ import {
   PaperAirplaneIcon,
   StopIcon,
   PlusCircleIcon,
+  ExclamationTriangleIcon,
 } from "@heroicons/react/24/outline";
+
+/**
+ * Tracks the visual viewport offset so the floating input bar can slide up
+ * exactly above the virtual keyboard on iOS/Android — same technique as Gemini.
+ *
+ * Returns the CSS `bottom` value (px) the input bar should use:
+ *   = window.innerHeight - visualViewport.height - visualViewport.offsetTop
+ *
+ * Only active when the ref'd panel is open (avoids unnecessary listeners).
+ */
+function useFloatingInputBottom(enabled: boolean): number {
+  const [bottom, setBottom] = useState(0);
+  useEffect(() => {
+    if (!enabled) { setBottom(0); return; }
+    const vv = window.visualViewport;
+    if (!vv) return;
+    const update = () => {
+      // How many px the visual viewport is shifted up from the layout bottom
+      const offset = window.innerHeight - vv.height - vv.offsetTop;
+      setBottom(Math.max(0, offset));
+    };
+    update();
+    vv.addEventListener("resize", update);
+    vv.addEventListener("scroll", update);
+    return () => {
+      vv.removeEventListener("resize", update);
+      vv.removeEventListener("scroll", update);
+    };
+  }, [enabled]);
+  return bottom;
+}
 
 /** Routes where the chat widget should be hidden */
 const HIDDEN_PATHS = new Set([
@@ -48,8 +80,26 @@ export function ChatWidget() {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const [formHeight, setFormHeight] = useState(56); // fallback 56px
+
+  // Floating input: track visual viewport offset (keyboard slide-up).
+  // Only active on mobile (< 640px). On desktop the panel is fixed-size and
+  // the form sits statically at the bottom — no keyboard interaction needed.
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== "undefined" && window.innerWidth < 640,
+  );
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 639px)");
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    setIsMobile(mq.matches);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  const inputBottom = useFloatingInputBottom(open && isMobile);
   const location = useLocation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -150,7 +200,49 @@ export function ChatWidget() {
     },
   });
 
-  const isLoading = status === "streaming" || status === "submitted" || isStreaming;
+  // Helper: does a message contain at least one non-empty text part?
+  const hasVisibleText = (msg: (typeof messages)[number] | undefined): boolean =>
+    msg?.parts.some((p) => p.type === "text" && (p as { type: "text"; text: string }).text.trim().length > 0) ?? false;
+
+  const lastMsg = messages[messages.length - 1];
+
+  // isStreaming / status can briefly drop to idle between the tool-call stream
+  // finishing and the continuation stream starting (the gap while the server
+  // executes a tool and kicks off a second streamText pass). Guard against that
+  // by also treating an assistant message that has no visible text yet as
+  // "still loading" — e.g. it only contains tool-call parts mid-flight.
+  const lastAssistantHasNoText = lastMsg?.role === "assistant" && !hasVisibleText(lastMsg);
+  const isLoading =
+    status === "streaming" ||
+    status === "submitted" ||
+    isStreaming ||
+    lastAssistantHasNoText;
+
+  // Show the typing indicator whenever we are loading AND there is no assistant
+  // text on screen yet. This covers:
+  //   1. Waiting for the first token (last message is still the user's)
+  //   2. The inter-stream gap during tool calls (last message is an assistant
+  //      message that only contains tool parts, no text yet)
+  const showTypingIndicator = isLoading && !hasVisibleText(lastMsg);
+
+  // Measure form height so the message list can pad its bottom correctly
+  useEffect(() => {
+    const el = formRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setFormHeight(el.offsetHeight));
+    ro.observe(el);
+    setFormHeight(el.offsetHeight);
+    return () => ro.disconnect();
+  }, []);
+
+  // Auto-grow textarea: reset to 1 row then expand to content height.
+  // Max 5 rows (~120px) — beyond that the textarea scrolls internally.
+  useEffect(() => {
+    const el = inputRef.current;
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = `${Math.min(el.scrollHeight, 120)}px`;
+  }, [input]);
 
   // Auto-scroll to bottom on new messages
   useEffect(() => {
@@ -170,6 +262,10 @@ export function ChatWidget() {
     if (!text || isLoading) return;
     sendMessage({ text });
     setInput("");
+    // Reset textarea height immediately after clearing
+    if (inputRef.current) {
+      inputRef.current.style.height = "auto";
+    }
   };
 
   // Hide on excluded routes
@@ -204,10 +300,10 @@ export function ChatWidget() {
             bg-white dark:bg-gray-900
             border border-gray-200 dark:border-gray-700
             shadow-2xl
-            flex flex-col overflow-hidden
-            /* Mobile: full screen */
+            flex flex-col overflow-hidden relative
+            /* Mobile: full-screen, stays fixed — keyboard slides OVER it */
             inset-0
-            /* Desktop: floating panel */
+            /* Desktop: fixed-size floating panel */
             sm:inset-auto sm:bottom-6 sm:right-6
             sm:w-[440px] sm:h-[640px] sm:rounded-2xl
           "
@@ -220,9 +316,7 @@ export function ChatWidget() {
             </span>
             <button
               onClick={() => {
-                if (messages.length > 0 && confirm(t("chat.clearConfirm"))) {
-                  clearHistory();
-                }
+                if (messages.length > 0) setShowClearConfirm(true);
               }}
               className="flex items-center gap-1 px-2 py-1 rounded-lg text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               aria-label={t("chat.newConversation")}
@@ -240,8 +334,11 @@ export function ChatWidget() {
             </button>
           </div>
 
-          {/* Messages */}
-          <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
+          {/* Messages — flex-1 scroll area; bottom padding keeps last msg above the floating input bar */}
+          <div
+            className="flex-1 overflow-y-auto px-4 pt-3 space-y-3"
+            style={{ paddingBottom: `calc(${formHeight}px + 0.75rem)` }}
+          >
             {messages.length === 0 && (
               <div className="text-center py-8">
                 <ChatBubbleLeftRightIcon className="w-10 h-10 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
@@ -296,7 +393,7 @@ export function ChatWidget() {
                 </div>
               </div>
             ))}
-            {isLoading && messages[messages.length - 1]?.role === "user" && (
+            {showTypingIndicator && (
               <div className="flex justify-start">
                 <div className="bg-gray-100 dark:bg-gray-800 px-3 py-2 rounded-xl rounded-bl-sm">
                   <div className="flex gap-1">
@@ -310,24 +407,50 @@ export function ChatWidget() {
             <div ref={bottomRef} />
           </div>
 
-          {/* Input */}
+          {/* Input bar — floats above the virtual keyboard on mobile (Gemini-style).
+               On desktop it just sits at the bottom of the panel via sm: static positioning.
+               `inputBottom` is driven by window.visualViewport so it tracks the keyboard
+               exactly without resizing the panel at all. */}
           <form
+            ref={formRef}
             onSubmit={handleSubmit}
-            className="shrink-0 px-3 py-2 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 flex items-center gap-2"
+            className="
+              px-3 py-2
+              border-t border-gray-200 dark:border-gray-700
+              bg-white/90 dark:bg-gray-900/90 backdrop-blur-md
+              flex items-end gap-2
+              /* Mobile: fixed, floats above keyboard */
+              fixed left-0 right-0 z-[9999]
+              /* Desktop: static inside the panel */
+              sm:static sm:z-auto sm:backdrop-blur-none
+              sm:bg-gray-50 sm:dark:bg-gray-800/50
+              transition-[bottom] duration-100 ease-out
+            "
+            style={isMobile ? { bottom: inputBottom } : undefined}
           >
-            <input
+            <textarea
               ref={inputRef}
               value={input}
+              rows={1}
               onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => {
+                // Enter submits; Shift+Enter inserts a newline
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSubmit(e as unknown as FormEvent);
+                }
+              }}
               placeholder={t("chat.placeholder")}
               className="
-                flex-1 px-3 py-2 rounded-lg text-sm
+                flex-1 px-3 py-2 rounded-lg
+                text-base sm:text-sm
                 bg-white dark:bg-gray-800
                 border border-gray-300 dark:border-gray-600
                 text-gray-900 dark:text-gray-100
                 placeholder-gray-400 dark:placeholder-gray-500
                 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500
                 disabled:opacity-50
+                resize-none overflow-y-auto leading-normal
               "
               disabled={isLoading}
             />
@@ -364,6 +487,64 @@ export function ChatWidget() {
               </button>
             )}
           </form>
+
+          {/* ── In-panel clear-history confirmation overlay ── */}
+          {showClearConfirm && (
+            <div className="
+              absolute inset-0 z-10
+              bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm
+              flex flex-col items-center justify-center gap-4
+              px-6
+            ">
+              <div className="
+                w-full max-w-xs
+                bg-white dark:bg-gray-800
+                border border-gray-200 dark:border-gray-700
+                rounded-2xl shadow-xl
+                p-6 flex flex-col items-center gap-4
+              ">
+                <div className="w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center shrink-0">
+                  <ExclamationTriangleIcon className="w-6 h-6 text-orange-500" />
+                </div>
+                <div className="text-center">
+                  <p className="font-semibold text-gray-900 dark:text-gray-100 text-sm">
+                    {t("chat.clearConfirmTitle")}
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">
+                    {t("chat.clearConfirmBody")}
+                  </p>
+                </div>
+                <div className="flex gap-2 w-full">
+                  <button
+                    onClick={() => setShowClearConfirm(false)}
+                    className="
+                      flex-1 px-3 py-2 rounded-lg text-sm font-medium
+                      bg-gray-100 dark:bg-gray-700
+                      text-gray-700 dark:text-gray-300
+                      hover:bg-gray-200 dark:hover:bg-gray-600
+                      transition-colors cursor-pointer
+                    "
+                  >
+                    {t("chat.clearConfirmCancel")}
+                  </button>
+                  <button
+                    onClick={() => {
+                      clearHistory();
+                      setShowClearConfirm(false);
+                    }}
+                    className="
+                      flex-1 px-3 py-2 rounded-lg text-sm font-medium
+                      bg-orange-500 hover:bg-orange-600
+                      text-white
+                      transition-colors cursor-pointer
+                    "
+                  >
+                    {t("chat.clearConfirmOk")}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </>

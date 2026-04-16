@@ -622,6 +622,10 @@
     "send": "Envoyer le message",
     "stop": "Arrêter la génération",
     "clearConfirm": "Démarrer une nouvelle conversation ? Les messages actuels seront effacés.",
-    "newConversation": "Nouveau"
+    "newConversation": "Nouveau",
+    "clearConfirmTitle": "Nouvelle conversation ?",
+    "clearConfirmBody": "Tous les messages actuels seront effacés. Cette action est irréversible.",
+    "clearConfirmOk": "Effacer",
+    "clearConfirmCancel": "Annuler"
   }
 }

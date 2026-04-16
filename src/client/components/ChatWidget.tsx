@@ -292,8 +292,8 @@ export function ChatWidget() {
               bg-white dark:bg-gray-900
               border border-gray-200 dark:border-gray-700
               shadow-2xl flex flex-col overflow-hidden relative
-              inset-0
-              sm:inset-auto sm:bottom-6 sm:right-6
+              top-0 left-0 right-0 bottom-0
+              sm:top-auto sm:left-auto sm:bottom-6 sm:right-6
               sm:w-[440px] sm:h-[640px] sm:rounded-2xl
             "
           >

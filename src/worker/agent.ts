@@ -15,7 +15,7 @@
  * On each onChatMessage call, we read from SQLite rather than relying
  * on in-memory state.
  */
-import { AIChatAgent } from "@cloudflare/ai-chat";
+import { AIChatAgent, createToolsFromClientSchemas } from "@cloudflare/ai-chat";
 import { streamText, stepCountIs, convertToModelMessages } from "ai";
 import type { ModelMessage } from "ai";
 import { createWorkersAI } from "workers-ai-provider";
@@ -192,11 +192,25 @@ export class ChatAgent extends AIChatAgent<Env> {
       toolCount: Object.keys(agentTools).length,
     });
 
+    // Merge server tools with client tools (navigate, refresh, etc.)
+    // Client tool schemas arrive via options.clientTools from useAgentChat.
+    // createToolsFromClientSchemas converts them to AI SDK tools without
+    // execute functions — when the LLM calls them, the DO sends the call
+    // back to the client over WebSocket for browser-side execution.
+    const clientTools = createToolsFromClientSchemas(options?.clientTools);
+    const allTools = { ...agentTools, ...clientTools };
+
+    console.log("[ChatAgent] Tools:", {
+      serverTools: Object.keys(agentTools),
+      clientTools: Object.keys(clientTools),
+      totalTools: Object.keys(allTools).length,
+    });
+
     const result = streamText({
       model: workersai(modelName),
       system: buildSystemPrompt(assistantName, nativeLanguage, learningLanguages, pageContext),
       messages: modelMessages,
-      tools: agentTools,
+      tools: allTools,
       stopWhen: stepCountIs(5),
       abortSignal: options?.abortSignal,
       onFinish: onFinish as never,

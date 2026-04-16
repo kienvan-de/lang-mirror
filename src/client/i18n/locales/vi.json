@@ -620,6 +620,8 @@
     "open": "Mở trò chuyện",
     "close": "Đóng trò chuyện",
     "send": "Gửi tin nhắn",
-    "stop": "Dừng tạo phản hồi"
+    "stop": "Dừng tạo phản hồi",
+    "clear": "Xóa cuộc trò chuyện",
+    "clearConfirm": "Xóa tất cả tin nhắn? Không thể hoàn tác."
   }
 }

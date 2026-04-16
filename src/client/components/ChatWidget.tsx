@@ -27,6 +27,7 @@ import {
   XMarkIcon,
   PaperAirplaneIcon,
   StopIcon,
+  TrashIcon,
 } from "@heroicons/react/24/outline";
 
 /** Routes where the chat widget should be hidden */
@@ -72,7 +73,7 @@ export function ChatWidget() {
     // No name — server rewrites "default" to userId
   });
 
-  const { messages, sendMessage, stop, status, isStreaming } = useAgentChat({
+  const { messages, sendMessage, stop, status, isStreaming, clearHistory } = useAgentChat({
     agent,
     tools: clientTools,
     body: () => ({
@@ -148,6 +149,18 @@ export function ChatWidget() {
             <span className="font-semibold text-sm text-gray-900 dark:text-gray-100 flex-1">
               {assistantName}
             </span>
+            <button
+              onClick={() => {
+                if (messages.length > 0 && confirm(t("chat.clearConfirm"))) {
+                  clearHistory();
+                }
+              }}
+              className="p-1 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              aria-label={t("chat.clear")}
+              title={t("chat.clear")}
+            >
+              <TrashIcon className="w-4 h-4 text-gray-400 dark:text-gray-500" />
+            </button>
             <button
               onClick={() => setOpen(false)}
               className="p-1 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"

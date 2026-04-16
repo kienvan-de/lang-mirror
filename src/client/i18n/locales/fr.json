@@ -620,6 +620,8 @@
     "open": "Ouvrir le chat",
     "close": "Fermer le chat",
     "send": "Envoyer le message",
-    "stop": "Arrêter la génération"
+    "stop": "Arrêter la génération",
+    "clear": "Effacer le chat",
+    "clearConfirm": "Effacer tous les messages ? Cette action est irréversible."
   }
 }

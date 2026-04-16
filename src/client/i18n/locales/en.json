@@ -619,6 +619,8 @@
     "open": "Open chat",
     "close": "Close chat",
     "send": "Send message",
-    "stop": "Stop generating"
+    "stop": "Stop generating",
+    "clear": "Clear chat",
+    "clearConfirm": "Clear all chat messages? This cannot be undone."
   }
 }

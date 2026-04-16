@@ -175,7 +175,10 @@ export function ChatWidget() {
   const isLoading = status === "streaming" || status === "submitted" || isStreaming || lastAssistantHasNoText;
   const showTypingIndicator = isLoading && !hasVisibleText(lastMsg);
 
-  // Measure form height for messages area bottom padding
+  // Measure form height for messages area bottom padding (mobile only).
+  // On desktop the form is a shrink-0 flex child inside the panel — no extra
+  // padding needed. On mobile the form floats outside the panel so the messages
+  // area needs paddingBottom to keep content above the floating bar.
   useEffect(() => {
     const el = formRef.current;
     if (!el) return;
@@ -183,7 +186,7 @@ export function ChatWidget() {
     ro.observe(el);
     setFormHeight(el.offsetHeight);
     return () => ro.disconnect();
-  }, []);
+  }, [isMobile]); // re-attach when mobile/desktop switches (form remounts)
 
   // Auto-grow textarea (max ~5 rows / 120px)
   useEffect(() => {
@@ -323,8 +326,8 @@ export function ChatWidget() {
 
             {/* Messages */}
             <div
-              className="flex-1 overflow-y-auto px-4 pt-3 space-y-3"
-              style={{ paddingBottom: `calc(${formHeight}px + 0.75rem)` }}
+              className="flex-1 overflow-y-auto px-4 pt-3 pb-3 space-y-3"
+              style={isMobile ? { paddingBottom: `calc(${formHeight}px + 0.75rem)` } : undefined}
             >
               {messages.length === 0 && (
                 <div className="text-center py-8">

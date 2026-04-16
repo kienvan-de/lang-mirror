@@ -1,9 +1,10 @@
 /**
  * Build a rich page context from the current URL + TanStack Query cache.
  *
- * Each page has ONE template function that produces the full prompt text.
- * Templates use tagged template literals with .map().join() for loops
- * and ternary for conditionals — zero dependencies.
+ * Each page has ONE template function that produces the full prompt text,
+ * including page-specific workflow instructions. Workflows are co-located
+ * with the pages where they're relevant, so the LLM only sees applicable
+ * instructions per page.
  *
  * To add context for a new page:
  *   1. Create a template function
@@ -11,7 +12,7 @@
  *   3. Add a route entry in PAGE_ROUTES
  */
 import type { QueryClient } from "@tanstack/react-query";
-import type { Topic, LearningPath, Version, Sentence } from "../lib/api";
+import type { Topic, LearningPath, Version } from "../lib/api";
 import { langName } from "../lib/lang";
 
 // ── Types ────────────────────────────────────────────────
@@ -34,8 +35,55 @@ interface RouteEntry {
   builder: PageBuilder;
 }
 
-// ── Templates ────────────────────────────────────────────
-// One function per page. Full prompt text as a single template literal.
+// ── Shared workflow instructions ─────────────────────────
+// Referenced from the User Profile section in the system prompt, the agent
+// already knows the user's native and learning languages.
+
+const WORKFLOW_CREATE_TOPIC = `
+### Workflow: Create a New Topic
+Follow these steps in order:
+1. Ask the user to describe the topic they want to create
+2. Present the user's learning languages (from their profile) and ask which ones to include
+3. Ask approximately how many sentences they want
+4. Generate a topic structure:
+   - Title and description
+   - Sentences in the user's native language first
+   - For each sentence, generate notes with grammar explanations and key vocabulary in all selected learning languages
+5. Present the native-language version to the user for review
+6. If confirmed, generate sentence translations for each selected learning language, each with notes in the native language and all other selected languages
+7. Present the complete topic for final review
+8. On confirmation, call \`createTopic\` with the full structure`;
+
+const WORKFLOW_ADD_LANGUAGE_VERSION = `
+### Workflow: Add a Language Version
+1. Present the user's learning languages that are **not yet** in this topic, and ask which one to add
+2. **If the topic has existing versions:**
+   - Use the existing version's sentences as reference to generate translations
+   - Generate notes for grammar and vocabulary in the native language and all existing version languages
+   - Present for review, then call \`addLanguageVersion\` followed by \`addSentences\`
+3. **If the topic has no versions yet:**
+   - Ask the user to describe the content
+   - Generate sentences in the native language first with notes in the chosen learning language
+   - Present for review, generate the learning language version
+   - Call \`addLanguageVersion\` + \`addSentences\` for each language`;
+
+const WORKFLOW_ADD_SENTENCES = `
+### Workflow: Add Sentences
+1. Ask the user which language version to add sentences to (or use the one from context)
+2. Ask the user to describe the content for the new sentences
+3. Generate sentences in the target language based on the described content
+4. For each sentence, generate notes with grammar and vocabulary in the native language and all other language versions of the topic
+5. Present for review, then call \`addSentences\``;
+
+const WORKFLOW_UPDATE_SENTENCE = `
+### Workflow: Update a Sentence
+1. Use \`getSentenceDetail\` to get the sentence's current text and notes (sentence ID from context)
+2. Ask the user what they want to change
+3. Generate the updated sentence based on current content and requested changes
+4. Generate updated notes with grammar and vocabulary in the native language and all other language versions
+5. Present for review, then call \`updateSentence\``;
+
+// ── View types ───────────────────────────────────────────
 
 interface VersionView {
   id: string;
@@ -44,16 +92,37 @@ interface VersionView {
   sentences: Array<{ id: string; num: number; preview: string }>;
 }
 
+interface PathTopicView {
+  num: number;
+  title: string;
+  topicId: string;
+  langs: string;
+  progress: string;
+}
+
+// ── Templates ────────────────────────────────────────────
+
 const dashboardTemplate = () =>
-  `User is on the **Dashboard** viewing today's practice stats, streak calendar, and recent topics.`;
+  `User is on the **Dashboard** viewing today's practice stats, streak calendar, and recent topics.
+
+## Available Workflows
+${WORKFLOW_CREATE_TOPIC}`;
 
 const topicsListTemplate = () =>
-  `User is on the **Topics** list page, browsing and searching their topics. They can create a new topic from here.`;
+  `User is on the **Topics** list page, browsing and searching their topics.
+
+## Available Workflows
+${WORKFLOW_CREATE_TOPIC}`;
 
 const topicNotCachedTemplate = (topicId: string) =>
   `User is viewing a **topic** (ID: \`${topicId}\`). Data not yet cached.
 When the user says "this topic" or "current topic", they mean topic ID \`${topicId}\`.
-Use \`getTopicDetail\` to load full information.`;
+Use \`getTopicDetail\` to load full information.
+
+## Available Workflows
+${WORKFLOW_ADD_LANGUAGE_VERSION}
+${WORKFLOW_ADD_SENTENCES}
+${WORKFLOW_UPDATE_SENTENCE}`;
 
 const topicDetailTemplate = (vars: {
   topicId: string;
@@ -85,7 +154,12 @@ Use these sentence IDs directly when the user refers to a sentence by number or 
 Use the version ID when adding sentences or fetching version detail.
 Use the topic ID when adding a new language version.`
       : ""
-  }`;
+  }
+
+## Available Workflows
+${WORKFLOW_ADD_LANGUAGE_VERSION}
+${WORKFLOW_ADD_SENTENCES}
+${WORKFLOW_UPDATE_SENTENCE}`;
 
 const practiceTemplate = (vars: {
   topicId: string;
@@ -107,18 +181,13 @@ When the user asks about "this sentence" or "current sentence", use the sentence
       : ""
   }
 
-When the user says "this topic", they mean topic ID \`${vars.topicId}\` ("${vars.title}").`;
+When the user says "this topic", they mean topic ID \`${vars.topicId}\` ("${vars.title}").
+
+## Available Workflows
+${WORKFLOW_UPDATE_SENTENCE}`;
 
 const reviewTemplate = () =>
   `User is on the **Practice Review** page, comparing their recordings with the original TTS audio sentence by sentence.`;
-
-interface PathTopicView {
-  num: number;
-  title: string;
-  topicId: string;
-  langs: string;
-  progress: string;
-}
 
 const pathTemplate = (vars: {
   name: string;
@@ -134,13 +203,22 @@ ${vars.topics
   )
   .join("\n")}
 
-When the user says "add to my path", use path ID \`${vars.pathId}\`.`;
+When the user says "add to my path", use path ID \`${vars.pathId}\`.
+
+## Available Workflows
+${WORKFLOW_CREATE_TOPIC}`;
 
 const pathEmptyTemplate = () =>
-  `User is viewing their **Learning Path**.`;
+  `User is viewing their **Learning Path**.
+
+## Available Workflows
+${WORKFLOW_CREATE_TOPIC}`;
 
 const importTemplate = () =>
-  `User is on the **Import** page for uploading topic JSON files. They can also ask you to create topics directly instead of importing.`;
+  `User is on the **Import** page for uploading topic JSON files. They can also ask you to create topics directly instead of importing.
+
+## Available Workflows
+${WORKFLOW_CREATE_TOPIC}`;
 
 const fallbackTemplate = (path: string) =>
   `User is on \`${path}\`.`;

@@ -9,7 +9,8 @@
  *   {{language}}           — user's native language name (from user.nativeLanguage setting)
  *   {{learningLanguages}}  — comma-separated list of learning languages
  *
- * Use buildSystemPrompt() to inject values.
+ * Workflows are NOT in this file — they live in page-context.ts and are
+ * appended per-page so only relevant workflows are sent to the LLM.
  */
 
 const SYSTEM_PROMPT_TEMPLATE = `You are **{{name}}**, a language learning assistant for **Lang Mirror Today**.
@@ -58,52 +59,6 @@ Always respond in **{{language}}** and use **Markdown** formatting.
 | \`startPractice\` | Open the practice view for a topic + language |
 | \`openTopicDetail\` | Open a topic's detail page |
 | \`toggleDarkMode\` | Toggle dark/light mode |
-
----
-
-## Workflows
-
-### 1. Create a New Topic
-Follow these steps in order:
-1. Ask the user (in {{language}}) to describe the topic they want to create
-2. Present the user's learning languages ({{learningLanguages}}) and ask which ones to include. The user can select one or more from this list
-3. Ask approximately how many sentences they want
-4. Generate a topic structure:
-   - Title and description
-   - Sentences in {{language}} (the native language) first
-   - For each sentence, generate notes with grammar explanations and key vocabulary in all selected learning languages
-5. Present the native-language version to the user for review (formatted in markdown)
-6. If the user confirms, generate sentence translations for each selected learning language, each with notes in {{language}} and all other selected languages
-7. Present the complete topic for final review
-8. On confirmation, call \`createTopic\` with the full structure
-
-### 2. Add a Language Version to an Existing Topic
-1. Use \`getTopicDetail\` to see what language versions already exist
-2. Present the user's learning languages ({{learningLanguages}}) that are **not yet** in the topic, and ask which one to add
-3. **If the topic has existing versions:**
-   - Use the existing version's sentences as reference to generate translations in the chosen language
-   - Generate notes for grammar and vocabulary in {{language}} and all existing version languages
-   - Present for review, then call \`addLanguageVersion\` followed by \`addSentences\`
-4. **If the topic has no versions yet:**
-   - Ask the user to describe the content
-   - Generate sentences in {{language}} first with notes in the chosen learning language
-   - Present for review, generate the learning language version from the native version
-   - Call \`addLanguageVersion\` + \`addSentences\` for each language
-
-### 3. Add Sentences to a Language Version
-1. Use \`getTopicDetail\` to see current versions and sentences
-2. Present the existing language versions and ask the user which one to add sentences to
-3. Ask the user to describe the content for the new sentences
-4. Generate sentences in the target language based on the described content
-5. For each sentence, generate notes with grammar explanations and key vocabulary in {{language}} and all other language versions of the topic
-6. Present for review, then call \`addSentences\`
-
-### 4. Update a Sentence
-1. Use \`getSentenceDetail\` to get the sentence's current text and notes (sentence ID is available from the page context)
-2. Ask the user what they want to change
-3. Generate the updated sentence based on current content and requested changes
-4. Generate updated notes with grammar and vocabulary explanations in {{language}} and all other language versions of the topic
-5. Present for review, then call \`updateSentence\`
 
 ---
 

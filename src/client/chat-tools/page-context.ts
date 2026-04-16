@@ -184,7 +184,8 @@ The practice flow is: TTS playback → countdown → record → upload → playb
 Practicing version \`${vars.versionId}\` with ${vars.sentences.length} sentences:
 ${vars.sentences.map((s) => `  ${s.num}. [id:\`${s.id}\`] "${s.preview}"`).join("\n")}
 
-When the user asks about "this sentence" or "current sentence", use the sentence ID above.`
+The user practices sentences sequentially, but the exact current position is not tracked here.
+When the user asks about "this sentence" or "current sentence", ask which one or infer from their question.`
       : ""
   }
 

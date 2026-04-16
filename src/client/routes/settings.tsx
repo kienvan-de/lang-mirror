@@ -455,12 +455,15 @@ export function SettingsPage() {
                   <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">{t("settings.autoPlaybackHint")}</p>
                 </div>
                 <button
+                  type="button"
+                  role="switch"
+                  aria-checked={autoPlayback}
                   onClick={() => setAutoPlayback((v) => !v)}
-                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                  className={`relative flex-shrink-0 inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
                     autoPlayback ? "bg-blue-600" : "bg-gray-300 dark:bg-gray-700"
                   }`}
                 >
-                  <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${autoPlayback ? "translate-x-6" : "translate-x-1"}`} />
+                  <span className={`pointer-events-none inline-block h-4 w-4 rounded-full bg-white shadow-sm ring-0 transition-transform ${autoPlayback ? "translate-x-[22px]" : "translate-x-1"}`} />
                 </button>
               </div>
 
@@ -531,13 +534,15 @@ export function SettingsPage() {
               </ul>
 
               {!showDeleteConfirm ? (
-                <button
-                  onClick={() => setShowDeleteConfirm(true)}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg border border-red-300 dark:border-red-700 text-red-600 dark:text-red-400 text-sm font-medium hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
-                >
-                  <TrashIcon className="w-4 h-4" />
-                  {t("settings.accountDeleteButton")}
-                </button>
+                <div className="flex justify-end pt-2 border-t border-gray-200 dark:border-gray-800">
+                  <button
+                    onClick={() => setShowDeleteConfirm(true)}
+                    className="flex items-center gap-2 px-4 py-2 rounded-lg border border-red-300 dark:border-red-700 text-red-600 dark:text-red-400 text-sm font-medium hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                  >
+                    <TrashIcon className="w-4 h-4" />
+                    {t("settings.accountDeleteButton")}
+                  </button>
+                </div>
               ) : (
                 <div className="rounded-xl border border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-900/10 p-4 space-y-3">
                   <div className="flex items-start gap-2 text-sm text-red-700 dark:text-red-400">
@@ -724,8 +729,8 @@ function UserLanguageSection({
                 uploadRecordings ? "bg-blue-600" : "bg-gray-300 dark:bg-gray-600"
               }`}
             >
-              <span className={`inline-block h-4 w-4 rounded-full bg-white shadow-sm transition-transform ${
-                uploadRecordings ? "translate-x-6" : "translate-x-1"
+              <span className={`pointer-events-none inline-block h-4 w-4 rounded-full bg-white shadow-sm ring-0 transition-transform ${
+                uploadRecordings ? "translate-x-[22px]" : "translate-x-1"
               }`} />
             </button>
           </div>

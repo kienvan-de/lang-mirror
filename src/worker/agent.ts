@@ -22,7 +22,12 @@ import { runWithAuth } from "../core/auth/context";
 import type { AuthUser } from "../core/auth/context";
 import { buildContext } from "./lib/context";
 import { buildAgentTools } from "./agent-tools/index";
-import { buildSystemPrompt, DEFAULT_ASSISTANT_NAME, DEFAULT_MODEL } from "./agent-prompt";
+import {
+  buildSystemPrompt,
+  DEFAULT_ASSISTANT_NAME,
+  DEFAULT_LANGUAGE,
+  DEFAULT_MODEL,
+} from "./agent-config/prompt";
 import type { Env } from "./types";
 import type { Connection, ConnectionContext } from "agents";
 
@@ -98,21 +103,37 @@ export class ChatAgent extends AIChatAgent<Env> {
       throw new Error("Unauthorized — no user context");
     }
 
-    const { topics, practice, paths, settings, importer } = await buildContext(this.env);
+    const { topics, versions, sentences, practice, paths, settings, importer } =
+      await buildContext(this.env);
 
     // Read configurable settings
-    const [modelName, assistantName] = await runWithAuth(user, () =>
-      Promise.all([
-        settings.getValue("ai.model", DEFAULT_MODEL),
-        settings.getValue("ai.assistant.name", DEFAULT_ASSISTANT_NAME),
-      ]),
-    );
+    const [modelName, assistantName, nativeLangCode, learningLangsJson] =
+      await runWithAuth(user, () =>
+        Promise.all([
+          settings.getValue("ai.model", DEFAULT_MODEL),
+          settings.getValue("ai.assistant.name", DEFAULT_ASSISTANT_NAME),
+          settings.getValue("user.nativeLanguage", "en"),
+          settings.getValue("user.learningLanguages", "[]"),
+        ]),
+      );
+
+    // Resolve language codes to human-readable names
+    const nativeLanguage = resolveLanguageName(nativeLangCode);
+    let learningLanguages: string[];
+    try {
+      const codes = JSON.parse(learningLangsJson) as string[];
+      learningLanguages = codes.map(resolveLanguageName);
+    } catch {
+      learningLanguages = [];
+    }
 
     const workersai = createWorkersAI({ binding: this.env.AI });
 
     const agentTools = buildAgentTools({
       user,
       topics,
+      versions,
+      sentences,
       practice,
       paths,
       settings,
@@ -123,7 +144,7 @@ export class ChatAgent extends AIChatAgent<Env> {
 
     const result = streamText({
       model: workersai(modelName),
-      system: buildSystemPrompt(assistantName),
+      system: buildSystemPrompt(assistantName, nativeLanguage, learningLanguages),
       messages: modelMessages,
       tools: agentTools,
       stopWhen: stepCountIs(5),
@@ -134,3 +155,30 @@ export class ChatAgent extends AIChatAgent<Env> {
     return result.toUIMessageStreamResponse();
   }
 }
+
+/**
+ * Resolve a BCP-47 language code to a native display name.
+ * e.g. "vi" → "Tiếng Việt", "ja" → "日本語", "en" → "English"
+ *
+ * Uses a static map for supported languages (Cloudflare Workers support
+ * Intl.DisplayNames but with limited locale data). Falls back to
+ * Intl.DisplayNames, then to the raw code.
+ */
+function resolveLanguageName(code: string): string {
+  const NAMES: Record<string, string> = {
+    en: "English",
+    vi: "Tiếng Việt",
+    ja: "日本語",
+    de: "Deutsch",
+    fr: "Français",
+    zh: "中文",
+    ko: "한국어",
+    es: "Español",
+    pt: "Português",
+    it: "Italiano",
+    ru: "Русский",
+  };
+  const base = code.split("-")[0]!.toLowerCase();
+  return NAMES[base] ?? code;
+}
+

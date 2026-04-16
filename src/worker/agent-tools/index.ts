@@ -25,7 +25,13 @@ import { getSettings } from "./get-settings";
 
 // ── Write tools (v2) ──────────────────────────────────────
 import { createTopic } from "./create-topic";
+import { addLanguageVersion } from "./add-language-version";
+import { addSentences } from "./add-sentences";
+import { updateSentence } from "./update-sentence";
 import { addToPath } from "./add-to-path";
+
+// ── Utility tools ─────────────────────────────────────────
+import { getAppGuide } from "./get-app-guide";
 
 export type { ToolDeps };
 
@@ -41,6 +47,11 @@ export function buildAgentTools(deps: ToolDeps): ToolSet {
     getSettings: getSettings(deps),
     // Write
     createTopic: createTopic(deps),
+    addLanguageVersion: addLanguageVersion(deps),
+    addSentences: addSentences(deps),
+    updateSentence: updateSentence(deps),
     addToPath: addToPath(deps),
+    // Utility
+    getAppGuide: getAppGuide(),
   };
 }

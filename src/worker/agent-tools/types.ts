@@ -3,6 +3,8 @@
  */
 import type { AuthUser } from "../../core/auth/context";
 import type { TopicsService } from "../../core/services/topics.service";
+import type { VersionsService } from "../../core/services/versions.service";
+import type { SentencesService } from "../../core/services/sentences.service";
 import type { PracticeService } from "../../core/services/practice.service";
 import type { PathsService } from "../../core/services/paths.service";
 import type { SettingsService } from "../../core/services/settings.service";
@@ -12,6 +14,8 @@ import type { ImportService } from "../../core/services/import.service";
 export interface ToolDeps {
   user: AuthUser;
   topics: TopicsService;
+  versions: VersionsService;
+  sentences: SentencesService;
   practice: PracticeService;
   paths: PathsService;
   settings: SettingsService;

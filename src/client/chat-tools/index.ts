@@ -16,9 +16,10 @@ import { toggleDarkMode } from "./toggle-dark-mode";
 
 export type { ClientToolDeps };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function buildClientTools(
   deps: ClientToolDeps,
-): Record<string, AITool<unknown, unknown>> {
+): Record<string, AITool<any, any>> {
   return {
     navigateTo: navigateTo(deps),
     refreshData: refreshData(deps),

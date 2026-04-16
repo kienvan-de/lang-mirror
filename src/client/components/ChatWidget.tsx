@@ -13,8 +13,9 @@
  */
 import { useState, useRef, useEffect, useCallback, type FormEvent } from "react";
 import { useLocation, useNavigate } from "@tanstack/react-router";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import { api } from "../lib/api";
 import { useAgent } from "agents/react";
 import { useAgentChat } from "@cloudflare/ai-chat/react";
 import ReactMarkdown from "react-markdown";
@@ -52,6 +53,14 @@ export function ChatWidget() {
   const queryClient = useQueryClient();
 
   const closeChat = useCallback(() => setOpen(false), []);
+
+  // Fetch assistant name from user settings
+  const { data: settings } = useQuery({
+    queryKey: ["settings"],
+    queryFn: api.getSettings,
+    staleTime: 5 * 60_000,
+  });
+  const assistantName = settings?.["ai.assistant.name"] || t("chat.title");
 
   const clientTools = buildClientTools({ navigate, queryClient, closeChat });
 
@@ -131,7 +140,7 @@ export function ChatWidget() {
           <div className="flex items-center gap-2 px-4 py-3 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 shrink-0">
             <ChatBubbleLeftRightIcon className="w-5 h-5 text-orange-500" />
             <span className="font-semibold text-sm text-gray-900 dark:text-gray-100 flex-1">
-              {t("chat.title")}
+              {assistantName}
             </span>
             <button
               onClick={() => setOpen(false)}

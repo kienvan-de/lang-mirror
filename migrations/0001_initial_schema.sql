@@ -185,6 +185,7 @@ INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('tts.edgeTTS.trust
 INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('tts.edgeTTS.chromiumVersion', 'system', '143.0.3650.75');
 INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('tts.edgeTTS.origin', 'system', 'chrome-extension://jdiccldimpdaibmpdkjnbmckianbfold');
 INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('ai.model', 'system', '@cf/google/gemma-4-26b-a4b-it');
+INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('ai.assistant.name', 'system', 'AI Assistant');
 
 -- Default tags (seeded under system user)
 INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('level', 'A1', '#22c55e', 'system');
@@ -208,4 +209,3 @@ INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('language', '
 INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('language', 'ko', '#06b6d4', 'system');
 INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('language', 'pt', '#10b981', 'system');
 INSERT OR IGNORE INTO tags (type, name, color, created_by) VALUES ('language', 'ru', '#64748b', 'system');
-INSERT OR IGNORE INTO settings (key, owner_id, value) VALUES ('ai.assistant.name', 'system', 'AI Assistant');

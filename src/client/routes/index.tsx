@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient, keepPreviousData } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import type { TFunction } from "i18next";
@@ -25,6 +25,9 @@ export function DashboardPage() {
     queryKey: ["stats", "dashboard"],
     queryFn: () => api.getDashboard(12),
     refetchInterval: 15 * 60_000, // 15 minutes
+    // Keep previous data on screen during refetch so the UI never flashes
+    // back to skeletons. Skeletons only show on the very first load.
+    placeholderData: keepPreviousData,
   });
 
   const daily  = dashboard?.daily;

@@ -40,6 +40,16 @@
     </style>
   </head>
   <body>
+    <!-- Sync dark-mode + body bg: runs before first paint so there's never a
+         white flash. Sets .dark class on <html> and body background color. -->
+    <script>
+      (function(){
+        var d=document.documentElement,t=localStorage.getItem('theme');
+        var dark=t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches);
+        if(dark) d.classList.add('dark');
+        document.body.style.background=dark?'#0a0f1a':'#f3f4f6';
+      })();
+    </script>
     <!-- Splash screen: rendered by HTML, no JS needed. React removes it after mount. -->
     <div id="splash">
       <img src="/logo.png" alt="Lang Mirror Today" />

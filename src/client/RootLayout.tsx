@@ -62,21 +62,27 @@ export function RootLayout() {
 
   if (dark) document.documentElement.classList.add("dark");
 
-  // Dismiss the HTML splash screen once we have a definitive auth answer.
-  // The splash stays visible during the entire auth check — no intermediate
-  // spinner, no layout shift. It fades out to reveal the actual page content.
+  // Dismiss the HTML splash screen once auth resolves AND the browser has
+  // painted the real page content underneath. Double-rAF ensures we wait
+  // for React to commit the DOM and the browser to actually paint it —
+  // otherwise the splash can fade while #root is still empty/white.
   const splashDismissed = useRef(false);
   useEffect(() => {
-    // Wait until auth has resolved (not loading) and we know what to show
     if (isLoading) return;
     if (splashDismissed.current) return;
     splashDismissed.current = true;
 
-    const splash = document.getElementById("splash");
-    if (splash) {
-      splash.classList.add("hide");
-      splash.addEventListener("transitionend", () => splash.remove());
-    }
+    // Wait two animation frames: first rAF queues after React commit,
+    // second rAF fires after the browser has actually painted.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const splash = document.getElementById("splash");
+        if (splash) {
+          splash.classList.add("hide");
+          splash.addEventListener("transitionend", () => splash.remove());
+        }
+      });
+    });
   }, [isLoading]);
 
   if (PUBLIC_PATHS.has(location.pathname)) {

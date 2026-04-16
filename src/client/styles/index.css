@@ -6,6 +6,17 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /*
+ * Match body background to the app's root bg color so there's never
+ * a white flash between React render commits (e.g. null → layout).
+ */
+body {
+  background-color: #f3f4f6; /* gray-100 */
+}
+:root.dark body {
+  background-color: #0a0f1a; /* gray-950 */
+}
+
+/*
  * Prevent iOS Safari from auto-zooming when tapping inputs.
  * Safari zooms in on any input with font-size < 16px, then does NOT zoom
  * back out after blur — leaving the user stuck at a zoomed scale.

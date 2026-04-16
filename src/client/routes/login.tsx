@@ -22,6 +22,7 @@ export function LoginPage() {
   const { isLoggedIn, isLoading: authLoading } = useAuth();
   const [providers, setProviders] = useState<OidcProvider[]>([]);
   const [loadingProviders, setLoadingProviders] = useState(true);
+  const [registrationOpen, setRegistrationOpen] = useState(true);
   const [loggingIn, setLoggingIn] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [langOpen, setLangOpen] = useState(false);
@@ -43,6 +44,7 @@ export function LoginPage() {
       invalid_request:   t("login.errorInvalidRequest", "Invalid login request"),
       server_error:      t("login.errorServerError", "Server error — please try again later"),
       temporarily_unavailable: t("login.errorUnavailable", "Service temporarily unavailable"),
+      registration_closed: t("login.errorRegistrationClosed", "Registration is currently closed. Please contact support@langmirror.today for access."),
     };
     const params = new URLSearchParams(window.location.search);
     const err = params.get("error");
@@ -52,12 +54,15 @@ export function LoginPage() {
     }
   }, [t]);
 
-  // Fetch providers
+  // Fetch providers and registration status in parallel
   useEffect(() => {
-    api.getProviders()
-      .then(setProviders)
-      .catch(() => setProviders([]))
-      .finally(() => setLoadingProviders(false));
+    Promise.all([
+      api.getProviders().catch(() => [] as OidcProvider[]),
+      api.getRegistrationStatus().catch(() => ({ open: true, current: 0, max: 20 })),
+    ]).then(([prov, regStatus]) => {
+      setProviders(prov);
+      setRegistrationOpen(regStatus.open);
+    }).finally(() => setLoadingProviders(false));
   }, []);
 
   const handleLogin = (providerId: string) => {
@@ -155,11 +160,29 @@ export function LoginPage() {
           </div>
         )}
 
-        {/* Provider buttons */}
+        {/* Provider buttons or registration-closed notice */}
         <div className="space-y-3">
           {loadingProviders ? (
             <div className="text-center py-8">
               <div className="w-6 h-6 mx-auto rounded-full border-2 border-blue-400/40 border-t-blue-500 animate-spin" />
+            </div>
+          ) : !registrationOpen ? (
+            <div className="text-center py-8 px-4">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-900/30 mb-3">
+                <ExclamationCircleIcon className="w-6 h-6 text-amber-600 dark:text-amber-400" />
+              </div>
+              <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                {t("login.registrationClosed", "Registration is currently closed.")}
+              </p>
+              <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                {t("login.registrationClosedHint", "Please contact us for access:")}
+              </p>
+              <a
+                href="mailto:support@langmirror.today"
+                className="mt-2 inline-block text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
+              >
+                support@langmirror.today
+              </a>
             </div>
           ) : providers.length === 0 ? (
             <div className="text-center py-8 text-sm text-gray-500 dark:text-gray-400">

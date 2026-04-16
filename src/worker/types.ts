@@ -7,6 +7,9 @@ export interface Env {
   CHAT_AGENT: DurableObjectNamespace;
   AI: Ai;
 
+  /** Maximum number of active users allowed. New registrations are blocked
+   *  once this limit is reached. Defaults to 20 if unset. */
+  MAX_USERS?: string;
   ALLOWED_ORIGINS?: string;
   /** Set to "true" in wrangler.toml [vars] for local dev only.
    *  Disables HTTPS + private-IP validation on OIDC provider URLs.

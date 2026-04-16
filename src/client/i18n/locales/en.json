@@ -610,7 +610,10 @@
     "continueWith": "Continue with {{provider}}",
     "redirecting": "Redirecting…",
     "noProviders": "No login providers configured.",
-    "contactAdmin": "Contact your administrator."
+    "contactAdmin": "Contact your administrator.",
+    "registrationClosed": "Registration is currently closed.",
+    "registrationClosedHint": "Please contact us for access:",
+    "errorRegistrationClosed": "Registration is currently closed. Please contact support@langmirror.today for access."
   },
   "chat": {
     "title": "AI Assistant",

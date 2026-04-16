@@ -612,7 +612,10 @@
     "continueWith": "{{provider}}で続行",
     "redirecting": "リダイレクト中…",
     "noProviders": "ログインプロバイダーが設定されていません。",
-    "contactAdmin": "管理者に連絡してください。"
+    "contactAdmin": "管理者に連絡してください。",
+    "registrationClosed": "現在、登録は受け付けておりません。",
+    "registrationClosedHint": "アクセスについてはお問い合わせください：",
+    "errorRegistrationClosed": "現在、登録は受け付けておりません。アクセスについては support@langmirror.today までご連絡ください。"
   },
   "chat": {
     "title": "AIアシスタント",

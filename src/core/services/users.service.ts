@@ -7,6 +7,16 @@ import { SYSTEM_USER_ID } from "../db/schema";
 export class UsersService {
   constructor(private db: IDatabase) {}
 
+  /** Count active (non-deactivated) users, excluding the system user.
+   *  Used by the registration guard to check if new sign-ups should be allowed. */
+  async countActiveUsers(): Promise<number> {
+    const row = await this.db.queryFirst<{ count: number }>(
+      "SELECT COUNT(*) as count FROM users WHERE is_active = 1 AND id != ?",
+      SYSTEM_USER_ID,
+    );
+    return row?.count ?? 0;
+  }
+
   /** Get the currently logged-in user's profile */
   async getMe(): Promise<UserRow> {
     const auth = requireAuth();

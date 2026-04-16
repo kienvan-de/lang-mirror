@@ -611,7 +611,10 @@
     "continueWith": "Continuer avec {{provider}}",
     "redirecting": "Redirection…",
     "noProviders": "Aucun fournisseur de connexion configuré.",
-    "contactAdmin": "Contactez votre administrateur."
+    "contactAdmin": "Contactez votre administrateur.",
+    "registrationClosed": "Les inscriptions sont actuellement fermées.",
+    "registrationClosedHint": "Veuillez nous contacter pour obtenir un accès :",
+    "errorRegistrationClosed": "Les inscriptions sont actuellement fermées. Veuillez contacter support@langmirror.today pour obtenir un accès."
   },
   "chat": {
     "title": "Assistant IA",

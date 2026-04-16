@@ -613,7 +613,10 @@
     "continueWith": "Weiter mit {{provider}}",
     "redirecting": "Weiterleitung…",
     "noProviders": "Keine Anmeldeanbieter konfiguriert.",
-    "contactAdmin": "Kontaktieren Sie Ihren Administrator."
+    "contactAdmin": "Kontaktieren Sie Ihren Administrator.",
+    "registrationClosed": "Die Registrierung ist derzeit geschlossen.",
+    "registrationClosedHint": "Bitte kontaktieren Sie uns für Zugang:",
+    "errorRegistrationClosed": "Die Registrierung ist derzeit geschlossen. Bitte kontaktieren Sie support@langmirror.today für Zugang."
   },
   "chat": {
     "title": "KI-Assistent",

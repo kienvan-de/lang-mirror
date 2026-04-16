@@ -70,6 +70,10 @@ export class OidcService {
      *  Set to true only in local development (SKIP_OIDC_URL_VALIDATION env var).
      *  Never enable in production. */
     private skipUrlValidation = false,
+    /** Maximum number of active users allowed. New user registration is blocked
+     *  when the active user count reaches this limit. Existing users can still
+     *  log in. Set via the MAX_USERS env var (default 20). */
+    private maxUsers = 20,
   ) {}
 
   // ── Public provider list (login page) ──────────────────────────────────────
@@ -199,7 +203,26 @@ export class OidcService {
       picture?: string;
     };
 
-    // 4. Upsert user — always "user" role, promote to "admin" manually via UsersService
+    // 4. Check if this is a new user and enforce the registration limit.
+    //    Existing users can always log in — only block brand-new registrations.
+    const existingUser = await this.db.queryFirst<UserRow>(
+      "SELECT * FROM users WHERE oidc_provider_id = ? AND user_id = ?",
+      providerId, userInfo.sub,
+    );
+
+    if (!existingUser) {
+      // Count active users (excluding system user) to enforce MAX_USERS limit
+      const { count } = (await this.db.queryFirst<{ count: number }>(
+        "SELECT COUNT(*) as count FROM users WHERE is_active = 1 AND id != 'system'",
+      ))!;
+      if (count >= this.maxUsers) {
+        throw new ForbiddenError(
+          "REGISTRATION_CLOSED:Registration is currently closed. Please contact support@langmirror.today for access.",
+        );
+      }
+    }
+
+    // 5. Upsert user — always "user" role, promote to "admin" manually via UsersService
     await this.db.run(
       `INSERT INTO users (id, oidc_provider_id, user_id, email, email_verified, name, avatar_url, role)
        VALUES (?, ?, ?, ?, ?, ?, ?, 'user')
@@ -209,18 +232,18 @@ export class OidcService {
          name           = excluded.name,
          avatar_url     = excluded.avatar_url,
          updated_at     = strftime('%Y-%m-%dT%H:%M:%fZ', 'now')`,
-      crypto.randomUUID(),   // only used on first INSERT; ignored on conflict UPDATE
+      crypto.randomUUID(),
       providerId,
       userInfo.sub,
       userInfo.email ?? null,
       userInfo.email_verified ? 1 : 0,
       userInfo.name ?? null,
-      userInfo.picture ?? null
+      userInfo.picture ?? null,
     );
 
     const user = await this.db.queryFirst<UserRow>(
       "SELECT * FROM users WHERE oidc_provider_id = ? AND user_id = ?",
-      providerId, userInfo.sub
+      providerId, userInfo.sub,
     );
 
     // 5. Block login for readonly users (e.g. system user)

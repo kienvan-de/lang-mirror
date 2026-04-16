@@ -611,7 +611,10 @@
     "continueWith": "{{provider}}(으)로 계속",
     "redirecting": "리디렉션 중…",
     "noProviders": "로그인 공급자가 구성되지 않았습니다.",
-    "contactAdmin": "관리자에게 문의하세요."
+    "contactAdmin": "관리자에게 문의하세요.",
+    "registrationClosed": "현재 등록이 중단되었습니다.",
+    "registrationClosedHint": "접근 권한을 위해 문의해 주세요:",
+    "errorRegistrationClosed": "현재 등록이 중단되었습니다. 접근 권한을 위해 support@langmirror.today로 문의해 주세요."
   },
   "chat": {
     "title": "AI 어시스턴트",

@@ -611,7 +611,10 @@
     "continueWith": "Tiếp tục với {{provider}}",
     "redirecting": "Đang chuyển hướng…",
     "noProviders": "Chưa cấu hình nhà cung cấp đăng nhập.",
-    "contactAdmin": "Liên hệ quản trị viên."
+    "contactAdmin": "Liên hệ quản trị viên.",
+    "registrationClosed": "Đăng ký hiện đang đóng.",
+    "registrationClosedHint": "Vui lòng liên hệ để được cấp quyền truy cập:",
+    "errorRegistrationClosed": "Đăng ký hiện đang đóng. Vui lòng liên hệ support@langmirror.today để được cấp quyền truy cập."
   },
   "chat": {
     "title": "Trợ lý AI",

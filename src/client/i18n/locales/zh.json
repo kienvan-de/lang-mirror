@@ -611,7 +611,10 @@
     "continueWith": "使用 {{provider}} 继续",
     "redirecting": "正在跳转…",
     "noProviders": "未配置登录提供商。",
-    "contactAdmin": "请联系管理员。"
+    "contactAdmin": "请联系管理员。",
+    "registrationClosed": "注册目前已关闭。",
+    "registrationClosedHint": "请联系我们获取访问权限：",
+    "errorRegistrationClosed": "注册目前已关闭。请联系 support@langmirror.today 获取访问权限。"
   },
   "chat": {
     "title": "AI 助手",

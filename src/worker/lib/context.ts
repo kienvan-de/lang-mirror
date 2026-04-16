@@ -44,7 +44,11 @@ export async function buildContext(env: Env, ctx?: IExecutionContext) {
     settings,
     importer:   new ImportService(db),
     exporter:   new ExportService(db),
-    oidc:       new OidcService(db, cache, env.SKIP_OIDC_URL_VALIDATION === "true"),
+    oidc:       new OidcService(
+      db, cache,
+      env.SKIP_OIDC_URL_VALIDATION === "true",
+      parseInt(env.MAX_USERS ?? "20", 10),
+    ),
     users:      new UsersService(db),
     tags:       new TagsService(db),
     paths:      new PathsService(db),

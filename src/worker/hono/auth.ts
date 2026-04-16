@@ -22,6 +22,15 @@ authRouter.get("/providers", async (c) => {
   return c.json(await oidc.listProviders());
 });
 
+// GET /api/auth/registration-status — public, tells the login page whether new
+// registrations are open or closed (user count vs MAX_USERS env var).
+authRouter.get("/registration-status", async (c) => {
+  const { users } = await buildContext(c.env);
+  const maxUsers = parseInt(c.env.MAX_USERS ?? "20", 10);
+  const count = await users.countActiveUsers();
+  return c.json({ open: count < maxUsers, current: count, max: maxUsers });
+});
+
 // GET /api/auth/login/:providerId — kick off OIDC flow (browser navigates directly)
 authRouter.get("/login/:providerId", async (c) => {
   const { oidc } = await buildContext(c.env);
@@ -57,6 +66,9 @@ authRouter.get("/callback/:providerId", async (c) => {
     if (msg.startsWith("DEACTIVATED:")) {
       const reason = encodeURIComponent(msg.slice("DEACTIVATED:".length));
       return c.redirect(`${base}/deactivated?reason=${reason}`, 302);
+    }
+    if (msg.startsWith("REGISTRATION_CLOSED:")) {
+      return c.redirect(loginUrl("registration_closed"), 302);
     }
     return c.redirect(loginUrl(msg || "login_failed"), 302);
   }

@@ -404,6 +404,7 @@ export const api = {
   },
 
   getProviders: () => apiFetch<Array<{ id: string; provider: string; display_name: string }>>("/auth/providers"),
+  getRegistrationStatus: () => apiFetch<{ open: boolean; current: number; max: number }>("/auth/registration-status"),
 
   // Login is a direct browser navigation to /api/auth/login/:providerId (GET → 302)
   // No fetch call needed — use window.location.href = `/api/auth/login/${providerId}`

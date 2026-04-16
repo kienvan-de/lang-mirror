@@ -133,7 +133,15 @@ const topicDetailOwnedTemplate = (vars: {
   status: string;
   versions: VersionView[];
 }) =>
-  `${topicDetailHeader(vars)}
+  `${topicDetailHeader(vars)}${
+    vars.versions.length
+      ? `
+
+Use these sentence IDs directly when the user refers to a sentence by number or text.
+Use the version ID when adding sentences or fetching version detail.
+Use the topic ID when adding a new language version.`
+      : ""
+  }
 
 ## Available Workflows
 ${WORKFLOW_ADD_LANGUAGE_VERSION}
@@ -149,7 +157,13 @@ const topicDetailSharedTemplate = (vars: {
   status: string;
   versions: VersionView[];
 }) =>
-  `${topicDetailHeader(vars)}
+  `${topicDetailHeader(vars)}${
+    vars.versions.length
+      ? `
+
+Use these sentence IDs when the user refers to a sentence by number or text for explanations.`
+      : ""
+  }
 
 ${OWNERSHIP_NOTE}`;
 
@@ -245,10 +259,6 @@ function topicDetailHeader(vars: {
           (s) => `  ${s.num}. [id:\`${s.id}\`] "${s.preview}"`,
         ),
       ]),
-      "",
-      "Use these sentence IDs directly when the user refers to a sentence by number or text.",
-      "Use the version ID when adding sentences or fetching version detail.",
-      "Use the topic ID when adding a new language version.",
     );
   }
 

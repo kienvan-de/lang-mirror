@@ -17,7 +17,7 @@
  */
 import { AIChatAgent, createToolsFromClientSchemas } from "@cloudflare/ai-chat";
 import { streamText, convertToModelMessages } from "ai";
-import type { ModelMessage } from "ai";
+import type { ModelMessage, UIMessage } from "ai";
 import { createWorkersAI } from "workers-ai-provider";
 import { runWithAuth } from "../core/auth/context";
 import type { AuthUser } from "../core/auth/context";
@@ -181,7 +181,12 @@ export class ChatAgent extends AIChatAgent<Env> {
     // Read page context from client body
     const pageContext = options?.body?.pageContext as PageContext | undefined;
 
-    const allMessages = await convertToModelMessages(this.messages);
+    // Filter out messages with incomplete tool calls before conversion.
+    // The AI SDK validates that every tool call has a matching tool result.
+    // Stale messages from failed/cancelled tool calls can cause
+    // AI_MissingToolResultsError. We strip those to keep the history clean.
+    const cleanMessages = stripIncompleteToolCalls(this.messages);
+    const allMessages = await convertToModelMessages(cleanMessages);
     const modelMessages = slidingWindow(allMessages, MAX_HISTORY_TOKENS);
 
     console.log("[ChatAgent] Sending to LLM:", {
@@ -224,6 +229,65 @@ export class ChatAgent extends AIChatAgent<Env> {
 
     return result.toUIMessageStreamResponse();
   }
+}
+
+/**
+ * Strip incomplete tool calls from UIMessage history.
+ *
+ * The AI SDK validates that every tool-call in assistant messages has a
+ * matching tool-result in the subsequent messages. Incomplete tool calls
+ * (from failed executions, cancelled requests, or client tools that never
+ * returned) cause AI_MissingToolResultsError.
+ *
+ * This function collects all tool-call IDs that have results, then removes
+ * any tool-call parts from assistant messages that don't have results.
+ * If an assistant message ends up with no parts, it's removed entirely.
+ */
+function stripIncompleteToolCalls(messages: UIMessage[]): UIMessage[] {
+  // Collect all tool-call IDs that have results
+  const resolvedToolCallIds = new Set<string>();
+  for (const msg of messages) {
+    if (msg.role !== "assistant") continue;
+    for (const part of msg.parts) {
+      if (
+        "type" in part &&
+        (part as { type: string }).type.startsWith("tool-") &&
+        "state" in part
+      ) {
+        const state = (part as { state: string }).state;
+        const toolCallId = (part as { toolCallId?: string }).toolCallId;
+        if (
+          toolCallId &&
+          (state === "output-available" || state === "output-error" || state === "output-denied")
+        ) {
+          resolvedToolCallIds.add(toolCallId);
+        }
+      }
+    }
+  }
+
+  return messages
+    .map((msg) => {
+      if (msg.role !== "assistant") return msg;
+
+      const filteredParts = msg.parts.filter((part) => {
+        if (
+          "type" in part &&
+          (part as { type: string }).type.startsWith("tool-") &&
+          "toolCallId" in part
+        ) {
+          const toolCallId = (part as { toolCallId: string }).toolCallId;
+          // Keep only tool parts that have been resolved
+          return resolvedToolCallIds.has(toolCallId);
+        }
+        // Keep all non-tool parts (text, reasoning, etc.)
+        return true;
+      });
+
+      if (filteredParts.length === 0) return null;
+      return { ...msg, parts: filteredParts };
+    })
+    .filter((msg): msg is UIMessage => msg !== null);
 }
 
 /**

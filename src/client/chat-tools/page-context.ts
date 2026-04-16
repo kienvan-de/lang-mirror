@@ -8,6 +8,13 @@ import type { QueryClient } from "@tanstack/react-query";
 import type { Topic, LearningPath } from "../lib/api";
 import { langName } from "../lib/lang";
 
+export interface VersionSummary {
+  id: string;
+  language: string;
+  languageName: string;
+  sentences: Array<{ id: string; position: number; preview: string }>;
+}
+
 export interface PageContext {
   page: string;
   path: string;
@@ -17,6 +24,7 @@ export interface PageContext {
   topicLanguages?: string[];
   topicTags?: string[];
   topicSentenceCount?: number;
+  versions?: VersionSummary[];
   langCode?: string;
   langName?: string;
   pathName?: string;
@@ -52,6 +60,20 @@ export function buildPageContext(
       ) ?? 0;
       const tags = topic.tags?.map((t) => t.name) ?? [];
 
+      // Build version summaries with sentence previews
+      const versions: VersionSummary[] = (topic.versions ?? []).map((v) => ({
+        id: v.id,
+        language: v.language_code,
+        languageName: langName(v.language_code),
+        sentences: (v.sentences ?? [])
+          .sort((a, b) => a.position - b.position)
+          .map((s) => ({
+            id: s.id,
+            position: s.position,
+            preview: s.text.length > 60 ? s.text.slice(0, 57) + "…" : s.text,
+          })),
+      }));
+
       return {
         page: "topicDetail",
         path: pathname,
@@ -61,6 +83,7 @@ export function buildPageContext(
         topicLanguages: topic.versions?.map((v) => v.language_code),
         topicTags: tags,
         topicSentenceCount: sentenceCount,
+        versions,
       };
     }
 

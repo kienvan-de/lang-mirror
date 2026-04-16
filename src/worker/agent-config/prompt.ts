@@ -163,6 +163,17 @@ export function buildSystemPrompt(
     if (pageContext.topicLanguages?.length) {
       prompt += `\nExisting languages in this topic: ${pageContext.topicLanguages.join(", ")}.`;
     }
+    // Render version summaries with sentence IDs
+    if (pageContext.versions?.length) {
+      prompt += "\n\n### Versions & Sentences";
+      for (const v of pageContext.versions) {
+        prompt += `\n**${v.languageName}** (${v.language}) — version ID: \`${v.id}\`, ${v.sentences.length} sentences:`;
+        for (const s of v.sentences) {
+          prompt += `\n  ${s.position + 1}. [id:\`${s.id}\`] "${s.preview}"`;
+        }
+      }
+      prompt += `\n\nUse these sentence IDs directly when the user refers to a sentence by number or text. Use the version ID when adding sentences or a new language version.`;
+    }
   }
 
   return prompt;

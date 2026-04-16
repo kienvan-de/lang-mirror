@@ -294,125 +294,131 @@ export function ChatWidget() {
               fixed z-[9998]
               bg-white dark:bg-gray-900
               border border-gray-200 dark:border-gray-700
-              shadow-2xl flex flex-col overflow-hidden relative
+              shadow-2xl overflow-hidden
               top-0 left-0 right-0 bottom-0
               sm:top-auto sm:left-auto sm:bottom-6 sm:right-6
               sm:w-[440px] sm:h-[640px] sm:rounded-2xl
             "
           >
-            {/* Header */}
-            <div className="flex items-center gap-2 px-4 py-3 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 shrink-0">
-              <ChatBubbleLeftRightIcon className="w-5 h-5 text-orange-500" />
-              <span className="font-semibold text-sm text-gray-900 dark:text-gray-100 flex-1">
-                {assistantName}
-              </span>
-              <button
-                onClick={() => { if (messages.length > 0) setShowClearConfirm(true); }}
-                className="flex items-center gap-1 px-2 py-1 rounded-lg text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                aria-label={t("chat.newConversation")}
-                title={t("chat.newConversation")}
-              >
-                <PlusCircleIcon className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">{t("chat.newConversation")}</span>
-              </button>
-              <button
-                onClick={() => setOpen(false)}
-                className="p-1 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                aria-label={t("chat.close")}
-              >
-                <XMarkIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-              </button>
-            </div>
+            {/* Inner wrapper: relative (for absolute overlay) + flex column layout.
+                Separated from the outer fixed div to avoid the Tailwind v4 specificity
+                clash where .relative { position:relative } overrides .fixed { position:fixed }
+                because it appears later in the generated stylesheet. */}
+            <div className="relative flex flex-col h-full">
+              {/* Header */}
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 shrink-0">
+                <ChatBubbleLeftRightIcon className="w-5 h-5 text-orange-500" />
+                <span className="font-semibold text-sm text-gray-900 dark:text-gray-100 flex-1">
+                  {assistantName}
+                </span>
+                <button
+                  onClick={() => { if (messages.length > 0) setShowClearConfirm(true); }}
+                  className="flex items-center gap-1 px-2 py-1 rounded-lg text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                  aria-label={t("chat.newConversation")}
+                  title={t("chat.newConversation")}
+                >
+                  <PlusCircleIcon className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">{t("chat.newConversation")}</span>
+                </button>
+                <button
+                  onClick={() => setOpen(false)}
+                  className="p-1 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                  aria-label={t("chat.close")}
+                >
+                  <XMarkIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                </button>
+              </div>
 
-            {/* Messages */}
-            <div
-              className="flex-1 overflow-y-auto px-4 pt-3 pb-3 space-y-3"
-              style={isMobile ? { paddingBottom: `calc(${formHeight}px + 0.75rem)` } : undefined}
-            >
-              {messages.length === 0 && (
-                <div className="text-center py-8">
-                  <ChatBubbleLeftRightIcon className="w-10 h-10 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-                  <p className="text-sm text-gray-500 dark:text-gray-400">{t("chat.emptyHint")}</p>
-                </div>
-              )}
-              {messages.map((m) => (
-                <div key={m.id} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
-                  <div className={`
-                    max-w-[85%] px-3 py-2 rounded-xl text-sm leading-relaxed
-                    ${m.role === "user"
-                      ? "bg-orange-500 text-white rounded-br-sm"
-                      : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-bl-sm"}
-                  `}>
-                    {m.role === "user" ? (
-                      m.parts
-                        .filter((p): p is Extract<typeof p, { type: "text" }> => p.type === "text")
-                        .map((p, i) => <span key={i} className="whitespace-pre-wrap">{p.text}</span>)
-                    ) : (
-                      <div className="prose prose-sm dark:prose-invert max-w-none
-                        prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5
-                        prose-headings:my-2 prose-pre:my-2 prose-code:text-xs
-                        prose-a:text-orange-600 dark:prose-a:text-orange-400">
-                        {m.parts
-                          .filter((p): p is Extract<typeof p, { type: "text" }> => p.type === "text")
-                          .map((p, i) => <ReactMarkdown key={i}>{p.text}</ReactMarkdown>)}
-                      </div>
-                    )}
+              {/* Messages */}
+              <div
+                className="flex-1 overflow-y-auto px-4 pt-3 pb-3 space-y-3"
+                style={isMobile ? { paddingBottom: `calc(${formHeight}px + 0.75rem)` } : undefined}
+              >
+                {messages.length === 0 && (
+                  <div className="text-center py-8">
+                    <ChatBubbleLeftRightIcon className="w-10 h-10 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
+                    <p className="text-sm text-gray-500 dark:text-gray-400">{t("chat.emptyHint")}</p>
                   </div>
-                </div>
-              ))}
-              {showTypingIndicator && (
-                <div className="flex justify-start">
-                  <div className="bg-gray-100 dark:bg-gray-800 px-3 py-2 rounded-xl rounded-bl-sm">
-                    <div className="flex gap-1">
-                      <span className="w-2 h-2 bg-gray-400 dark:bg-gray-500 rounded-full animate-bounce [animation-delay:0ms]" />
-                      <span className="w-2 h-2 bg-gray-400 dark:bg-gray-500 rounded-full animate-bounce [animation-delay:150ms]" />
-                      <span className="w-2 h-2 bg-gray-400 dark:bg-gray-500 rounded-full animate-bounce [animation-delay:300ms]" />
+                )}
+                {messages.map((m) => (
+                  <div key={m.id} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+                    <div className={`
+                      max-w-[85%] px-3 py-2 rounded-xl text-sm leading-relaxed
+                      ${m.role === "user"
+                        ? "bg-orange-500 text-white rounded-br-sm"
+                        : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-bl-sm"}
+                    `}>
+                      {m.role === "user" ? (
+                        m.parts
+                          .filter((p): p is Extract<typeof p, { type: "text" }> => p.type === "text")
+                          .map((p, i) => <span key={i} className="whitespace-pre-wrap">{p.text}</span>)
+                      ) : (
+                        <div className="prose prose-sm dark:prose-invert max-w-none
+                          prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5
+                          prose-headings:my-2 prose-pre:my-2 prose-code:text-xs
+                          prose-a:text-orange-600 dark:prose-a:text-orange-400">
+                          {m.parts
+                            .filter((p): p is Extract<typeof p, { type: "text" }> => p.type === "text")
+                            .map((p, i) => <ReactMarkdown key={i}>{p.text}</ReactMarkdown>)}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+                {showTypingIndicator && (
+                  <div className="flex justify-start">
+                    <div className="bg-gray-100 dark:bg-gray-800 px-3 py-2 rounded-xl rounded-bl-sm">
+                      <div className="flex gap-1">
+                        <span className="w-2 h-2 bg-gray-400 dark:bg-gray-500 rounded-full animate-bounce [animation-delay:0ms]" />
+                        <span className="w-2 h-2 bg-gray-400 dark:bg-gray-500 rounded-full animate-bounce [animation-delay:150ms]" />
+                        <span className="w-2 h-2 bg-gray-400 dark:bg-gray-500 rounded-full animate-bounce [animation-delay:300ms]" />
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <div ref={bottomRef} />
+              </div>
+
+              {/* Desktop input bar — sits inside the panel, normal flow */}
+              {!isMobile && (
+                <form
+                  ref={formRef}
+                  onSubmit={handleSubmit}
+                  className="shrink-0 px-3 py-2 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 flex items-end gap-2"
+                >
+                  {formContent}
+                </form>
+              )}
+
+              {/* Clear-history overlay — uses absolute positioning against the relative inner wrapper */}
+              {showClearConfirm && (
+                <div className="absolute inset-0 z-10 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm flex flex-col items-center justify-center gap-4 px-6">
+                  <div className="w-full max-w-xs bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-xl p-6 flex flex-col items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center shrink-0">
+                      <ExclamationTriangleIcon className="w-6 h-6 text-orange-500" />
+                    </div>
+                    <div className="text-center">
+                      <p className="font-semibold text-gray-900 dark:text-gray-100 text-sm">{t("chat.clearConfirmTitle")}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">{t("chat.clearConfirmBody")}</p>
+                    </div>
+                    <div className="flex gap-2 w-full">
+                      <button
+                        onClick={() => setShowClearConfirm(false)}
+                        className="flex-1 px-3 py-2 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors cursor-pointer"
+                      >
+                        {t("chat.clearConfirmCancel")}
+                      </button>
+                      <button
+                        onClick={() => { clearHistory(); setShowClearConfirm(false); }}
+                        className="flex-1 px-3 py-2 rounded-lg text-sm font-medium bg-orange-500 hover:bg-orange-600 text-white transition-colors cursor-pointer"
+                      >
+                        {t("chat.clearConfirmOk")}
+                      </button>
                     </div>
                   </div>
                 </div>
               )}
-              <div ref={bottomRef} />
             </div>
-
-            {/* Desktop input bar — sits inside the panel, normal flow */}
-            {!isMobile && (
-              <form
-                ref={formRef}
-                onSubmit={handleSubmit}
-                className="shrink-0 px-3 py-2 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 flex items-end gap-2"
-              >
-                {formContent}
-              </form>
-            )}
-
-            {/* Clear-history overlay */}
-            {showClearConfirm && (
-              <div className="absolute inset-0 z-10 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm flex flex-col items-center justify-center gap-4 px-6">
-                <div className="w-full max-w-xs bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-xl p-6 flex flex-col items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center shrink-0">
-                    <ExclamationTriangleIcon className="w-6 h-6 text-orange-500" />
-                  </div>
-                  <div className="text-center">
-                    <p className="font-semibold text-gray-900 dark:text-gray-100 text-sm">{t("chat.clearConfirmTitle")}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">{t("chat.clearConfirmBody")}</p>
-                  </div>
-                  <div className="flex gap-2 w-full">
-                    <button
-                      onClick={() => setShowClearConfirm(false)}
-                      className="flex-1 px-3 py-2 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors cursor-pointer"
-                    >
-                      {t("chat.clearConfirmCancel")}
-                    </button>
-                    <button
-                      onClick={() => { clearHistory(); setShowClearConfirm(false); }}
-                      className="flex-1 px-3 py-2 rounded-lg text-sm font-medium bg-orange-500 hover:bg-orange-600 text-white transition-colors cursor-pointer"
-                    >
-                      {t("chat.clearConfirmOk")}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Mobile input bar — OUTSIDE the panel, fixed above keyboard */}

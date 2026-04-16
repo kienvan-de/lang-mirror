@@ -11,12 +11,14 @@
  * authenticated userId using the HttpOnly session cookie — the client
  * never sends any identity info.
  */
-import { useState, useRef, useEffect, type FormEvent } from "react";
-import { useLocation } from "@tanstack/react-router";
+import { useState, useRef, useEffect, useCallback, type FormEvent } from "react";
+import { useLocation, useNavigate } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { useAgent } from "agents/react";
 import { useAgentChat } from "@cloudflare/ai-chat/react";
 import ReactMarkdown from "react-markdown";
+import { buildClientTools } from "../chat-tools";
 import {
   ChatBubbleLeftRightIcon,
   XMarkIcon,
@@ -46,6 +48,12 @@ export function ChatWidget() {
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const location = useLocation();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const closeChat = useCallback(() => setOpen(false), []);
+
+  const clientTools = buildClientTools({ navigate, queryClient, closeChat });
 
   const agent = useAgent({
     agent: "ChatAgent",
@@ -54,6 +62,7 @@ export function ChatWidget() {
 
   const { messages, sendMessage, stop, status, isStreaming } = useAgentChat({
     agent,
+    tools: clientTools,
   });
 
   const isLoading = status === "streaming" || status === "submitted" || isStreaming;

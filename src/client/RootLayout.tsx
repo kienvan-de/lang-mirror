@@ -62,6 +62,16 @@ export function RootLayout() {
 
   if (dark) document.documentElement.classList.add("dark");
 
+  // Shared auth-loading placeholder — matches the splash screen style
+  // so the transition from splash → auth check → content feels seamless.
+  const authLoading = (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-950">
+      <img src="/logo.png" alt="Lang Mirror" className="w-14 h-14 object-contain" />
+      <p className="mt-3 text-sm text-gray-500 dark:text-gray-400 font-medium">Lang Mirror Today</p>
+      <div className="mt-5 w-6 h-6 rounded-full border-2 border-gray-300 dark:border-gray-700 border-t-blue-500 dark:border-t-blue-400 animate-spin" />
+    </div>
+  );
+
   if (PUBLIC_PATHS.has(location.pathname)) {
     return (
       <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
@@ -70,16 +80,9 @@ export function RootLayout() {
     );
   }
 
-  // Auth-required full-page routes (no sidebar) — onboarding, etc.
   if (FULL_PAGE_PATHS.has(location.pathname)) {
-    if (isLoading) {
-      return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-950">
-          <div className="w-8 h-8 rounded-full border-2 border-blue-400/40 border-t-blue-500 animate-spin" />
-        </div>
-      );
-    }
-    if (!user) return null; // auth useEffect will redirect to /login
+    if (isLoading) return authLoading;
+    if (!user) return null;
     return (
       <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
         <Outlet />
@@ -87,14 +90,7 @@ export function RootLayout() {
     );
   }
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-950">
-        <div className="w-8 h-8 rounded-full border-2 border-blue-400/40 border-t-blue-500 animate-spin" />
-      </div>
-    );
-  }
-
+  if (isLoading) return authLoading;
   if (!user) return null;
 
   return (
@@ -238,7 +234,7 @@ export function RootLayout() {
         )}
       </nav>
 
-      <main>
+      <main key={location.pathname} className="animate-fade-in">
         <Outlet />
       </main>
 

@@ -16,7 +16,7 @@
  * on in-memory state.
  */
 import { AIChatAgent, createToolsFromClientSchemas } from "@cloudflare/ai-chat";
-import { streamText, stepCountIs, convertToModelMessages } from "ai";
+import { streamText, convertToModelMessages } from "ai";
 import type { ModelMessage } from "ai";
 import { createWorkersAI } from "workers-ai-provider";
 import { runWithAuth } from "../core/auth/context";
@@ -211,7 +211,13 @@ export class ChatAgent extends AIChatAgent<Env> {
       system: buildSystemPrompt(assistantName, nativeLanguage, learningLanguages, pageContext),
       messages: modelMessages,
       tools: allTools,
-      stopWhen: stepCountIs(5),
+      // Do NOT use stopWhen/maxSteps here. Client tools (navigateTo, etc.)
+      // have no execute function on the server — the result comes back from
+      // the browser via WebSocket. AIChatAgent handles this automatically:
+      // it detects the client tool call, sends it to the browser, waits for
+      // the result, then re-calls onChatMessage with continuation=true.
+      // Using stopWhen would cause AI_MissingToolResultsError because
+      // streamText tries to continue the loop without the client result.
       abortSignal: options?.abortSignal,
       onFinish: onFinish as never,
     });

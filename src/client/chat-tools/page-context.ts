@@ -1,27 +1,24 @@
 /**
  * Build a rich page context from the current URL + TanStack Query cache.
  *
- * Each page builder produces a self-contained `prompt` string that is
- * appended to the system prompt as-is. The prompt builder in agent-config
- * never interprets PageContext fields — it just renders `context.prompt`.
+ * Each page has ONE template function that produces the full prompt text.
+ * Templates use tagged template literals with .map().join() for loops
+ * and ternary for conditionals — zero dependencies.
  *
  * To add context for a new page:
- *   1. Add a route entry in PAGE_ROUTES
+ *   1. Create a template function
  *   2. Create a builder function
- *   3. Return a PageContext with a descriptive `prompt` string
+ *   3. Add a route entry in PAGE_ROUTES
  */
 import type { QueryClient } from "@tanstack/react-query";
-import type { Topic, LearningPath } from "../lib/api";
+import type { Topic, LearningPath, Version, Sentence } from "../lib/api";
 import { langName } from "../lib/lang";
 
 // ── Types ────────────────────────────────────────────────
 
 export interface PageContext {
-  /** Machine-readable page identifier */
   page: string;
-  /** Current URL path */
   path: string;
-  /** Self-contained prompt text — appended as-is to the system prompt */
   prompt: string;
 }
 
@@ -37,80 +34,133 @@ interface RouteEntry {
   builder: PageBuilder;
 }
 
-// ── Prompt templates ─────────────────────────────────────
+// ── Templates ────────────────────────────────────────────
+// One function per page. Full prompt text as a single template literal.
 
-const TEMPLATES = {
-  dashboard:
-    "User is on the **Dashboard** viewing today's practice stats, streak calendar, and recent topics.",
+interface VersionView {
+  id: string;
+  langName: string;
+  langCode: string;
+  sentences: Array<{ id: string; num: number; preview: string }>;
+}
 
-  topicsList:
-    "User is on the **Topics** list page, browsing and searching their topics. They can create a new topic from here.",
+const dashboardTemplate = () =>
+  `User is on the **Dashboard** viewing today's practice stats, streak calendar, and recent topics.`;
 
-  topicNotCached: [
-    'User is viewing a **topic** (ID: `{topicId}`). Data not yet cached.',
-    'When the user says "this topic" or "current topic", they mean topic ID `{topicId}`.',
-    "Use `getTopicDetail` to load full information.",
-  ].join("\n"),
+const topicsListTemplate = () =>
+  `User is on the **Topics** list page, browsing and searching their topics. They can create a new topic from here.`;
 
-  topicHeader: [
-    'User is viewing topic **"{title}"** (ID: `{topicId}`).',
-    "Languages: {languages}. Total sentences: {sentenceCount}. Tags: {tags}.",
-    "Status: {status}.",
-  ].join("\n"),
+const topicNotCachedTemplate = (topicId: string) =>
+  `User is viewing a **topic** (ID: \`${topicId}\`). Data not yet cached.
+When the user says "this topic" or "current topic", they mean topic ID \`${topicId}\`.
+Use \`getTopicDetail\` to load full information.`;
 
-  topicReference:
-    'When the user says "this topic", "current topic", or "here", they mean topic ID `{topicId}` ("{title}").',
+const topicDetailTemplate = (vars: {
+  topicId: string;
+  title: string;
+  languages: string;
+  sentenceCount: number;
+  tags: string;
+  status: string;
+  versions: VersionView[];
+}) =>
+  `User is viewing topic **"${vars.title}"** (ID: \`${vars.topicId}\`).
+Languages: ${vars.languages}. Total sentences: ${vars.sentenceCount}. Tags: ${vars.tags}.
+Status: ${vars.status}.
 
-  versionsHeader: "### Versions & Sentences",
+When the user says "this topic", "current topic", or "here", they mean topic ID \`${vars.topicId}\` ("${vars.title}").${
+    vars.versions.length
+      ? `
 
-  versionEntry:
-    "**{langName}** ({langCode}) — version ID: `{versionId}`, {count} sentences:",
+### Versions & Sentences
+${vars.versions
+  .map(
+    (v) =>
+      `**${v.langName}** (${v.langCode}) — version ID: \`${v.id}\`, ${v.sentences.length} sentences:
+${v.sentences.map((s) => `  ${s.num}. [id:\`${s.id}\`] "${s.preview}"`).join("\n")}`,
+  )
+  .join("\n")}
 
-  sentenceEntry: '  {num}. [id:`{id}`] "{preview}"',
+Use these sentence IDs directly when the user refers to a sentence by number or text.
+Use the version ID when adding sentences or a new language version.`
+      : ""
+  }`;
 
-  versionsFooter: [
-    "Use these sentence IDs directly when the user refers to a sentence by number or text.",
-    "Use the version ID when adding sentences or a new language version.",
-  ].join("\n"),
+const practiceTemplate = (vars: {
+  topicId: string;
+  title: string;
+  language: string;
+  langCode: string;
+  versionId?: string;
+  sentenceCount?: number;
+}) =>
+  `User is **practicing** ${vars.language} (${vars.langCode}) in topic "${vars.title}" (ID: \`${vars.topicId}\`).
+The practice flow is: TTS playback → countdown → record → upload → playback comparison.${
+    vars.versionId
+      ? `
 
-  practiceHeader: [
-    'User is **practicing** {language} ({langCode}) in topic "{title}" (ID: `{topicId}`).',
-    "The practice flow is: TTS playback → countdown → record → upload → playback comparison.",
-  ].join("\n"),
+Practicing version \`${vars.versionId}\` with ${vars.sentenceCount} sentences.
+When the user asks about "this sentence" or "current sentence", they likely mean one of these.`
+      : ""
+  }
 
-  practiceVersion:
-    "Practicing version `{versionId}` with {count} sentences.\n" +
-    'When the user asks about "this sentence" or "current sentence", they likely mean one of these.',
+When the user says "this topic", they mean topic ID \`${vars.topicId}\` ("${vars.title}").`;
 
-  practiceReference:
-    'When the user says "this topic", they mean topic ID `{topicId}` ("{title}").',
+const reviewTemplate = () =>
+  `User is on the **Practice Review** page, comparing their recordings with the original TTS audio sentence by sentence.`;
 
-  review:
-    "User is on the **Practice Review** page, comparing their recordings with the original TTS audio sentence by sentence.",
+interface PathTopicView {
+  num: number;
+  title: string;
+  topicId: string;
+  langs: string;
+  progress: string;
+}
 
-  pathEmpty: "User is viewing their **Learning Path**.",
+const pathTemplate = (vars: {
+  name: string;
+  pathId: string;
+  topics: PathTopicView[];
+}) =>
+  `User is viewing their **Learning Path** "${vars.name}" (ID: \`${vars.pathId}\`).
+Contains ${vars.topics.length} topics:
+${vars.topics
+  .map(
+    (tp) =>
+      `  ${tp.num}. "${tp.title}" (ID: \`${tp.topicId}\`) — ${tp.langs} — ${tp.progress}`,
+  )
+  .join("\n")}
 
-  pathHeader:
-    'User is viewing their **Learning Path** "{name}" (ID: `{pathId}`).\nContains {count} topics:',
+When the user says "add to my path", use path ID \`${vars.pathId}\`.`;
 
-  pathTopic:
-    '  {num}. "{title}" (ID: `{topicId}`) — {langs} — {progress}',
+const pathEmptyTemplate = () =>
+  `User is viewing their **Learning Path**.`;
 
-  pathReference: 'When the user says "add to my path", use path ID `{pathId}`.',
+const importTemplate = () =>
+  `User is on the **Import** page for uploading topic JSON files. They can also ask you to create topics directly instead of importing.`;
 
-  importPage:
-    "User is on the **Import** page for uploading topic JSON files. They can also ask you to create topics directly instead of importing.",
+const fallbackTemplate = (path: string) =>
+  `User is on \`${path}\`.`;
 
-  fallback: "User is on `{path}`.",
-} as const;
+// ── Helpers ──────────────────────────────────────────────
 
-// ── Template helper ──────────────────────────────────────
+function sentencePreview(text: string, maxLen = 60): string {
+  return text.length > maxLen ? text.slice(0, maxLen - 3) + "…" : text;
+}
 
-function t(template: string, vars: Record<string, string | number>): string {
-  return Object.entries(vars).reduce(
-    (s, [k, v]) => s.replaceAll(`{${k}}`, String(v)),
-    template,
-  );
+function toVersionViews(versions: Version[]): VersionView[] {
+  return versions.map((v) => ({
+    id: v.id,
+    langName: langName(v.language_code),
+    langCode: v.language_code,
+    sentences: (v.sentences ?? [])
+      .sort((a, b) => a.position - b.position)
+      .map((s) => ({
+        id: s.id,
+        num: s.position + 1,
+        preview: sentencePreview(s.text),
+      })),
+  }));
 }
 
 // ── Route table ──────────────────────────────────────────
@@ -137,22 +187,17 @@ export function buildPageContext(
       return route.builder(pathname, queryClient, match.groups ?? {});
     }
   }
-
-  return {
-    page: "unknown",
-    path: pathname,
-    prompt: t(TEMPLATES.fallback, { path: pathname }),
-  };
+  return { page: "unknown", path: pathname, prompt: fallbackTemplate(pathname) };
 }
 
 // ── Page builders ────────────────────────────────────────
 
 function buildDashboard(pathname: string): PageContext {
-  return { page: "dashboard", path: pathname, prompt: TEMPLATES.dashboard };
+  return { page: "dashboard", path: pathname, prompt: dashboardTemplate() };
 }
 
 function buildTopicsList(pathname: string): PageContext {
-  return { page: "topics", path: pathname, prompt: TEMPLATES.topicsList };
+  return { page: "topics", path: pathname, prompt: topicsListTemplate() };
 }
 
 function buildTopicDetail(
@@ -164,57 +209,32 @@ function buildTopicDetail(
   const topic = queryClient.getQueryData<Topic>(["topic", topicId]);
 
   if (!topic) {
-    return {
-      page: "topicDetail",
-      path: pathname,
-      prompt: t(TEMPLATES.topicNotCached, { topicId }),
-    };
+    return { page: "topicDetail", path: pathname, prompt: topicNotCachedTemplate(topicId) };
   }
 
   const languages =
     topic.versions?.map((v) => `${langName(v.language_code)} (${v.language_code})`).join(", ") ||
     "none";
-  const sentenceCount = topic.versions?.reduce(
-    (sum, v) => sum + (v.totalSentences ?? v.sentences?.length ?? 0),
-    0,
-  ) ?? 0;
+  const sentenceCount =
+    topic.versions?.reduce(
+      (sum, v) => sum + (v.totalSentences ?? v.sentences?.length ?? 0),
+      0,
+    ) ?? 0;
   const tags = topic.tags?.map((tg) => tg.name).join(", ") || "none";
 
-  const lines: string[] = [
-    t(TEMPLATES.topicHeader, {
-      title: topic.title,
+  return {
+    page: "topicDetail",
+    path: pathname,
+    prompt: topicDetailTemplate({
       topicId,
+      title: topic.title,
       languages,
       sentenceCount,
       tags,
       status: topic.status,
+      versions: toVersionViews(topic.versions ?? []),
     }),
-    "",
-    t(TEMPLATES.topicReference, { topicId, title: topic.title }),
-  ];
-
-  // Version & sentence summaries
-  if (topic.versions?.length) {
-    lines.push("", TEMPLATES.versionsHeader);
-    for (const v of topic.versions) {
-      const sorted = (v.sentences ?? []).sort((a, b) => a.position - b.position);
-      lines.push(
-        t(TEMPLATES.versionEntry, {
-          langName: langName(v.language_code),
-          langCode: v.language_code,
-          versionId: v.id,
-          count: sorted.length,
-        }),
-      );
-      for (const s of sorted) {
-        const preview = s.text.length > 60 ? s.text.slice(0, 57) + "…" : s.text;
-        lines.push(t(TEMPLATES.sentenceEntry, { num: s.position + 1, id: s.id, preview }));
-      }
-    }
-    lines.push("", TEMPLATES.versionsFooter);
-  }
-
-  return { page: "topicDetail", path: pathname, prompt: lines.join("\n") };
+  };
 }
 
 function buildPractice(
@@ -226,26 +246,24 @@ function buildPractice(
   const topic = queryClient.getQueryData<Topic>(["topic", topicId]);
   const language = langName(langCode);
   const title = topic?.title ?? topicId;
-
-  const lines: string[] = [
-    t(TEMPLATES.practiceHeader, { language, langCode, title, topicId }),
-  ];
-
   const version = topic?.versions?.find((v) => v.language_code === langCode);
-  if (version?.sentences?.length) {
-    lines.push(
-      "",
-      t(TEMPLATES.practiceVersion, { versionId: version.id, count: version.sentences.length }),
-    );
-  }
 
-  lines.push("", t(TEMPLATES.practiceReference, { topicId, title }));
-
-  return { page: "practice", path: pathname, prompt: lines.join("\n") };
+  return {
+    page: "practice",
+    path: pathname,
+    prompt: practiceTemplate({
+      topicId,
+      title,
+      language,
+      langCode,
+      versionId: version?.id,
+      sentenceCount: version?.sentences?.length,
+    }),
+  };
 }
 
 function buildReview(pathname: string): PageContext {
-  return { page: "review", path: pathname, prompt: TEMPLATES.review };
+  return { page: "review", path: pathname, prompt: reviewTemplate() };
 }
 
 function buildPath(
@@ -255,38 +273,28 @@ function buildPath(
   const pathData = queryClient.getQueryData<LearningPath>(["path"]);
 
   if (!pathData) {
-    return { page: "path", path: pathname, prompt: TEMPLATES.pathEmpty };
+    return { page: "path", path: pathname, prompt: pathEmptyTemplate() };
   }
 
-  const lines: string[] = [
-    t(TEMPLATES.pathHeader, {
+  return {
+    page: "path",
+    path: pathname,
+    prompt: pathTemplate({
       name: pathData.name,
       pathId: pathData.id,
-      count: pathData.topics.length,
-    }),
-  ];
-
-  for (const tp of pathData.topics) {
-    const langs = tp.topic_versions.map((v) => v.language_code).join(", ");
-    const progress = tp.isDone
-      ? "✅ done"
-      : `${tp.practicedSentences}/${tp.totalSentences} practiced`;
-    lines.push(
-      t(TEMPLATES.pathTopic, {
+      topics: pathData.topics.map((tp) => ({
         num: tp.position + 1,
         title: tp.topic_title,
         topicId: tp.topic_id,
-        langs,
-        progress,
-      }),
-    );
-  }
-
-  lines.push("", t(TEMPLATES.pathReference, { pathId: pathData.id }));
-
-  return { page: "path", path: pathname, prompt: lines.join("\n") };
+        langs: tp.topic_versions.map((v) => v.language_code).join(", "),
+        progress: tp.isDone
+          ? "✅ done"
+          : `${tp.practicedSentences}/${tp.totalSentences} practiced`,
+      })),
+    }),
+  };
 }
 
 function buildImport(pathname: string): PageContext {
-  return { page: "import", path: pathname, prompt: TEMPLATES.importPage };
+  return { page: "import", path: pathname, prompt: importTemplate() };
 }

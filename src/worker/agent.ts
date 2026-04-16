@@ -27,6 +27,7 @@ import {
   DEFAULT_ASSISTANT_NAME,
   DEFAULT_LANGUAGE,
   DEFAULT_MODEL,
+  type PageContext,
 } from "./agent-config/prompt";
 import type { Env } from "./types";
 import type { Connection, ConnectionContext } from "agents";
@@ -140,11 +141,14 @@ export class ChatAgent extends AIChatAgent<Env> {
       importer,
     });
 
+    // Read page context from client body
+    const pageContext = options?.body?.pageContext as PageContext | undefined;
+
     const modelMessages = await convertToModelMessages(this.messages);
 
     const result = streamText({
       model: workersai(modelName),
-      system: buildSystemPrompt(assistantName, nativeLanguage, learningLanguages),
+      system: buildSystemPrompt(assistantName, nativeLanguage, learningLanguages, pageContext),
       messages: modelMessages,
       tools: agentTools,
       stopWhen: stepCountIs(5),

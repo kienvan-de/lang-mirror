@@ -121,20 +121,51 @@ Follow these steps in order:
 export const DEFAULT_ASSISTANT_NAME = "AI Assistant";
 export const DEFAULT_LANGUAGE = "English";
 
+export interface PageContext {
+  page: string;
+  path: string;
+  description: string;
+  topicId?: string;
+  topicTitle?: string;
+  topicLanguages?: string[];
+  topicTags?: string[];
+  topicSentenceCount?: number;
+  langCode?: string;
+  langName?: string;
+  pathName?: string;
+  pathTopicCount?: number;
+}
+
 export function buildSystemPrompt(
   assistantName: string,
   nativeLanguage: string,
   learningLanguages: string[],
+  pageContext?: PageContext,
 ): string {
   const learningList =
     learningLanguages.length > 0
       ? learningLanguages.join(", ")
       : "(none configured — ask the user which language they want to learn)";
 
-  return SYSTEM_PROMPT_TEMPLATE
+  let prompt = SYSTEM_PROMPT_TEMPLATE
     .replaceAll("{{name}}", assistantName)
     .replaceAll("{{language}}", nativeLanguage)
     .replaceAll("{{learningLanguages}}", learningList);
+
+  // Append dynamic page context
+  if (pageContext) {
+    prompt += `\n\n---\n\n## Current Context\n${pageContext.description}`;
+    if (pageContext.topicId) {
+      prompt += `\nWhen the user says "this topic", "current topic", or "here", they mean topic ID: \`${pageContext.topicId}\``;
+      if (pageContext.topicTitle) prompt += ` ("${pageContext.topicTitle}")`;
+      prompt += ".";
+    }
+    if (pageContext.topicLanguages?.length) {
+      prompt += `\nExisting languages in this topic: ${pageContext.topicLanguages.join(", ")}.`;
+    }
+  }
+
+  return prompt;
 }
 
 export const DEFAULT_MODEL = "@cf/google/gemma-4-26b-a4b-it";

@@ -20,6 +20,7 @@ import { useAgent } from "agents/react";
 import { useAgentChat } from "@cloudflare/ai-chat/react";
 import ReactMarkdown from "react-markdown";
 import { buildClientTools } from "../chat-tools";
+import { buildPageContext } from "../chat-tools/page-context";
 import {
   ChatBubbleLeftRightIcon,
   XMarkIcon,
@@ -72,6 +73,9 @@ export function ChatWidget() {
   const { messages, sendMessage, stop, status, isStreaming } = useAgentChat({
     agent,
     tools: clientTools,
+    body: () => ({
+      pageContext: buildPageContext(location.pathname, queryClient),
+    }),
   });
 
   const isLoading = status === "streaming" || status === "submitted" || isStreaming;

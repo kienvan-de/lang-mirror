@@ -17,6 +17,8 @@ import type { ToolDeps } from "./types";
 // ── Read tools (v1) ────────────────────────────────────────
 import { listMyTopics } from "./list-my-topics";
 import { getTopicDetail } from "./get-topic-detail";
+import { getVersionDetail } from "./get-version-detail";
+import { getSentenceDetail } from "./get-sentence-detail";
 import { getPracticeStats } from "./get-practice-stats";
 import { getStreak } from "./get-streak";
 import { getPracticeCalendar } from "./get-practice-calendar";
@@ -40,6 +42,8 @@ export function buildAgentTools(deps: ToolDeps): ToolSet {
     // Read
     listMyTopics: listMyTopics(deps),
     getTopicDetail: getTopicDetail(deps),
+    getVersionDetail: getVersionDetail(deps),
+    getSentenceDetail: getSentenceDetail(deps),
     getPracticeStats: getPracticeStats(deps),
     getStreak: getStreak(deps),
     getPracticeCalendar: getPracticeCalendar(deps),

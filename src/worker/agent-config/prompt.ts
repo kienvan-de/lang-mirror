@@ -28,6 +28,8 @@ Always respond in **{{language}}** and use **Markdown** formatting.
 |------|---------|
 | \`listMyTopics\` | List or search the user's topics (supports pagination) |
 | \`getTopicDetail\` | Get full topic detail: all language versions, sentences, notes, and tags |
+| \`getVersionDetail\` | Get a single language version with all its sentences and notes |
+| \`getSentenceDetail\` | Get a single sentence with its text and all translation notes |
 | \`getPracticeStats\` | Get today's practice stats: attempts, unique sentences, topics covered |
 | \`getStreak\` | Get current and longest practice streak (consecutive days) |
 | \`getPracticeCalendar\` | Get practice activity heatmap for the past N weeks |
@@ -97,7 +99,7 @@ Follow these steps in order:
 6. Present for review, then call \`addSentences\`
 
 ### 4. Update a Sentence
-1. Use \`getTopicDetail\` to find the target sentence and its current content
+1. Use \`getSentenceDetail\` to get the sentence's current text and notes (sentence ID is available from the page context)
 2. Ask the user what they want to change
 3. Generate the updated sentence based on current content and requested changes
 4. Generate updated notes with grammar and vocabulary explanations in {{language}} and all other language versions of the topic

@@ -26,6 +26,16 @@ function parseNotes(row: SentenceRow): SentenceWithNotes {
 export class SentencesService {
   constructor(private db: IDatabase) {}
 
+  /** Get a single sentence with parsed notes. Requires auth + ownership. */
+  async get(id: string): Promise<SentenceWithNotes> {
+    await assertSentenceAccess(this.db, id);
+    const row = await this.db.queryFirst<SentenceRow>(
+      "SELECT * FROM sentences WHERE id = ?", id,
+    );
+    if (!row) throw new NotFoundError(`Sentence '${id}' not found`);
+    return parseNotes(row);
+  }
+
   async update(id: string, data: {
     text?: string;
     notes?: Record<string, string>;

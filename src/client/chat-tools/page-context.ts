@@ -185,7 +185,7 @@ Practicing version \`${vars.versionId}\` with ${vars.sentences.length} sentences
 ${vars.sentences.map((s) => `  ${s.num}. [id:\`${s.id}\`] "${s.preview}"`).join("\n")}
 
 The user practices sentences sequentially, but the exact current position is not tracked here.
-When the user asks about "this sentence" or "current sentence", ask which one or infer from their question.`
+When the user asks about "this sentence" or "current sentence", present the sentence list above with numbers and ask which one they mean.`
       : ""
   }
 

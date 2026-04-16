@@ -85,6 +85,21 @@ export function ChatWidget() {
     }),
     onToolCall: async ({ toolCall, addToolOutput }) => {
       const { toolCallId, toolName, input } = toolCall;
+
+      // Only handle client-side tools (no `execute` on server).
+      // Server-side tools (getAppGuide, listMyTopics, etc.) resolve themselves
+      // and must NOT receive an addToolOutput call — doing so would trigger the
+      // "not in expected state" error because the server already moved the tool
+      // part to output-available before onToolCall fires on the client.
+      const CLIENT_TOOLS = new Set([
+        "navigateTo",
+        "refreshData",
+        "startPractice",
+        "openTopicDetail",
+        "toggleDarkMode",
+      ]);
+      if (!CLIENT_TOOLS.has(toolName)) return;
+
       try {
         switch (toolName) {
           case "navigateTo": {
@@ -125,8 +140,6 @@ export function ChatWidget() {
             addToolOutput({ toolCallId, output: { darkMode: isDark } });
             break;
           }
-          default:
-            addToolOutput({ toolCallId, output: { error: `Unknown tool: ${toolName}` } });
         }
       } catch (err) {
         addToolOutput({

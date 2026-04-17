@@ -2,15 +2,11 @@ import { Hono } from "hono";
 import { buildContext } from "../lib/context";
 import { parseAndValidate } from "../../core/services/import.service";
 import { isValidUuid } from "./middleware/validate";
-import { importRateLimit } from "./middleware/rate-limit";
 import type { Env } from "../types";
 
 const MAX_IMPORT_BYTES = 5 * 1024 * 1024; // 5 MB
 
 export const importRouter = new Hono<{ Bindings: Env }>();
-
-// Apply rate limiting to all import routes: 20 req / 60 s per authenticated user
-importRouter.use("*", importRateLimit);
 
 async function readFile(req: Request): Promise<{ content: string; filename: string } | null> {
   let formData: FormData;

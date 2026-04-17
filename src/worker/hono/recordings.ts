@@ -2,7 +2,6 @@ import { Hono } from "hono";
 import { buildContext } from "../lib/context";
 import { adminGuard } from "./middleware/admin";
 import { validateUuidParam } from "./middleware/validate";
-import { rateLimitMiddleware } from "./middleware/rate-limit";
 import type { Env } from "../types";
 
 export const recordingsRouter = new Hono<{ Bindings: Env }>();
@@ -22,7 +21,7 @@ const ALLOWED_AUDIO_TYPES = new Set([
   "audio/x-wav",
 ]);
 
-const MAX_RECORDING_BYTES = 10 * 1024 * 1024; // 10 MB
+const MAX_RECORDING_BYTES = 1 * 1024 * 1024; // 1 MB — a sentence recording is a few seconds of audio
 
 /**
  * Read a ReadableStream into an ArrayBuffer, hard-capping at maxBytes.
@@ -62,18 +61,6 @@ async function readBoundedStream(
   }
   return out.buffer;
 }
-
-// ── Rate limiting ─────────────────────────────────────────────────────────────
-
-// Upload is the most expensive route (stream read + R2 write + DB update).
-// Apply a tighter limit than import: 30 uploads per 60 s per user.
-const recordingRateLimit = rateLimitMiddleware({
-  limit:      30,
-  windowSecs: 60,
-  keyPrefix:  "recording",
-});
-
-recordingsRouter.use("*", recordingRateLimit);
 
 // ── Routes ────────────────────────────────────────────────────────────────────
 

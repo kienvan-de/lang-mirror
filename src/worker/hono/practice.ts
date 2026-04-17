@@ -1,18 +1,10 @@
 import { Hono } from "hono";
 import { buildContext } from "../lib/context";
-import { rateLimitMiddleware } from "./middleware/rate-limit";
 import type { Env } from "../types";
 
 export const practiceRouter = new Hono<{ Bindings: Env }>();
 
-// Rate limit practice attempts: 120 req / 60 s per user
-const practiceAttemptRateLimit = rateLimitMiddleware({
-  limit:      120,
-  windowSecs: 60,
-  keyPrefix:  "practice-attempt",
-});
-
-practiceRouter.post("/attempts", practiceAttemptRateLimit, async (c) => {
+practiceRouter.post("/attempts", async (c) => {
   const body = await c.req.json<{
     sentence_id?: string;
     version_id?: string;

@@ -8,12 +8,13 @@
  * the common case of accidentally or maliciously oversized JSON bodies that
  * would otherwise be buffered entirely into Worker memory by c.req.json().
  *
- * Default: 1 MB — generous for any JSON API payload in this app.
+ * Default: 256 KB — generous for any JSON API payload in this app.
+ * (Recordings and imports enforce their own larger limits.)
  */
 import { createMiddleware } from "hono/factory";
 import type { Env } from "../../types";
 
-const DEFAULT_MAX_BYTES = 1 * 1024 * 1024; // 1 MB
+const DEFAULT_MAX_BYTES = 256 * 1024; // 256 KB
 
 export function bodyLimitMiddleware(maxBytes = DEFAULT_MAX_BYTES) {
   return createMiddleware<{ Bindings: Env }>(async (c, next) => {

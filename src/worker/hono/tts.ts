@@ -3,7 +3,7 @@ import { buildContext } from "../lib/context";
 import { getVoices } from "../services/voices.service";
 import { adminGuard } from "./middleware/admin";
 import { validateUuidParam } from "./middleware/validate";
-import { ttsPreviewRateLimit } from "./middleware/rate-limit";
+
 import type { Env } from "../types";
 
 export const ttsRouter = new Hono<{ Bindings: Env }>();
@@ -30,8 +30,7 @@ ttsRouter.delete("/cache", adminGuard, async (c) => {
 // Synthesises audio from raw params — no DB lookup, no cache write.
 // Used by VoicePicker and VersionSettingsModal preview buttons.
 // Must be registered before /:sentenceId to avoid UUID route conflict.
-// Rate limited: 10 req / 60 s per user — prevents TTS cost abuse.
-ttsRouter.get("/preview", ttsPreviewRateLimit, async (c) => {
+ttsRouter.get("/preview", async (c) => {
   const text  = c.req.query("text")?.trim();
   const voice = c.req.query("voice")?.trim();
   const speed = parseFloat(c.req.query("speed") ?? "1");

@@ -16,7 +16,7 @@
  * on in-memory state.
  */
 import { AIChatAgent } from "@cloudflare/ai-chat";
-import { streamText, convertToModelMessages } from "ai";
+import { streamText, convertToModelMessages, stepCountIs } from "ai";
 import type { ModelMessage } from "ai";
 import { createWorkersAI } from "workers-ai-provider";
 import { runWithAuth } from "../core/auth/context";
@@ -46,6 +46,24 @@ const CHARS_PER_TOKEN = 4;
  * and ~1,000 for the model's response.
  */
 const MAX_HISTORY_TOKENS = 4000;
+
+/**
+ * Maximum tool-use round-trips before streamText stops looping.
+ *
+ * streamText defaults to stepCountIs(1) — the LLM runs once and stops.
+ * This prevents server-side tools (like getAppGuide) from feeding their
+ * results back to the LLM for a text response.
+ *
+ * Setting stopWhen: stepCountIs(5) lets the loop continue when server-side tools
+ * (with `execute`) produce results. Client-side tools (without `execute`,
+ * e.g. navigateTo) are safe: the AI SDK only continues the loop when
+ * ALL tool calls in a step have outputs. Tools without `execute` produce
+ * no output, so the loop naturally stops — AIChatAgent then handles the
+ * client round-trip via its own auto-continuation mechanism.
+ *
+ * Ref: @cloudflare/ai-chat README — "Server-side tools" section.
+ */
+const MAX_TOOL_STEPS = 5;
 
 export class ChatAgent extends AIChatAgent<Env> {
 
@@ -173,13 +191,13 @@ export class ChatAgent extends AIChatAgent<Env> {
       system: buildSystemPrompt(assistantName, nativeLanguage, learningLanguages, pageContext),
       messages: modelMessages,
       tools: agentTools,
-      // Do NOT use stopWhen/maxSteps here. Client tools (navigateTo, etc.)
-      // have no execute function on the server — the result comes back from
-      // the browser via WebSocket. AIChatAgent handles this automatically:
-      // it detects the client tool call, sends it to the browser, waits for
-      // the result, then re-calls onChatMessage with continuation=true.
-      // Using stopWhen would cause AI_MissingToolResultsError because
-      // streamText tries to continue the loop without the client result.
+      // Allow multi-step tool looping so server-side tools (getAppGuide, etc.)
+      // can feed their results back to the LLM for a text response.
+      // Client-side tools (navigateTo, etc.) have no `execute` — the AI SDK
+      // naturally stops looping for them because not all tool calls produce
+      // outputs. AIChatAgent then handles the browser round-trip via its own
+      // auto-continuation mechanism.
+      stopWhen: stepCountIs(MAX_TOOL_STEPS),
       abortSignal: options?.abortSignal,
       onFinish: onFinish as never,
     });

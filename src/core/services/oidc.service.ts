@@ -46,12 +46,11 @@ const OIDC_STATE_TTL = 600;             // 10 minutes
 /**
  * Minimum interval between session renewals (seconds).
  *
- * renewSession() re-writes the session to KV to refresh its TTL and
- * re-check is_active in D1. Doing this on every request wastes KV writes
- * (free tier: 1,000/day). Instead we embed a `_renewedAt` epoch in the
- * stored value and skip the write if the session was renewed recently.
+ * The session TTL is 7 days. We only need to re-write to KV before it
+ * expires — renewing at 6 days gives a 1-day buffer. This reduces KV
+ * writes from ~24/day (hourly) to ~1 per week per active session.
  */
-const RENEW_INTERVAL = 60 * 60; // 1 hour
+const RENEW_INTERVAL = 6 * 24 * 60 * 60; // 6 days
 
 interface OidcStateEntry {
   providerId: string;

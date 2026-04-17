@@ -33,8 +33,10 @@ export const authMiddleware = createMiddleware<{ Bindings: Env }>(async (c, next
     );
     const user = await oidcSvc.getSession(sessionId);
     if (user) {
-      await oidcSvc.renewSession(sessionId);
-      return runWithAuth(user, () => next());
+      // Pass cached user to avoid redundant KV read inside renewSession.
+      // Returns false if user was deactivated — treat as anonymous.
+      const valid = await oidcSvc.renewSession(sessionId, user);
+      if (valid) return runWithAuth(user, () => next());
     }
   }
 

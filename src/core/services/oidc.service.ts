@@ -43,6 +43,16 @@ function assertSafeUrl(url: string, field: string): void {
 const SESSION_TTL  = 7 * 24 * 60 * 60; // 7 days
 const OIDC_STATE_TTL = 600;             // 10 minutes
 
+/**
+ * Minimum interval between session renewals (seconds).
+ *
+ * renewSession() re-writes the session to KV to refresh its TTL and
+ * re-check is_active in D1. Doing this on every request wastes KV writes
+ * (free tier: 1,000/day). Instead we embed a `_renewedAt` epoch in the
+ * stored value and skip the write if the session was renewed recently.
+ */
+const RENEW_INTERVAL = 60 * 60; // 1 hour
+
 interface OidcStateEntry {
   providerId: string;
   codeVerifier: string;
@@ -269,9 +279,9 @@ export class OidcService {
       role:      user!.role,
     };
 
-    await this.cache.set<AuthUser>(
+    await this.cache.set(
       `session:${sessionId}`,
-      authUser,
+      { ...authUser, _renewedAt: Math.floor(Date.now() / 1000) },
       SESSION_TTL
     );
 
@@ -284,21 +294,35 @@ export class OidcService {
     return this.cache.get<AuthUser>(`session:${sessionId}`);
   }
 
-  async renewSession(sessionId: string): Promise<void> {
-    const user = await this.cache.get<AuthUser>(`session:${sessionId}`);
-    if (!user) return;
+  /**
+   * Renew a session's TTL and re-check the user's is_active status.
+   *
+   * Accepts the already-fetched user to avoid a redundant KV read.
+   * Skips the KV write if the session was renewed less than RENEW_INTERVAL
+   * seconds ago — this is the main KV write savings.
+   *
+   * @returns false if the session was invalidated (user deactivated)
+   */
+  async renewSession(sessionId: string, cachedUser?: AuthUser): Promise<boolean> {
+    const user = cachedUser ?? await this.cache.get<AuthUser>(`session:${sessionId}`);
+    if (!user) return false;
 
-    // Re-check is_active on every renewal — invalidates sessions immediately
+    // Skip renewal if session was renewed recently (saves 1 KV write per request)
+    const renewedAt = (user as AuthUser & { _renewedAt?: number })._renewedAt ?? 0;
+    if (Date.now() / 1000 - renewedAt < RENEW_INTERVAL) return true;
+
+    // Re-check is_active — invalidates sessions immediately
     // after an admin deactivates the user without waiting for session expiry.
     const row = await this.db.queryFirst<{ is_active: number; deactivation_reason: string | null }>(
       "SELECT is_active, deactivation_reason FROM users WHERE id = ?", user.id
     );
     if (!row || row.is_active === 0) {
       await this.cache.delete(`session:${sessionId}`);
-      return;
+      return false;
     }
 
-    await this.cache.set(`session:${sessionId}`, user, SESSION_TTL);
+    await this.cache.set(`session:${sessionId}`, { ...user, _renewedAt: Math.floor(Date.now() / 1000) }, SESSION_TTL);
+    return true;
   }
 
   async deleteSession(sessionId: string): Promise<void> {

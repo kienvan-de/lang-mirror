@@ -93,8 +93,6 @@ export function ChatWidget() {
   const queryClient = useQueryClient();
   const { user } = useAuth();
 
-  const closeChat = useCallback(() => setOpen(false), []);
-
   const { data: settings } = useQuery({
     queryKey: ["settings"],
     queryFn: api.getSettings,
@@ -132,7 +130,7 @@ export function ChatWidget() {
           case "navigateTo": {
             const { page } = input as { page: string };
             const to = ROUTES[page];
-            if (to) { closeChat(); navigate({ to }); addToolOutput({ toolCallId, output: { navigated: page } }); }
+            if (to) { navigate({ to }); addToolOutput({ toolCallId, output: { navigated: page } }); }
             else addToolOutput({ toolCallId, output: { error: `Unknown page: ${page}` } });
             break;
           }
@@ -142,13 +140,13 @@ export function ChatWidget() {
             break;
           case "startPractice": {
             const { topicId, langCode } = input as { topicId: string; langCode: string };
-            closeChat(); navigate({ to: `/practice/${topicId}/${langCode}` });
+            navigate({ to: `/practice/${topicId}/${langCode}` });
             addToolOutput({ toolCallId, output: { started: true, topicId, langCode } });
             break;
           }
           case "openTopicDetail": {
             const { topicId } = input as { topicId: string };
-            closeChat(); navigate({ to: `/topics/${topicId}` });
+            navigate({ to: `/topics/${topicId}` });
             addToolOutput({ toolCallId, output: { opened: topicId } });
             break;
           }
@@ -287,7 +285,7 @@ export function ChatWidget() {
 
               {/* Messages */}
               <div
-                className="flex-1 overflow-y-auto px-4 pt-3 pb-3 space-y-3"
+                className="flex-1 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden px-4 pt-3 pb-3 space-y-3"
                 style={isMobile ? { paddingBottom: `calc(${formHeight}px + 0.75rem)` } : undefined}
               >
                 {messages.length === 0 && (
@@ -296,36 +294,41 @@ export function ChatWidget() {
                     <p className="text-sm text-gray-500 dark:text-gray-400">{t("chat.emptyHint")}</p>
                   </div>
                 )}
-                {messages.map((m) => (
-                  <div key={m.id} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
-                    <div className={`
-                      max-w-[85%] px-3 py-2 rounded-xl text-sm leading-relaxed
-                      ${m.role === "user"
-                        ? "bg-orange-500 text-white rounded-br-sm"
-                        : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-bl-sm"}
-                    `}>
-                      {m.role === "user" ? (
-                        m.parts
-                          .filter((p): p is Extract<typeof p, { type: "text" }> => p.type === "text")
-                          .map((p, i) => <span key={i} className="whitespace-pre-wrap">{p.text}</span>)
-                      ) : (
-                        <div className="prose prose-sm dark:prose-invert max-w-none
-                          prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5
-                          prose-headings:my-2 prose-pre:my-2 prose-code:text-xs
-                          prose-a:text-orange-600 dark:prose-a:text-orange-400">
-                          {m.parts.map((p, i) => {
-                            if (p.type === "text") return <ReactMarkdown key={i}>{p.text}</ReactMarkdown>;
-                            if (p.type === "tool-invocation" && "state" in p && p.state === "output-available") {
-                              const output = typeof p.output === "string" ? p.output : JSON.stringify(p.output);
-                              return <ReactMarkdown key={i}>{output}</ReactMarkdown>;
-                            }
-                            return null;
-                          })}
-                        </div>
-                      )}
+                {messages.map((m) => {
+                  // Don't render an empty assistant bubble while waiting for content
+                  if (m.role === "assistant" && !hasVisibleContent(m)) return null;
+
+                  return (
+                    <div key={m.id} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+                      <div className={`
+                        max-w-[85%] px-3 py-2 rounded-xl text-sm leading-relaxed
+                        ${m.role === "user"
+                          ? "bg-orange-500 text-white rounded-br-sm"
+                          : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-bl-sm"}
+                      `}>
+                        {m.role === "user" ? (
+                          m.parts
+                            .filter((p): p is Extract<typeof p, { type: "text" }> => p.type === "text")
+                            .map((p, i) => <span key={i} className="whitespace-pre-wrap">{p.text}</span>)
+                        ) : (
+                          <div className="prose prose-sm dark:prose-invert max-w-none
+                            prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5
+                            prose-headings:my-2 prose-pre:my-2 prose-code:text-xs
+                            prose-a:text-orange-600 dark:prose-a:text-orange-400">
+                            {m.parts.map((p, i) => {
+                              if (p.type === "text") return <ReactMarkdown key={i}>{p.text}</ReactMarkdown>;
+                              if (p.type === "tool-invocation" && "state" in p && p.state === "output-available") {
+                                const output = typeof p.output === "string" ? p.output : JSON.stringify(p.output);
+                                return <ReactMarkdown key={i}>{output}</ReactMarkdown>;
+                              }
+                              return null;
+                            })}
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
                 {showTypingIndicator && (
                   <div className="flex justify-start">
                     <div className="bg-gray-100 dark:bg-gray-800 px-3 py-2 rounded-xl rounded-bl-sm">
@@ -381,6 +384,7 @@ export function ChatWidget() {
                     placeholder-gray-400 dark:placeholder-gray-500
                     focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500
                     disabled:opacity-50 resize-none overflow-y-auto leading-normal
+                    [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
                   "
                   disabled={isLoading}
                 />

@@ -91,6 +91,27 @@ export class ChatAgent extends AIChatAgent<Env> {
    */
   maxPersistedMessages = 100;
 
+  /**
+   * Disable resumable stream chunk persistence.
+   *
+   * AIChatAgent stores every SSE token as a SQLite row in
+   * cf_ai_chat_stream_chunks for stream resumption after disconnects.
+   * A single response with ~200 tokens = ~200 INSERT statements,
+   * which burns through the Durable Objects free tier (100k rows_written/day).
+   *
+   * For a small app (≤20 users) where stream resumption isn't critical,
+   * we skip chunk persistence entirely. Messages are still persisted
+   * normally after the stream completes.
+   */
+  // @ts-expect-error — overriding internal method
+  _storeStreamChunk() {
+    // no-op: skip per-token SQLite writes
+  }
+  // @ts-expect-error — overriding internal method
+  _flushChunkBuffer() {
+    // no-op: nothing to flush
+  }
+
   // ── Auth persistence (survives hibernation) ──────────────
 
   /**

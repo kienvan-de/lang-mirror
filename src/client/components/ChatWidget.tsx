@@ -173,9 +173,9 @@ export function ChatWidget() {
     }) ?? false;
 
   const lastMsg = messages[messages.length - 1];
-  const lastAssistantHasNoContent = lastMsg?.role === "assistant" && !hasVisibleContent(lastMsg);
-  const isLoading = status === "streaming" || status === "submitted" || isStreaming || lastAssistantHasNoContent;
-  const showTypingIndicator = isLoading && !hasVisibleContent(lastMsg);
+  const isActive = status === "streaming" || status === "submitted" || isStreaming;
+  const isLoading = isActive;
+  const showTypingIndicator = isActive && !hasVisibleContent(lastMsg);
 
   // Measure form height for messages area bottom padding on mobile.
   // On desktop the form is a shrink-0 flex child — no extra padding needed.

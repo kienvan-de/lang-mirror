@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { buildContext } from "../lib/context";
+import { requireAuth } from "../../core/auth/context";
 import { adminGuard } from "./middleware/admin";
 import { validateUuidParam } from "./middleware/validate";
 import { deleteCookie } from "hono/cookie";
@@ -22,9 +23,13 @@ usersRouter.delete("/me", async (c) => {
   await recordings.deleteMyRecordings();
 
   // 2. Delete the user row (cascades to topics, sentences, settings, paths, etc.)
+  const auth = requireAuth();
   await users.deleteMe();
 
-  // 3. Invalidate session cookie
+  // 3. Clean up KV session data
+  await oidc.invalidateUserSessions(auth.id);
+
+  // 4. Invalidate session cookie
   const isSecure = c.req.url.startsWith("https://");
   const cookieName = isSecure ? "__Host-session" : "session";
   deleteCookie(c, cookieName, {
@@ -59,8 +64,12 @@ usersRouter.put("/:id/role", adminGuard, validateUuidParam("id"), async (c) => {
 // PUT /api/users/:id/deactivate — admin only
 usersRouter.put("/:id/deactivate", adminGuard, validateUuidParam("id"), async (c) => {
   const { reason } = await c.req.json<{ reason?: string }>().catch(() => ({ reason: undefined }));
-  const { users } = await buildContext(c.env);
-  return c.json(await users.deactivateUser(c.req.param("id"), reason ?? ""));
+  const { users, oidc } = await buildContext(c.env);
+  const userId = c.req.param("id");
+  const result = await users.deactivateUser(userId, reason ?? "");
+  // Eagerly invalidate the user's session so they're logged out immediately.
+  await oidc.invalidateUserSessions(userId);
+  return c.json(result);
 });
 
 // PUT /api/users/:id/activate — admin only
@@ -71,7 +80,9 @@ usersRouter.put("/:id/activate", adminGuard, validateUuidParam("id"), async (c) 
 
 // DELETE /api/users/:id — admin only
 usersRouter.delete("/:id", adminGuard, validateUuidParam("id"), async (c) => {
-  const { users } = await buildContext(c.env);
-  await users.deleteUser(c.req.param("id"));
+  const { users, oidc } = await buildContext(c.env);
+  const userId = c.req.param("id");
+  await oidc.invalidateUserSessions(userId);
+  await users.deleteUser(userId);
   return c.json({ deleted: true });
 });

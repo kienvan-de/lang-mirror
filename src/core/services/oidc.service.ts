@@ -285,6 +285,10 @@ export class OidcService {
       SESSION_TTL
     );
 
+    // Reverse mapping: userId → sessionId, so deactivateUser can
+    // invalidate the session without scanning all KV keys.
+    await this.cache.set(`user-session:${authUser.id}`, sessionId, SESSION_TTL);
+
     return { sessionId, user: user! };
   }
 
@@ -295,38 +299,40 @@ export class OidcService {
   }
 
   /**
-   * Renew a session's TTL and re-check the user's is_active status.
+   * Renew a session's TTL in KV.
    *
    * Accepts the already-fetched user to avoid a redundant KV read.
    * Skips the KV write if the session was renewed less than RENEW_INTERVAL
    * seconds ago — this is the main KV write savings.
    *
-   * @returns false if the session was invalidated (user deactivated)
+   * User deactivation is handled eagerly by invalidateUserSessions()
+   * (called from the deactivate endpoint), so no D1 check is needed here.
    */
-  async renewSession(sessionId: string, cachedUser?: AuthUser): Promise<boolean> {
+  async renewSession(sessionId: string, cachedUser?: AuthUser): Promise<void> {
     const user = cachedUser ?? await this.cache.get<AuthUser>(`session:${sessionId}`);
-    if (!user) return false;
+    if (!user) return;
 
     // Skip renewal if session was renewed recently (saves 1 KV write per request)
     const renewedAt = (user as AuthUser & { _renewedAt?: number })._renewedAt ?? 0;
-    if (Date.now() / 1000 - renewedAt < RENEW_INTERVAL) return true;
-
-    // Re-check is_active — invalidates sessions immediately
-    // after an admin deactivates the user without waiting for session expiry.
-    const row = await this.db.queryFirst<{ is_active: number; deactivation_reason: string | null }>(
-      "SELECT is_active, deactivation_reason FROM users WHERE id = ?", user.id
-    );
-    if (!row || row.is_active === 0) {
-      await this.cache.delete(`session:${sessionId}`);
-      return false;
-    }
+    if (Date.now() / 1000 - renewedAt < RENEW_INTERVAL) return;
 
     await this.cache.set(`session:${sessionId}`, { ...user, _renewedAt: Math.floor(Date.now() / 1000) }, SESSION_TTL);
-    return true;
   }
 
   async deleteSession(sessionId: string): Promise<void> {
     await this.cache.delete(`session:${sessionId}`);
+  }
+
+  /**
+   * Invalidate all sessions for a user (called on admin deactivation).
+   * Uses the reverse mapping written at login to find the session ID.
+   */
+  async invalidateUserSessions(userId: string): Promise<void> {
+    const sessionId = await this.cache.get<string>(`user-session:${userId}`);
+    if (sessionId) {
+      await this.cache.delete(`session:${sessionId}`);
+      await this.cache.delete(`user-session:${userId}`);
+    }
   }
 
   // ── Provider management (admin only) ──────────────────────────────────────

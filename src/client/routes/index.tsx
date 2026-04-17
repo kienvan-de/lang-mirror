@@ -24,7 +24,7 @@ export function DashboardPage() {
   const { data: dashboard, isLoading } = useQuery({
     queryKey: ["stats", "dashboard"],
     queryFn: () => api.getDashboard(12),
-    refetchInterval: 15 * 60_000, // 15 minutes
+    // refetchInterval: 15 * 60_000, // 15 minutes — disabled to conserve free-tier quota
     // Keep previous data on screen during refetch so the UI never flashes
     // back to skeletons. Skeletons only show on the very first load.
     placeholderData: keepPreviousData,

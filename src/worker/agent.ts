@@ -16,19 +16,13 @@
  * on in-memory state.
  */
 import { AIChatAgent } from "@cloudflare/ai-chat";
-import { streamText, convertToModelMessages } from "ai";
-import type {
-  ModelMessage,
-  StepResult,
-  ToolSet,
-  StopCondition,
-  ToolCallRepairFunction,
-} from "ai";
+import { streamText, stepCountIs, convertToModelMessages } from "ai";
+import type { ModelMessage, ToolSet, ToolCallRepairFunction } from "ai";
 import { createWorkersAI } from "workers-ai-provider";
 import { runWithAuth } from "../core/auth/context";
 import type { AuthUser } from "../core/auth/context";
 import { buildContext } from "./lib/context";
-import { buildAgentTools, STOP_AFTER_TOOL_NAMES } from "./agent-tools/index";
+import { buildAgentTools } from "./agent-tools/index";
 import {
   buildSystemPrompt,
   DEFAULT_ASSISTANT_NAME,
@@ -54,40 +48,21 @@ const CHARS_PER_TOKEN = 4;
 const MAX_HISTORY_TOKENS = 4000;
 
 /**
- * Custom stop condition for the streamText multi-step loop.
+ * Maximum tool-call steps before the streamText loop is forced to stop.
  *
  * By default streamText stops after 1 step (stepCountIs(1)), which means
- * server-side read tools (getAppGuide, etc.) never get their results fed
- * back to the LLM for a text response.
+ * server-side tools never get their results fed back to the LLM for a text
+ * response. Setting stepCountIs(5) lets the loop continue so the LLM can:
  *
- * This condition allows looping for read/utility tools but stops immediately
- * when the last step called a write or client tool:
+ * - Read tool results and generate a text response (e.g. getAppGuide)
+ * - Chain multiple tool calls in sequence (e.g. addSentences → refreshData)
  *
- * - **Write tools** (createTopic, addSentences, etc.): the LLM already
- *   composed the content — a second inference to "summarize" the result
- *   wastes time and risks hitting the 30-second Worker wall-time limit
- *   (each Workers AI call takes 10-20s for complex tool calls).
+ * Client tools (navigateTo, etc.) have no `execute` on the server, so they
+ * produce no output and the loop stops naturally — no explicit stop needed.
  *
- * - **Client tools** (navigateTo, etc.): have no `execute` on the server.
- *   AIChatAgent handles the browser round-trip via auto-continuation.
- *
- * - **Read tools** (getAppGuide, getStreak, etc.): the loop continues so
- *   the LLM can read the tool result and generate a text response.
- *
- * Safety cap at 5 steps prevents runaway loops.
+ * 5 steps is a safety cap to prevent runaway loops.
  */
 const MAX_TOOL_STEPS = 5;
-
-function stopAfterWriteOrClientTool(): StopCondition<ToolSet> {
-  return ({ steps }: { steps: Array<StepResult<ToolSet>> }) => {
-    if (steps.length >= MAX_TOOL_STEPS) return true;
-
-    const lastStep = steps[steps.length - 1];
-    if (!lastStep?.toolCalls?.length) return false;
-
-    return lastStep.toolCalls.some((tc) => STOP_AFTER_TOOL_NAMES.has(tc.toolName));
-  };
-}
 
 /**
  * Repair malformed tool-call JSON from models that leak special tokens.
@@ -276,7 +251,7 @@ export class ChatAgent extends AIChatAgent<Env> {
       //   string rendered directly by the ChatWidget.
       // - Client tools (navigateTo, etc.): loop stops → AIChatAgent handles the
       //   browser round-trip via auto-continuation.
-      stopWhen: stopAfterWriteOrClientTool(),
+      stopWhen: stepCountIs(MAX_TOOL_STEPS),
       experimental_repairToolCall: repairToolCall,
       abortSignal: options?.abortSignal,
       onFinish: onFinish as never,

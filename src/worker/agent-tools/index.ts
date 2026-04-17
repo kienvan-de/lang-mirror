@@ -44,29 +44,6 @@ import { toggleDarkModeTool } from "./toggle-dark-mode";
 
 export type { ToolDeps };
 
-/**
- * Tool names that should stop the streamText loop after execution.
- *
- * - Write tools: the LLM already composed the content — a second inference
- *   to "read back" the confirmation wastes time and risks hitting the
- *   30-second Worker wall-time limit (each Workers AI call takes 10-20s).
- * - Client tools: have no `execute` on the server — AIChatAgent handles
- *   the browser round-trip via its own auto-continuation mechanism.
- */
-export const STOP_AFTER_TOOL_NAMES = new Set([
-  // Write tools (server-side) — stop loop to avoid second inference timeout
-  "createTopic",
-  "addLanguageVersion",
-  "addSentences",
-  "updateSentence",
-  "addToPath",
-  // Client tools (no execute — AIChatAgent handles auto-continuation)
-  "navigateTo",
-  "refreshData",
-  "startPractice",
-  "openTopicDetail",
-  "toggleDarkMode",
-]);
 
 export function buildAgentTools(deps: ToolDeps): ToolSet {
   return {

@@ -238,6 +238,31 @@ export class ChatAgent extends AIChatAgent<Env> {
       // - Client tools (navigateTo, etc.): loop stops → AIChatAgent handles the
       //   browser round-trip via auto-continuation.
       stopWhen: stopAfterWriteOrClientTool(),
+      // Repair malformed tool call JSON from models that leak special tokens
+      // (e.g. gemma-4-26b emits <|\"|, <|, |> inside JSON string values).
+      // Strip the noise and re-parse — no second LLM call needed.
+      experimental_repairToolCall: async ({ toolCall }) => {
+        const raw = toolCall.input;
+
+        // 1. Remove <|\"|  and  <|\\"|  tokens (most common pattern)
+        let cleaned = raw.replace(/<\|\\"?\|/g, "");
+        // 2. Remove bare <|  (unclosed tokens at end of values)
+        cleaned = cleaned.replace(/<\|/g, "");
+        // 3. Remove bare |>  (closing half without opener)
+        cleaned = cleaned.replace(/\|>/g, "");
+        // 4. Collapse doubled quotes left by stripped boundaries: "" → "
+        cleaned = cleaned.replace(/""/g, '"');
+        // 5. Strip orphaned \" at the start of JSON string values
+        //    e.g. "\"vi" (from <|\"vi) → "vi"
+        cleaned = cleaned.replace(/([:,[\]]\s*")\\"/g, "$1");
+
+        try {
+          JSON.parse(cleaned); // validate
+          return { ...toolCall, input: cleaned };
+        } catch {
+          return null; // repair failed — let the original error propagate
+        }
+      },
       abortSignal: options?.abortSignal,
       onFinish: onFinish as never,
     });

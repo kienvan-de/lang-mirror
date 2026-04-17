@@ -54,13 +54,13 @@ export type { ToolDeps };
  *   the browser round-trip via its own auto-continuation mechanism.
  */
 export const STOP_AFTER_TOOL_NAMES = new Set([
-  // Write tools
-  "createTopic",
+  // Write tools (server-side)
   "addLanguageVersion",
   "addSentences",
   "updateSentence",
   "addToPath",
-  // Client tools (no execute)
+  // Client tools (no execute — AIChatAgent handles auto-continuation)
+  "createTopic",
   "navigateTo",
   "refreshData",
   "startPractice",
@@ -80,8 +80,8 @@ export function buildAgentTools(deps: ToolDeps): ToolSet {
     getPracticeCalendar: getPracticeCalendar(deps),
     getMyPath: getMyPath(deps),
     getSettings: getSettings(deps),
-    // Write
-    createTopic: createTopic(deps),
+    // Write (createTopic is now a client tool — no deps needed)
+    createTopic: createTopic(),
     addLanguageVersion: addLanguageVersion(deps),
     addSentences: addSentences(deps),
     updateSentence: updateSentence(deps),

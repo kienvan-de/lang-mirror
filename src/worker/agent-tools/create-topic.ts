@@ -1,8 +1,19 @@
 import { tool } from "ai";
 import { z } from "zod/v4";
-import { runWithAuth } from "../../core/auth/context";
-import type { ToolDeps } from "./types";
-import type { LessonImportTopic } from "../../core/services/import.service";
+
+/**
+ * Client-side tool — no `execute`.
+ *
+ * The LLM generates the full topic JSON as tool arguments, which stream
+ * incrementally to the browser via WebSocket. The browser's onToolCall
+ * handler posts the payload to /api/import, then feeds the result back
+ * via addToolOutput. AIChatAgent's auto-continuation then gives the LLM
+ * a chance to respond.
+ *
+ * This avoids the 30-second Worker wall-time limit: structured output
+ * generation (which can take 15-25s for a multi-language topic) streams
+ * to the client instead of blocking a single DO request.
+ */
 
 const DESCRIPTION = `Create a new topic with full content: multiple language versions, sentences with optional notes, and tags.
 
@@ -66,36 +77,10 @@ const SCHEMA = z.object({
     .describe("Tag names to attach (must exist in the system, e.g. 'A1', 'conversation', 'en')"),
 });
 
-export function createTopic({ user, importer }: Pick<ToolDeps, "user" | "importer">) {
+export function createTopic() {
   return tool({
     description: DESCRIPTION,
     inputSchema: SCHEMA,
-    execute: async ({ title, description, versions, tags }) => {
-      const lesson: LessonImportTopic = {
-        format: "topic",
-        title,
-        description,
-        versions: versions.map((v) => ({
-          language: v.language,
-          title: v.title,
-          description: v.description,
-          sentences: v.sentences.map((s) => ({
-            text: s.text,
-            notes: s.notes,
-          })),
-        })),
-        tags,
-      };
-
-      const result = await runWithAuth(user, () =>
-        importer.importLesson(lesson, null, "error"),
-      );
-
-      // Return a concise summary — the full ImportResult stays internal.
-      // Write tools stop the streamText loop (no step 2 LLM call) to avoid
-      // hitting the 30-second Worker wall-time limit.
-      const langs = result.versions.map((v) => v.language).join(", ");
-      return `✅ Created topic "${result.topic.title}" with ${result.totalSentences} sentences in ${langs}.`;
-    },
+    // No execute — handled client-side in ChatWidget.onToolCall
   });
 }

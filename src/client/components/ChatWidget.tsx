@@ -123,12 +123,42 @@ export function ChatWidget() {
       // Only handle client-side tools. Server-side tools (getAppGuide, etc.)
       // resolve themselves — calling addToolOutput on them causes a state error.
       const CLIENT_TOOLS = new Set([
-        "navigateTo", "refreshData", "startPractice", "openTopicDetail", "toggleDarkMode",
+        "createTopic", "navigateTo", "refreshData", "startPractice", "openTopicDetail", "toggleDarkMode",
       ]);
       if (!CLIENT_TOOLS.has(toolName)) return;
 
       try {
         switch (toolName) {
+          case "createTopic": {
+            // The LLM streamed the full topic JSON as tool arguments.
+            // Submit to the import API from the browser — avoids the
+            // 30-second Worker wall-time limit on the DO.
+            const { title, description, versions, tags } = input as {
+              title: string;
+              description?: string;
+              versions: Array<{
+                language: string;
+                title?: string;
+                description?: string;
+                sentences: Array<{ text: string; notes?: Record<string, string> }>;
+              }>;
+              tags?: string[];
+            };
+            const payload = { format: "topic", title, description, versions, tags };
+            const blob = new Blob([JSON.stringify(payload)], { type: "application/json" });
+            const fd = new FormData();
+            fd.append("file", blob, "topic.json");
+            const res = await fetch("/api/import", { method: "POST", body: fd });
+            const data = await res.json() as { topic?: { id: string; title: string }; totalSentences?: number; versions?: Array<{ language: string }>; error?: string };
+            if (!res.ok) {
+              addToolOutput({ toolCallId, output: { error: data.error ?? "Import failed" } });
+            } else {
+              await queryClient.invalidateQueries();
+              const langs = data.versions?.map((v) => v.language).join(", ") ?? "";
+              addToolOutput({ toolCallId, output: `✅ Created topic "${data.topic?.title}" with ${data.totalSentences} sentences in ${langs}.` });
+            }
+            break;
+          }
           case "navigateTo": {
             const { page } = input as { page: string };
             const to = ROUTES[page];

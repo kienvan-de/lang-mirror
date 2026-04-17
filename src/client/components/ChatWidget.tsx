@@ -391,7 +391,7 @@ export function ChatWidget() {
                 {isLoading ? (
                   <button
                     type="button"
-                    onClick={stop}
+                    onClick={() => { stop().catch(() => {}); }}
                     className="p-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition-colors cursor-pointer flex items-center justify-center self-center shrink-0"
                     aria-label={t("chat.stop")}
                   >

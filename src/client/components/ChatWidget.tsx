@@ -202,10 +202,10 @@ export function ChatWidget() {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Focus input when panel opens
+  // Focus input when panel opens or response finishes
   useEffect(() => {
-    if (open) setTimeout(() => inputRef.current?.focus(), 100);
-  }, [open]);
+    if (open && !isLoading) setTimeout(() => inputRef.current?.focus(), 50);
+  }, [open, isLoading]);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();

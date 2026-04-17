@@ -20,13 +20,15 @@ export function addLanguageVersion({ user, versions }: Pick<ToolDeps, "user" | "
   return tool({
     description: DESCRIPTION,
     inputSchema: SCHEMA,
-    execute: async ({ topicId, language, title, description }) =>
-      runWithAuth(user, () =>
+    execute: async ({ topicId, language, title, description }) => {
+      const v = await runWithAuth(user, () =>
         versions.create(topicId, {
           language_code: language,
           title,
           description,
         }),
-      ),
+      );
+      return `✅ Added ${language} version to topic (version ID: ${v.id}).`;
+    },
   });
 }

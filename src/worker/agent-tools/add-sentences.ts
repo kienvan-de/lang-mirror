@@ -27,17 +27,16 @@ export function addSentences({ user, versions }: Pick<ToolDeps, "user" | "versio
   return tool({
     description: DESCRIPTION,
     inputSchema: SCHEMA,
-    execute: async ({ versionId, sentences }) =>
-      runWithAuth(user, async () => {
-        const results = [];
+    execute: async ({ versionId, sentences }) => {
+      await runWithAuth(user, async () => {
         for (const s of sentences) {
-          const created = await versions.createSentence(versionId, {
+          await versions.createSentence(versionId, {
             text: s.text,
             notes: s.notes,
           });
-          results.push(created);
         }
-        return { added: results.length, sentences: results };
-      }),
+      });
+      return `✅ Added ${sentences.length} sentence(s) to version ${versionId}.`;
+    },
   });
 }

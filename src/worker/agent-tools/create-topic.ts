@@ -87,9 +87,15 @@ export function createTopic({ user, importer }: Pick<ToolDeps, "user" | "importe
         tags,
       };
 
-      return runWithAuth(user, () =>
+      const result = await runWithAuth(user, () =>
         importer.importLesson(lesson, null, "error"),
       );
+
+      // Return a concise summary — the full ImportResult stays internal.
+      // Write tools stop the streamText loop (no step 2 LLM call) to avoid
+      // hitting the 30-second Worker wall-time limit.
+      const langs = result.versions.map((v) => v.language).join(", ");
+      return `✅ Created topic "${result.topic.title}" with ${result.totalSentences} sentences in ${langs}.`;
     },
   });
 }

@@ -16,13 +16,13 @@
  * on in-memory state.
  */
 import { AIChatAgent } from "@cloudflare/ai-chat";
-import { streamText, convertToModelMessages, stepCountIs } from "ai";
-import type { ModelMessage } from "ai";
+import { streamText, convertToModelMessages } from "ai";
+import type { ModelMessage, StepResult, ToolSet, StopCondition } from "ai";
 import { createWorkersAI } from "workers-ai-provider";
 import { runWithAuth } from "../core/auth/context";
 import type { AuthUser } from "../core/auth/context";
 import { buildContext } from "./lib/context";
-import { buildAgentTools } from "./agent-tools/index";
+import { buildAgentTools, STOP_AFTER_TOOL_NAMES } from "./agent-tools/index";
 import {
   buildSystemPrompt,
   DEFAULT_ASSISTANT_NAME,
@@ -48,22 +48,40 @@ const CHARS_PER_TOKEN = 4;
 const MAX_HISTORY_TOKENS = 4000;
 
 /**
- * Maximum tool-use round-trips before streamText stops looping.
+ * Custom stop condition for the streamText multi-step loop.
  *
- * streamText defaults to stepCountIs(1) — the LLM runs once and stops.
- * This prevents server-side tools (like getAppGuide) from feeding their
- * results back to the LLM for a text response.
+ * By default streamText stops after 1 step (stepCountIs(1)), which means
+ * server-side read tools (getAppGuide, etc.) never get their results fed
+ * back to the LLM for a text response.
  *
- * Setting stopWhen: stepCountIs(5) lets the loop continue when server-side tools
- * (with `execute`) produce results. Client-side tools (without `execute`,
- * e.g. navigateTo) are safe: the AI SDK only continues the loop when
- * ALL tool calls in a step have outputs. Tools without `execute` produce
- * no output, so the loop naturally stops — AIChatAgent then handles the
- * client round-trip via its own auto-continuation mechanism.
+ * This condition allows looping for read/utility tools but stops immediately
+ * when the last step called a write or client tool:
  *
- * Ref: @cloudflare/ai-chat README — "Server-side tools" section.
+ * - **Write tools** (createTopic, addSentences, etc.): the LLM already
+ *   composed the content — a second inference to "summarize" the result
+ *   wastes time and risks hitting the 30-second Worker wall-time limit
+ *   (each Workers AI call takes 10-20s for complex tool calls).
+ *
+ * - **Client tools** (navigateTo, etc.): have no `execute` on the server.
+ *   AIChatAgent handles the browser round-trip via auto-continuation.
+ *
+ * - **Read tools** (getAppGuide, getStreak, etc.): the loop continues so
+ *   the LLM can read the tool result and generate a text response.
+ *
+ * Safety cap at 5 steps prevents runaway loops.
  */
 const MAX_TOOL_STEPS = 5;
+
+function stopAfterWriteOrClientTool(): StopCondition<ToolSet> {
+  return ({ steps }: { steps: Array<StepResult<ToolSet>> }) => {
+    if (steps.length >= MAX_TOOL_STEPS) return true;
+
+    const lastStep = steps[steps.length - 1];
+    if (!lastStep?.toolCalls?.length) return false;
+
+    return lastStep.toolCalls.some((tc) => STOP_AFTER_TOOL_NAMES.has(tc.toolName));
+  };
+}
 
 export class ChatAgent extends AIChatAgent<Env> {
 
@@ -191,13 +209,14 @@ export class ChatAgent extends AIChatAgent<Env> {
       system: buildSystemPrompt(assistantName, nativeLanguage, learningLanguages, pageContext),
       messages: modelMessages,
       tools: agentTools,
-      // Allow multi-step tool looping so server-side tools (getAppGuide, etc.)
-      // can feed their results back to the LLM for a text response.
-      // Client-side tools (navigateTo, etc.) have no `execute` — the AI SDK
-      // naturally stops looping for them because not all tool calls produce
-      // outputs. AIChatAgent then handles the browser round-trip via its own
-      // auto-continuation mechanism.
-      stopWhen: stepCountIs(MAX_TOOL_STEPS),
+      // Multi-step tool loop with smart stopping.
+      // - Read tools (getAppGuide, etc.): loop continues → LLM reads result, generates text.
+      // - Write tools (createTopic, etc.): loop stops → avoids second inference that
+      //   would exceed the 30-second Worker wall-time limit. Tool returns a confirmation
+      //   string rendered directly by the ChatWidget.
+      // - Client tools (navigateTo, etc.): loop stops → AIChatAgent handles the
+      //   browser round-trip via auto-continuation.
+      stopWhen: stopAfterWriteOrClientTool(),
       abortSignal: options?.abortSignal,
       onFinish: onFinish as never,
     });

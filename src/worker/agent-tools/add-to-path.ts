@@ -15,7 +15,9 @@ export function addToPath({ user, paths }: Pick<ToolDeps, "user" | "paths">) {
   return tool({
     description: DESCRIPTION,
     inputSchema: SCHEMA,
-    execute: async ({ pathId, topicId }) =>
-      runWithAuth(user, () => paths.addTopic(pathId, topicId)),
+    execute: async ({ pathId, topicId }) => {
+      await runWithAuth(user, () => paths.addTopic(pathId, topicId));
+      return `✅ Added topic ${topicId} to learning path.`;
+    },
   });
 }

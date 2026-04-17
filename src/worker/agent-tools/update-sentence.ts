@@ -21,7 +21,9 @@ export function updateSentence({ user, sentences }: Pick<ToolDeps, "user" | "sen
   return tool({
     description: DESCRIPTION,
     inputSchema: SCHEMA,
-    execute: async ({ sentenceId, text, notes }) =>
-      runWithAuth(user, () => sentences.update(sentenceId, { text, notes })),
+    execute: async ({ sentenceId, text, notes }) => {
+      await runWithAuth(user, () => sentences.update(sentenceId, { text, notes }));
+      return `✅ Updated sentence ${sentenceId}.`;
+    },
   });
 }

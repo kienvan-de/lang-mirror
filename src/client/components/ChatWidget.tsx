@@ -166,14 +166,18 @@ export function ChatWidget() {
     },
   });
 
-  // Loading / typing indicator logic
-  const hasVisibleText = (msg: (typeof messages)[number] | undefined): boolean =>
-    msg?.parts.some((p) => p.type === "text" && (p as { type: "text"; text: string }).text.trim().length > 0) ?? false;
+  // Check if a message has visible content (text or completed tool results)
+  const hasVisibleContent = (msg: (typeof messages)[number] | undefined): boolean =>
+    msg?.parts.some((p) => {
+      if (p.type === "text") return (p as { type: "text"; text: string }).text.trim().length > 0;
+      if (p.type === "tool-invocation" && "state" in p && p.state === "output-available") return true;
+      return false;
+    }) ?? false;
 
   const lastMsg = messages[messages.length - 1];
-  const lastAssistantHasNoText = lastMsg?.role === "assistant" && !hasVisibleText(lastMsg);
-  const isLoading = status === "streaming" || status === "submitted" || isStreaming || lastAssistantHasNoText;
-  const showTypingIndicator = isLoading && !hasVisibleText(lastMsg);
+  const lastAssistantHasNoContent = lastMsg?.role === "assistant" && !hasVisibleContent(lastMsg);
+  const isLoading = status === "streaming" || status === "submitted" || isStreaming || lastAssistantHasNoContent;
+  const showTypingIndicator = isLoading && !hasVisibleContent(lastMsg);
 
   // Measure form height for messages area bottom padding on mobile.
   // On desktop the form is a shrink-0 flex child — no extra padding needed.
@@ -309,9 +313,14 @@ export function ChatWidget() {
                           prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5
                           prose-headings:my-2 prose-pre:my-2 prose-code:text-xs
                           prose-a:text-orange-600 dark:prose-a:text-orange-400">
-                          {m.parts
-                            .filter((p): p is Extract<typeof p, { type: "text" }> => p.type === "text")
-                            .map((p, i) => <ReactMarkdown key={i}>{p.text}</ReactMarkdown>)}
+                          {m.parts.map((p, i) => {
+                            if (p.type === "text") return <ReactMarkdown key={i}>{p.text}</ReactMarkdown>;
+                            if (p.type === "tool-invocation" && "state" in p && p.state === "output-available") {
+                              const output = typeof p.output === "string" ? p.output : JSON.stringify(p.output);
+                              return <ReactMarkdown key={i}>{output}</ReactMarkdown>;
+                            }
+                            return null;
+                          })}
                         </div>
                       )}
                     </div>

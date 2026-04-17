@@ -44,38 +44,44 @@ interface RouteEntry {
 // section in the system prompt, so workflows reference them generically.
 
 const WORKFLOW_CREATE_TOPIC = `### Workflow: Create a New Topic
-Follow these steps in order:
+Follow these steps **one at a time** — wait for user confirmation between each step:
 1. Ask the user to describe the topic they want to create
 2. Present the user's learning languages (from their profile) and ask which ones to include
 3. Ask approximately how many sentences they want
-4. Generate a topic structure:
-   - Title and description
-   - Sentences in the user's native language first
-   - For each sentence, generate notes with grammar explanations and key vocabulary in all selected learning languages
-5. Present the native-language version to the user for review
-6. If confirmed, generate sentence translations for each selected learning language, each with notes in the native language and all other selected languages
-7. Present the complete topic for final review
-8. On confirmation, call \`createTopic\` with the full structure`;
+4. On confirmation, call \`createTopic\` with just title, description, and tags (no sentences)
+5. Call \`addLanguageVersion\` for the user's **native language** first
+6. Generate sentences in the native language and present them for review
+7. On confirmation, call \`addSentences\` with the sentence texts (no notes yet)
+8. For each sentence, call \`updateSentence\` to add translation notes (key = each learning language code, value = the translation). Call \`refreshData\` after all updates.
+9. Ask the user: "Ready for the next language version?" For each confirmed language:
+   a. Call \`addLanguageVersion\` for that language
+   b. Generate translations based on the native-language sentences and present for review
+   c. On confirmation, call \`addSentences\` with the translated texts
+   d. For each sentence, call \`updateSentence\` to add notes (key = native language code + other language codes, value = translation/explanation). Call \`refreshData\` after all updates.
+   e. Ask before proceeding to the next language
+10. When all languages are done, offer to open the topic with \`openTopicDetail\` or start practicing with \`startPractice\``;
 
 const WORKFLOW_ADD_LANGUAGE_VERSION = `### Workflow: Add a Language Version
 1. If version info is not available in the current context, use \`getTopicDetail\` to see what language versions already exist
 2. Present the user's learning languages that are **not yet** in this topic, and ask which one to add
-3. **If the topic has existing versions:**
+3. Call \`addLanguageVersion\` with the chosen language code
+4. **If the topic has existing versions:**
    - Use the existing version's sentences as reference to generate translations
-   - Generate notes for grammar and vocabulary in the native language and all existing version languages
-   - Present for review, then call \`addLanguageVersion\` followed by \`addSentences\`
-4. **If the topic has no versions yet:**
+   - Present translations for review
+   - On confirmation, call \`addSentences\` with the translated texts (no notes)
+   - For each sentence, call \`updateSentence\` to add notes (translations in native + other languages). Call \`refreshData\` after all updates.
+5. **If the topic has no versions yet:**
    - Ask the user to describe the content
-   - Generate sentences in the native language first with notes in the chosen learning language
-   - Present for review, generate the learning language version
-   - Call \`addLanguageVersion\` + \`addSentences\` for each language`;
+   - Generate sentences and present for review
+   - On confirmation, call \`addSentences\` with the texts
+   - For each sentence, call \`updateSentence\` to add notes. Call \`refreshData\` after all updates.`;
 
 const WORKFLOW_ADD_SENTENCES = `### Workflow: Add Sentences
 1. Ask the user which language version to add sentences to (or use the one from context)
 2. Ask the user to describe the content for the new sentences
-3. Generate sentences in the target language based on the described content
-4. For each sentence, generate notes with grammar and vocabulary in the native language and all other language versions of the topic
-5. Present for review, then call \`addSentences\``;
+3. Generate sentences in the target language and present for review
+4. On confirmation, call \`addSentences\` with the texts (no notes)
+5. For each new sentence, call \`updateSentence\` to add translation notes. Call \`refreshData\` after all updates.`;
 
 const WORKFLOW_UPDATE_SENTENCE = `### Workflow: Update a Sentence
 1. Use \`getSentenceDetail\` to get the sentence's current text and notes (sentence ID from context)

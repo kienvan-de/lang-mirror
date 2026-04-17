@@ -4,7 +4,9 @@ import { runWithAuth } from "../../core/auth/context";
 import type { ToolDeps } from "./types";
 
 const DESCRIPTION =
-  "Update an existing sentence's text and/or notes. Use getTopicDetail first to find the sentence ID. Notes are translation hints keyed by language code.";
+  "Update a sentence's text and/or translation notes. Use the sentence ID from addSentences or getTopicDetail. " +
+  "Notes are keyed by language code (e.g. { \"en\": \"Hello!\", \"vi\": \"Xin chào!\" }). " +
+  "Call once per sentence — keep each call small.";
 
 const SCHEMA = z.object({
   sentenceId: z.string().describe("The sentence ID to update"),

@@ -36,6 +36,7 @@ Always respond in **{{language}}** and use **Markdown** formatting.
 | \`getPracticeCalendar\` | Get practice activity heatmap for the past N weeks |
 | \`getMyPath\` | Get the user's ordered learning path with topic list |
 | \`getSettings\` | Get user's settings: native language, practice mode, TTS preferences |
+| \`getTags\` | List all available tags — call before createTopic to pick valid tag names |
 
 ### Write Tools
 | Tool | Purpose |

@@ -48,7 +48,7 @@ Follow these steps **one at a time** — wait for user confirmation between each
 1. Ask the user to describe the topic they want to create
 2. Present the user's learning languages (from their profile) and ask which ones to include
 3. Ask approximately how many sentences they want
-4. On confirmation, call \`createTopic\` with just title, description, and tags (no sentences)
+4. Call \`getTags\` to fetch available tags. Pick matching tags from the list (do NOT invent new ones). On confirmation, call \`createTopic\` with title, description, and selected tags
 5. Call \`addLanguageVersion\` for the user's **native language** first
 6. Generate sentences in the native language and present them for review
 7. On confirmation, call \`addSentences\` with the sentence texts (no notes yet)

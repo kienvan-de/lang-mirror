@@ -24,6 +24,7 @@ import { getStreak } from "./get-streak";
 import { getPracticeCalendar } from "./get-practice-calendar";
 import { getMyPath } from "./get-my-path";
 import { getSettings } from "./get-settings";
+import { getTags } from "./get-tags";
 
 // ── Write tools (v2) ──────────────────────────────────────
 import { createTopic } from "./create-topic";
@@ -57,6 +58,7 @@ export function buildAgentTools(deps: ToolDeps): ToolSet {
     getPracticeCalendar: getPracticeCalendar(deps),
     getMyPath: getMyPath(deps),
     getSettings: getSettings(deps),
+    getTags: getTags(deps),
     // Write
     createTopic: createTopic(deps),
     addLanguageVersion: addLanguageVersion(deps),

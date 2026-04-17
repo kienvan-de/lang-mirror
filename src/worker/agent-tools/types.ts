@@ -9,6 +9,7 @@ import type { PracticeService } from "../../core/services/practice.service";
 import type { PathsService } from "../../core/services/paths.service";
 import type { SettingsService } from "../../core/services/settings.service";
 import type { ImportService } from "../../core/services/import.service";
+import type { TagsService } from "../../core/services/tags.service";
 
 /** Dependencies injected into each tool builder. */
 export interface ToolDeps {
@@ -20,4 +21,5 @@ export interface ToolDeps {
   paths: PathsService;
   settings: SettingsService;
   importer: ImportService;
+  tags: TagsService;
 }

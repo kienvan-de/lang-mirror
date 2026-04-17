@@ -196,7 +196,7 @@ export class ChatAgent extends AIChatAgent<Env> {
       throw new Error("Unauthorized — no user context");
     }
 
-    const { topics, versions, sentences, practice, paths, settings, importer } =
+    const { topics, versions, sentences, practice, paths, settings, importer, tags } =
       await buildContext(this.env);
 
     // Read configurable settings
@@ -231,6 +231,7 @@ export class ChatAgent extends AIChatAgent<Env> {
       paths,
       settings,
       importer,
+      tags,
     });
 
     // Read page context from client body

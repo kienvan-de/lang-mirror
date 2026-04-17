@@ -17,7 +17,13 @@
  */
 import { AIChatAgent } from "@cloudflare/ai-chat";
 import { streamText, convertToModelMessages } from "ai";
-import type { ModelMessage, StepResult, ToolSet, StopCondition } from "ai";
+import type {
+  ModelMessage,
+  StepResult,
+  ToolSet,
+  StopCondition,
+  ToolCallRepairFunction,
+} from "ai";
 import { createWorkersAI } from "workers-ai-provider";
 import { runWithAuth } from "../core/auth/context";
 import type { AuthUser } from "../core/auth/context";
@@ -82,6 +88,41 @@ function stopAfterWriteOrClientTool(): StopCondition<ToolSet> {
     return lastStep.toolCalls.some((tc) => STOP_AFTER_TOOL_NAMES.has(tc.toolName));
   };
 }
+
+/**
+ * Repair malformed tool-call JSON from models that leak special tokens.
+ *
+ * gemma-4-26b on Workers AI injects tokenizer control sequences (<|\"|, <|, |>)
+ * into JSON string values when generating tool call arguments. This corrupts
+ * the JSON and causes tool call parse failures.
+ *
+ * The AI SDK's `experimental_repairToolCall` hook intercepts the invalid input
+ * before it errors out. We strip the noise and re-parse — no second LLM call.
+ *
+ * Only runs when JSON parsing already failed; valid JSON never reaches this.
+ */
+const repairToolCall: ToolCallRepairFunction<ToolSet> = async ({ toolCall }) => {
+  const raw = toolCall.input;
+
+  // 1. Remove <|\"|  and  <|\\"|  tokens (most common pattern)
+  let cleaned = raw.replace(/<\|\\"?\|/g, "");
+  // 2. Remove bare <|  (unclosed tokens at end of values)
+  cleaned = cleaned.replace(/<\|/g, "");
+  // 3. Remove bare |>  (closing half without opener)
+  cleaned = cleaned.replace(/\|>/g, "");
+  // 4. Collapse doubled quotes left by stripped boundaries: "" → "
+  cleaned = cleaned.replace(/""/g, '"');
+  // 5. Strip orphaned \" at the start of JSON string values
+  //    e.g. "\"vi" (from <|\"vi) → "vi"
+  cleaned = cleaned.replace(/([:,[\]]\s*")\\"/g, "$1");
+
+  try {
+    JSON.parse(cleaned); // validate
+    return { ...toolCall, input: cleaned };
+  } catch {
+    return null; // repair failed — let the original error propagate
+  }
+};
 
 export class ChatAgent extends AIChatAgent<Env> {
 
@@ -238,31 +279,7 @@ export class ChatAgent extends AIChatAgent<Env> {
       // - Client tools (navigateTo, etc.): loop stops → AIChatAgent handles the
       //   browser round-trip via auto-continuation.
       stopWhen: stopAfterWriteOrClientTool(),
-      // Repair malformed tool call JSON from models that leak special tokens
-      // (e.g. gemma-4-26b emits <|\"|, <|, |> inside JSON string values).
-      // Strip the noise and re-parse — no second LLM call needed.
-      experimental_repairToolCall: async ({ toolCall }) => {
-        const raw = toolCall.input;
-
-        // 1. Remove <|\"|  and  <|\\"|  tokens (most common pattern)
-        let cleaned = raw.replace(/<\|\\"?\|/g, "");
-        // 2. Remove bare <|  (unclosed tokens at end of values)
-        cleaned = cleaned.replace(/<\|/g, "");
-        // 3. Remove bare |>  (closing half without opener)
-        cleaned = cleaned.replace(/\|>/g, "");
-        // 4. Collapse doubled quotes left by stripped boundaries: "" → "
-        cleaned = cleaned.replace(/""/g, '"');
-        // 5. Strip orphaned \" at the start of JSON string values
-        //    e.g. "\"vi" (from <|\"vi) → "vi"
-        cleaned = cleaned.replace(/([:,[\]]\s*")\\"/g, "$1");
-
-        try {
-          JSON.parse(cleaned); // validate
-          return { ...toolCall, input: cleaned };
-        } catch {
-          return null; // repair failed — let the original error propagate
-        }
-      },
+      experimental_repairToolCall: repairToolCall,
       abortSignal: options?.abortSignal,
       onFinish: onFinish as never,
     });

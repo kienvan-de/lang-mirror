@@ -144,11 +144,9 @@ export class ChatAgent extends AIChatAgent<Env> {
    * we skip chunk persistence entirely. Messages are still persisted
    * normally after the stream completes.
    */
-  // @ts-expect-error — overriding internal method
   _storeStreamChunk() {
     // no-op: skip per-token SQLite writes
   }
-  // @ts-expect-error — overriding internal method
   _flushChunkBuffer() {
     // no-op: nothing to flush
   }

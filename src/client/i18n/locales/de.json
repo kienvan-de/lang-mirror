@@ -562,7 +562,8 @@
   },
   "footer": {
     "allRightsReserved": "Alle Rechte vorbehalten.",
-    "privacyPolicy": "Datenschutzrichtlinie"
+    "privacyPolicy": "Datenschutzrichtlinie",
+    "termsOfService": "Nutzungsbedingungen"
   },
   "privacy": {
     "title": "Datenschutzrichtlinie",
@@ -581,6 +582,24 @@
     "section6Body": "Sie können Ihr Konto und alle zugehörigen Daten jederzeit über die Einstellungsseite löschen. Das Löschen Ihres Kontos entfernt dauerhaft alle Ihre Themen, Sätze, den Übungsverlauf und Aufnahmen.",
     "section7Title": "Kontakt",
     "section7Body": "Bei datenschutzbezogenen Fragen kontaktieren Sie uns bitte unter"
+  },
+  "terms": {
+    "title": "Nutzungsbedingungen",
+    "lastUpdated": "Zuletzt aktualisiert: {{year}}",
+    "section1Title": "Annahme der Bedingungen",
+    "section1Body": "Durch den Zugriff auf und die Nutzung von Lang Mirror Today erklären Sie sich mit diesen Bedingungen einverstanden. Wenn Sie nicht einverstanden sind, nutzen Sie den Dienst bitte nicht.",
+    "section2Title": "Konten",
+    "section2Body": "Sie müssen sich über einen unterstützten Drittanbieter anmelden, um den Dienst zu nutzen. Sie sind für die Sicherheit Ihres Kontos verantwortlich. Der Zugang ist auf eingeladene Benutzer beschränkt und kann jederzeit von einem Administrator widerrufen werden.",
+    "section3Title": "Benutzerinhalte",
+    "section3Body": "Sie behalten das Eigentum an allen von Ihnen erstellten Inhalten, einschließlich Themen, Sätzen, Notizen und Sprachaufnahmen. Durch die Nutzung des Dienstes gewähren Sie uns eine eingeschränkte Lizenz zur Speicherung und Verarbeitung Ihrer Inhalte ausschließlich zum Zweck der Bereitstellung des Dienstes für Sie.",
+    "section4Title": "KI-Assistent",
+    "section4Body": "Der integrierte KI-Assistent wird von Sprachmodellen Dritter betrieben. Antworten werden automatisch generiert und können Ungenauigkeiten enthalten. Wir sind nicht verantwortlich für die vom KI-Assistenten generierten Inhalte. Verlassen Sie sich nicht darauf für kritische oder professionelle Übersetzungen.",
+    "section5Title": "Verbotene Nutzung",
+    "section5Body": "Sie dürfen den Dienst nicht zur Speicherung oder Verbreitung illegaler, schädlicher oder anstößiger Inhalte verwenden. Sie dürfen nicht versuchen, die Dienstinfrastruktur zurückzuentwickeln, zu stören oder zu überlasten. Ein Verstoß gegen diese Bedingungen kann zur sofortigen Deaktivierung des Kontos führen.",
+    "section6Title": "Haftungsbeschränkung",
+    "section6Body": "Dieser Dienst wird \u201Ewie besehen\u201C ohne Gewährleistungen jeglicher Art bereitgestellt. Wir haften nicht für Datenverluste, Dienstunterbrechungen oder Schäden, die aus Ihrer Nutzung des Dienstes entstehen. Der Dienst ist ein persönliches Projekt und kein kommerzielles Produkt.",
+    "section7Title": "Kontakt",
+    "section7Body": "Bei Fragen zu diesen Bedingungen kontaktieren Sie uns bitte unter"
   },
   "onboarding": {
     "welcome": "Willkommen bei Lang Mirror Today",

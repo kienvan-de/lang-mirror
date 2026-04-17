@@ -43,6 +43,7 @@ import { ImportPage } from "./routes/import";
 import { LoginPage } from "./routes/login";
 import { DeactivatedPage } from "./routes/deactivated";
 import { PrivacyPage } from "./routes/privacy";
+import { TermsPage } from "./routes/terms";
 import { OnboardingPage } from "./routes/onboarding";
 import { PathPage } from "./routes/path";
 import { AdminPage } from "./routes/admin/index";
@@ -66,12 +67,14 @@ export const adminTopicsRoute = createRoute({ getParentRoute: () => rootRoute, p
 export const adminTagsRoute      = createRoute({ getParentRoute: () => rootRoute, path: "/admin/tags", component: AdminTagsPage });
 export const deactivatedRoute    = createRoute({ getParentRoute: () => rootRoute, path: "/deactivated", component: DeactivatedPage });
 export const privacyRoute        = createRoute({ getParentRoute: () => rootRoute, path: "/privacy", component: PrivacyPage });
+export const termsRoute          = createRoute({ getParentRoute: () => rootRoute, path: "/terms", component: TermsPage });
 export const onboardingRoute     = createRoute({ getParentRoute: () => rootRoute, path: "/onboarding", component: OnboardingPage });
 
 const routeTree = rootRoute.addChildren([
   loginRoute,
   deactivatedRoute,
   privacyRoute,
+  termsRoute,
   onboardingRoute,
   indexRoute,
   topicsRoute,

@@ -560,7 +560,8 @@
   },
   "footer": {
     "allRightsReserved": "Bảo lưu mọi quyền.",
-    "privacyPolicy": "Chính sách bảo mật"
+    "privacyPolicy": "Chính sách bảo mật",
+    "termsOfService": "Điều khoản dịch vụ"
   },
   "privacy": {
     "title": "Chính sách bảo mật",
@@ -579,6 +580,24 @@
     "section6Body": "Bạn có thể xóa tài khoản và tất cả dữ liệu liên quan bất cứ lúc nào từ trang Cài đặt. Việc xóa tài khoản của bạn sẽ xóa vĩnh viễn tất cả chủ đề, câu, lịch sử luyện tập và bản ghi âm của bạn.",
     "section7Title": "Liên hệ",
     "section7Body": "Đối với bất kỳ câu hỏi liên quan đến quyền riêng tư, vui lòng liên hệ với chúng tôi tại"
+  },
+  "terms": {
+    "title": "Điều khoản dịch vụ",
+    "lastUpdated": "Cập nhật lần cuối: {{year}}",
+    "section1Title": "Chấp nhận điều khoản",
+    "section1Body": "Bằng việc truy cập và sử dụng Lang Mirror Today, bạn đồng ý tuân theo các điều khoản này. Nếu bạn không đồng ý, vui lòng không sử dụng dịch vụ.",
+    "section2Title": "Tài khoản",
+    "section2Body": "Bạn phải đăng nhập thông qua nhà cung cấp bên thứ ba được hỗ trợ để sử dụng dịch vụ. Bạn có trách nhiệm duy trì bảo mật tài khoản của mình. Quyền truy cập được giới hạn cho người dùng được mời và có thể bị thu hồi bất cứ lúc nào bởi quản trị viên.",
+    "section3Title": "Nội dung người dùng",
+    "section3Body": "Bạn giữ quyền sở hữu tất cả nội dung bạn tạo ra, bao gồm chủ đề, câu, ghi chú và bản ghi âm giọng nói. Bằng việc sử dụng dịch vụ, bạn cấp cho chúng tôi giấy phép hạn chế để lưu trữ và xử lý nội dung của bạn chỉ nhằm mục đích cung cấp dịch vụ cho bạn.",
+    "section4Title": "Trợ lý AI",
+    "section4Body": "Trợ lý AI tích hợp được hỗ trợ bởi các mô hình ngôn ngữ của bên thứ ba. Các phản hồi được tạo tự động và có thể chứa thông tin không chính xác. Chúng tôi không chịu trách nhiệm về nội dung do trợ lý AI tạo ra. Không nên dựa vào nó cho các bản dịch quan trọng hoặc chuyên nghiệp.",
+    "section5Title": "Sử dụng bị cấm",
+    "section5Body": "Bạn không được sử dụng dịch vụ để lưu trữ hoặc phân phối nội dung bất hợp pháp, có hại hoặc xúc phạm. Bạn không được cố gắng dịch ngược, phá hoại hoặc làm quá tải cơ sở hạ tầng dịch vụ. Vi phạm các điều khoản này có thể dẫn đến việc vô hiệu hóa tài khoản ngay lập tức.",
+    "section6Title": "Giới hạn trách nhiệm",
+    "section6Body": "Dịch vụ này được cung cấp \"nguyên trạng\" mà không có bất kỳ bảo đảm nào. Chúng tôi không chịu trách nhiệm về bất kỳ mất mát dữ liệu, gián đoạn dịch vụ hoặc thiệt hại nào phát sinh từ việc bạn sử dụng dịch vụ. Dịch vụ này là một dự án cá nhân và không phải là sản phẩm thương mại.",
+    "section7Title": "Liên hệ",
+    "section7Body": "Đối với bất kỳ câu hỏi nào về các điều khoản này, vui lòng liên hệ với chúng tôi tại"
   },
   "onboarding": {
     "welcome": "Chào mừng đến với Lang Mirror Today",

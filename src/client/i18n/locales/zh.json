@@ -560,7 +560,8 @@
   },
   "footer": {
     "allRightsReserved": "版权所有。",
-    "privacyPolicy": "隐私政策"
+    "privacyPolicy": "隐私政策",
+    "termsOfService": "服务条款"
   },
   "privacy": {
     "title": "隐私政策",
@@ -579,6 +580,24 @@
     "section6Body": "您可以随时从设置页面删除您的账户和所有相关数据。删除您的账户将永久删除您的所有主题、句子、练习历史和录音。",
     "section7Title": "联系方式",
     "section7Body": "如有任何隐私相关问题，请通过以下方式联系我们"
+  },
+  "terms": {
+    "title": "服务条款",
+    "lastUpdated": "最后更新：{{year}}",
+    "section1Title": "条款接受",
+    "section1Body": "访问和使用 Lang Mirror Today 即表示您同意受这些条款的约束。如果您不同意，请不要使用本服务。",
+    "section2Title": "账户",
+    "section2Body": "您必须通过受支持的第三方提供商登录才能使用本服务。您有责任维护账户的安全。访问权限仅限于受邀用户，管理员可随时撤销。",
+    "section3Title": "用户内容",
+    "section3Body": "您保留对所创建的所有内容的所有权，包括主题、句子、笔记和语音录音。使用本服务即表示您授予我们有限的许可，仅用于为您提供服务的目的来存储和处理您的内容。",
+    "section4Title": "AI 助手",
+    "section4Body": "内置 AI 助手由第三方语言模型驱动。回复是自动生成的，可能包含不准确的信息。我们对 AI 助手生成的内容不承担责任。请勿将其用于重要或专业的翻译。",
+    "section5Title": "禁止用途",
+    "section5Body": "您不得使用本服务存储或分发非法、有害或冒犯性内容。您不得尝试对服务基础设施进行逆向工程、干扰或使其过载。违反这些条款可能导致账户立即停用。",
+    "section6Title": "责任限制",
+    "section6Body": "本服务按\"原样\"提供，不附带任何形式的保证。我们不对因您使用本服务而产生的任何数据丢失、服务中断或损害承担责任。本服务是个人项目，不是商业产品。",
+    "section7Title": "联系方式",
+    "section7Body": "如对这些条款有任何疑问，请通过以下方式联系我们"
   },
   "onboarding": {
     "welcome": "欢迎使用 Lang Mirror Today",

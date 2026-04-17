@@ -15,7 +15,7 @@ const NAV_ITEMS = [
   { to: "/settings" as const, labelKey: "nav.settings" },
 ] as const;
 
-const PUBLIC_PATHS    = new Set(["/login", "/deactivated", "/privacy"]);
+const PUBLIC_PATHS    = new Set(["/login", "/deactivated", "/privacy", "/terms"]);
 const FULL_PAGE_PATHS = new Set(["/onboarding"]); // auth required, but no sidebar
 
 export function RootLayout() {

@@ -16,6 +16,13 @@ export function Footer() {
         >
           {t("footer.privacyPolicy")}
         </Link>
+        <span className="hidden sm:inline text-gray-300 dark:text-gray-700">·</span>
+        <Link
+          to="/terms"
+          className="hover:text-gray-600 dark:hover:text-gray-300 transition-colors underline underline-offset-2"
+        >
+          {t("footer.termsOfService")}
+        </Link>
       </div>
     </footer>
   );

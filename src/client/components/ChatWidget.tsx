@@ -37,6 +37,7 @@ const HIDDEN_PATHS = new Set([
   "/login",
   "/deactivated",
   "/privacy",
+  "/terms",
   "/onboarding",
 ]);
 

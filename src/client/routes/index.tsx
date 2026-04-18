@@ -23,7 +23,7 @@ export function DashboardPage() {
 
   const { data: dashboard, isLoading } = useQuery({
     queryKey: ["stats", "dashboard"],
-    queryFn: () => api.getDashboard(12),
+    queryFn: () => api.getDashboard(52),
     // refetchInterval: 15 * 60_000, // 15 minutes — disabled to conserve free-tier quota
     // Keep previous data on screen during refetch so the UI never flashes
     // back to skeletons. Skeletons only show on the very first load.
@@ -204,14 +204,11 @@ export function DashboardPage() {
         {isLoading ? (
           <div className="h-32 animate-pulse bg-gray-50 dark:bg-gray-800 rounded-xl" />
         ) : (
-          <div className="overflow-x-auto">
-            <StreakCalendar
-              data={calendar ?? []}
-              currentStreak={streak?.currentStreak ?? 0}
-              longestStreak={streak?.longestStreak ?? 0}
-              weeks={12}
-            />
-          </div>
+          <StreakCalendar
+            data={calendar ?? []}
+            currentStreak={streak?.currentStreak ?? 0}
+            longestStreak={streak?.longestStreak ?? 0}
+          />
         )}
       </div>
     </div>

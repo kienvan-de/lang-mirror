@@ -561,7 +561,8 @@
   "footer": {
     "allRightsReserved": "版权所有。",
     "privacyPolicy": "隐私政策",
-    "termsOfService": "服务条款"
+    "termsOfService": "服务条款",
+    "supportUs": "支持我们"
   },
   "privacy": {
     "title": "隐私政策",

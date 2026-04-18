@@ -561,7 +561,8 @@
   "footer": {
     "allRightsReserved": "모든 권리 보유.",
     "privacyPolicy": "개인정보 처리방침",
-    "termsOfService": "이용약관"
+    "termsOfService": "이용약관",
+    "supportUs": "후원하기"
   },
   "privacy": {
     "title": "개인정보 처리방침",

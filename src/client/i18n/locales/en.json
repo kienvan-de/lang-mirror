@@ -560,7 +560,8 @@
   "footer": {
     "allRightsReserved": "All rights reserved.",
     "privacyPolicy": "Privacy Policy",
-    "termsOfService": "Terms of Service"
+    "termsOfService": "Terms of Service",
+    "supportUs": "Support Us"
   },
   "privacy": {
     "title": "Privacy Policy",

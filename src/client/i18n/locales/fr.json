@@ -561,7 +561,8 @@
   "footer": {
     "allRightsReserved": "Tous droits réservés.",
     "privacyPolicy": "Politique de confidentialité",
-    "termsOfService": "Conditions d'utilisation"
+    "termsOfService": "Conditions d'utilisation",
+    "supportUs": "Nous soutenir"
   },
   "privacy": {
     "title": "Politique de confidentialité",

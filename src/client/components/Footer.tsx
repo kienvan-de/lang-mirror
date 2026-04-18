@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
+import { HeartIcon } from "@heroicons/react/24/solid";
 
 export function Footer() {
   const { t } = useTranslation();
@@ -23,6 +24,16 @@ export function Footer() {
         >
           {t("footer.termsOfService")}
         </Link>
+        <span className="hidden sm:inline text-gray-300 dark:text-gray-700">·</span>
+        <a
+          href="https://ko-fi.com/kienvande"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 hover:text-orange-500 dark:hover:text-orange-400 transition-colors"
+        >
+          <HeartIcon className="w-3.5 h-3.5 text-red-400" />
+          {t("footer.supportUs")}
+        </a>
       </div>
     </footer>
   );

@@ -159,12 +159,12 @@ export function StreakCalendar({ data, currentStreak, longestStreak }: Props) {
             {col.map((cell) => (
               <div
                 key={cell.date}
-                title={cell.isOutside || cell.isFuture ? undefined : `${cell.date}: ${t("calendar.attempts", { count: cell.attempts })}`}
+                title={cell.isOutside ? undefined : `${cell.date}: ${cell.isFuture ? "-" : t("calendar.attempts", { count: cell.attempts })}`}
                 className={[
                   "rounded-sm transition-colors",
-                  cell.isOutside || cell.isFuture
+                  cell.isOutside
                     ? "opacity-0"
-                    : intensityClass(cell.attempts),
+                    : intensityClass(cell.isFuture ? 0 : cell.attempts),
                   cell.isToday
                     ? "ring-2 ring-blue-400 dark:ring-blue-500 ring-offset-1 ring-offset-white dark:ring-offset-gray-900"
                     : "",

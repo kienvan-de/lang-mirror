@@ -2,6 +2,7 @@ import { Link, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { SunIcon, MoonIcon, Bars3Icon, XMarkIcon, ArrowRightEndOnRectangleIcon, ShieldCheckIcon } from "@heroicons/react/24/outline";
+import { HeartIcon } from "@heroicons/react/24/solid";
 import { useAuth } from "./hooks/useAuth";
 import { useUserLanguages } from "./hooks/useUserLanguages";
 import { langFlag } from "./lib/lang";
@@ -152,6 +153,18 @@ export function RootLayout() {
             </Link>
           )}
 
+          {/* Ko-fi donate */}
+          <a
+            href="https://ko-fi.com/kienvande"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-white flex-shrink-0 transition-opacity hover:opacity-90"
+            style={{ backgroundColor: "#f45d22" }}
+          >
+            <HeartIcon className="w-3.5 h-3.5" />
+            {t("footer.supportUs")}
+          </a>
+
           {/* Dark mode toggle */}
           <button
             onClick={toggleDark}
@@ -216,6 +229,18 @@ export function RootLayout() {
                 {t("nav.admin")}
               </Link>
             )}
+
+            {/* Ko-fi donate — mobile */}
+            <a
+              href="https://ko-fi.com/kienvande"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-semibold text-white transition-opacity hover:opacity-90"
+              style={{ backgroundColor: "#f45d22" }}
+            >
+              <HeartIcon className="w-4 h-4" />
+              {t("footer.supportUs")}
+            </a>
 
             <div className="border-t border-gray-100 dark:border-gray-800 pt-3 mt-2 flex items-center justify-between gap-3">
               {/* Native language indicator */}

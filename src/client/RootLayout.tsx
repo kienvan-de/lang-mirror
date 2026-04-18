@@ -5,7 +5,6 @@ import { SunIcon, MoonIcon, Bars3Icon, XMarkIcon, ArrowRightEndOnRectangleIcon, 
 import { HeartIcon } from "@heroicons/react/24/solid";
 import { useAuth } from "./hooks/useAuth";
 import { useUserLanguages } from "./hooks/useUserLanguages";
-import { langFlag } from "./lib/lang";
 import { ChatWidget } from "./components/ChatWidget";
 
 const NAV_ITEMS = [
@@ -26,7 +25,7 @@ export function RootLayout() {
   );
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, isLoading, logout } = useAuth();
-  const { nativeLanguage, hasConfig, isLoadingConfig } = useUserLanguages();
+  const { hasConfig, isLoadingConfig } = useUserLanguages();
   const location = useLocation();
   const navigate  = useNavigate();
 
@@ -146,13 +145,6 @@ export function RootLayout() {
           {/* Spacer on mobile */}
           <div className="flex-1 md:hidden" />
 
-          {/* Native language indicator (links to settings) */}
-          {nativeLanguage && (
-            <Link to="/settings" className="hidden sm:flex items-center gap-1 px-2 py-1 rounded-lg text-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" title={t("nav.languageSettings")}>
-              <span>{langFlag(nativeLanguage)}</span>
-            </Link>
-          )}
-
           {/* Ko-fi donate */}
           <a
             href="https://ko-fi.com/kienvande"
@@ -243,14 +235,6 @@ export function RootLayout() {
             </a>
 
             <div className="border-t border-gray-100 dark:border-gray-800 pt-3 mt-2 flex items-center justify-between gap-3">
-              {/* Native language indicator */}
-              {nativeLanguage && (
-                <Link to="/settings" onClick={() => setMenuOpen(false)}
-                  className="flex items-center gap-1 px-2 py-1 rounded-lg text-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                  <span>{langFlag(nativeLanguage)}</span>
-                </Link>
-              )}
-
               {/* User + logout */}
               <div className="flex items-center gap-2">
                 {user.avatarUrl ? (

@@ -1,6 +1,6 @@
 {
-  "title": "Day 10: Troubleshooting an API",
-  "description": "Polyglot Mastery — Week 2: Software Development Communication",
+  "title": "Troubleshooting an API",
+  "description": "Software Development Communication",
   "tags": [
     "vi",
     "B2"
@@ -9,7 +9,7 @@
     {
       "language": "en",
       "title": "Troubleshooting an API",
-      "description": "Week 3: Advanced Work Scenarios",
+      "description": "Advanced Work Scenarios",
       "voice_name": "en-US-JennyNeural",
       "speed": 0.9,
       "sentences": [
@@ -63,7 +63,7 @@
     {
       "language": "de",
       "title": "API-Fehlersuche",
-      "description": "Woche 3: Fortgeschrittene Arbeitsszenarien",
+      "description": "Fortgeschrittene Arbeitsszenarien",
       "voice_name": "de-DE-KatjaNeural",
       "speed": 0.85,
       "sentences": [
@@ -117,7 +117,7 @@
     {
       "language": "ja",
       "title": "APIのトラブルシューティング",
-      "description": "第3週：高度な業務シナリオ",
+      "description": "高度な業務シナリオ",
       "voice_name": "ja-JP-NanamiNeural",
       "speed": 0.8,
       "sentences": [
@@ -171,7 +171,7 @@
     {
       "language": "vi",
       "title": "Xử Lý Sự Cố API",
-      "description": "Tuần 3: Tình Huống Công Việc Nâng Cao",
+      "description": "Tình Huống Công Việc Nâng Cao",
       "voice_name": "vi-VN-HoaiMyNeural",
       "speed": 1,
       "sentences": [

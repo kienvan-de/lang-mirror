@@ -1,6 +1,6 @@
 {
-  "title": "Day 06: Weekend Plans",
-  "description": "Polyglot Mastery — Daily Life & Habits",
+  "title": "Weekend Plans",
+  "description": "Daily Life & Habits",
   "tags": [
     "vi",
     "B1"
@@ -9,7 +9,7 @@
     {
       "language": "en",
       "title": "Weekend Plans",
-      "description": "Week 2: Work & Tech",
+      "description": "Work & Tech",
       "voice_name": "en-US-JennyNeural",
       "speed": 0.9,
       "sentences": [
@@ -63,7 +63,7 @@
     {
       "language": "de",
       "title": "Wochenenspläne",
-      "description": "Woche 2: Arbeit & Technik",
+      "description": "Arbeit & Technik",
       "voice_name": "de-DE-KatjaNeural",
       "speed": 0.85,
       "sentences": [
@@ -117,7 +117,7 @@
     {
       "language": "ja",
       "title": "週末の計画",
-      "description": "第2週：仕事とテクノロジー",
+      "description": "仕事とテクノロジー",
       "voice_name": "ja-JP-NanamiNeural",
       "speed": 0.8,
       "sentences": [
@@ -171,7 +171,7 @@
     {
       "language": "vi",
       "title": "Kế Hoạch Cuối Tuần",
-      "description": "Tuần 2: Công Việc & Công Nghệ",
+      "description": "Công Việc & Công Nghệ",
       "voice_name": "vi-VN-HoaiMyNeural",
       "speed": 1,
       "sentences": [

@@ -1,6 +1,6 @@
 {
-  "title": "Day 14: Team Collaboration",
-  "description": "Polyglot Mastery — Week 2: Software Development Communication",
+  "title": "Team Collaboration",
+  "description": "Software Development Communication",
   "tags": [
     "vi",
     "B2"
@@ -9,7 +9,7 @@
     {
       "language": "en",
       "title": "Team Collaboration",
-      "description": "Week 4: Collaboration & Growth",
+      "description": "Collaboration & Growth",
       "voice_name": "en-US-JennyNeural",
       "speed": 0.9,
       "sentences": [
@@ -63,7 +63,7 @@
     {
       "language": "de",
       "title": "Teamzusammenarbeit",
-      "description": "Woche 4: Zusammenarbeit & Wachstum",
+      "description": "Zusammenarbeit & Wachstum",
       "voice_name": "de-DE-KatjaNeural",
       "speed": 0.85,
       "sentences": [
@@ -117,7 +117,7 @@
     {
       "language": "ja",
       "title": "チームコラボレーション",
-      "description": "第4週：協働と成長",
+      "description": "協働と成長",
       "voice_name": "ja-JP-NanamiNeural",
       "speed": 0.8,
       "sentences": [
@@ -171,7 +171,7 @@
     {
       "language": "vi",
       "title": "Cộng Tác Nhóm",
-      "description": "Tuần 4: Cộng Tác & Phát Triển",
+      "description": "Cộng Tác & Phát Triển",
       "voice_name": "vi-VN-HoaiMyNeural",
       "speed": 1,
       "sentences": [

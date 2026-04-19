@@ -465,56 +465,63 @@ export function PracticePage() {
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950">
 
       {/* ── Top bar ────────────────────────────────────────────────────────── */}
-      <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-4 py-3 flex items-center gap-3 flex-wrap shadow-sm">
-        <Link to="/topics/$topicId" params={{ topicId }}
-          className="text-sm text-gray-400 hover:text-blue-500 transition-colors flex items-center gap-1 shrink-0">
-          <ChevronLeftIcon className="w-4 h-4" /> {displayTitle}
-        </Link>
+      <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-3 sm:px-4 py-2 sm:py-3 shadow-sm">
+        {/* Row 1: back link + right-side actions */}
+        <div className="flex items-center gap-2 min-w-0">
+          <Link to="/topics/$topicId" params={{ topicId }}
+            className="text-sm text-gray-400 hover:text-blue-500 transition-colors flex items-center gap-1 shrink-0 min-w-0 max-w-[40%] truncate">
+            <ChevronLeftIcon className="w-4 h-4 shrink-0" />
+            <span className="truncate">{displayTitle}</span>
+          </Link>
 
-        <div className="flex-1" />
+          <div className="flex-1" />
 
-        {/* Mode toggle */}
-        <div className="flex items-center gap-1 bg-gray-100 dark:bg-gray-800 rounded-lg p-0.5">
-          {(["auto", "manual"] as PracticeMode[]).map((m) => (
-            <button key={m}
-              onClick={() => handleModeToggle(m)}
-              className={`px-3 py-1 rounded-md text-xs font-semibold capitalize transition-colors ${
-                practiceMode === m
-                  ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm"
-                  : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
-              }`}
-            >{m}</button>
-          ))}
-        </div>
-
-        {/* Drill button */}
-        {!isDrillMode ? (
-          <button
-            onClick={() => setShowDrillModal(true)}
-            disabled={sentences.length === 0}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 disabled:opacity-40 text-xs font-semibold text-white transition-colors"
-          ><ForwardIcon className="w-4 h-4" /> {t("practice.drill")}</button>
-        ) : (
-          <div className="flex items-center gap-1">
-            <button onClick={() => store.pauseDrill()}
-              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-xs font-semibold text-white transition-colors">
-              {isDrillPaused
-                ? <><PlayIcon className="w-3.5 h-3.5" /> {t("practice.drillResume")}</>
-                : <><PauseIcon className="w-3.5 h-3.5" /> {t("practice.drillPause")}</>}
-            </button>
-            <button onClick={() => { store.stopDrill(); tts.stop(); stopCountdown(); }}
-              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-red-500 hover:bg-red-600 text-xs font-semibold text-white transition-colors">
-              <StopIcon className="w-3.5 h-3.5" /> {t("practice.drillStop")}
-            </button>
+          {/* Mode toggle */}
+          <div className="flex items-center gap-0.5 bg-gray-100 dark:bg-gray-800 rounded-lg p-0.5 shrink-0">
+            {(["auto", "manual"] as PracticeMode[]).map((m) => (
+              <button key={m}
+                onClick={() => handleModeToggle(m)}
+                className={`px-2.5 sm:px-3 py-1 rounded-md text-xs font-semibold capitalize transition-colors ${
+                  practiceMode === m
+                    ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm"
+                    : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+                }`}
+              >{m}</button>
+            ))}
           </div>
-        )}
 
-        {/* Help button */}
-        <button onClick={() => store.toggleShortcutHelp()}
-          className="w-7 h-7 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 border border-gray-200 dark:border-gray-700 transition-colors"
-          title={t("practice.shortcutsTitle")}>
-          <QuestionMarkCircleIcon className="w-4 h-4" />
-        </button>
+          {/* Drill button */}
+          {!isDrillMode ? (
+            <button
+              onClick={() => setShowDrillModal(true)}
+              disabled={sentences.length === 0}
+              className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 disabled:opacity-40 text-xs font-semibold text-white transition-colors shrink-0"
+            >
+              <ForwardIcon className="w-4 h-4" />
+              <span className="hidden min-[420px]:inline">{t("practice.drill")}</span>
+            </button>
+          ) : (
+            <div className="flex items-center gap-1 shrink-0">
+              <button onClick={() => store.pauseDrill()}
+                className="inline-flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-xs font-semibold text-white transition-colors">
+                {isDrillPaused
+                  ? <><PlayIcon className="w-3.5 h-3.5" /><span className="hidden sm:inline ml-1">{t("practice.drillResume")}</span></>
+                  : <><PauseIcon className="w-3.5 h-3.5" /><span className="hidden sm:inline ml-1">{t("practice.drillPause")}</span></>}
+              </button>
+              <button onClick={() => { store.stopDrill(); tts.stop(); stopCountdown(); }}
+                className="inline-flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-lg bg-red-500 hover:bg-red-600 text-xs font-semibold text-white transition-colors">
+                <StopIcon className="w-3.5 h-3.5" /><span className="hidden sm:inline ml-1">{t("practice.drillStop")}</span>
+              </button>
+            </div>
+          )}
+
+          {/* Help button */}
+          <button onClick={() => store.toggleShortcutHelp()}
+            className="w-7 h-7 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 border border-gray-200 dark:border-gray-700 transition-colors shrink-0"
+            title={t("practice.shortcutsTitle")}>
+            <QuestionMarkCircleIcon className="w-4 h-4" />
+          </button>
+        </div>
       </div>
 
       {/* ── Language tabs ──────────────────────────────────────────────────── */}
@@ -740,66 +747,95 @@ export function PracticePage() {
         </div>
 
         {/* ── Controls ─────────────────────────────────────────────────────── */}
-        <div className="flex items-center gap-3 flex-wrap justify-center">
+        <div className="w-full flex flex-col items-center gap-3">
 
-          {/* Prev */}
-          <button onClick={() => store.prevSentence()} disabled={currentIndex === 0 || !canNavigate}
-            className="w-10 h-10 rounded-full flex items-center justify-center border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-30 transition-colors"
-            title={t("practice.prevTitle")}><ChevronLeftIcon className="w-5 h-5" /></button>
+          {/* Action buttons — auto mode: single centred button; manual mode: row of 3 */}
+          {practiceMode === "auto" ? (
+            /* ── Auto mode: single Play button ── */
+            <button
+              onClick={handlePlay}
+              disabled={!isIdle || tts.isLoading || tts.isPlaying}
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white font-semibold transition-colors shadow-sm"
+              title={t("practice.playTitle")}
+            >
+              {tts.isLoading
+                ? <span className="w-4 h-4 rounded-full border-2 border-white/40 border-t-white animate-spin" />
+                : <PlayIcon className="w-5 h-5" />}
+              {t("practice.play")}
+              <kbd className="hidden sm:inline text-[10px] px-1 py-0.5 rounded bg-white/20 font-mono">Space</kbd>
+            </button>
+          ) : (
+            /* ── Manual mode: Play · Record/Stop · Playback in a tight responsive row ── */
+            <div className="flex items-center justify-center gap-2 w-full px-2">
 
-          {/* Play TTS */}
-          <button
-            onClick={handlePlay}
-            disabled={!isIdle || tts.isLoading || tts.isPlaying}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white font-semibold transition-colors shadow-sm"
-            title={t("practice.playTitle")}
-          >
-            {tts.isLoading ? (
-              <span className="w-4 h-4 rounded-full border-2 border-white/40 border-t-white animate-spin" />
-            ) : <PlayIcon className="w-5 h-5" />}
-            {t("practice.play")}
-            <kbd className="hidden sm:inline text-[10px] px-1 py-0.5 rounded bg-white/20 font-mono">Space</kbd>
-          </button>
+              {/* Play TTS */}
+              <button
+                onClick={handlePlay}
+                disabled={!isIdle || tts.isLoading || tts.isPlaying}
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white font-semibold transition-colors shadow-sm text-sm"
+                title={t("practice.playTitle")}
+              >
+                {tts.isLoading
+                  ? <span className="w-4 h-4 rounded-full border-2 border-white/40 border-t-white animate-spin shrink-0" />
+                  : <PlayIcon className="w-5 h-5 shrink-0" />}
+                <span className="truncate">{t("practice.play")}</span>
+                <kbd className="hidden sm:inline text-[10px] px-1 py-0.5 rounded bg-white/20 font-mono shrink-0">Space</kbd>
+              </button>
 
-          {/* Manual mode controls */}
-          {practiceMode === "manual" && (
-            <>
+              {/* Record / Stop */}
               {phase !== "recording" ? (
                 <button
                   onClick={handleRecord}
                   disabled={phase === "playing" || phase === "uploading" || phase === "playingBack"}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 disabled:opacity-40 text-white font-semibold transition-colors shadow-sm"
+                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 disabled:opacity-40 text-white font-semibold transition-colors shadow-sm text-sm"
                   title={t("practice.recordTitle")}
                 >
-                  <MicrophoneIcon className="w-5 h-5" /> {t("practice.record")}
-                  <kbd className="hidden sm:inline text-[10px] px-1 py-0.5 rounded bg-white/20 font-mono">R</kbd>
+                  <MicrophoneIcon className="w-5 h-5 shrink-0" />
+                  <span className="truncate">{t("practice.record")}</span>
+                  <kbd className="hidden sm:inline text-[10px] px-1 py-0.5 rounded bg-white/20 font-mono shrink-0">R</kbd>
                 </button>
               ) : (
                 <button
                   onClick={handleRecord}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-700 text-white font-semibold shadow-sm animate-pulse"
+                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 rounded-xl bg-red-700 text-white font-semibold shadow-sm animate-pulse text-sm"
                   title={t("practice.stopTitle")}
                 >
-                  <StopIcon className="w-5 h-5" /> {t("practice.stop")}
+                  <StopIcon className="w-5 h-5 shrink-0" />
+                  <span className="truncate">{t("practice.stop")}</span>
                 </button>
               )}
 
+              {/* Playback */}
               <button
                 onClick={handlePlayback}
                 disabled={!hasRecording || phase === "recording" || phase === "playingBack"}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-green-600 hover:bg-green-700 disabled:opacity-40 text-white font-semibold transition-colors shadow-sm"
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 rounded-xl bg-green-600 hover:bg-green-700 disabled:opacity-40 text-white font-semibold transition-colors shadow-sm text-sm"
                 title={t("practice.playbackTitle")}
               >
-                <SpeakerWaveIcon className="w-5 h-5" /> {t("practice.playback")}
-                <kbd className="hidden sm:inline text-[10px] px-1 py-0.5 rounded bg-white/20 font-mono">P</kbd>
+                <SpeakerWaveIcon className="w-5 h-5 shrink-0" />
+                <span className="truncate">{t("practice.playback")}</span>
+                <kbd className="hidden sm:inline text-[10px] px-1 py-0.5 rounded bg-white/20 font-mono shrink-0">P</kbd>
               </button>
-            </>
+
+            </div>
           )}
 
-          {/* Next */}
-          <button onClick={() => store.nextSentence()} disabled={currentIndex === sentences.length - 1 || !canNavigate}
-            className="w-10 h-10 rounded-full flex items-center justify-center border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-30 transition-colors"
-            title={t("practice.nextTitle")}><ChevronRightIcon className="w-5 h-5" /></button>
+          {/* Prev / Next navigation */}
+          <div className="flex items-center justify-center gap-4">
+            <button
+              onClick={() => store.prevSentence()}
+              disabled={currentIndex === 0 || !canNavigate}
+              className="w-10 h-10 rounded-full flex items-center justify-center border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-30 transition-colors"
+              title={t("practice.prevTitle")}
+            ><ChevronLeftIcon className="w-5 h-5" /></button>
+            <button
+              onClick={() => store.nextSentence()}
+              disabled={currentIndex === sentences.length - 1 || !canNavigate}
+              className="w-10 h-10 rounded-full flex items-center justify-center border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-30 transition-colors"
+              title={t("practice.nextTitle")}
+            ><ChevronRightIcon className="w-5 h-5" /></button>
+          </div>
+
         </div>
 
         {/* TTS error */}

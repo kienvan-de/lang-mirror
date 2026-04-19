@@ -1,6 +1,6 @@
 {
-  "title": "Day 07: Language Learning Journey",
-  "description": "Polyglot Mastery — Daily Life & Habits",
+  "title": "Language Learning Journey",
+  "description": "Daily Life & Habits",
   "tags": [
     "vi",
     "B1"
@@ -9,7 +9,7 @@
     {
       "language": "en",
       "title": "Language Learning Journey",
-      "description": "Week 2: Work & Tech",
+      "description": "Work & Tech",
       "voice_name": "en-US-JennyNeural",
       "speed": 0.9,
       "sentences": [
@@ -63,7 +63,7 @@
     {
       "language": "de",
       "title": "Der Sprachenlernweg",
-      "description": "Woche 2: Arbeit & Technik",
+      "description": "Arbeit & Technik",
       "voice_name": "de-DE-KatjaNeural",
       "speed": 0.85,
       "sentences": [
@@ -117,7 +117,7 @@
     {
       "language": "ja",
       "title": "語学学習の旅",
-      "description": "第2週：仕事とテクノロジー",
+      "description": "仕事とテクノロジー",
       "voice_name": "ja-JP-NanamiNeural",
       "speed": 0.8,
       "sentences": [

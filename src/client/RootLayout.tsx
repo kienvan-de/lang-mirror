@@ -6,6 +6,7 @@ import { HeartIcon } from "@heroicons/react/24/solid";
 import { useAuth } from "./hooks/useAuth";
 import { useUserLanguages } from "./hooks/useUserLanguages";
 import { ChatWidget } from "./components/ChatWidget";
+import { Footer } from "./components/Footer";
 
 const NAV_ITEMS = [
   { to: "/" as const,        labelKey: "nav.dashboard" },
@@ -109,7 +110,7 @@ export function RootLayout() {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+    <div className="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
       <nav className="border-b border-gray-300 dark:border-gray-800 bg-white dark:bg-gray-900 sticky top-0 z-40 shadow-sm">
         <div className="px-4 sm:px-6 py-3 flex items-center gap-3">
 
@@ -258,10 +259,11 @@ export function RootLayout() {
         )}
       </nav>
 
-      <main>
+      <main className="flex-1">
         <Outlet />
       </main>
 
+      <Footer />
       <ChatWidget />
     </div>
   );

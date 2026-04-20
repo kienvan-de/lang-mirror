@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { ShieldCheckIcon } from "@heroicons/react/24/outline";
-import { Footer } from "../components/Footer";
 
 export function PrivacyPage() {
   const { t } = useTranslation();
@@ -96,7 +95,6 @@ export function PrivacyPage() {
         </div>
       </div>
 
-      <Footer />
     </div>
   );
 }

@@ -8,7 +8,6 @@ import { langFlag, langName, samplePhraseForLang } from "../lib/lang";
 import { defaultVoiceForLang } from "../hooks/useTTS";
 import { useAuth } from "../hooks/useAuth";
 import { useUserLanguages } from "../hooks/useUserLanguages";
-import { Footer } from "../components/Footer";
 import { SUPPORTED_LANGS } from "../lib/supported-langs";
 
 // ── Reusable save feedback hook ───────────────────────────────────────────────
@@ -592,7 +591,6 @@ export function SettingsPage() {
         </div>
       </div>
     </div>
-    <Footer />
     </div>
   );
 }

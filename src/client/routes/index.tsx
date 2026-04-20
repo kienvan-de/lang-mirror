@@ -36,18 +36,18 @@ export function DashboardPage() {
   const calendar = dashboard?.calendar;
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-8">
+    <div className="max-w-5xl mx-auto px-6 py-4">
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-4">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{t("dashboard.title")}</h1>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{t("dashboard.subtitle")}</p>
       </div>
 
       {/* Top stats row */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
         {/* Today's attempts */}
-        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800 p-5 shadow-sm">
-          <div className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-2">{t("dashboard.today")}</div>
+        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800 p-4 shadow-sm">
+          <div className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-1">{t("dashboard.today")}</div>
           {isLoading ? (
             <div className="space-y-2 animate-pulse">
               <div className="h-8 w-16 bg-gray-200 dark:bg-gray-700 rounded" />
@@ -55,13 +55,13 @@ export function DashboardPage() {
             </div>
           ) : (
             <>
-              <div className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+              <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                 {daily?.today.attempts ?? 0}
               </div>
               <div className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
                 {t("dashboard.attempts", { count: daily?.today.attempts ?? 0 })}
               </div>
-              <div className="mt-2 text-xs text-gray-400 dark:text-gray-500">
+              <div className="mt-1 text-xs text-gray-400 dark:text-gray-500">
                 {t("dashboard.sentences", { count: daily?.today.sentences ?? 0 })} ·{" "}
                 {t("dashboard.topics", { count: daily?.today.topics ?? 0 })}
               </div>
@@ -70,8 +70,8 @@ export function DashboardPage() {
         </div>
 
         {/* Streak */}
-        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800 p-5 shadow-sm">
-          <div className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-2">{t("dashboard.streak")}</div>
+        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800 p-4 shadow-sm">
+          <div className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-1">{t("dashboard.streak")}</div>
           {isLoading ? (
             <div className="space-y-2 animate-pulse">
               <div className="h-8 w-20 bg-gray-200 dark:bg-gray-700 rounded" />
@@ -79,14 +79,14 @@ export function DashboardPage() {
             </div>
           ) : (
             <>
-              <div className="text-3xl font-bold text-gray-900 dark:text-gray-100 flex items-center gap-2">
+              <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 flex items-center gap-2">
                 {(streak?.currentStreak ?? 0) > 0 && <span>🔥</span>}
                 {streak?.currentStreak ?? 0}
               </div>
               <div className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
                 {t("dashboard.days", { count: streak?.currentStreak ?? 0 })} {t("dashboard.inARow")}
               </div>
-              <div className="mt-2 text-xs text-gray-400 dark:text-gray-500">
+              <div className="mt-1 text-xs text-gray-400 dark:text-gray-500">
                 {t("dashboard.longest")} {t("dashboard.days", { count: streak?.longestStreak ?? 0 })}
               </div>
             </>
@@ -94,8 +94,8 @@ export function DashboardPage() {
         </div>
 
         {/* This week */}
-        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800 p-5 shadow-sm">
-          <div className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-2">{t("dashboard.thisWeek")}</div>
+        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800 p-4 shadow-sm">
+          <div className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-1">{t("dashboard.thisWeek")}</div>
           {isLoading ? (
             <div className="space-y-1 animate-pulse">
               {[...Array(7)].map((_, i) => (
@@ -109,8 +109,8 @@ export function DashboardPage() {
       </div>
 
       {/* Recent topics */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
+      <div className="mb-4">
+        <div className="flex items-center justify-between mb-3">
           <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">{t("dashboard.recentPractice")}</h2>
           <Link to="/path" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
             {t("dashboard.viewPath")} →
@@ -144,7 +144,7 @@ export function DashboardPage() {
               return (
                 <div
                   key={`${item.topicId}-${item.versionId}`}
-                  className="flex items-center gap-4 bg-white dark:bg-gray-900 rounded-xl border border-gray-300 dark:border-gray-800 px-5 py-4 shadow-sm hover:shadow-md transition-shadow"
+                  className="flex items-center gap-4 bg-white dark:bg-gray-900 rounded-xl border border-gray-300 dark:border-gray-800 px-4 py-3 shadow-sm hover:shadow-md transition-shadow"
                 >
                   {/* Lang badge */}
                   <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-900/30 flex flex-col items-center justify-center border border-blue-200 dark:border-blue-800">
@@ -199,8 +199,8 @@ export function DashboardPage() {
       </div>
 
       {/* Calendar heatmap */}
-      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800 p-6 shadow-sm">
-        <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-5">{t("dashboard.practiceHistory")}</h2>
+      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-300 dark:border-gray-800 p-4 shadow-sm">
+        <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-3">{t("dashboard.practiceHistory")}</h2>
         {isLoading ? (
           <div className="h-32 animate-pulse bg-gray-50 dark:bg-gray-800 rounded-xl" />
         ) : (
@@ -239,7 +239,7 @@ function WeekBarChart({ week }: { week: Array<{ date: string; attempts: number }
   const dayNames = t("dashboard.days_short", { returnObjects: true }) as string[];
 
   return (
-    <div className="flex items-end gap-1.5 h-16">
+    <div className="flex items-end gap-1.5 h-12">
       {days.map(({ date, attempts }) => {
         const pct = Math.max(4, (attempts / max) * 100);
         const dow = new Date(date + "T12:00:00Z").getUTCDay();

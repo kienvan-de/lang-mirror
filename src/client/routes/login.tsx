@@ -6,7 +6,6 @@ import { useAuth } from "../hooks/useAuth";
 import { api } from "../lib/api";
 import { langFlag, langName } from "../lib/lang";
 import { SUPPORTED_LANGS } from "../lib/supported-langs";
-import { Footer } from "../components/Footer";
 
 const LANG_MIRROR_LANG_KEY = "lang-mirror-lang";
 
@@ -211,7 +210,6 @@ export function LoginPage() {
         </div>
       </div>
       </div>
-      <Footer />
     </div>
   );
 }

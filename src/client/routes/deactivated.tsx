@@ -2,7 +2,6 @@ import { useSearch } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { ShieldExclamationIcon } from "@heroicons/react/24/outline";
 import { api } from "../lib/api";
-import { Footer } from "../components/Footer";
 
 export function DeactivatedPage() {
   const { t } = useTranslation();
@@ -51,7 +50,6 @@ export function DeactivatedPage() {
         </button>
       </div>
       </div>
-      <Footer />
     </div>
   );
 }

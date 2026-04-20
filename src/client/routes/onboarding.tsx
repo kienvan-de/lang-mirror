@@ -5,7 +5,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import { CheckIcon, ChevronRightIcon, ShieldCheckIcon } from "@heroicons/react/24/outline";
 import { api } from "../lib/api";
 import { langFlag, langName } from "../lib/lang";
-import { Footer } from "../components/Footer";
 import { SUPPORTED_LANGS } from "../lib/supported-langs";
 
 const LANG_MIRROR_LANG_KEY = "lang-mirror-lang";
@@ -295,7 +294,6 @@ export function OnboardingPage() {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
